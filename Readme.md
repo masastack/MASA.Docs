@@ -2,6 +2,10 @@
 
 * 安装 `yarn`
 
+* 进入`docs`文件夹
+
+* 首次先运行一下命令`yarn`
+
 * 添加导航：修改 `./vuepress/config.ts`的`themeConfig.series`，根据文档是Stack还是Framework到对应的json里添加文档即可
 
   > 文档不要都放到guide文件夹里
