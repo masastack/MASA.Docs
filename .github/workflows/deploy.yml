@@ -14,8 +14,7 @@ jobs:
       - name: git pull
         uses: actions/checkout@v2
       - run: |
-          ls docs/
-          ls
+          pwd
       - name: install
         uses: borales/actions-yarn@v2.3.0
         with:
