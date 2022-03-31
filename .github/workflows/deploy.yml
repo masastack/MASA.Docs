@@ -13,7 +13,10 @@ jobs:
     steps:
       - name: git pull
         uses: actions/checkout@v2
-      - run: cd docs/
+      - run: |
+          ls
+          cd docs/
+          ls
       - name: install
         uses: borales/actions-yarn@v2.3.0
         with:
