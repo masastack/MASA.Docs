@@ -1,0 +1,25 @@
+name: CI
+
+on: 
+  push:
+    branches: 
+      - 'main'
+  workflow_dispatch: 
+
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: git pull
+        uses: actions/checkout@v2
+      - run: cd docs/
+      - name: install
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: install
+      - name: build
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: build 
+    
