@@ -24,5 +24,5 @@ jobs:
           access-key-id: ${{ secrets.ACCESS_KEY_ID }}
           access-key-secret: ${{ secrets.ACCESS_KEY_SECRET }}
       - name: deploy oss
-        run: ossutil cp -rf docs/dist/ oss://masa-docs
+        run: ossutil cp -rf docs/.vuepress/dist/ oss://masa-docs
     
