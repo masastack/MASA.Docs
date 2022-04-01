@@ -11,16 +11,18 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: git pull
+      - name: checkout
         uses: actions/checkout@v2
-      - run: |
-          pwd
-      - name: install
+      - name: setup yarn
         uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: install
       - name: build
-        uses: borales/actions-yarn@v2.3.0
+        run: cd docs && yarn && yarn build
+      - name: setup oss
+        uses: manyuanrong/setup-ossutil@v2.0
         with:
-          cmd: build 
+          endpoint: "oss-cn-hangzhou.aliyuncs.com"
+          access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.ACCESS_KEY_SECRET }}
+      - name: deploy oss
+        run: ossutil cp -rf docs/dist/ oss://masa-docs
     
