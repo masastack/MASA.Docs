@@ -47,16 +47,42 @@ export default defineUserConfig<DefaultThemeOptions>({
       ], 
       '/Framework/': [
         {
-          text: 'Framework',
+          text: '基础概念',
           children: [
-            '/Framework/guide/concepts',
-            '/Framework/guide/getting-started',
-            '/Framework/buildingBlokcs',
-            '/Framework/Utils',
-            // '/Framework/guide/introduce',
-            // '/Framework/guide/architecture',
+            '/Framework/concepts/overview',
+            '/Framework/concepts/building-blocks-concept',
+            '/Framework/concepts/contrib-concept',
+            '/Framework/concepts/observability',
+            '/Framework/concepts/security',
+            '/Framework/concepts/modern-application',
+            '/Framework/concepts/terminology',
+            '/Framework/concepts/faq',
           ]
         },
+        {
+          text: '快速入门',
+          children: [
+            '/Framework/getting-started',
+            '/Framework/getting-started/template',
+            '/Framework/getting-started/demo'
+          ]
+        },
+        {
+          text: '现代应用最佳实践',
+          children: [
+            '/Framework/practices',
+          ]
+        },
+        // {
+        //   text: 'Framework',
+        //   children: [
+        //     '/Framework/concepts',
+        //     '/Framework/guide/getting-started',
+        //     '/Framework/Utils',
+        //     // '/Framework/guide/introduce',
+        //     // '/Framework/guide/architecture',
+        //   ]
+        // },
         {
           text: '构件块',
           children: [
@@ -93,6 +119,24 @@ export default defineUserConfig<DefaultThemeOptions>({
             '/Framework/utils/model',
             '/Framework/utils/security'
           ]
+        },
+        {
+          text: '故障排查',
+          children: [
+            '/Framework/troubleshooting',
+          ]
+        },
+        {
+          text: '参考',
+          children: [
+            '/Framework/reference',
+          ]
+        },
+        {
+          text: '贡献',
+          children: [
+            '/Framework/contributing',
+          ]
         }
       ]
     },
@@ -107,7 +151,7 @@ export default defineUserConfig<DefaultThemeOptions>({
           { text: '分布式配置中心(DCC)', link: '/Stack/DCC/guide/introduce' }
         ]
       },
-      { text: 'MASA Framework', link: '/Framework/guide/concepts' },
+      { text: 'MASA Framework', link: '/Framework/concepts' },
       { text: '组件库',
         children: [
           { text: 'MASA Blazor', link: 'https://github.com/BlazorComponent/MASA.Blazor' },
