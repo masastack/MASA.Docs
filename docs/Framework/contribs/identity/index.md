@@ -17,26 +17,6 @@ Install-Package Masa.Contrib.IdentityModel
 
 修改`Program.cs`
 
-* 如果你的项目中使用了多租户和多环境
-
-``` C#
-builder.Services.AddMasaIdentityModel(IdentityType.MultiEnvironment | IdentityType.MultiTenant);
-```
-
-* 如果你的项目中使用了多租户
-
-``` C#
-builder.Services.AddMasaIdentityModel(IdentityType.MultiTenant);
-```
-
-* 如果你的项目中使用了多环境
-
-``` C#
-builder.Services.AddMasaIdentityModel(IdentityType.MultiEnvironment);
-```
-
-* 如果你的项目中未使用多租户和多环境
-
 ``` C#
 builder.Services.AddMasaIdentityModel();
 ```
@@ -54,7 +34,7 @@ builder.Services.AddMasaIdentityModel();
 | Environment | [`ClaimTypes.DEFAULT_ENVIRONMENT`](https://github.com/masastack/MASA.Contrib/blob/main/src/Identity/Masa.Contrib.Identity.IdentityModel/Const/ClaimType.cs) ||
 
 
-通过指定对应关系可以用来修改默认读取的ClaimType
+1. 通过指定对应关系可以用来修改默认读取的ClaimType
 
 ``` C#
 builder.Services.AddMasaIdentityModel(opt =>
@@ -64,4 +44,42 @@ builder.Services.AddMasaIdentityModel(opt =>
 });
 ```
 
-//todo: 待修改
+2. 映射自定义用户模型以及对应的ClaimType
+
+映射关系有两种方法都可实现
+
+1. 使用IdentityModel时指定映射关系
+
+``` C#
+builder.Services.AddMasaIdentityModel(opt =>
+{
+    opt.UserId = "sub";
+    opt.UserName = "name";
+
+    opt.Mapping(nameof(CustomizeUser.TrueName), "realname");
+});
+
+public class CustomizeUser : IIdentityUser
+{
+    public string Id { get; set; }
+
+    public string? UserName { get; set; }
+
+    public string? TrueName { get; set; }
+
+    public IEnumerable<IdentityRole<string>> Roles { get; set; }
+}
+```
+
+2. 通过Configure配置映射关系
+
+``` C#
+services.Configure<IdentityClaimOptions>(option =>
+{
+    opt.UserId = "sub";
+    opt.UserName = "name";
+    option.Mapping(nameof(CustomizeUser.TrueName), "realname");
+});
+```
+
+默认用户信息与ClaimType的映射关系如果不需要修改，可不配置对应属性即可

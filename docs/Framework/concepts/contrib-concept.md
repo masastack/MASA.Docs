@@ -35,7 +35,7 @@ Contrib是构件块的最佳实践，以下是`Framework`提供的能力
 
 ## 存储
 
-* [存储提供者列表](/Framework/contribs/support-storage)
+* [存储提供者列表](/framework/contribs/support-storage)
 
 ## 可测试性
 

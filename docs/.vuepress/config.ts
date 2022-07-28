@@ -45,97 +45,97 @@ export default defineUserConfig<DefaultThemeOptions>({
           ]
         }
       ], 
-      '/Framework/': [
+      '/framework/': [
         {
           text: '基础概念',
           children: [
-            '/Framework/concepts/overview',
-            '/Framework/concepts/building-blocks-concept',
-            '/Framework/concepts/contrib-concept',
-            '/Framework/concepts/observability',
-            '/Framework/concepts/security',
-            '/Framework/concepts/modern-application',
-            '/Framework/concepts/terminology',
-            '/Framework/concepts/faq',
+            '/framework/concepts/overview',
+            '/framework/concepts/building-blocks-concept',
+            '/framework/concepts/contrib-concept',
+            '/framework/concepts/observability',
+            '/framework/concepts/security',
+            '/framework/concepts/modern-application',
+            '/framework/concepts/terminology',
+            '/framework/concepts/faq',
           ]
         },
         {
           text: '快速入门',
           children: [
-            '/Framework/getting-started',
-            '/Framework/getting-started/template',
-            '/Framework/getting-started/demo'
+            '/framework/getting-started',
+            '/framework/getting-started/template',
+            '/framework/getting-started/demo'
           ]
         },
         {
           text: '现代应用最佳实践',
           children: [
-            '/Framework/practices',
+            '/framework/practices',
           ]
         },
         // {
         //   text: 'Framework',
         //   children: [
-        //     '/Framework/concepts',
-        //     '/Framework/guide/getting-started',
-        //     '/Framework/Utils',
-        //     // '/Framework/guide/introduce',
-        //     // '/Framework/guide/architecture',
+        //     '/framework/concepts',
+        //     '/framework/guide/getting-started',
+        //     '/framework/Utils',
+        //     // '/framework/guide/introduce',
+        //     // '/framework/guide/architecture',
         //   ]
         // },
         {
           text: '构件块',
           children: [
-            '/Framework/buildingBlokcs/authentication',
-            '/Framework/buildingBlokcs/identity',
-            '/Framework/buildingBlokcs/configuration',
-            '/Framework/buildingBlokcs/data',
-            '/Framework/buildingBlokcs/ddd',
-            '/Framework/buildingBlokcs/dispatcher',
-            '/Framework/buildingBlokcs/bindings',
-            '/Framework/buildingBlokcs/isolation',
-            '/Framework/buildingBlokcs/observability',
-            '/Framework/buildingBlokcs/searchEngine',
-            '/Framework/buildingBlokcs/service',
-            '/Framework/buildingBlokcs/r-w-spliting',
-            '/Framework/buildingBlokcs/caching',
-            '/Framework/buildingBlokcs/storage',
-            '/Framework/buildingBlokcs/testable',
-            '/Framework/buildingBlokcs/consistency',
-            '/Framework/buildingBlokcs/aop',
-            '/Framework/buildingBlokcs/i18n',
-            '/Framework/buildingBlokcs/rule-engine',
-            '/Framework/buildingBlokcs/stack-sdks'
+            '/framework/building-blocks/authentication',
+            '/framework/building-blocks/identity',
+            '/framework/building-blocks/configuration',
+            '/framework/building-blocks/data',
+            '/framework/building-blocks/ddd',
+            '/framework/building-blocks/dispatcher',
+            '/framework/building-blocks/bindings',
+            '/framework/building-blocks/isolation',
+            '/framework/building-blocks/observability',
+            '/framework/building-blocks/search-engine',
+            '/framework/building-blocks/service',
+            '/framework/building-blocks/r-w-spliting',
+            '/framework/building-blocks/caching',
+            '/framework/building-blocks/storage',
+            '/framework/building-blocks/testable',
+            '/framework/building-blocks/consistency',
+            '/framework/building-blocks/aop',
+            '/framework/building-blocks/i18n',
+            '/framework/building-blocks/rule-engine',
+            '/framework/building-blocks/stack-sdks'
           ]
         },
         {
           text: '工具包',
           children: [
-            '/Framework/utils/configuration',
-            '/Framework/utils/data',
-            '/Framework/utils/development',
-            '/Framework/utils/exceptions',
-            '/Framework/utils/extensions',
-            '/Framework/utils/model',
-            '/Framework/utils/security'
+            '/framework/utils/configuration',
+            '/framework/utils/data',
+            '/framework/utils/development',
+            '/framework/utils/exceptions',
+            '/framework/utils/extensions',
+            '/framework/utils/model',
+            '/framework/utils/security'
           ]
         },
         {
           text: '故障排查',
           children: [
-            '/Framework/troubleshooting',
+            '/framework/troubleshooting',
           ]
         },
         {
           text: '参考',
           children: [
-            '/Framework/reference',
+            '/framework/reference',
           ]
         },
         {
           text: '贡献',
           children: [
-            '/Framework/contributing',
+            '/framework/contributing',
           ]
         }
       ]
@@ -151,7 +151,7 @@ export default defineUserConfig<DefaultThemeOptions>({
           { text: '分布式配置中心(DCC)', link: '/Stack/DCC/guide/introduce' }
         ]
       },
-      { text: 'MASA Framework', link: '/Framework/concepts' },
+      { text: 'MASA Framework', link: '/framework/concepts' },
       { text: '组件库',
         children: [
           { text: 'MASA Blazor', link: 'https://github.com/BlazorComponent/MASA.Blazor' },

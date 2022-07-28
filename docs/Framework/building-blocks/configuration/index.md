@@ -78,7 +78,7 @@ Console.WriteLine(options.Value.ConnectionStrings.DefaultConnection);
 
 实际开发中，我们会有一些配置信息希望保存在远程的配置中心服务上，使得我们的项目支持热更新，目前提供远程配置的实现:
 
-[Dcc](/Framework/buildingBlokcs/Configuration/dcc): 集成Masa提供的分布式配置中心
+[Dcc](/framework/building-blocks/Configuration/dcc): 集成Masa提供的分布式配置中心
 
 ## 常见问题
 

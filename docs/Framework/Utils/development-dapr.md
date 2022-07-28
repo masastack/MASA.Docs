@@ -8,12 +8,12 @@ date: 2022/07/21
 为方便在开发过程中调试`使用了Dapr的应用程序，我们提供了以下包：
 
 1. Development.Dapr: Dapr Starter核心功能库，包含`Dapr Sidecar`的启动、停止、配置刷新重启等操作
-2. Development.Dapr.AspNetCore: 为Asp.Net Core的Web程序提供一站式方案，项目启动时会自动启动`Dapr Sidecar`，无需手动处理
+2. Development.Dapr.AspNetCore: 为Asp.NET Core的Web程序提供一站式方案，项目启动时会自动启动`Dapr Sidecar`，无需手动处理
 
 ## 必要条件
 
 * [安装Dapr-Cli](https://docs.dapr.io/zh-hans/getting-started/install-dapr-cli/)并初始化[Dapr](https://docs.dapr.io/zh-hans/getting-started/install-dapr-selfhost/)
-* [.Net 6.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/6.0)
+* [.NET 6.0](https://dotnet.microsoft.com/zh-cn/download/dotnet/6.0)
 * 安装`Masa.Utils.Development.Dapr.AspNetCore`
 ``` C#
 dotnet add package Masa.Utils.Development.Dapr.AspNetCore

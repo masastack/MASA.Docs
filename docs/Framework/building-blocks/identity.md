@@ -55,6 +55,28 @@ app.MapGet("/role/get", async (IUserContext context) =>
 });
 ```
 
+5. 获取自定义用户信息
+
+``` C#
+app.MapGet("/user/getModel", async (IUserContext context) =>
+{
+    return context.GetUser<CustomizeUser>();
+});
+
+public class CustomizeUser : IIdentityUser
+{
+    public string Id { get; set; }
+
+    public string? UserName { get; set; }
+
+    public string? TrueName { get; set; }
+
+    public IEnumerable<IdentityRole<string>> Roles { get; set; }
+}
+```
+
+> 0.6.0版本支持自定义用户模型
+
 ## IUserSetter
 
 1. 临时更改当前登录用户信息

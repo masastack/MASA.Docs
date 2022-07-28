@@ -9,7 +9,7 @@ date: 2022/07/01
 
 ## Authentication.OpenIdConnect
 
-## [Cryptography](/Framework/utils/security/cryptography)
+## [Cryptography](/framework/utils/security/cryptography)
 
 提供密码的加密和解密的能力
 
