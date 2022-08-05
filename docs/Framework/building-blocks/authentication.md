@@ -4,7 +4,7 @@ date: 2022/07/01
 ---
 
 通过注入IAuthClient接口，调用对应Service获取Auth SDK 提供的能力。
-SDK获取当前用户ID依赖Masa.Contrib.Identity.IdentityModel(../../Identity/Masa.Contrib.Identity.IdentityModel/README.zh-CN.zh，所以使用前需添加IdentityModel服务。
+SDK获取当前用户ID依赖Masa.Contrib.Identity.IdentityModel(../../Identity/Masa.Contrib.Authentication.Identity/README.zh-CN.zh，所以使用前需添加IdentityModel服务。
 
 ### 服务介绍
 ```c#
@@ -21,7 +21,7 @@ IAuthClient
 #### 安装依赖包
 
 ```C#
-Install-Package Masa.Contrib.BasicAbility.Auth
+Install-Package Masa.Contrib.StackSdks.Auth
 ```
 
 #### 注册相关服务

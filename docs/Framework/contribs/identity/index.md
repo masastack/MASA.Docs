@@ -27,11 +27,11 @@ builder.Services.AddMasaIdentityModel();
 
 |  信息   | ClaimType  |    |
 | :----| :---- |:---- |
-| UserId | [`ClaimTypes.NameIdentifier`](https://github.com/masastack/MASA.Contrib/blob/main/src/Identity/Masa.Contrib.Identity.IdentityModel/Const/ClaimType.cs) ||
-| UserName | [`ClaimTypes.DEFAULT_USER_NAME`](https://github.com/masastack/MASA.Contrib/blob/main/src/Identity/Masa.Contrib.Identity.IdentityModel/Const/ClaimType.cs) ||
-| Role | [`ClaimTypes.DEFAULT_USER_ROLE`](https://github.com/masastack/MASA.Contrib/blob/main/src/Identity/Masa.Contrib.Identity.IdentityModel/Const/ClaimType.cs) ||
-| TenantId | [`ClaimTypes.DEFAULT_TENANT_ID`](https://github.com/masastack/MASA.Contrib/blob/main/src/Identity/Masa.Contrib.Identity.IdentityModel/Const/ClaimType.cs) ||
-| Environment | [`ClaimTypes.DEFAULT_ENVIRONMENT`](https://github.com/masastack/MASA.Contrib/blob/main/src/Identity/Masa.Contrib.Identity.IdentityModel/Const/ClaimType.cs) ||
+| UserId | [`ClaimTypes.NameIdentifier`](https://github.com/masastack/MASA.Framework/tree/docs/readme/src/Contrib/Authentication/Masa.Contrib.Authentication.Identity/Const/ClaimType.cs) ||
+| UserName | [`ClaimTypes.DEFAULT_USER_NAME`](https://github.com/masastack/MASA.Framework/tree/docs/readme/src/Contrib/Authentication/Masa.Contrib.Authentication.Identity/Const/ClaimType.cs) ||
+| Role | [`ClaimTypes.DEFAULT_USER_ROLE`](https://github.com/masastack/MASA.Framework/tree/docs/readme/src/Contrib/Authentication/Masa.Contrib.Authentication.Identity/Const/ClaimType.cs) ||
+| TenantId | [`ClaimTypes.DEFAULT_TENANT_ID`](https://github.com/masastack/MASA.Framework/tree/docs/readme/src/Contrib/Authentication/Masa.Contrib.Authentication.Identity/Const/ClaimType.cs) ||
+| Environment | [`ClaimTypes.DEFAULT_ENVIRONMENT`](https://github.com/masastack/MASA.Framework/tree/docs/readme/src/Contrib/Authentication/Masa.Contrib.Authentication.Identity/Const/ClaimType.cs) ||
 
 
 1. 通过指定对应关系可以用来修改默认读取的ClaimType
