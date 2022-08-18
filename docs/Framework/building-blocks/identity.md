@@ -15,7 +15,7 @@ Install-Package Masa.BuildingBlocks.Identity.IdentityModel
 
 目前身份的提供者有:
 
-[`IdentityModel`](/framework/contribs/identity)
+[`Identity`](/framework/contribs/identity)
 
 ## IUserContext
 

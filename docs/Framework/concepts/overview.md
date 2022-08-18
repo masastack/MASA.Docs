@@ -5,7 +5,7 @@ date: 2022/07/26
 
 ## 简介
 
-全新的.NET现代应用开发，提供分布式运行时--基于Dapr云原生最佳实践，能够快速实现分布式、微服务、DDD，SaaS等现代应用开发
+全新的.NET现代应用开发，提供分布式应用运行时--基于Dapr云原生最佳实践，能够快速实现分布式、微服务、DDD，SaaS等现代应用开发
 
 <iframe width="1120" height="630" src="//player.bilibili.com/player.html?aid=343814267&bvid=BV1h94y1D7tw&cid=783315594&page=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
