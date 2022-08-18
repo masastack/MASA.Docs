@@ -5,7 +5,7 @@ date: 2022/07/21
 
 1. 安装`Masa.Contrib.Configuration.ConfigurationApi.Dcc`
 
-``` Powershell
+``` shell
 dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc
 ```
 

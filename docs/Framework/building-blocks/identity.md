@@ -3,12 +3,12 @@ title: 身份
 date: 2022/07/01
 ---
 
-用于设置身份、获取身份信息
+用于设置用户身份、获取用户的身份信息
 
 ## 安装
 
 ``` C#
-Install-Package Masa.BuildingBlocks.Identity.IdentityModel
+Install-Package Masa.BuildingBlocks.Authentication.Identity
 ```
 
 这个库提供了身份所需的API，但在使用它之前，你需要配置一个提供程序
@@ -63,7 +63,7 @@ app.MapGet("/user/getModel", async (IUserContext context) =>
     return context.GetUser<CustomizeUser>();
 });
 
-public class CustomizeUser : IIdentityUser
+public class CustomizeUser : IdentityUser, IIdentityUser
 {
     public string Id { get; set; }
 
@@ -71,11 +71,9 @@ public class CustomizeUser : IIdentityUser
 
     public string? TrueName { get; set; }
 
-    public IEnumerable<IdentityRole<string>> Roles { get; set; }
+    public string[] Roles { get; set; }
 }
 ```
-
-> 0.6.0版本支持自定义用户模型
 
 ## IUserSetter
 
@@ -130,3 +128,21 @@ app.MapGet("/user/environment/get", async (IMultiEnvironmentUserContext context)
 ## IIsolatedUserContext
 
 既使用多租户、又使用了多环境，继承[IMultiTenantUserContext](#IMultiTenantUserContext)、[IMultiEnvironmentUserContext](#IMultiEnvironmentUserContext)
+
+1. 获取环境
+
+```
+app.MapGet("/user/environment/get", async (IIsolatedUserContext context) =>
+{
+    return context.Environment;
+});
+```
+
+2. 获取租户id
+
+```
+app.MapGet("/user/tenant/getid", async (IIsolatedUserContext context) =>
+{
+    return context.TenantId;
+});
+```

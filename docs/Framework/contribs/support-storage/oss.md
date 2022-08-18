@@ -7,7 +7,7 @@ date: 2022/07/01
 
 1. 安装`Masa.Contrib.Storage.ObjectStorage.Aliyun`
 
-``` Powershell
+``` shell
 dotnet add package Masa.Contrib.Storage.ObjectStorage.Aliyun
 ```
 

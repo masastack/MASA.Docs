@@ -3,9 +3,11 @@ title: 最佳实践
 date: 2022/07/26
 ---
 
-Contrib是构件块的最佳实践，以下是`Framework`提供的能力
+Contrib是基于构件块的接口标准的最佳实践，可以被替换，它是被应用程序使用的模块化功能，Building Blocks与Contrib是一对多的关系
 
 ## MASA Stack SDK
+
+
 
 ## 认证
 

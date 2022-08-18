@@ -13,7 +13,7 @@ date: 2022/07/01
 
 目前存储的提供者有:
 
-* [阿里云](/framework/contribs/support-storage/oss): 在数据存储在[阿里云Oss](https://www.aliyun.com/product/oss)
+* [阿里云](/framework/contribs/support-storage/oss): 数据存储在[阿里云Oss](https://www.aliyun.com/product/oss)
 
 后续将逐步提供更多的云存储平台支持，如果您有喜欢的其它云存储平台，欢迎提[建议](https://github.com/masastack/MASA.Contrib/issues/new)，或者自己实现它并为Masa框架做出[贡献](https://github.com/masastack/MASA.Contrib/compare)
 
