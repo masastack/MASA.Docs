@@ -51,7 +51,7 @@ export default defineUserConfig<DefaultThemeOptions>({
           children: [
             '/framework/concepts/overview',
             '/framework/concepts/building-blocks-concept',
-            '/framework/concepts/contrib-concept',
+            // '/framework/concepts/contrib-concept',
             '/framework/concepts/observability',
             '/framework/concepts/security',
             '/framework/concepts/modern-application',
@@ -84,7 +84,7 @@ export default defineUserConfig<DefaultThemeOptions>({
         //   ]
         // },
         {
-          text: '构件块',
+          text: '构建块',
           children: [
             '/framework/building-blocks/authentication',
             '/framework/building-blocks/identity',

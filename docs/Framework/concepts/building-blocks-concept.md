@@ -1,15 +1,11 @@
 ---
-title: 构件块
+title: 构建块
 date: 2022/07/26
 ---
 
 提供非业务能力的接口，并提供组合多个能力形成新的能力
 
-一个构件块的能力由一个或多个最佳实践提供
-
-![构件块](/framework/buildingBlock.png)
-
-以下是`Framework`提供的构件块能力:
+以下是`Framework`提供的构建块能力:
 
 ![能力](/framework/ability.png)
 

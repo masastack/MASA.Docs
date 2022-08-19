@@ -3,7 +3,7 @@ title: 工具包
 date: 2022/07/01
 ---
 
-底层通过工具包，可被用于业务开发或者构件块具体能力的开发
+底层通过工具包，可被用于业务开发或者构建块具体能力的开发
 
 ## [配置](/framework/Utils/configuration)
 ## [数据](/framework/Utils/data)

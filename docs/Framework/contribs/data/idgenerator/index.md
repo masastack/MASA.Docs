@@ -1,5 +1,5 @@
 ---
-title: 数据 - 分布式锁 - Medallion
+title: 数据 - id生成器
 date: 2022/07/01
 ---
 

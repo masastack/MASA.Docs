@@ -11,7 +11,7 @@ date: 2022/07/01
 dotnet add package Masa.Contrib.Storage.ObjectStorage.Aliyun
 ```
 
-2. 使用阿里云Oss存储
+2. 修改类`Program`，注册阿里云Oss存储
 
 ``` C#
 builder.Services.AddAliyunStorage();

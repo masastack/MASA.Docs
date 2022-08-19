@@ -7,4 +7,4 @@ date: 2022/07/26
 
 |  词条   | 定义  | 详情   |
 | :----| :---- |:---- |
-| Building block (构建块) | 提供接口标准 | [Framework 构件块](/framework/concepts/building-blocks-concept) |
+| Building block (构建块) | 提供接口标准 | [Framework 构建块](/framework/concepts/building-blocks-concept) |

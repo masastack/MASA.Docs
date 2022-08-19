@@ -7,13 +7,13 @@ date: 2022/07/26
 
 .NET下一代微服务开发框架，提供基于分布式运行时--Dapr云原生最佳实践，能够快速实现分布式、微服务、DDD，SaaS等现代应用开发
 
-## [构件块](/framework/concepts/building-blocks-concept)
+## [构建块](/framework/concepts/building-blocks-concept)
 
 提供接口标准和串接不同构建块能力，降低耦合的同时保证能力主线逻辑
 
 ## [最佳实践 ](/framework/concepts/contrib-concept)
 
-为构件块提供最佳实践的实现，可被替换
+为构建块提供最佳实践的实现，可被替换
 
 ## [可观测性](/framework/concepts/observability)
 
