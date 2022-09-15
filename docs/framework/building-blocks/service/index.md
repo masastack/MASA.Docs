@@ -5,7 +5,7 @@ date: 2022/07/01
 
 提供服务的规约以及为MinimalAPI提供支持
 
-## [MinimalAPI](/framework/building-blocks/service/minimal)
+## [MinimalAPI](/framework/contribs/service/minimal)
 
 强化MinimalAPI，避免陷入流水账式编程
 
