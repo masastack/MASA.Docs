@@ -14,7 +14,7 @@ date: 2022/07/26
 | [MASA Stack SDK](/framework/building-blocks/stack-sdks)  | 为MASA Stack提供业务能力的Sdk ||
 | [认证](/framework/building-blocks/authentication)  | 提供身份认证的能力 ||
 | [身份](/framework/building-blocks/identity)  | 提供获取用户身份的能力 ||
-| [配置](Framework/building-blocks/configuration)  | 强化IConfiguration的能力，提供本地配置以及远程配置的能力 ||
+| [配置](/framework/building-blocks/configuration)  | 强化IConfiguration的能力，提供本地配置以及远程配置的能力 ||
 | [数据](/framework/building-blocks/data)  | 数据规约、数据映射、工作单元的能力 ||
 | [领域驱动设计](/framework/building-blocks/ddd)  | 提供了基础设施的能力, 使得领域驱动设计更简单 ||
 | [调度器](/framework/building-blocks/dispatcher)  | 提供事件总线及事件调度的能力 ||
