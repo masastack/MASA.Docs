@@ -46,8 +46,47 @@ public class UserService : ServiceBase
 
 ## 进阶
 
-提供默认支持[`RESTful`](https://docs.microsoft.com/zh-cn/azure/architecture/best-practices/api-design)标准，开发人员可以通过`builder.AddServices()`或`builder.Services.AddServices(builder)`来使用我们提供的MinimalAPI，它将有助于我们摆脱流水账式编程
+提供默认支持[`RESTful`](https://docs.microsoft.com/zh-cn/azure/architecture/best-practices/api-design)标准，开发人员可以通过`builder.AddServices()`或`builder.Services.AddServices(builder)`来使用我们提供的MinimalAPI，它将有助于我们摆脱流水账式编程，下面我们会讲解我们提供了哪些功能？
 
+首先`MinimalAPI`提供了全局配置以及局部配置，优先级为局部配置 > 全局配置
+
+### 全局配置
+
+我们可以在添加服务时设置全局配置，例如：
+
+``` C#
+builder.AddServices(options =>
+{
+    options.Prefix = "api";
+})
+```
+
+全局配置参数有：
+
+* DisableRestful: 是否禁用Restful，如果为true (禁用)，则框架不会自动映射路由，默认：false
+* Prefix: 前缀，默认: api
+* Version: 版本，默认: v1
+* AutoAppendId: 是否追加Id，默认: true
+* PluralizeServiceName: 服务名称是否启用复数，默认: true
+* GetPrefixs: 用于识别当前方法类型为`Get`请求，默认: `new[] { "Get", "Select" }`
+* PostPrefixs: 用于识别当前方法类型为`Post`请求，默认: `new[] { "Post", "Add", "Upsert", "Create" }`
+* PutPrefixs: 用于识别当前方法类型为`Put`请求，默认: `new[] { "Put", "Update", "Modify" }`
+* DeletePrefixs: 用于识别当前方法类型为`Delete`请求，默认: `new[] { "Delete", "Remove" }`
+* Assemblies: 用于扫描服务所在的程序集，默认: `AppDomain.CurrentDomain.GetAssemblies()`
+
+### 局部配置
+
+局部配置参数的默认值全部为`null`，当属性的值为`null`时，使用全局配置的值
+
+* DisableRestful
+* Prefix
+* Version
+* AutoAppendId
+* PluralizeServiceName
+* GetPrefixs
+* PostPrefixs
+* PutPrefixs
+* DeletePrefixs
 
 
 ### 相关issues
