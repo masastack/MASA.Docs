@@ -15,33 +15,33 @@ export default defineUserConfig<DefaultThemeOptions>({
     lastUpdatedText: '',
     // series 为原 sidebar
     series: {
-      '/Stack/': [
+      '/stack/': [
         {
           text: 'MASA Stack',
           children: [
-            '/Stack/guide/introduce',
-            '/Stack/guide/architecture',
+            '/stack/guide/introduce',
+            '/stack/guide/architecture',
           ]
         }, 
         {
           text: 'PM',
           children: [
-            '/Stack/PM/guide/introduce',
-            '/Stack/PM/guide/architecture',
+            '/stack/pm/guide/introduce',
+            '/stack/pm/guide/architecture',
           ]
         }, 
         {
           text: 'Auth',
           children: [
-            '/Stack/Auth/guide/introduce',
-            '/Stack/Auth/guide/architecture',
+            '/stack/auth/guide/introduce',
+            '/stack/auth/guide/architecture',
           ]
         },
          {
           text: 'DCC',
           children: [
-            '/Stack/DCC/guide/introduce',
-            '/Stack/DCC/guide/architecture',
+            '/stack/dcc/guide/introduce',
+            '/stack/dcc/guide/architecture',
           ]
         }
       ], 
@@ -134,10 +134,10 @@ export default defineUserConfig<DefaultThemeOptions>({
       { text: '首页', link: '/' },
       { text: 'MASA Stack',
         children: [
-          { text: 'MASA Stack', link: '/Stack/guide/introduce' },
-          { text: '项目管理(PM)', link: '/Stack/PM/guide/introduce' },
-          { text: '权限中心(Auth)', link: '/Stack/Auth/guide/introduce' },
-          { text: '分布式配置中心(DCC)', link: '/Stack/DCC/guide/introduce' }
+          { text: 'MASA Stack', link: '/stack/guide/introduce' },
+          { text: '项目管理(PM)', link: '/stack/pm/guide/introduce' },
+          { text: '权限中心(Auth)', link: '/stack/auth/guide/introduce' },
+          { text: '分布式配置中心(DCC)', link: '/stack/dcc/guide/introduce' }
         ]
       },
       { text: 'MASA Framework', link: '/framework/concepts' },
