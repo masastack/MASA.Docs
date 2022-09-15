@@ -11,6 +11,6 @@ date: 2022/07/01
 
 基于构建块的接口标准提供最佳实践的实现，可被替换
 
-## [Utils](/framework/Utils)
+## [Utils](/framework/utils)
 
 通用类库，底层通用能力，可被用于业务和Contrib
