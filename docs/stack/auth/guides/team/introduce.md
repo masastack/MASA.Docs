@@ -10,9 +10,7 @@ date: 2022/09/28 13:52
 团队列表已卡片的形式展现，目前没有做分页处理。卡片包含的团队信息分别为：团队头像、成员人数、团队名称、团队管理员以及编辑时间。
 左上角搜索框可根据团队名称搜索团队，回车触发搜索动作。
 
-<div align=center>
-<img src="/stack/auth/teams.png"/>
-</div>
+![teams](/stack/auth/teams.png)
 
 ## 新增团队
 
@@ -24,9 +22,7 @@ date: 2022/09/28 13:52
 
 输入团队名称，激活下一步按钮，默认会根据团队名称首个字符以及选择的颜色生成团队头像。
 
-<div align=center>
-<img src="/stack/auth/team-add-basic.png"/>
-</div>
+![team-add-basic](/stack/auth/team-add-basic.png)
 
 ### 团队管理员
 
@@ -36,9 +32,7 @@ date: 2022/09/28 13:52
 
 底部为应用权限树，应用数据从PM中获取。通过权限树可以禁用从角色继承的权限或补充权限。
 
-<div align=center>
-<img src="/stack/auth/team-add-admin.png"/>
-</div>
+![team-add-admin](/stack/auth/team-add-admin.png)
 
 ### 团队成员
 
@@ -46,6 +40,4 @@ date: 2022/09/28 13:52
 
 > 选择团队成员时，已自动过滤设置为管理员的员工
 
-<div align=center>
-<img src="/stack/auth/team-add-member.png"/>
-</div>
+![team-add-member](/stack/auth/team-add-member.png)
