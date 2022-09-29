@@ -120,7 +120,7 @@ app.Map("/service/weatherforecast", async (WeatherForecastCaller caller)
 
 ## 疑问？
 
-* A: 为什么要使用Masa提供的[`MinimalAPI`](/framework/building-blocks/service/minimal)？
+* A: 为什么要使用Masa提供的[`MinimalAPI`](/framework/contribs/service/minimal)？
   * Q: 避免流水账式编程，使得`Program.cs`更加简洁
 * A: 为什么要使用[Caller](/framework/building-blocks/service/caller)，而不是官方提供的`HttpClient`或者其他的HttpClient库？
   * Q1: 后续改造服务支持`Dapr`调用的成本更低
