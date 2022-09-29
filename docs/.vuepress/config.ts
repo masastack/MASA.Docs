@@ -110,6 +110,12 @@ export default defineUserConfig<DefaultThemeOptions>({
           ]
         },
         {
+          text: '升级指南',
+          children: [
+            '/framework/upgrade/0.6.0',
+          ]
+        },
+        {
           text: '故障排查',
           children: [
             '/framework/troubleshooting',
@@ -121,12 +127,12 @@ export default defineUserConfig<DefaultThemeOptions>({
             '/framework/reference',
           ]
         },
-        {
-          text: '贡献',
-          children: [
-            '/framework/contributing',
-          ]
-        }
+        // {
+        //   text: '贡献',
+        //   children: [
+        //     '/framework/contributing',
+        //   ]
+        // }
       ]
     },
     navbar:
