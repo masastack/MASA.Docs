@@ -307,11 +307,6 @@ public class UserService: ServiceBase
 }
 ```
 
-
-### 相关issues
-
-[#2](https://github.com/masastack/MASA.Framework/issues/2)、[#241](https://github.com/masastack/MASA.Framework/issues/241)
-
 ## 常见问题
 
 1. 继承`ServiceBase`服务的类的生命周期为单例，其构造函数中不能使用生命周期为`Scoped`的服务，且构造函数中的参数类型必须支持从`DI`中获取
@@ -325,3 +320,7 @@ public void Register(ILogger<UserService> logger)
 ```
 
 3. `ServiceBase`支持`GetService<TService>`、`GetRequiredService<TService>`，支持获取生命周期为`Scoped`的服务
+
+## 相关issues
+
+[#2](https://github.com/masastack/MASA.Framework/issues/2)、[#241](https://github.com/masastack/MASA.Framework/issues/241)
