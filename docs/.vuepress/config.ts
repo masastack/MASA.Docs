@@ -140,7 +140,7 @@ export default defineUserConfig<DefaultThemeOptions>({
           children: [
             { text: 'MASA Stack', link: '/stack/guide/introduce' },
             { text: '项目管理(PM)', link: '/stack/pm/guide/introduce' },
-            { text: '权限中心(Auth)', link: '/stack/auth/guide/introduce' },
+            { text: '权限中心(Auth)', link: '/stack/auth/guides/user/introduce' },
             { text: '分布式配置中心(DCC)', link: '/stack/dcc/guide/introduce' }
           ]
         },
