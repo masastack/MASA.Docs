@@ -22,6 +22,17 @@ date: 2022/09/15
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+app.MapGet("/api/v1/users/{id}", (Guid id)=>
+{
+    // todo: 查询用户信息
+    var user = new User()
+    {
+        Id = id,
+        Name = "Tony"
+    };
+    return Task.FromResult(user);
+});
+
 app.MapPost("/api/v1/users", ([FromBody] UserRequest request)=>
 {
     //todo: 添加用户逻辑
@@ -38,17 +49,6 @@ app.MapPut("/api/v1/users/{id}",(Guid id, [FromBody] EditUserRequest request)=>
 {
     //todo: 修改用户逻辑
     return Task.FromResult(Results.Accepted());
-});
-
-app.MapGet("/api/v1/users/{id}", (Guid id)=>
-{
-    // todo: 查询用户信息
-    var user = new User()
-    {
-        Id = id,
-        Name = "Tony"
-    };
-    return Task.FromResult(user);
 });
 
 app.Run();
