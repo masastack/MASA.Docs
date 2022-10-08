@@ -56,7 +56,7 @@ app.Run();
 
 ### 服务分组
 
-原生写法会使得`Program.cs`文件中充斥着大量的接口服务信息，它将不利于我们的开发工作以及后期的维护，为此`Masa`提供了一个解决方案，它提供了`服务分组`、`路由自动注册`功能
+原生写法会使得`Program.cs`文件中充斥着大量的接口服务信息，它将不利于我们的开发工作以及后期的维护，为此`Masa`提供了一个解决方案，它提供了`服务分组`、`路由自动注册`功能。在.NET 7中将会支持`MapGroup`，其目的与`BaseUri`类似
 
 1. 安装 Minimal APIs
 
@@ -90,6 +90,20 @@ var 路由 = $"{前缀}/{版本}/{服务名(默认复数)}/{路由方法名}"
 public class UserService : ServiceBase
 {
     /// <summary>
+    /// Get: /api/v1/users/{id}
+    /// </summary>
+    public Task<IResult> GetAsync(Guid id)
+    {
+        // todo: 查询用户信息
+        var user = new User()
+        {
+            Id = id,
+            Name = "Tony"
+        };
+        return Task.FromResult(user);
+    }
+
+    /// <summary>
     /// Post: /api/v1/users
     /// </summary>
     public Task<IResult> AddAsync([FromBody] UserRequest request)
@@ -115,20 +129,6 @@ public class UserService : ServiceBase
         //todo: 修改用户逻辑
         return Task.FromResult(Results.Accepted());
     }
-
-    /// <summary>
-    /// Get: /api/v1/users/{id}
-    /// </summary>
-    public Task<IResult> GetAsync(Guid id)
-    {
-        // todo: 查询用户信息
-        var user = new User()
-        {
-            Id = id,
-            Name = "Tony"
-        };
-        return Task.FromResult(user);
-    }
 }
 ```
 :::
@@ -140,10 +140,21 @@ public class UserService : ServiceBase
     {
         RouteOptions.DisableAutoMapRoute = true;//仅当前服务禁用自动注册路由
 
+        App.MapPost("/api/v1/users/{id}", GetAsync);
         App.MapPost("/api/v1/users", AddAsync);
         App.MapPost("/api/v1/users/{id}", DeleteAsync);
         App.MapPost("/api/v1/users/{id}", UpdateAsync);
-        App.MapPost("/api/v1/users/{id}", GetAsync);
+    }
+
+    public Task<IResult> GetAsync(Guid id)
+    {
+        // todo: 查询用户信息
+        var user = new User()
+        {
+            Id = id,
+            Name = "Tony"
+        };
+        return Task.FromResult(user);
     }
 
     public Task<IResult> AddAsync([FromBody] UserRequest request)
@@ -162,17 +173,6 @@ public class UserService : ServiceBase
     {
         //todo: 修改用户逻辑
         return Task.FromResult(Results.Accepted());
-    }
-
-    public Task<IResult> GetAsync(Guid id)
-    {
-        // todo: 查询用户信息
-        var user = new User()
-        {
-            Id = id,
-            Name = "Tony"
-        };
-        return Task.FromResult(user);
     }
 }
 ```
@@ -203,7 +203,7 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
 
 提供了全局配置以及服务内配置
 
-::: tip 配置优先级与如何选择
+::: tip 配置优先级与null值处理
 服务内配置 > 全局配置
 
 当服务内配置为`null`时，使用全局配置的值
@@ -223,9 +223,9 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
 | PutPrefixs | 用于识别当前方法类型为`Put`请求 | `new List<string> { "Put", "Update", "Modify" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
 | DeletePrefixs | 用于识别当前方法类型为`Delete`请求 | `new List<string> { "Delete", "Remove" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
 | DisableTrimMethodPrefix | 禁用移除方法前缀(上方`Get`、`Post`、`Put`、`Delete`请求的前缀) | false |
-| MapHttpMethodsForUnmatched | 通过方法名前缀匹配请求方式失败后路由使用XXX请求 | 支持`Post`、`Get`、`Delete`、`Put` |
+| MapHttpMethodsForUnmatched | 通过方法名前缀匹配请求方式失败后，路由将使用指定的HttpMethod发起请求 | 支持`Post`、`Get`、`Delete`、`Put` |
 | Assemblies | 用于扫描服务所在的程序集 | `MasaApp.GetAssemblies()`（全局Assembly集合，默认为当前域程序集集合） |
-| RouteHandlerBuilder | 基于`RouteHandlerBuilder`的委托，可用于权限认证、Cors等 | `null` |
+| RouteHandlerBuilder | 基于`RouteHandlerBuilder`的委托，可用于权限认证、[CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)等 | `null` |
 
 #### 服务内配置
 
@@ -248,7 +248,7 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
  </tr>
  <tr>
   <td colspan=3>RouteHandlerBuilder</td>
-  <td colspan=2>基于RouteHandlerBuilder的委托，可用于权限认证、Cors等</td>
+  <td colspan=2>基于RouteHandlerBuilder的委托，可用于权限认证、[CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)等</td>
   <td></td>
  </tr>
  <tr>
@@ -309,7 +309,7 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
  </tr>
  <tr>
   <td colspan=2><a id ="MapHttpMethodsForUnmatched">MapHttpMethodsForUnmatched</a></td>
-  <td colspan=2>通过方法名前缀匹配请求方式失败后路由使用XXX请求</td>
+  <td colspan=2>通过方法名前缀匹配请求方式失败后，路由将使用指定的HttpMethod发起请求</td>
   <td></td>
  </tr>
 </table>
@@ -529,7 +529,7 @@ public class UserService: ServiceBase
 当`BaseUri`为`null`或者空时，根地址则会根据规则自动生成
 
 ``` C#
-var BaseUri = $"{前缀}/版本/服务名(默认复数)"
+var BaseUri = $"{前缀}/{版本}/{服务名(默认复数)}"
 ```
 
 ::: tip 其它
@@ -537,8 +537,8 @@ var BaseUri = $"{前缀}/版本/服务名(默认复数)"
 2. 当前缀、版本为null或空字符串时，忽略其属性的值，当服务名为空字符串时，`BaseUri`将不再包含服务名
 
 例如：
-* 当版本为`null`或者空字符串时，此时 `var BaseUri = $"{前缀}/服务名(默认复数)"` 
-* 当服务名为空字符串时，此时 `var BaseUri = $"{前缀}/版本"` 
+* 当版本为`null`或者空字符串时，此时 `var BaseUri = $"{前缀}/{服务名(默认复数)}"` 
+* 当服务名为空字符串时，此时 `var BaseUri = $"{前缀}/{版本}"` 
 :::
 
 ### RouteMethodName (路由方法名)
@@ -646,6 +646,6 @@ public class UserService: ServiceBase
 :::
 ::::
 
-## 相关issues
+## 相关Issues
 
 [#2](https://github.com/masastack/MASA.Framework/issues/2)、[#241](https://github.com/masastack/MASA.Framework/issues/241)
