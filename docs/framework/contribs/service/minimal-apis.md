@@ -359,7 +359,7 @@ public class UserService: ServiceBase
     /// Post：/user/add
     /// </summary>
     [RoutePattern(pattern: "user/add")]
-    public Task<IResult> Add(AddUserRequest request)
+    public Task<IResult> Add([FromBody] AddUserRequest request)
     {
         //todo: 添加用户
         return Task.FromResult(Results.Accepted());
@@ -376,7 +376,7 @@ public class UserService: ServiceBase
     /// var Pattern(路由) = $"{BaseUri}/{RouteMethodName}"; 此处pattern为RouteMethodName的值
     /// </summary>
     [RoutePattern(pattern: "add", startWithBaseUri: true)]
-    public Task<IResult> Add(AddUserRequest request)
+    public Task<IResult> Add([FromBody] AddUserRequest request)
     {
         //todo: 添加用户
         return Task.FromResult(Results.Accepted());
@@ -392,7 +392,7 @@ public class UserService: ServiceBase
     /// Post：/api/v1/users/audit
     /// </summary>
     [RoutePattern(HttpMethod = "Post")]
-    public IResult Audit(Guid id, AuditUserRequest request)
+    public IResult Audit(Guid id, [FromBody] AuditUserRequest request)
     {
         //todo: 审核用户信息
         return Results.Ok();
@@ -402,7 +402,7 @@ public class UserService: ServiceBase
     /// Post：/api/v1/users
     /// </summary>
     [RoutePattern(HttpMethod = "Post")]
-    public IResult GetAsync(UserQuery query)
+    public IResult GetAsync([FromBody] UserQuery query)
     {
         //todo: 获取用户详情
         return Results.Ok();
@@ -445,7 +445,7 @@ public class UserService: ServiceBase
     /// Post：/api/v1/users/audit
     /// </summary>
     [RoutePattern(HttpMethod = "Post")]
-    public IResult Audit(Guid id, AuditUserRequest request, [FromServices]IUserRepository userRepository)
+    public IResult Audit(Guid id, [FromBody] AuditUserRequest request, [FromServices]IUserRepository userRepository)
     {
         //todo: 审核用户信息
         return Results.Ok();
@@ -461,7 +461,7 @@ public class UserService: ServiceBase
     /// Post：/api/v1/users/audit
     /// </summary>
     [RoutePattern(HttpMethod = "Post")]
-    public IResult Audit(Guid id, AuditUserRequest request)
+    public IResult Audit(Guid id, [FromBody] AuditUserRequest request)
     {
         IUserRepository userRepository = GetRequiredService<IUserRepository>();
         //todo: 审核用户信息
@@ -556,7 +556,7 @@ public class UserService: ServiceBase
     /// Post：/api/v1/users/add
     /// </summary>
     [RoutePattern(pattern: "add", startWithBaseUri: true)]
-    public Task<IResult> Add(AddUserRequest request)
+    public Task<IResult> Add([FromBody] AddUserRequest request)
     {
         //todo: 添加用户
         return Task.FromResult(Results.Accepted());
@@ -592,7 +592,7 @@ public class UserService: ServiceBase
     /// Post：/api/v1/users
     /// </summary>
     [RoutePattern(HttpMethod = "Post")]
-    public IResult GetAsync(UserQuery query)
+    public IResult GetAsync([FromBody] UserQuery query)
     {
         //todo: 获取用户详情
         return Results.Ok();
@@ -610,13 +610,15 @@ public class UserService: ServiceBase
     /// <summary>
     /// Get: /api/v1/users
     /// </summary>
-    public IResult GetAsync(UserQuery query)
+    public IResult GetAsync([FromBody] UserQuery query)
     {
         //todo: 获取用户详情
         return Results.Ok();
     }
 }
 ```
+
+> Get请求默认不支持对象，如果希望支持对象，[请参考](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-6.0#custom-binding)
 
 > 由于GetAsync以`Get`开头，并且在[Get请求前缀配置](#GetPrefixs)中已经存在，因此智能匹配为`Get`请求
 
