@@ -30,7 +30,7 @@ app.MapGet("/api/v1/users/{id}", (Guid id)=>
         Id = id,
         Name = "Tony"
     };
-    return Task.FromResult(user);
+    return Task.FromResult(Results.Ok(user));
 });
 
 app.MapPost("/api/v1/users", ([FromBody] UserRequest request)=>
@@ -70,7 +70,7 @@ dotnet add package Masa.Contrib.Service.MinimalAPIs
 var app = builder.AddServices();
 ```
 
-3. 新建用户服务（注册路由）
+3. 新建用户服务, **并继承`ServiceBase`**（注册路由）
 
 > 两种注册路由方式任选一个即可
 
@@ -100,7 +100,7 @@ public class UserService : ServiceBase
             Id = id,
             Name = "Tony"
         };
-        return Task.FromResult(user);
+        return Task.FromResult(Results.Ok(user));
     }
 
     /// <summary>
@@ -154,7 +154,7 @@ public class UserService : ServiceBase
             Id = id,
             Name = "Tony"
         };
-        return Task.FromResult(user);
+        return Task.FromResult(Results.Ok(user));
     }
 
     public Task<IResult> AddAsync([FromBody] UserRequest request)
@@ -216,7 +216,7 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
 | DisableAutoMapRoute  | 是否禁用自动映射路由，如果为true (禁用)，则框架不会自动映射路由 | `false` |
 | Prefix  | 前缀 | `api` |
 | Version  | 版本 | `v1` |
-| AutoAppendId  | 路由中是否包含{Id},例如: /api/v1/user/{id} | `true` |
+| AutoAppendId  | 路由中是否包含{Id}, 例如: /api/v1/user/{id} | `true` |
 | PluralizeServiceName  | 服务名称是否启用复数 | `true` |
 | GetPrefixs  | 用于识别当前方法类型为`Get`请求 | `new List<string> { "Get", "Select", "Find" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
 | PostPrefixs | 用于识别当前方法类型为`Post`请求 | `new List<string> { "Post", "Add", "Upsert", "Create", "Insert" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
@@ -274,7 +274,7 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
  </tr>
  <tr>
   <td colspan=2><a id ="AutoAppendId">AutoAppendId></a></td>
-  <td colspan=2>路由中是否包含{Id},例如: /api/v1/user/{id}</td>
+  <td colspan=2>路由中是否包含{Id}, 例如: /api/v1/user/{id}</td>
   <td></td>
  </tr>
  <tr>
