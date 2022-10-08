@@ -5,7 +5,7 @@ date: 2022/07/01
 
 提供服务的规约以及为Minimal APIs提供支持
 
-## [Minimal APIs](/framework/contribs/service/minimal-apis)： 最小API
+## [Minimal APIs](/framework/contribs/service/minimal-apis) (最小API)
 
 强化Minimal APIs，避免陷入流水账式编程
 

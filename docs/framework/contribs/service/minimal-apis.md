@@ -39,7 +39,7 @@ app.MapPost("/api/v1/users", ([FromBody] UserRequest request)=>
     return Task.FromResult(Results.Accepted());
 });
 
-app.MapPost("/api/v1/users/{id}",(Guid id)=>
+app.MapDelete("/api/v1/users/{id}",(Guid id)=>
 {
     //todo: 删除用户逻辑
     return Task.FromResult(Results.Accepted());
@@ -140,10 +140,10 @@ public class UserService : ServiceBase
     {
         RouteOptions.DisableAutoMapRoute = true;//仅当前服务禁用自动注册路由
 
-        App.MapPost("/api/v1/users/{id}", GetAsync);
+        App.MapGet("/api/v1/users/{id}", GetAsync);
         App.MapPost("/api/v1/users", AddAsync);
-        App.MapPost("/api/v1/users/{id}", DeleteAsync);
-        App.MapPost("/api/v1/users/{id}", UpdateAsync);
+        App.MapDelete("/api/v1/users/{id}", DeleteAsync);
+        App.MapPut("/api/v1/users/{id}", UpdateAsync);
     }
 
     public Task<IResult> GetAsync(Guid id)
