@@ -248,7 +248,7 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
  </tr>
  <tr>
   <td colspan=3>RouteHandlerBuilder</td>
-  <td colspan=2>基于RouteHandlerBuilder的委托，可用于权限认证、[CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)等</td>
+  <td colspan=2>基于RouteHandlerBuilder的委托，可用于权限认证、<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS">CORS</a>等</td>
   <td></td>
  </tr>
  <tr>
