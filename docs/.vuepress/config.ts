@@ -37,7 +37,9 @@ export default defineUserConfig<DefaultThemeOptions>({
             '/stack/auth/guides/team/introduce',
             '/stack/auth/guides/permission/introduce',
             '/stack/auth/guides/org/introduce',
-            '/stack/auth/guides/identity-provider/introduce'
+            '/stack/auth/guides/identity-provider/introduce',
+            '/stack/auth/guides/sso/client',
+            '/stack/auth/reference/sdk/introduce'
           ]
         },
         {
