@@ -430,7 +430,7 @@ public class UserService: ServiceBase
 
 ## 常见问题
 
-1. 继承`ServiceBase`服务的类的构造函数中不能使用生命周期为`Scoped`的服务，且构造函数中的参数类型必须支持从`DI`中获取
+1. 继承`ServiceBase`服务的类的构造函数中不能使用生命周期为`Scoped`、`Transient`的服务，且构造函数中的参数类型必须支持从`DI`中获取
 
 在`builder.AddServices()`执行后，框架会自动扫描继承`ServiceBase`服务的类会获取其示例注册到路由上，无论它是动态注册路由还是手动注册路由，它仅会被注册一次，它的生命周期与项目的生命周期一致，是单例的
 
