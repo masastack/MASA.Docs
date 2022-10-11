@@ -28,6 +28,10 @@ export default defineUserConfig<DefaultThemeOptions>({
           children: [
             '/stack/pm/guide/introduce',
             '/stack/pm/guide/architecture',
+            '/stack/pm/guide/quick-get-started/basic-concepts',
+            '/stack/pm/guide/quick-get-started/use-guide',
+            '/stack/pm/guide/sdk-instance',
+            '/stack/pm/guide/best-practices',
           ]
         },
         {
