@@ -218,10 +218,10 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
 | Version  | 版本 | `v1` |
 | AutoAppendId  | 路由中是否包含{Id}, 例如: /api/v1/user/{id} | `true` |
 | PluralizeServiceName  | 服务名称是否启用复数 | `true` |
-| GetPrefixs  | 用于识别当前方法类型为`Get`请求 | `new List<string> { "Get", "Select", "Find" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
-| PostPrefixs | 用于识别当前方法类型为`Post`请求 | `new List<string> { "Post", "Add", "Upsert", "Create", "Insert" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
-| PutPrefixs | 用于识别当前方法类型为`Put`请求 | `new List<string> { "Put", "Update", "Modify" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
-| DeletePrefixs | 用于识别当前方法类型为`Delete`请求 | `new List<string> { "Delete", "Remove" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
+| GetPrefixes  | 用于识别当前方法类型为`Get`请求 | `new List<string> { "Get", "Select", "Find" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
+| PostPrefixes | 用于识别当前方法类型为`Post`请求 | `new List<string> { "Post", "Add", "Upsert", "Create", "Insert" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
+| PutPrefixes | 用于识别当前方法类型为`Put`请求 | `new List<string> { "Put", "Update", "Modify" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
+| DeletePrefixes | 用于识别当前方法类型为`Delete`请求 | `new List<string> { "Delete", "Remove" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
 | DisableTrimMethodPrefix | 禁用移除方法前缀(上方`Get`、`Post`、`Put`、`Delete`请求的前缀) | false |
 | MapHttpMethodsForUnmatched | 通过方法名前缀匹配请求方式失败后，路由将使用指定的HttpMethod发起请求 | 支持`Post`、`Get`、`Delete`、`Put` |
 | Assemblies | 用于扫描服务所在的程序集 | `MasaApp.GetAssemblies()`（全局Assembly集合，默认为当前域程序集集合） |
@@ -283,22 +283,22 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
   <td></td>
  </tr>
  <tr>
-  <td colspan=2><a id = "GetPrefixs">GetPrefixs</a></td>
+  <td colspan=2><a id = "GetPrefixes">GetPrefixes</a></td>
   <td colspan=2>用于识别当前方法类型为`Get`请求</td>
   <td></td>
  </tr>
  <tr>
-  <td colspan=2>PostPrefixs</td>
+  <td colspan=2>PostPrefixes</td>
   <td colspan=2>用于识别当前方法类型为`Post`请求</td>
   <td></td>
  </tr>
  <tr>
-  <td colspan=2>PutPrefixs</td>
+  <td colspan=2>PutPrefixes</td>
   <td colspan=2>用于识别当前方法类型为`Put`请求</td>
   <td></td>
  </tr>
  <tr>
-  <td colspan=2>DeletePrefixs</td>
+  <td colspan=2>DeletePrefixes</td>
   <td colspan=2>用于识别当前方法类型为`Delete`请求</td>
   <td></td>
  </tr>
@@ -620,7 +620,7 @@ public class UserService: ServiceBase
 
 > Get请求默认不支持对象，如果希望支持对象，[请参考](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-6.0#custom-binding)
 
-> 由于GetAsync以`Get`开头，并且在[Get请求前缀配置](#GetPrefixs)中已经存在，因此智能匹配为`Get`请求
+> 由于GetAsync以`Get`开头，并且在[Get请求前缀配置](#GetPrefixes)中已经存在，因此智能匹配为`Get`请求
 
 #### 智能匹配失败
 
