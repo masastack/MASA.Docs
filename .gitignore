@@ -225,3 +225,4 @@ packages/
 .vscode/
 coverage.opencover.xml
 /docs/.vuepress/.cache/deps
+/src/Masa.Docs.Shared/Content/
