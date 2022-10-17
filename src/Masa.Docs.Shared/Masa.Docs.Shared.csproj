@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Masa.Blazor" Version="0.6.0-rc.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="$(SolutionDir)doc-content\**\*.*">
+			<Link>Content\%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Compile>
+		<Folder Include="Content\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="_Imports.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	</ItemGroup>
+
+</Project>
