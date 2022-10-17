@@ -38,8 +38,8 @@
 	</PropertyGroup>
 
 	<Target Name="BeforeBuildHook" BeforeTargets="BeforeBuild">
-		<Exec Command="RMDIR /s/q &quot;Content\&quot;" />
-		<Exec Command="XCOPY &quot;$(SolutionDir)DocContent\&quot; &quot;$(ProjectDir)Content\&quot; /E/C/I/Y" />
+		<Exec Command="RMDIR /s/q &quot;CompileContent\&quot;" />
+		<Exec Command="XCOPY &quot;$(SolutionDir)DocContent\&quot; &quot;$(ProjectDir)CompileContent\&quot; /E/C/I/Y" />
 	</Target>
 
 </Project>
