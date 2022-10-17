@@ -10,9 +10,9 @@
 
 ### 编写文档
 
-* 内容存放到`doc-content`
+* 内容存放到`DocContent`
   
-  > `Masa.Docs.Shared`的csproj里设置了XCOPY，将自动从 `*.sln` 同级寻找`DocContent`目录复制到项目的`Content`内
+  > `Masa.Docs.Shared`的csproj里设置了XCOPY，将自动从 `*.sln` 同级寻找`DocContent`目录复制到项目的`CompileContent`内
 
 ## 快速开始(老版文档)
 

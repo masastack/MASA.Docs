@@ -16,30 +16,10 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" />
 	</ItemGroup>
 
-	<!--<ItemGroup>
-		<Compile Include="$(SolutionDir)doc-content\**\*.*">
-			<Link>Content\%(RecursiveDir)%(Filename)%(Extension)</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Compile>
-		<Compile Include="..\..\..\DocContent\**\*.*">
-			<Link>Content\%(RecursiveDir)%(Filename)%(Extension)</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Compile>
-	</ItemGroup>-->
-
 	<ItemGroup>
 		<Content Update="_Imports.razor">
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
 	</ItemGroup>
-
-	<PropertyGroup Label="BasePath">
-		<SolutionDir Condition="'$(SolutionDir)'==''">..\..\..\</SolutionDir>
-	</PropertyGroup>
-
-	<Target Name="BeforeBuildHook" BeforeTargets="BeforeBuild">
-		<Exec Command="RMDIR /s/q &quot;CompileContent\&quot;" />
-		<Exec Command="XCOPY &quot;$(SolutionDir)DocContent\&quot; &quot;$(ProjectDir)CompileContent\&quot; /E/C/I/Y" />
-	</Target>
 
 </Project>
