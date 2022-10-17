@@ -12,7 +12,7 @@
 
 * 内容存放到`doc-content`
   
-  > `Masa.Docs.Shared`的csproj里设置了compile link，将自动从 `*.sln` 同级寻找`doc-content`和`DocContent`目录链接到项目的`Content`内
+  > `Masa.Docs.Shared`的csproj里设置了XCOPY，将自动从 `*.sln` 同级寻找`DocContent`目录复制到项目的`Content`内
 
 ## 快速开始(老版文档)
 
