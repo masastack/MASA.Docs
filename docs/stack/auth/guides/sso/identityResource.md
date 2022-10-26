@@ -3,30 +3,39 @@ title: 身份资源
 date: 2022/10/12 13:52
 ---
 
-身份资源是用户属性的一个集合,由多个用户申明组成。比如创建一个身份资源：身份证，身份证包含姓名、出生日期、户籍所在地、头像等用户申明。
+身份资源是[用户申明](/stack/auth/guides/sso/identityResource)的集合。比如创建"身份证"身份资源，身份证包含姓名、出生日期、户籍所在地、头像等用户申明。单个份资源对应多个用户申明。
 
 ### 列表
 
 身份资源列表以表格形式展现，有分页、模糊搜索功能。
 
-> 模糊搜索支持身份资源名称
+> 模糊搜索支持身份资源名称、显示名称、描述
 
-### 新增
+![](\stack\auth\identityResource-search.png)
 
-点击列表页的新增按钮可打开新增身份资源的表单窗口。
+### 新建
 
-> 此窗口创建的身份资源类型为自定义类型
+点击列表页的新建按钮可打开新建身份资源的表单窗口。
+
+![](\stack\auth\identityResource-add-button.png)
+![](\stack\auth\identityResource-add.png)
 
 ### 快速创建标准申明
 
 点击列表页的快速创建标准身份资源按钮，系统创建标准的身份资源[https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims]
 
-> 系统创建的身份资源类型为标准类型
+![](\stack\auth\identityResource-add-standard-button.png)
 
 ### 编辑
 
-点击表格中指定身份资源所在行的操作列中的编辑图标可打开编辑身份资源的表单窗口。
+点击表格里指定行的操作列中的编辑图标，可打开编辑身份资源的表单窗口。
+
+![](\stack\auth\identityResource-edit-icon.png)
+![](\stack\auth\identityResource-edit.png)
 
 ### 删除
 
-点击表格中指定身份资源所在行的操作列中的删除图标可删除当前行数据。
+点击表格里指定行的操作列中的删除图标，可删除当前行数据。
+
+![](\stack\auth\identityResource-remove-icon.png)
+![](\stack\auth\identityResource-remove.png)
