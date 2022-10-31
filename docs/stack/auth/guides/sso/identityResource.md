@@ -20,9 +20,15 @@ date: 2022/10/12 13:52
 ![](\stack\auth\identityResource-add-button.png)
 ![](\stack\auth\identityResource-add.png)
 
+> 是否必须：勾选代表[Client](/stack/auth/guides/sso/client)必须Scope设置包含改身份资源
+
+> 强调：todo
+
+> 在文档中展示：勾选代表会在发现文档中展示该身份资源
+
 ### 快速创建标准申明
 
-点击列表页的快速创建标准身份资源按钮，系统创建标准的身份资源[https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims]
+点击列表页的快速创建标准身份资源按钮，系统创建[标准的身份资源](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)
 
 ![](\stack\auth\identityResource-add-standard-button.png)
 

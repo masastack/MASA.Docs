@@ -24,7 +24,7 @@ date: 2022/10/11 13:52
 
 ### 快速创建标准申明
 
-点击列表页的快速创建标准申明按钮，系统会自动创建标准的用户申明[https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims]
+点击列表页的快速创建标准申明按钮，系统会自动创建[标准的用户申明](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)
 
 > 系统创建的用户申明类型为标准类型
 

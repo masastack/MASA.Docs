@@ -3,7 +3,7 @@ title: Api范围
 date: 2022/10/11 13:52
 ---
 
-ApiScope用于描述某个Api,比如发送邮件Api。
+ApiScope用于描述Api,比如发送邮件Api。单个ApiScope对应单个Api。
 
 ```c#
 var apiScope = new ApiScope
@@ -17,20 +17,33 @@ var apiScope = new ApiScope
 
 ApiScope列表以表格形式展现，有分页、模糊搜索功能。
 
-> 模糊搜索支持ApiScope名称
+> 模糊搜索支持显示名称、配置名称
 
-### 新增
+![](\stack\auth\apiScope-add-button.png)
 
-点击列表页的新增按钮可打开新增ApiScope的表单窗口。
+### 新建
 
-### 快速创建标准申明
+点击列表页的新建按钮可打开新增ApiScope的表单窗口。
 
-点击列表页的快速创建标准申明按钮
+![](\stack\auth\apiScope-add-button.png)
+![](\stack\auth\apiScope-add.png)
+
+> 是否必须：勾选代表[Client](/stack/auth/guides/sso/client)必须Scope设置包含改身份资源
+
+> 强调：todo
+
+> 在文档中展示：勾选代表会在发现文档中展示该身份资源
 
 ### 编辑
 
-点击表格中指定用户所在行的操作列中的编辑图标可打开编辑ApiScope的表单窗口。
+点击表格里指定行对应的操作列中的编辑图标，可打开编辑ApiScope的表单窗口。
+
+![](\stack\auth\apiScope-edit-icon.png)
+![](\stack\auth\apiScope-edit.png)
 
 ### 删除
 
-点击表格中指定用户所在行的操作列中的删除图标可删除当前行数据。
+点击表格里指定行对应的操作列中的删除图标，可打开删除ApiScope提示框，点击确认后将删除改数据。
+
+![](\stack\auth\apiScope-remove-icon.png)
+![](\stack\auth\apiScope-remove.png)
