@@ -32,6 +32,8 @@ export default defineUserConfig<DefaultThemeOptions>({
             '/stack/pm/guide/quick-get-started/use-guide',
             '/stack/pm/guide/sdk-instance',
             '/stack/pm/guide/best-practices',
+            '/stack/pm/guide/related-agreements',
+            '/stack/pm/guide/faq',
           ]
         }, 
         {
@@ -46,6 +48,12 @@ export default defineUserConfig<DefaultThemeOptions>({
           children: [
             '/stack/dcc/guide/introduce',
             '/stack/dcc/guide/architecture',
+            '/stack/dcc/guide/quick-get-started/basic-concepts',
+            '/stack/dcc/guide/quick-get-started/use-guide',
+            '/stack/dcc/guide/sdk-instance',
+            '/stack/dcc/guide/best-practices',
+            '/stack/dcc/guide/related-agreements',
+            '/stack/dcc/guide/faq',
           ]
         }
       ], 
