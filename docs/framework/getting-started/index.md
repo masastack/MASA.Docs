@@ -3,7 +3,7 @@ title: 从0开始
 date: 2022/07/26
 ---
 
-通过`MinimalAPI`，我们可以很轻松的构建一个API服务，通过[`Caller`](/framework/building-blocks/service/caller)，我们可以很轻松的调用其他服务的API
+通过`MinimalAPI`，我们可以很轻松的构建一个API服务，通过[`Caller`](/framework/contribs/service/caller)，我们可以很轻松的调用其他服务的API
 
 ## 必要条件
 
@@ -122,6 +122,6 @@ app.Map("/service/weatherforecast", async (WeatherForecastCaller caller)
 
 * A: 为什么要使用Masa提供的[`MinimalAPI`](/framework/contribs/service/minimal-apis)？
   * Q: 避免流水账式编程，使得`Program.cs`更加简洁
-* A: 为什么要使用[Caller](/framework/building-blocks/service/caller)，而不是官方提供的`HttpClient`或者其他的HttpClient库？
+* A: 为什么要使用[Caller](/framework/contribs/service/caller)，而不是官方提供的`HttpClient`或者其他的HttpClient库？
   * Q1: 后续改造服务支持`Dapr`调用的成本更低
   * Q2: 学习成本更低，更加灵活
