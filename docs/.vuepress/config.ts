@@ -112,6 +112,7 @@ export default defineUserConfig<DefaultThemeOptions>({
             '/framework/building-blocks/consistency',
             '/framework/building-blocks/aop',
             '/framework/building-blocks/i18n',
+            '/framework/building-blocks/exceptions',
             '/framework/building-blocks/rule-engine',
             '/framework/building-blocks/stack-sdks'
           ]
@@ -122,7 +123,6 @@ export default defineUserConfig<DefaultThemeOptions>({
             '/framework/utils/configuration',
             '/framework/utils/data',
             '/framework/utils/development',
-            '/framework/utils/exceptions',
             '/framework/utils/extensions',
             '/framework/utils/model',
             '/framework/utils/security'
