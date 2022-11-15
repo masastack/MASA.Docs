@@ -20,8 +20,8 @@ date: 2022/11/15
 * `其它类型 (非自定义返回类型)`: 根据传入参数`autoThrowException`的值决定是否默认处理框架异常, 默认: true
 
 框架处理异常请求机制, 当请求响应的 `HttpStatusCode`为
-* `299`: 主动上抛`UserFriendlyException`异常
-* `298`: 继续上抛`ValidatorException`异常
+* `299`: 上抛`UserFriendlyException`异常
+* `298`: 上抛`ValidatorException`异常
 :::
 
 ### ICaller
