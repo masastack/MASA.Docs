@@ -22,7 +22,7 @@ export default defineUserConfig<DefaultThemeOptions>({
             '/stack/guide/introduce',
             '/stack/guide/architecture',
           ]
-        }, 
+        },
         {
           text: 'PM',
           children: [
@@ -35,15 +35,22 @@ export default defineUserConfig<DefaultThemeOptions>({
             '/stack/pm/guide/related-agreements',
             '/stack/pm/guide/faq',
           ]
-        }, 
+        },
         {
           text: 'Auth',
           children: [
-            '/stack/auth/guide/introduce',
-            '/stack/auth/guide/architecture',
+            '/stack/auth/guides/user/introduce',
+            '/stack/auth/guides/team/introduce',
+            '/stack/auth/guides/permission/introduce',
+            '/stack/auth/guides/org/introduce',
+            '/stack/auth/guides/identity-provider/introduce',
+            '/stack/auth/guides/sso/client',
+            '/stack/auth/reference/sdk/auth',
+            '/stack/auth/reference/sdk/sso',
+            '/stack/auth/reference/develop/permission'
           ]
         },
-         {
+        {
           text: 'DCC',
           children: [
             '/stack/dcc/guide/introduce',
@@ -56,7 +63,7 @@ export default defineUserConfig<DefaultThemeOptions>({
             '/stack/dcc/guide/faq',
           ]
         }
-      ], 
+      ],
       '/framework/': [
         {
           text: '基础概念',
@@ -148,26 +155,28 @@ export default defineUserConfig<DefaultThemeOptions>({
       ]
     },
     navbar:
-    [
-      { text: '首页', link: '/' },
-      { text: 'MASA Stack',
-        children: [
-          { text: 'MASA Stack', link: '/stack/guide/introduce' },
-          { text: '项目管理(PM)', link: '/stack/pm/guide/introduce' },
-          { text: '权限中心(Auth)', link: '/stack/auth/guide/introduce' },
-          { text: '分布式配置中心(DCC)', link: '/stack/dcc/guide/introduce' }
-        ]
-      },
-      { text: 'MASA Framework', link: '/framework/concepts' },
-      { text: '组件库',
-        children: [
-          { text: 'MASA Blazor', link: 'https://github.com/BlazorComponent/MASA.Blazor' },
-          { text: 'MASA Blazor Pro', link: 'https://github.com/BlazorComponent/MASA.Blazor.Pro' },
-          { text: 'MASA Blazor Admin', link: 'https://github.com/masalabs/MASA.Framework.Admin' },
-          { text: 'Blazor Component', link: 'https://github.com/BlazorComponent/BlazorComponent' }
-        ]
-      },
-    ],
+      [
+        { text: '首页', link: '/' },
+        {
+          text: 'MASA Stack',
+          children: [
+            { text: 'MASA Stack', link: '/stack/guide/introduce' },
+            { text: '项目管理(PM)', link: '/stack/pm/guide/introduce' },
+            { text: '权限中心(Auth)', link: '/stack/auth/guides/user/introduce' },
+            { text: '分布式配置中心(DCC)', link: '/stack/dcc/guide/introduce' }
+          ]
+        },
+        { text: 'MASA Framework', link: '/framework/concepts' },
+        {
+          text: '组件库',
+          children: [
+            { text: 'MASA Blazor', link: 'https://github.com/BlazorComponent/MASA.Blazor' },
+            { text: 'MASA Blazor Pro', link: 'https://github.com/BlazorComponent/MASA.Blazor.Pro' },
+            { text: 'MASA Blazor Admin', link: 'https://github.com/masalabs/MASA.Framework.Admin' },
+            { text: 'Blazor Component', link: 'https://github.com/BlazorComponent/BlazorComponent' }
+          ]
+        },
+      ],
     bulletin: {
       body: [
         {
