@@ -95,7 +95,6 @@ export default defineUserConfig<DefaultThemeOptions>({
           text: '构建块',
           children: [
             '/framework/building-blocks/authentication',
-            '/framework/building-blocks/identity',
             '/framework/building-blocks/configuration',
             '/framework/building-blocks/data',
             '/framework/building-blocks/ddd',
