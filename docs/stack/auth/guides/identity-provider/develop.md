@@ -161,8 +161,8 @@ public class GitHubDemoAuthenticationHandler : OAuthHandler<GitHubDemoAuthentica
 
 1.在Masa Auth后台中添加GitHub第三方应用,这里的客户端Id和客户端密钥用的是测试的，只能https://localhost可以用。
 
-![](\stack\auth\github_demo-01.png)
-![](\stack\auth\github_demo-02.png)
+![](\stack\auth\github-demo-01.png)
+![](\stack\auth\github-demo-02.png)
 
 2.在Masa.Auth.Security.OAuth.Providers项目中添加`GitHubDemoBuilder`类
 
