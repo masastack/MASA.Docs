@@ -1,7 +1,7 @@
-import { defineUserConfig } from 'vuepress'
-import type { DefaultThemeOptions } from 'vuepress'
-
-export default defineUserConfig<DefaultThemeOptions>({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var vuepress_1 = require("vuepress");
+exports.default = (0, vuepress_1.defineUserConfig)({
     title: 'MASA Docs',
     description: 'Temp docs for MASA Stack projects',
     theme: 'reco',
@@ -163,34 +163,33 @@ export default defineUserConfig<DefaultThemeOptions>({
                 // }
             ]
         },
-        navbar:
-            [
-                { text: '首页', link: '/' },
-                {
-                    text: 'MASA Stack',
-                    children: [
-                        { text: 'MASA Stack', link: '/stack/guide/introduce' },
-                        { text: '项目管理(PM)', link: '/stack/pm/guide/introduce' },
-                        { text: '权限中心(Auth)', link: '/stack/auth/guides/user/introduce' },
-                        { text: '分布式配置中心(DCC)', link: '/stack/dcc/guide/introduce' }
-                    ]
-                },
-                { text: 'MASA Framework', link: '/framework/concepts' },
-                {
-                    text: '组件库',
-                    children: [
-                        { text: 'MASA Blazor', link: 'https://github.com/BlazorComponent/MASA.Blazor' },
-                        { text: 'MASA Blazor Pro', link: 'https://github.com/BlazorComponent/MASA.Blazor.Pro' },
-                        { text: 'MASA Blazor Admin', link: 'https://github.com/masalabs/MASA.Framework.Admin' },
-                        { text: 'Blazor Component', link: 'https://github.com/BlazorComponent/BlazorComponent' }
-                    ]
-                },
-            ],
+        navbar: [
+            { text: '首页', link: '/' },
+            {
+                text: 'MASA Stack',
+                children: [
+                    { text: 'MASA Stack', link: '/stack/guide/introduce' },
+                    { text: '项目管理(PM)', link: '/stack/pm/guide/introduce' },
+                    { text: '权限中心(Auth)', link: '/stack/auth/guides/user/introduce' },
+                    { text: '分布式配置中心(DCC)', link: '/stack/dcc/guide/introduce' }
+                ]
+            },
+            { text: 'MASA Framework', link: '/framework/concepts' },
+            {
+                text: '组件库',
+                children: [
+                    { text: 'MASA Blazor', link: 'https://github.com/BlazorComponent/MASA.Blazor' },
+                    { text: 'MASA Blazor Pro', link: 'https://github.com/BlazorComponent/MASA.Blazor.Pro' },
+                    { text: 'MASA Blazor Admin', link: 'https://github.com/masalabs/MASA.Framework.Admin' },
+                    { text: 'Blazor Component', link: 'https://github.com/BlazorComponent/BlazorComponent' }
+                ]
+            },
+        ],
         bulletin: {
             body: [
                 {
                     type: 'text',
-                    content: `🎉🎉🎉 MASA Stack预计今年将会发布1.0版本。`,
+                    content: "\uD83C\uDF89\uD83C\uDF89\uD83C\uDF89 MASA Stack\u9884\u8BA1\u4ECA\u5E74\u5C06\u4F1A\u53D1\u5E031.0\u7248\u672C\u3002",
                     style: 'font-size: 16px; font-weight: bold;'
                 },
                 {
@@ -202,10 +201,7 @@ export default defineUserConfig<DefaultThemeOptions>({
                 },
                 {
                     type: 'text',
-                    content: `
-          <ul>
-            <li>QQ群1：7424099</li>
-          </ul>`,
+                    content: "\n          <ul>\n            <li>QQ\u7FA41\uFF1A7424099</li>\n          </ul>",
                     style: 'font-size: 12px;'
                 },
                 {
@@ -217,10 +213,7 @@ export default defineUserConfig<DefaultThemeOptions>({
                 },
                 {
                     type: 'text',
-                    content: `
-          <ul>
-            <li><a href="https://github.com/masastack">MASA Stack开源产品<a/></li>
-          </ul>`,
+                    content: "\n          <ul>\n            <li><a href=\"https://github.com/masastack\">MASA Stack\u5F00\u6E90\u4EA7\u54C1<a/></li>\n          </ul>",
                     style: 'font-size: 12px;'
                 },
                 // {
@@ -249,4 +242,5 @@ export default defineUserConfig<DefaultThemeOptions>({
         // },
     },
     // debug: true,
-})
+});
+//# sourceMappingURL=config.js.map
