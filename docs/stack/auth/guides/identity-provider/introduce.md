@@ -11,19 +11,30 @@ date: 2022/10/09
 
 > 模糊搜索支持名称、显示名称
 
-### 新增
+![](\stack\auth\third-party-search.png)
+
+### 新建
 
 点击列表页的新增按钮可打开新增第三方平台的表单窗口，表单分为基本信息和高级配置。
 
 > 名称字段唯一不可重复
-> 高级配置用于将第三方平台返回的用户json数据配置映射为Auth的用户数据 
+> 高级配置用于将第三方平台返回的用户json数据配置映射为Auth的用户数据
+
+![](\stack\auth\third-party-add-button.png)
+![](\stack\auth\third-party-add.png)
 
 ### 编辑
 
-点击表格中指定用户所在行的操作列中的编辑图标可打开编辑第三方平台的表单窗口，表单分为基本信息和高级配置。
+点击表格中指定行对应的操作列中的编辑图标可打开编辑第三方平台的表单窗口，表单分为基本信息和高级配置。
 
 > 名称字段不可编辑
 
+![](\stack\auth\third-party-edit-icon.png)
+![](\stack\auth\third-party-edit.png)
+
 ### 删除
 
-点击表格中指定用户所在行的操作列中的删除图标可删除所在行数据
+点击表格中指定行对应的操作列中的删除图标可删除所在行数据
+
+![](\stack\auth\third-party-remove-icon.png)
+![](\stack\auth\third-party-remove.png)

@@ -40,12 +40,17 @@ export default defineUserConfig<DefaultThemeOptions>({
             '/stack/auth/guides/user/introduce',
             '/stack/auth/guides/team/introduce',
             '/stack/auth/guides/permission/introduce',
+            '/stack/auth/guides/permission/develop-role',
             '/stack/auth/guides/org/introduce',
             '/stack/auth/guides/identity-provider/introduce',
+            '/stack/auth/guides/identity-provider/develop',
+            '/stack/auth/guides/position/introduce',
             '/stack/auth/guides/sso/userClaim',
             '/stack/auth/guides/sso/identityResource',
             '/stack/auth/guides/sso/apiScope',
             '/stack/auth/guides/sso/apiResource',
+            '/stack/auth/guides/operationLog/introduce',
+            '/stack/auth/guides/swagger/introduce',
           ]
         },
         {
