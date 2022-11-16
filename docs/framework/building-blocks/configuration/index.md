@@ -67,7 +67,7 @@ Console.WriteLine(options.Value.ConnectionStrings.DefaultConnection);
 
 ## 高阶用法
 
-## 全局配置
+### 全局配置
 
 * 设置全局配置
 

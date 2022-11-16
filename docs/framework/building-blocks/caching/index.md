@@ -3,12 +3,12 @@ title: 缓存
 date: 2022/07/01
 ---
 
-## 介绍
+## 概念
 
-目前缓存的提供者有:
+什么是缓存，在项目中，为了提高数据的读取速度，我们会对不经常变更但访问频繁的数据做缓存处理
 
-* [Masa.Utils.Caching.Memory](/framework/utils/caching/memory): 内存缓存
-* [Masa.Utils.Caching.Redis](/framework/utils/caching/redis): Redis缓存
-* [Masa.Utils.Caching.DistributedMemory](/framework/utils/caching/distributed-memory): 分布式缓存
+## 功能列表
 
-> 目前缓存正在重构中，更多细节逐步完善中……
+* 分布式缓存: IDistributedCacheClient
+    * [Redis 缓存](../../contribs/cache/stackexchange-redis.md): 基于[StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)实现的分布式缓存
+* [多级缓存](../../contribs/cache/multilevel-cache.md): IMultilevelCacheClient, 基于内存缓存与分布式缓存实现的多级缓存
