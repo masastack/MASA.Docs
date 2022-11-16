@@ -11,6 +11,6 @@ date: 2022/07/01
 
 ## 功能
 
-* [获取与设置身份信息](../contribs/identity)
+* [获取与设置身份信息](../contribs/authentication/identity)
 
 更多细节等待编写...
