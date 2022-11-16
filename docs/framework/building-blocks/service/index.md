@@ -9,10 +9,10 @@ date: 2022/07/01
 
 强化Minimal APIs，避免陷入流水账式编程
 
-## [服务规约](/framework/building-blocks/service/contract)
+## [服务规约](/framework/contribs/service/contract)
 
 为服务提供请求与响应约束
 
-## [服务调用](/framework/building-blocks/service/caller)
+## [服务调用](/framework/contribs/service/caller)
 
 提供基于HttpClient与DaprClient的调用

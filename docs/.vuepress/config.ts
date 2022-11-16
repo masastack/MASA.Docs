@@ -104,7 +104,6 @@ export default defineUserConfig<DefaultThemeOptions>({
                     text: '构建块',
                     children: [
                         '/framework/building-blocks/authentication',
-                        '/framework/building-blocks/identity',
                         '/framework/building-blocks/configuration',
                         '/framework/building-blocks/data',
                         '/framework/building-blocks/ddd',
@@ -121,6 +120,7 @@ export default defineUserConfig<DefaultThemeOptions>({
                         '/framework/building-blocks/consistency',
                         '/framework/building-blocks/aop',
                         '/framework/building-blocks/i18n',
+            '/framework/building-blocks/exceptions',
                         '/framework/building-blocks/rule-engine',
                         '/framework/building-blocks/stack-sdks'
                     ]
@@ -131,7 +131,6 @@ export default defineUserConfig<DefaultThemeOptions>({
                         '/framework/utils/configuration',
                         '/framework/utils/data',
                         '/framework/utils/development',
-                        '/framework/utils/exceptions',
                         '/framework/utils/extensions',
                         '/framework/utils/model',
                         '/framework/utils/security'
@@ -141,6 +140,7 @@ export default defineUserConfig<DefaultThemeOptions>({
                     text: '升级指南',
                     children: [
                         '/framework/upgrade/0.6.0',
+            '/framework/upgrade/0.7.0',
                     ]
                 },
                 {

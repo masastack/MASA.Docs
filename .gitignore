@@ -226,4 +226,4 @@ packages/
 coverage.opencover.xml
 /docs/.vuepress/.cache/deps
 /src/Masa.Docs.Shared/CompileContent
-/docs/.vuepress/.cache/default-development
+/docs/.vuepress/.cache/

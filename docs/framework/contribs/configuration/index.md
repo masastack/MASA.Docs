@@ -5,13 +5,9 @@ date: 2022/07/01
 
 ## 介绍
 
-Configuration配置由本地配置与远程配置两部分来组成，其中核心实现在`Masa.Contrib.Configuration`中，提供了默认Configuration的迁移以及组合远程节点的功能。
+提供了配置的核心实现以及默认Configuration的迁移以及组合远程节点的功能。
 
-目前远程配置的提供者有:
-
-* [Dcc](/framework/contribs/configuration/dcc): 分布式配置中心
-
-## 如何使用
+## 使用
 
 1. 注册`MasaConfiguration`
 
@@ -57,13 +53,9 @@ IOptions<AppConfig> options = serviceProvider.GetRequiredService<IOptions<AppCon
 Console.WriteLine(options.Value.ConnectionStrings.DefaultConnection);
 ```
 
-## 映射
+## 配置
 
-如果希望通过IOptions、IOptionsMonitor、IOptionsSnapshot来使用配置，则需要映射配置与类的关系，目前有两种方式映射
-
-* 自动映射
-
-配置在本地节点上，则可以继承`LocalMasaConfigurationOptions`来实现自动映射，例如：
+MasaConfiguration默认支持选项模式, 本地配置可以通过继承`LocalMasaConfigurationOptions`来实现自动映射, 例如:
 
 ``` C#
 public class AppConfig : LocalMasaConfigurationOptions
@@ -79,22 +71,4 @@ public class AppConfig : LocalMasaConfigurationOptions
 }
 ```
 
-* 手动映射
-
-如果类已经存在，通过手动映射完成配置与类的映射，例如：
-
-```
-builder.AddMasaConfiguration(configurationBuilder =>
-{
-    configurationBuilder.UseMasaOptions(option => 
-    {
-        option.MappingLocal<AppConfig>("AppConfig");//映射本地配置
-    });
-});
-```
-
-
-## 常见问题
-
-1. 当配置变更时，如何通知项目？
-   1. 通过`IOptionsMonitor<TOptions>`的`OnChange`方法可以获取到配置变更
+> 手动映射可[查看](../../building-blocks/configuration/index.md#手动映射)
