@@ -131,6 +131,7 @@ export default defineUserConfig<DefaultThemeOptions>({
           text: '升级指南',
           children: [
             '/framework/upgrade/0.6.0',
+            '/framework/upgrade/0.7.0',
           ]
         },
         {

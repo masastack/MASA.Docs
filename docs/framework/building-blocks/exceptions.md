@@ -11,6 +11,7 @@ date: 2022/11/15
 
 * [支持I18n](./i18n.md)
 * [支持自定义异常处理](#高阶用法)
+* [自定义异常类型](#自定义异常类型)
 
 ## 配置
 
@@ -40,7 +41,13 @@ throw new MasaException("自定义异常错误, 当前日志等级为Warning.", 
 
 全局异常中间件与全局异常过滤器是两种处理异常的手段, 它们的执行顺序是不同的，详细可查看[ASP.NET Core 中间件](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/middleware)、[ASP.NET Core 中的筛选器](https://learn.microsoft.com/zh-cn/aspnet/core/mvc/controllers/filters)
 
-它们默认支持i18n, 当服务
+它们默认支持i18n, 当服务使用i18n后, 异常信息会根据请求文化 ( Culture) 信息转换为对应的语言
+
+* 必要条件: 安装`Masa.Contrib.Exceptions`
+
+``` powershell
+Install-Package Masa.Contrib.Exceptions
+```
 
 ### 全局异常中间件
 
@@ -164,7 +171,9 @@ builder.Services
 | MasaException  | 内部服务错误 | 500 |
 
 > HttpStatusCode为298是验证异常，存在固定格式的响应信息
+>
 > Validation failed: 
+> 
 > -- {Name}: {Message} Severity: {ValidationLevel}
 
 ::: tip 提示
@@ -176,3 +185,41 @@ Validation failed:
 -- {Name2}: {Message2} Severity: {ValidationLevel}
 ```
 :::
+
+## 源码解读
+
+### MasaException
+
+Masa提供的异常基类, 其父类是: Exception, 对外抛出`HttpStatusCode`为`299`的错误码, 并将其Message作为响应内容输出
+
+* ErrorCode: 错误码, 针对ErrorCode不为null且不等于空字符, 且开启了i18n后, 可以通过`GetLocalizedMessage`方法获取当前语言的错误信息
+
+### UserFriendlyException
+
+Masa提供的用户友好异常类, 其父类是: MasaException, 对外抛出`HttpStatusCode`为`299`的错误码, 并将其Message作为响应内容输出
+
+### MasaArgumentException
+
+Masa提供的参数异常类型, 其父类是: MasaException, 默认对外抛出`HttpStatusCode`为`500`的错误码, 并将其Message作为响应内容输出, 提供了以下方法
+
+* ThrowIfNullOrEmptyCollection: 若参数为Null或者空集合时抛出异常
+* ThrowIfNull: 若参数为Null时抛出异常
+* ThrowIfNullOrEmpty: 若参数为Null或空字符串时抛出异常
+* ThrowIfNullOrWhiteSpace: 若参数为Null或空白字符时抛出异常
+* ThrowIfGreaterThan: 若参数大于{value}时抛出异常
+* ThrowIfGreaterThanOrEqual: 若参数大于等于{value}时抛出异常
+* ThrowIfLessThan: 若参数小于{value}时抛出异常
+* ThrowIfLessThanOrEqual: 若参数小于等于{value}时抛出异常
+* ThrowIfOutOfRange: 若参数不在指定范围之间时抛出异常 (\< minValue & \> maxValue)
+* ThrowIfContain: 若参数包含指定字符串时抛出异常
+* ThrowIf: 若条件满足时抛出异常
+
+### MasaValidatorException
+
+Masa提供的验证异常类型, 其父类是: MasaArgumentException, 默认对外抛出`HttpStatusCode`为`298`的错误码, 对外输出内容为固定格式:
+
+``` http
+"Validation failed: 
+-- {Name}: {Message1} Severity: {ValidationLevel}
+-- {Name2}: {Message2} Severity: {ValidationLevel}"
+```
