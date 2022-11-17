@@ -104,6 +104,8 @@ var appId = options.Value.AppId;
 
 通过自动获取映射关系或者手动指定配置与类的映射关系, 使得支持[选项模式](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/options)
 
+> 支持选项模式后, 我们可以通过`IOptions<TModel>`、`IOptionsMonitor<TModel>`、`IOptionsSnapshot<TModel>` 获取配置信息
+
 #### 自动映射
 
 * IMasaConfigurationOptions: 实现此接口的类会自动映射到相对应的配置节点
