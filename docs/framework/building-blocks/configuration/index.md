@@ -67,7 +67,7 @@ Console.WriteLine(options.Value.ConnectionStrings.DefaultConnection);
 
 ## 高阶用法
 
-## 全局配置
+### 全局配置
 
 * 设置全局配置
 
@@ -103,6 +103,8 @@ var appId = options.Value.AppId;
 ### 选项模式
 
 通过自动获取映射关系或者手动指定配置与类的映射关系, 使得支持[选项模式](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/options)
+
+> 支持选项模式后, 我们可以通过`IOptions<TModel>`、`IOptionsMonitor<TModel>`、`IOptionsSnapshot<TModel>` 获取配置信息
 
 #### 自动映射
 
