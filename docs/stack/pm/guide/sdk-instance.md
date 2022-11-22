@@ -23,7 +23,7 @@ IPmClient
 ### 用例
 
 ```
-Install-Package Masa.Contrib.StackSdks.Pm
+dotnet add package Masa.Contrib.StackSdks.Pm
 ```
 
 ```c#

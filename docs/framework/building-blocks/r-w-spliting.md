@@ -27,7 +27,7 @@ CQRS认为不论业务多复杂在最终实现的时候，无非是读写操作�
 1. 安装`Masa.Contrib.ReadWriteSplitting.Cqrs`
 
    ```C#
-   Install-Package Masa.Contrib.ReadWriteSplitting.Cqrs
+   dotnet add package Masa.Contrib.ReadWriteSplitting.Cqrs
    ```
 
 ### Query：

@@ -20,7 +20,7 @@ date: 2022/07/01
 1. 安装`Masa.BuildingBlocks.Data.MappingExtensions`
 
 ``` shell
-Install-Package Masa.BuildingBlocks.Data.MappingExtensions
+dotnet add package Masa.BuildingBlocks.Data.MappingExtensions
 ```
 
 2. 使用映射

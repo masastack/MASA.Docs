@@ -113,6 +113,7 @@ export default defineUserConfig<DefaultThemeOptions>({
                         '/framework/building-blocks/observability',
                         '/framework/building-blocks/search-engine',
                         '/framework/building-blocks/service',
+                        '/framework/building-blocks/development',
                         '/framework/building-blocks/r-w-spliting',
                         '/framework/building-blocks/caching',
                         '/framework/building-blocks/storage',
@@ -130,7 +131,6 @@ export default defineUserConfig<DefaultThemeOptions>({
                     children: [
                         '/framework/utils/configuration',
                         '/framework/utils/data',
-                        '/framework/utils/development',
                         '/framework/utils/extensions',
                         '/framework/utils/model',
                         '/framework/utils/security'

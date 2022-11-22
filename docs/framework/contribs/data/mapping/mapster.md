@@ -12,7 +12,7 @@ date: 2022/07/01
 1. 安装`Masa.Contrib.Data.Mapping.Mapster`
 
     ```c#
-    Install-Package Masa.Contrib.Data.Mapping.Mapster
+    dotnet add package Masa.Contrib.Data.Mapping.Mapster
     ```
 
 2. 修改`Program.cs`，注册`Mapster`的映射器

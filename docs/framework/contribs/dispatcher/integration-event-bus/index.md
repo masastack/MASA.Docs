@@ -14,10 +14,10 @@ date: 2022/08/19
 1. 安装`Masa.Contrib.Dispatcher.IntegrationEvents`、`Masa.Contrib.Dispatcher.IntegrationEvents.Dapr`、`Masa.Contrib.Data.UoW.EFCore`、`Masa.Contrib.Data.EFCore.SqlServer`
 
 ``` Shell
-Install-Package Masa.Contrib.Dispatcher.IntegrationEvents //使用跨进程事件
-Install-Package Masa.Contrib.Dispatcher.IntegrationEvents.Dapr //例如使用dapr提供pub、sub能力，也可自行选择其他实现
-Install-Package Masa.Contrib.Data.UoW.EFCore //使用工作单元
-Install-Package Masa.Contrib.Data.EFCore.SqlServer // 使用SqlServer
+dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents //使用跨进程事件
+dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.Dapr //例如使用dapr提供pub、sub能力，也可自行选择其他实现
+dotnet add package Masa.Contrib.Data.UoW.EFCore //使用工作单元
+dotnet add package Masa.Contrib.Data.EFCore.SqlServer // 使用SqlServer
 ```
 
 2. 修改`Program.cs`，注册`IntegrationEventBus`
@@ -40,7 +40,7 @@ builder.Services
 安装`Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore`
 
 ``` C#
-Install-Package Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore //记录跨进程消息日志
+dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore //记录跨进程消息日志
 ```
 
 ```C#
