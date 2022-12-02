@@ -9,7 +9,7 @@ date: 2022/11/15
 
 * [Masa.Contrib.Authentication.Identity](./web.md): 支持`ASP.NET Core`应用
 * [Masa.Contrib.Authentication.Identity.BlazorServer](./blazor-server.md): 支持 `Blazor Server`应用
-* [Masa.Contrib.Authentication.Identity.BlazorAssembly](./blazor-wasm.md): 支持 `Blazor WebAssembly`应用
+* [Masa.Contrib.Authentication.Identity.BlazorWebAssembly](./blazor-wasm.md): 支持 `Blazor WebAssembly`应用
 
 > 根据实际需要选择其中一个提供者即可
 
