@@ -11,7 +11,7 @@ date: 2022/08/19
 dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.Oracle
 ```
 
-1. 修改类`Program`
+2. 修改类`Program`
 
 ``` C#
 builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseOracle("Data Source=MyOracleDB;Integrated Security=yes;"));

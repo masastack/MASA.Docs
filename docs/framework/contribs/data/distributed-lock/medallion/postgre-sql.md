@@ -11,7 +11,7 @@ date: 2022/08/19
 dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.PostgreSql
 ```
 
-1. 修改类`Program`
+2. 修改类`Program`
 
 ``` C#
 builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseNpgsql("Host=myserver;Username=sa;Password=P@ssw0rd;Database=identity"));

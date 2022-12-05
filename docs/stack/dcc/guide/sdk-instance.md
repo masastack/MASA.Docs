@@ -23,8 +23,8 @@ IConfiguration
 安装包：
 
 ```c#
-Install-Package Masa.Contrib.Configuration //MasaConfiguration的核心
-Install-Package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由Dcc提供远程配置的能力
+dotnet add package Masa.Contrib.Configuration //MasaConfiguration的核心
+dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由Dcc提供远程配置的能力
 ```
 
 #### 入门:
@@ -143,7 +143,7 @@ IDccClient
 安装包：
 
 ```
-Install-Package Masa.Contrib.StackSdks.Dcc
+dotnet add package Masa.Contrib.StackSdks.Dcc
 ```
 
 appsettings.json
