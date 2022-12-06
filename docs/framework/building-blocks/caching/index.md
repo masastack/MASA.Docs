@@ -10,8 +10,9 @@ date: 2022/11/17
 ## 功能列表
 
 * 分布式缓存: [IDistributedCacheClient](#IDistributedCacheClient)
-    * [Redis 缓存](../../contribs/cache/stackexchange-redis.md): 基于[StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)实现的分布式缓存
-* [多级缓存](../../contribs/cache/multilevel-cache.md): [IMultilevelCacheClient](#IMultilevelCacheClient), 基于内存缓存与分布式缓存实现的多级缓存
+    * [Redis 缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.Distributed.StackExchangeRedis): 基于[StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)实现的分布式缓存 [查看详细](/framework/contribs/cache/stackexchange-redis)
+* [多级缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.MultilevelCache): [IMultilevelCacheClient](#IMultilevelCacheClient), 基于内存缓存与分布式缓存实现的多级缓存 [查看详细](/framework/contribs/cache/multilevel-cache)
+* [内存缓存](https://www.nuget.org/packages/Masa.Utils.Caching.Memory): 提供了线程安全的字典集合 [查看详细](/framework/utils/caching/memory)
 
 ## 使用
 
