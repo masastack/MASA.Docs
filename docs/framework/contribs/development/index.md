@@ -7,7 +7,7 @@ date: 2022/11/22
 
 为了方便在开发过程中使用`Dapr`, 而不需要部署`Kubernetes`、`Docker Compose`环境, 通过`DaprStarter`协助管理启动`Dapr`
 
-在MasaFramework中提供了以下包：
+在MasaFramework中提供了以下包:
 
 * Masa.Contrib.Development.DaprStarter: Dapr Starter核心功能库, 包含`Dapr Sidecar`的启动、停止等操作
 * Masa.Contrib.Development.DaprStarter.AspNetCore: 为Asp.Net Core的Web程序提供一站式方案, 项目启动时会自动启动`Dapr Sidecar`
