@@ -11,7 +11,7 @@ date: 2022/08/19
 
 * [编排](#编排): 支持Handler按顺序执行
 * [中间件](#中间件): 支持自定义中间件
-* [Saga](#Saga): 支持补偿机制
+* [Saga](#Saga): 支持补偿机制, [详细](https://learn.microsoft.com/zh-cn/azure/architecture/reference-architectures/saga/saga)
 
 ## 使用
 
