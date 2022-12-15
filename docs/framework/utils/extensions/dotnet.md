@@ -52,12 +52,16 @@ date: 2022/12/14
 
 #### <a id="attribute">特性帮助类</a>
 
-* GetDescriptionByField\<TClass\>(string fieldName, BindingFlags? bindingFlags = null): 得到`TClass`类下指定字段的描述
-* GetDescriptionByField(Type type, string fieldName, BindingFlags? bindingFlags = null): 得到指定类型下指定字段的描述
-* GetDescriptionByField(FieldInfo fieldInfo): 得到指定字段的描述
+* GetDescriptionValueByField\<TClass\>(string fieldName, BindingFlags? bindingFlags = null): 得到`TClass`类下指定字段的描述
+* GetDescriptionValueByField(Type type, string fieldName, BindingFlags? bindingFlags = null): 得到指定类型下指定字段的描述
+* GetDescriptionValueByField(FieldInfo fieldInfo): 得到指定字段的描述
 * GetCustomAttribute\<TClass, TAttribute\>(string fieldName, BindingFlags? bindingFlags = null, bool inherit = true): 得到`TClass`类下指定字段特性的值
 * GetCustomAttribute\<TAttribute\>(Type classType, string fieldName, BindingFlags? bindingFlags = null, bool inherit = true): 得到指定类、指定字段下特性的值
+* GetCustomAttribute\<TAttribute\>(Type classType, string fieldName, out bool existFieldInfo, BindingFlags? bindingFlags = null, bool inherit = true): 得到指定类、指定字段下特性的值, 并返回字段是否存在
 * GetCustomAttributeValue\<TOpt, TAttribute\>(FieldInfo fieldInfo, Func\<TAttribute, TOpt\> valueSelector, bool inherit = true): 得到指定字段指定特性的值
+* GetCustomAttributes\<TClass, TAttribute\>(string fieldName, BindingFlags? bindingFlags = null, bool inherit = true): 得到`TClass`类下指定字段特性的值集合
+* GetCustomAttributes\<TAttribute\>(Type classType, string fieldName, BindingFlags? bindingFlags = null, bool inherit = true): 得到指定类、指定字段下特性的值集合
+* GetCustomAttributes\<TAttribute\>(Type classType, string fieldName,  out bool existFieldInfo, BindingFlags? bindingFlags = null, bool inherit = true): 得到指定类、指定字段下特性的值集合, 并返回字段是否存在
 
 示例demo:
 
