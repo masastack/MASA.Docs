@@ -5,13 +5,7 @@ date: 2022/12/07
 
 ## 概念
 
-可观测提供了对现代分布式系统的深入可见性，以便更快、自动地识别和解决问题。
-
-一般而言，可观测性是指您仅根据对复杂系统外部输出的了解就可以了解其内部状态或条件的程度。系统的可观测性越强，您就可以越快、越准确地从已识别的性能问题导航到其根本原因，而无需进行额外的测试或编码。
-
-在 IT 和云计算中，可观测性还指用于聚合、关联和分析来自分布式应用程序及其运行的硬件和网络的稳定性能数据流的软件工具和实践，以便更有效地监控、故障排除和调试应用程序和网络以满足客户体验期望、服务水平协议 (SLA) 和其他业务要求。
-
-基于[Opentelemetry](https://opentelemetry.io/docs/)的可观测性接入，使用标准的OTLPExporter，[Logs](https://opentelemetry.io/docs/concepts/observability-primer/#logs)和[Traces](https://opentelemetry.io/docs/concepts/observability-primer/#distributed-traces)的持久化采用[Elasticsearch](https://www.elastic.co/cn/elasticsearch/)，[Metrics](https://opentelemetry.io/docs/concepts/observability-primer/#reliability--metrics)持久化采用[Prometheus](https://prometheus.io/)。
+我们基于[Opentelemetry](https://opentelemetry.io/docs/)的可观测性接入，使用标准的OTLPExporter，[Logs](https://opentelemetry.io/docs/concepts/observability-primer/#logs)和[Traces](https://opentelemetry.io/docs/concepts/observability-primer/#distributed-traces)的持久化采用[Elasticsearch](https://www.elastic.co/cn/elasticsearch/)，[Metrics](https://opentelemetry.io/docs/concepts/observability-primer/#reliability--metrics)持久化采用[Prometheus](https://prometheus.io/)。
 
 ### Metrics
  当前只集成了`Opentelemetry`，采集的`Metric`范围较少，可以根据需求，添加第三方更为成熟的`Metric`监测库，或自定义添加，可参考[Metrics](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/metrics)
@@ -137,7 +131,7 @@ builder.Services.AddMasaMetrics(builder =>
 dotnet add package Masa.Contrib.StackSdks.Tsc.Elasticsearch
 ```
 
-### Logs查询：
+### Logs查询
 
 1. `Task<PaginatedListBase<LogResponseDto>> ListAsync(BaseRequestDto query)`：日志列表分页查询，目前最大只能到第9999条数据，
     更多的数据请添加更加细化的查询条件；
