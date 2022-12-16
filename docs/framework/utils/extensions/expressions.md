@@ -69,7 +69,7 @@ public void Main()
 public void Main()
 {
     Expression<Func<int, bool>> condition = i => i >5;
-    condition = condition.Or(i => i < 9);
+    condition = condition.Or(i => i < 1);
     
     var result = _list.Where(condition.Compile()).ToList();
     Assert.AreEqual(2, result.Count);
