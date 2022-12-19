@@ -14,6 +14,8 @@ date: 2022/12/14
 * [`object`类型扩展](#object)
 * [`MethodInfo`类型扩展](#methodinfo)
 * [`JsonSerializerOptions`类型扩展](#json)
+* [`byte数组扩展`](#byte)
+* [`Stream扩展`](#stream)
 * [常用工具类](#tools)
     * [特性帮助类](#attribute)
     * [环境帮助类](#environment)
@@ -29,6 +31,8 @@ date: 2022/12/14
 * TrimStart(string trimParameter, StringComparison stringComparison): 从当前字符串删除以`{trimParameter}`开头的字符串 (确定在比较时根据`{stringComparison}`规则进行匹配)
 * TrimEnd(string trimParameter): 从当前字符串删除以`{trimParameter}`结尾的字符串
 * TrimStart(string trimParameter, StringComparison stringComparison): 从当前字符串删除以`{trimParameter}`结尾的字符串 (确定在比较时根据`{stringComparison}`规则进行匹配)
+* ConvertToBytes(): 将一组字符编码为一个字节序列 [查看详细](https://learn.microsoft.com/zh-cn/dotnet/api/system.text.encoding.getbytes)
+* FromBase64String(): 将指定的字符串 (它将二进制数据编码为 Base64 数字) 转换为等效的 8 位无符号整数数组 [查看详细](https://learn.microsoft.com/zh-cn/dotnet/api/system.convert.frombase64string)
 
 ### <a id="type">`Type`类型扩展</a>
 
@@ -47,6 +51,16 @@ date: 2022/12/14
 ### <a id="json">`JsonSerializerOptions`类型扩展</a>
 
 * EnableDynamicTypes(): 启用动态类型
+
+### <a id="byte">`byte数组扩展`</a>
+
+* ToBase64String(): 将字节数组转换为字符串, 使用 base 64 数字编码，所以它生成的全部是 ASCII 字符. [查看详细](https://learn.microsoft.com/zh-cn/dotnet/api/system.convert.tobase64string)
+* ConvertToString(): 将字节数组转换为字符串 (就是转换成我们平常所认识的字符串, 但某些整数序列无法对应现实中的文字, 因此会出现方块或者问号) [查看详细](https://learn.microsoft.com/zh-cn/dotnet/api/system.text.encoding.getstring)
+
+### <a id="stream">`Stream扩展`</a>
+
+* ConvertToBytes(): 将流转换为字节数组
+* ConvertToBytesAsync(): 将流转换为字节数组 (异步)
 
 ### <a id="tools">常用工具类</a>
 
