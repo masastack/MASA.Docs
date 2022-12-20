@@ -129,10 +129,11 @@ export default defineUserConfig<DefaultThemeOptions>({
                 {
                     text: '工具包',
                     children: [
-                        '/framework/utils/configuration',
+                        // '/framework/utils/configuration',
                         '/framework/utils/data',
                         '/framework/utils/extensions',
-                        '/framework/utils/model',
+                        '/framework/utils/ldap',
+                        // '/framework/utils/model',
                         '/framework/utils/security'
                     ]
                 },

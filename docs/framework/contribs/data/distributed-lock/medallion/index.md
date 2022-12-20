@@ -7,15 +7,15 @@ date: 2022/08/19
 
 基于[DistributedLock](https://github.com/madelson/DistributedLock)的一个分布式锁，核心能力由`Masa.Contrib.Data.DistributedLock.Medallion`提供, 除此之外, 还必须选择一个提供者
 
-* [Azure](Masa.Contrib.Data.DistributedLock.Medallion.Azure): [查看详细](/framework/contribs/data/distributed-lock/medallion/azure)
-* [FileSystem](Masa.Contrib.Data.DistributedLock.Medallion.FileSystem): [查看详细](/framework/contribs/data/distributed-lock/medallion/file-system)
-* [MySql](Masa.Contrib.Data.DistributedLock.Medallion.MySql): [查看详细](/framework/contribs/data/distributed-lock/medallion/mysql)
-* [Oracle](Masa.Contrib.Data.DistributedLock.Medallion.Oracle): [查看详细](/framework/contribs/data/distributed-lock/medallion/oracle)
-* [PostgreSql](Masa.Contrib.Data.DistributedLock.Medallion.PostgreSql): [查看详细](/framework/contribs/data/distributed-lock/medallion/postgre-sql)
-* [Redis](Masa.Contrib.Data.DistributedLock.Medallion.Redis): [查看详细](/framework/contribs/data/distributed-lock/medallion/redis)
-* [SqlServer](Masa.Contrib.Data.DistributedLock.Medallion.SqlServer): [查看详细](/framework/contribs/data/distributed-lock/medallion/sql-server)
-* [WaitHandles](Masa.Contrib.Data.DistributedLock.Medallion.WaitHandles): [查看详细](/framework/contribs/data/distributed-lock/medallion/wait-handles)
-* [ZooKeeper](Masa.Contrib.Data.DistributedLock.Medallion.ZooKeeper): [查看详细](/framework/contribs/data/distributed-lock/medallion/zoo-keeper)
+* [Azure](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.Azure): [查看详细](/framework/contribs/data/distributed-lock/medallion/azure)
+* [FileSystem](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.FileSystem): [查看详细](/framework/contribs/data/distributed-lock/medallion/file-system)
+* [MySql](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.MySql): [查看详细](/framework/contribs/data/distributed-lock/medallion/mysql)
+* [Oracle](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.Oracle): [查看详细](/framework/contribs/data/distributed-lock/medallion/oracle)
+* [PostgreSql](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.PostgreSql): [查看详细](/framework/contribs/data/distributed-lock/medallion/postgre-sql)
+* [Redis](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.Redis): [查看详细](/framework/contribs/data/distributed-lock/medallion/redis)
+* [SqlServer](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.SqlServer): [查看详细](/framework/contribs/data/distributed-lock/medallion/sql-server)
+* [WaitHandles](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.WaitHandles): [查看详细](/framework/contribs/data/distributed-lock/medallion/wait-handles)
+* [ZooKeeper](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.ZooKeeper): [查看详细](/framework/contribs/data/distributed-lock/medallion/zoo-keeper)
 
 ## 使用
 

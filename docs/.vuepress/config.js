@@ -128,12 +128,10 @@ exports.default = (0, vuepress_1.defineUserConfig)({
                 {
                     text: '工具包',
                     children: [
-                        '/framework/utils/configuration',
                         '/framework/utils/data',
                         '/framework/utils/development',
                         '/framework/utils/exceptions',
                         '/framework/utils/extensions',
-                        '/framework/utils/model',
                         '/framework/utils/security'
                     ]
                 },

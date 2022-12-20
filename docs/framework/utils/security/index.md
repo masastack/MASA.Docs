@@ -9,7 +9,6 @@ date: 2022/07/01
 
 ## 功能
 
-* Authentication
-* Authentication.OpenIdConnect
+<!-- * Authentication.OpenIdConnect -->
 * [Cryptography](/framework/utils/security/cryptography): 密码学 (提供加解密的能力)
-* Token
+* [Token](/framework/utils/security/token): Jwt加密验证
