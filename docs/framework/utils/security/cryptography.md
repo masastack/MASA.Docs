@@ -23,11 +23,12 @@ date: 2022/07/01
 ### <a id="aes">Aes 帮助类</a>
 
 ::: tip 提示
-* 默认秘钥: 根据`GlobalConfigurationUtils.DefaultEncryptKey`获取指定32位长度字符串
-* 默认偏移量: `AreyoumySnowman?` (16位)
+* 默认秘钥: 默认: `masastack.com                   ` [如何修改](#GlobalConfiguration)
+* 默认偏移量: 16位 默认: `AreyoumySnowman?` [如何修改](#GlobalConfiguration)
+* 默认秘钥长度: `GlobalConfigurationUtils.DefaultAesEncryptKeyLength` (默认32位, 仅支持16、24、32)
 * 未指定秘钥时将使用默认秘钥
 * 未指定偏移量时将使用默认偏移量
-* 秘钥、偏移量长度不足的将会自动补齐, 长度超出则会被截断
+> 默认秘钥与偏移量未设置内容长度, 如果默认秘钥、偏移量长度不足的将会自动补齐, 长度超出则会被截断
 :::
 
 #### 加密
@@ -36,9 +37,6 @@ date: 2022/07/01
 * Encrypt(string content, string key, FillType fillType = FillType.NoFile, char fillCharacter = ' ', Encoding? encoding = null): 根据传入秘钥将输入的内容进行AES加密, 秘钥位数不够的将以`fillCharacter` (默认空) 填充, 位数超出的将会被截断
 * Encrypt(string content, string key, string iv, FillType fillType = FillType.NoFile, char fillCharacter = ' ', Encoding? encoding = null): 根据传入秘钥以及偏移量将输入的内容进行AES加密, 秘钥或者偏移量位数不够的将以`fillCharacter` (默认空) 填充, 位数超出的将会被截断
 * Encrypt(string content, string key, byte[] ivBuffer, FillType fillType = FillType.NoFile, char fillCharacter = ' ', Encoding? encoding = null): 根据传入秘钥以及偏移量将输入的内容进行AES加密, 秘钥或者偏移量位数不够的将以`fillCharacter` (默认空) 填充, 位数超出的将会被截断
-* Encrypt(Stream stream, string key, FillType fillType = FillType.NoFile, char fillCharacter = ' ', Encoding? encoding = null): 根据传入秘钥将指定流进行AES加密, 秘钥位数不够的将以`fillCharacter` (默认空) 填充, 位数超出的将会被截断, 并返回[密码流](https://learn.microsoft.com/zh-cn/dotnet/api/system.security.cryptography.cryptostream)
-* Encrypt(Stream stream, string key, string iv, FillType fillType = FillType.NoFile, char fillCharacter = ' ', Encoding? encoding = null): 根据传入秘钥以及偏移量将指定流进行AES加密, 秘钥或者偏移量位数不够的将以`fillCharacter` (默认空) 填充, 位数超出的将会被截断, 并返回[密码流](https://learn.microsoft.com/zh-cn/dotnet/api/system.security.cryptography.cryptostream)
-* Encrypt(Stream stream, string key, byte[] ivBuffer, FillType fillType = FillType.NoFile, char fillCharacter = ' ', Encoding? encoding = null): 根据传入秘钥以及偏移量将指定流进行AES加密, 秘钥或者偏移量位数不够的将以`fillCharacter` (默认空) 填充, 位数超出的将会被截断, 并返回[密码流](https://learn.microsoft.com/zh-cn/dotnet/api/system.security.cryptography.cryptostream)
 * EncryptToBytes(byte[] dataBuffers, byte[] keyBuffer, byte[] ivBuffer): 根据传入的秘钥、偏移量将传入的数据字节数组进行加密并返回加密字节数组
 * EncryptToBytes(Stream stream, string key, FillType fillType = FillType.NoFile, char fillCharacter = ' ', Encoding? encoding = null): 根据传入的秘钥将传入的数据流进行加密并返回加密字节数组
 * EncryptToBytes(Stream stream, string key, string iv, FillType fillType = FillType.NoFile, char fillCharacter = ' ', Encoding? encoding = null): 根据传入的秘钥、偏移量将传入的数据流进行加密并返回加密字节数组
@@ -78,11 +76,12 @@ var encryptResult = Base64Utils.Encrypt(str);
 ### <a id="des">Des加解密</a>
 
 ::: tip 提示
-* 默认秘钥: `3b668589` (8位) //根据`GlobalConfigurationUtils.DefaultEncryptKey`经过2次md5加密后, 获取8位长度的字符串作为默认秘钥
-* 默认偏移量: `3b668589` (8位) //与默认秘钥一致
+* 默认秘钥: `c7fac67c` (8位) [如何修改](#GlobalConfiguration)
+* 默认偏移量: `c7fac67c` (8位) [如何修改](#GlobalConfiguration)
 * 未指定秘钥时将使用默认秘钥
 * 未指定偏移量时将使用默认偏移量
-* 秘钥、偏移量长度不足的将会自动补齐, 长度超出则会被截断
+
+> 默认秘钥与偏移量未设置内容长度, 如果默认秘钥、偏移量长度不足的将会自动补齐, 长度超出则会被截断
 :::
 
 * Encrypt(string content, DESEncryptType desEncryptType = DESEncryptType.Improved, bool isToLower = true, char fillCharacter = ' ', Encoding? encoding = null): 将输入的字符串进行DES加密, 并返回加密后的字符串
@@ -139,10 +138,14 @@ public void Main()
 
 ### <a id="GlobalConfiguration">全局配置</a>
 
-* 更改默认秘钥的值
+* DefaultAesEncryptKey: 全局Aes秘钥. 默认值为: `masastack.com                   `
+* DefaultAesEncryptIv: 全局Aes偏移量. 默认值为: `AreyoumySnowman?`
+* DefaultAesEncryptKeyLength: 全局Aes秘钥长度. 默认值为: 32 (仅支持16、24、32)
+* DefaultDesEncryptKey: 全局Des秘钥. 默认值为: 3b668589
+* DefaultDesEncryptIv: 全局Aes秘钥. 默认值为: 3b668589
+
+例如:
 
 ``` C#
-GlobalConfigurationUtils.DefaultEncryptKey = "masastack";
+GlobalConfigurationUtils.DefaultDesEncryptKey = "12345678";
 ```
-
-> 此操作受影响的有: `AES加解密`、`DES加解密`的默认秘钥与偏移量

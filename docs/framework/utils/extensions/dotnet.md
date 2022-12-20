@@ -33,6 +33,7 @@ date: 2022/12/14
 * TrimStart(string trimParameter, StringComparison stringComparison): 从当前字符串删除以`{trimParameter}`结尾的字符串 (确定在比较时根据`{stringComparison}`规则进行匹配)
 * ConvertToBytes(): 将一组字符编码为一个字节序列 [查看详细](https://learn.microsoft.com/zh-cn/dotnet/api/system.text.encoding.getbytes)
 * FromBase64String(): 将指定的字符串 (它将二进制数据编码为 Base64 数字) 转换为等效的 8 位无符号整数数组 [查看详细](https://learn.microsoft.com/zh-cn/dotnet/api/system.convert.frombase64string)
+* GetSpecifiedLengthString(int length, Action action, FillType fillType = FillType.NoFile, char fillCharacter = ' '): 获取指定长度的字符串, 如果`fillType`为`NoFile`且输入的字符串长度小于指定长度时, 执行`action`, 如果超出指定长度则被会截断, 如果不满足指定长度并且`fillType`为`Left`或者`Right`, 将以`fillCharacter`补齐长度
 
 ### <a id="type">`Type`类型扩展</a>
 
