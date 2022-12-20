@@ -12,7 +12,7 @@ date: 2022/11/15
 
 1. 安装`Masa.Contrib.Authentication.Identity`
 
-``` C#
+``` powershell
 dotnet add package Masa.Contrib.Authentication.Identity
 ```
 

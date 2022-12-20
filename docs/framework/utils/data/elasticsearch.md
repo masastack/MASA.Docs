@@ -19,7 +19,7 @@ date: 2022/12/06
 
 安装`Masa.Utils.Data.Elasticsearch`包
 
-``` Powershell
+``` powershell
 dotnet add package Masa.Utils.Data.Elasticsearch
 ```
 

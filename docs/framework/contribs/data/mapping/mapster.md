@@ -11,73 +11,67 @@ date: 2022/07/01
 
 1. 安装`Masa.Contrib.Data.Mapping.Mapster`
 
-    ```c#
-    dotnet add package Masa.Contrib.Data.Mapping.Mapster
-    ```
+``` powershell
+dotnet add package Masa.Contrib.Data.Mapping.Mapster
+```
 
 2. 修改`Program.cs`，注册`Mapster`的映射器
 
-    ``` C#
-    builder.Services.AddMapster();
-    ```
+``` C#
+builder.Services.AddMapster();
+```
 
 3. 映射对象
 
-    ```
-    IMapper mapper;// 通过DI获取
-    var request = new
+```
+IMapper mapper;// 通过DI获取
+var request = new
+{
+    Name = "Teach you to learn Dapr ……",
+    OrderItem = new OrderItem("Teach you to learn Dapr hand by hand", 49.9m)
+};
+var order = mapper.Map<Order>(request);// 将request映射到新的对象
+```
+
+映射类`Order`:
+
+``` Order.cs
+public class Order
+{
+    public string Name { get; set; }
+    public decimal TotalPrice { get; set; }
+    public List<OrderItem> OrderItems { get; set; }
+
+    public Order(string name)
     {
-        Name = "Teach you to learn Dapr ……",
-        OrderItem = new OrderItem("Teach you to learn Dapr hand by hand", 49.9m)
-    };
-    var order = mapper.Map<Order>(request);// 将request映射到新的对象
-
-    ```
-
-    映射类`Order`:
-
-    ``` Order.cs
-    public class Order
+        Name = name;
+    }
+    
+    public Order(string name, OrderItem orderItem) : this(name)
     {
-        public string Name { get; set; }
+        OrderItems = new List<OrderItem> { orderItem };
+        TotalPrice = OrderItems.Sum(item => item.Price * item.Number);
+    }
+}
 
-        public decimal TotalPrice { get; set; }
-
-        public List<OrderItem> OrderItems { get; set; }
-
-        public Order(string name)
-        {
-            Name = name;
-        }
-
-        public Order(string name, OrderItem orderItem) : this(name)
-        {
-            OrderItems = new List<OrderItem> { orderItem };
-            TotalPrice = OrderItems.Sum(item => item.Price * item.Number);
-        }
+public class OrderItem
+{
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    public int Number { get; set; }
+    
+    public OrderItem(string name, decimal price) : this(name, price, 1)
+    {
     }
 
-    public class OrderItem
+    public OrderItem(string name, decimal price, int number)
     {
-        public string Name { get; set; }
-
-        public decimal Price { get; set; }
-
-        public int Number { get; set; }
-
-        public OrderItem(string name, decimal price) : this(name, price, 1)
-        {
-
-        }
-
-        public OrderItem(string name, decimal price, int number)
-        {
-            Name = name;
-            Price = price;
-            Number = number;
-        }
+        Name = name;
+        Price = price;
+        Number = number;
     }
-    ```
+}
+```
 
 ## 映射规则
 

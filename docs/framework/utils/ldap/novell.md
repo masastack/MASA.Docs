@@ -13,7 +13,7 @@ date: 2022/12/20
 
 安装`Masa.Utils.Ldap.Novell`包
 
-``` Powershell
+``` powershell
 dotnet add package Masa.Utils.Ldap.Novell
 ```
 

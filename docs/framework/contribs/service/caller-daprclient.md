@@ -11,7 +11,7 @@ date: 2022/11/15
 
 * 必要条件: 安装`Masa.Contrib.Service.Caller.DaprClient`
 
-``` C#
+``` powershell
 dotnet add package Masa.Contrib.Service.Caller.DaprClient
 ```
 

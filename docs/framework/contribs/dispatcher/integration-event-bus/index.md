@@ -17,7 +17,7 @@ date: 2022/08/19
 
 1. 安装`Masa.Contrib.Dispatcher.IntegrationEvents`、`Masa.Contrib.Dispatcher.IntegrationEvents.Dapr`、`Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore`、`Masa.Contrib.Data.UoW.EFCore`、`Masa.Contrib.Data.EFCore.SqlServer`
 
-``` Shell
+``` powershell
 dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents //使用跨进程事件
 dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.Dapr //使用dapr提供的pubsub能力
 dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore //本地消息表

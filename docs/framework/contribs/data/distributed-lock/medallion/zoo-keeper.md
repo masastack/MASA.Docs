@@ -7,7 +7,7 @@ date: 2022/08/19
 
 1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.ZooKeeper`
 
-``` shell
+``` powershell
 dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.ZooKeeper
 ```
 

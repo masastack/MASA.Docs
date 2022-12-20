@@ -7,16 +7,16 @@ date: 2022/11/15
 
 用于设置用户身份、获取用户的身份信息, 目前的提供者有:
 
-* [Masa.Contrib.Authentication.Identity](./web.md): 支持`ASP.NET Core`应用
-* [Masa.Contrib.Authentication.Identity.BlazorServer](./blazor-server.md): 支持 `Blazor Server`应用
-* [Masa.Contrib.Authentication.Identity.BlazorWebAssembly](./blazor-wasm.md): 支持 `Blazor WebAssembly`应用
+* [Masa.Contrib.Authentication.Identity](https://www.nuget.org/packages/Masa.Contrib.Authentication.Identity): 支持`ASP.NET Core`应用 [查看详细](./web.md)
+* [Masa.Contrib.Authentication.Identity.BlazorServer](https://www.nuget.org/packages/Masa.Contrib.Authentication.Identity.BlazorServer): 支持 `Blazor Server`应用 [查看详细](./blazor-server.md)
+* [Masa.Contrib.Authentication.Identity.BlazorWebAssembly](https://www.nuget.org/packages/Masa.Contrib.Authentication.Identity.BlazorWebAssembly): 支持 `Blazor WebAssembly`应用 [查看详细](./blazor-web-wasm.md)
 
 > 根据实际需要选择其中一个提供者即可
 
 ## 功能列表
 
-* [获取用户信息](#IUserContext): IUserContext、IMultiTenantUserContext、IMultiEnvironmentUserContext、IIsolatedUserContext
-* [设置用户信息](#IUserSetter): IUserSetter
+* [获取用户信息](#获取用户信息): IUserContext、IMultiTenantUserContext、IMultiEnvironmentUserContext、IIsolatedUserContext
+* [设置用户信息](#设置用户信息): IUserSetter
 
 ## 使用
 
@@ -24,7 +24,7 @@ date: 2022/11/15
 
 1. 安装[Masa.Contrib.Authentication.Identity](./web.md)
 
-``` C#
+``` powershell
 dotnet add package Masa.Contrib.Authentication.Identity
 ```
 
@@ -86,7 +86,9 @@ string trueName = user.TrueName;//获取用户真实姓名
 
 ## 源码解读
 
-### IUserContext
+### 获取用户信息
+
+#### IUserContext
 
 获取当前用户信息
 
@@ -98,24 +100,26 @@ string trueName = user.TrueName;//获取用户真实姓名
 * GetUser\<TIdentityUser\>(): 获取指定类型的用户信息 (支持自定义用户对象)
 * GetUserRoles\<TRoleId\>(): 获得指定类型的用户权限集合
 
-### IMultiTenantUserContext
+#### IMultiTenantUserContext
 
 获取多租户用户信息, 继承`IUserContext`
 
 * TenantId: 获取当前租户id
 * GetTenantId\<TTenantId\>(): 获取指定类型的租户id
 
-### IMultiEnvironmentUserContext
+#### IMultiEnvironmentUserContext
 
 获取多环境用户信息, 继承`IUserContext`
 
 * Environment: 获得当前环境
 
-### IIsolatedUserContext
+#### IIsolatedUserContext
 
 获取多租户用户信息以及环境信息, 继承IMultiTenantUserContext、IMultiEnvironmentUserContext
 
-### IUserSetter
+
+### 设置用户信息
+#### IUserSetter
 
 设置当前用户信息
 

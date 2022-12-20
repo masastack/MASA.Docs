@@ -14,7 +14,7 @@ date: 2022/11/16
 
 ## 功能列表
 
-* [获取全局配置](#全局配置)
+* [全局配置](#全局配置)
 * [选项模式](#选项模式)
 * [获取本地配置](#本地配置)
 * [获取远程配置](#远程配置)
@@ -69,7 +69,7 @@ Console.WriteLine(options.Value.ConnectionStrings.DefaultConnection);
 
 ### 全局配置
 
-* 设置全局配置
+#### 设置全局配置
 
 ``` C#
 builder.Services.Configure<MasaAppConfigureOptions>(options =>
@@ -79,10 +79,12 @@ builder.Services.Configure<MasaAppConfigureOptions>(options =>
     options.Cluster = "{Replace-With-Your-Cluster}";
 
     options.TryAdd("{Replace-With-Your-Key}", "{Replace-With-Your-Value}");//自定义参数
+
+    options.SetVariable("{Replace-With-Your-VariableKey}", "{Replace-With-Your-VariableName}", "{Replace-With-Your-DefaultValue}");//设置变量信息
 });
 ```
 
-* 获取全局配置
+#### 获取全局配置
 
 获取全局配置由两种办法, 分别是:
 
@@ -98,6 +100,33 @@ var appId = options.Value.AppId;
 ``` C#
 var options = MasaApp.GetRequiredService<IOptions<MasaAppConfigureOptions>>();
 var appId = options.Value.AppId;
+```
+
+#### 全局配置的优先级
+
+自定义 > 按约定获取 > 默认值
+
+其中`AppId`、`Environment`、`Cluster`为框架默认提供的参数, 当未自定义配置对应的值时, 默认约定的读取顺序:
+
+原配置源 (环境变量、命令行、内存配置提供源) > 新配置源 (文件配置提供源或新增自定义源)
+
+其中默认参数于默认读取配置的变量名与默认值为:
+
+|  参数名   | 默认读取变量  | 默认值 |
+|  ----  | ----  | ----  |
+| AppId  | AppId (不区分大小写) | `启动项目名称.Replace(".", "-")` |
+| Environment  | ASPNETCORE_ENVIRONMENT (不区分大小写) | `Production` |
+| Cluster  | Cluster (不区分大小写) | `Default` |
+
+> 当未自定义配置的值且获取指定变量的配置失败时, 则使用当前配置的默认值
+
+如果希望修改参数的默认读取变量名或默认值, 则可以通过
+
+``` C#
+builder.Services.Configure<MasaAppConfigureOptions>(options =>
+{
+    options.SetVariable("Environment", "env", "Production");// 更改读取环境变量的参数为env
+});
 ```
 
 ### 选项模式
@@ -179,13 +208,15 @@ IConfiguration
 │   ├── AppId ├── Redis ├── Host    参数
 ```
 
-### IMasaConfiguration
+### 全局配置
 
-通过DI获取, 并提供获取`Local`配置与`ConfigurationApi`配置的能力
+通过DI获取`IMasaConfiguration`, 并提供获取`Local`配置与`ConfigurationApi`配置的能力
 
-### IConfigurationApiClient
+### 远程API
 
-通过DI获取, 并提供获取指定远程配置的能力 (与通过IConfiguration获取配置不同的是, 它们的配置源不同, 需要发送网络请求)
+#### IConfigurationApiClient
+
+通过DI获取, 并提供获取指定远程配置的能力 (与通过IConfiguration获取配置不同的是, 它们的配置源不同, 它需要第三方支持, 有请求交互产生)
 
 * GetRawAsync(string configObject, Action\<string\>? valueChanged = null): 获取默认`AppId`下指定`configObject`的原始配置信息
 * GetRawAsync(string environment, string cluster, string appId, string configObject, Action\<string\>? valueChanged = null): 获取指定`环境`、`集群`、`AppId`下指定`configObject`的原始配置信息
@@ -194,12 +225,12 @@ IConfiguration
 * GetDynamicAsync(string environment, string cluster, string appId, string configObject, Action\<dynamic\>? valueChanged = null): 获取指定`环境`、`集群`、`AppId`下指定`configObject`的配置信息, 其配置类型为Dynamic
 * GetDynamicAsync(string configObject): 获取默认`AppId`下指定`configObject`的配置信息, 其配置类型为Dynamic
 
-### IConfigurationApiManage
+#### IConfigurationApiManage
 
 通过DI获取, 并提供新增或者更新配置的能力
 
-* AddAsync(string environment, string cluster, string appId, Dictionary\<string, string\> configObjects, bool isEncryption = false)
-* UpdateAsync(string environment, string cluster, string appId, string configObject, object value);
+* AddAsync(string environment, string cluster, string appId, Dictionary\<string, string\> configObjects, bool isEncryption = false): 新增配置
+* UpdateAsync(string environment, string cluster, string appId, string configObject, object value): 更新配置
 
 ## 扩展
 

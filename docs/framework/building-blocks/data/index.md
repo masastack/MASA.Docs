@@ -24,5 +24,3 @@ date: 2022/07/01
 提供数据类型转换的能力 -->
 
 * [对象映射](/framework/building-blocks/data/mapping): 提供对象映射的能力
-
-> 更多细节逐步完善中……

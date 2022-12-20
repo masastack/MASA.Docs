@@ -17,7 +17,7 @@ date: 2022/11/22
 * [安装Dapr-Cli](https://docs.dapr.io/zh-hans/getting-started/install-dapr-cli/)并初始化[Dapr](https://docs.dapr.io/zh-hans/getting-started/install-dapr-selfhost/)
 * 安装`Masa.Contrib.Development.DaprStarter.AspNetCore`
 
-``` C#
+``` powershell
 dotnet add package Masa.Contrib.Development.DaprStarter.AspNetCore
 ```
 

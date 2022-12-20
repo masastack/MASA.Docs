@@ -15,7 +15,7 @@ date: 2022/07/01
 
 1. 安装`Masa.Contrib.Data.IdGenerator.Snowflake`
 
-``` shell
+``` powershell
 dotnet add package Masa.Contrib.Data.IdGenerator.Snowflake
 ```
 

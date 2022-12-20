@@ -18,7 +18,7 @@ date: 2022/12/20
 
 安装`Masa.Utils.Security.Token`包
 
-``` Powershell
+``` powershell
 dotnet add package Masa.Utils.Security.Token
 ```
 

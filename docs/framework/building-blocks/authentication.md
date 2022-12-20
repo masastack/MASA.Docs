@@ -9,5 +9,5 @@ date: 2022/07/01
 
 ## 功能
 
-* [OpenIdConnect](#)
+* [OpenIdConnect](../contribs/authentication/open-id-connect)
 * [用户身份](../contribs/authentication/identity)

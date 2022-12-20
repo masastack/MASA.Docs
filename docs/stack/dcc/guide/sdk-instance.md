@@ -22,7 +22,7 @@ IConfiguration
 
 安装包：
 
-```c#
+``` powershell
 dotnet add package Masa.Contrib.Configuration //MasaConfiguration的核心
 dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由Dcc提供远程配置的能力
 ```
@@ -142,7 +142,7 @@ IDccClient
 
 安装包：
 
-```
+``` powershell
 dotnet add package Masa.Contrib.StackSdks.Dcc
 ```
 
