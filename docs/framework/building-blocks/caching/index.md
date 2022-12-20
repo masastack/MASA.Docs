@@ -134,9 +134,9 @@ var value = await distributedCacheClient.GetAsync<User>(id, options =>
 
 ## 源码解读
 
-### IDistributedCacheClient
+### <a id = "IDistributedCacheClient">分布式缓存客户端</a>
 
-分布式缓存客户端
+`IDistributedCacheClient`被用来管理分布式缓存, 它提供了以下方法: 
 
 <!-- 以下方法会根据全局缓存Key的规则配置以及传入缓存Key的规则配置，检测是否需要格式化缓存Key，对需要格式化Key的操作按照缓存Key格式化规则进行处理，[详细查看](#缓存Key的生成规则):  -->
 ::: tip 提示
@@ -173,7 +173,9 @@ var value = await distributedCacheClient.GetAsync<User>(id, options =>
   * 例: 传入User*，可得到缓存中以User开头的所有缓存Key
 * `KeyExpire`、`KeyExpireAsync`: 设置缓存Key的生命周期
 
-### IMultilevelCacheClient
+### <a id = "IMultilevelCacheClient">多级缓存客户端</a>
+
+`IMultilevelCacheClient`被用来管理多级缓存, 它提供了以下方法: 
 
 多级缓存客户端, 基于分布式缓存以及内存缓存组合而成, 当触发`Set`、`Remove`方法后
 
@@ -188,14 +190,14 @@ var value = await distributedCacheClient.GetAsync<User>(id, options =>
 * `Refresh<T>`、`RefreshAsync<T>`: 刷新指定的缓存Key (缓存Key集合) 的生命周期
   * 适用于未被删除、绝对过期时间没有到，但相对过期时间快到的缓存 (延长滑动过期时间)
 
-### IDistributedCacheClientFactory
+### <a id ="IDistributedCacheClientFactory">分布式缓存工厂</a>
 
-分布式缓存工厂, 通过分布式缓存工厂根据`name`创建指定的`分布式缓存客户端`
+`IDistributedCacheClientFactory`被用来创建指定`name`的分布式缓存客户端, 它提供了以下方法: 
 
 * Create： 创建指定`name`的`分布式缓存客户端`
 
-### IMultilevelCacheClientFactory
+### <a id = "IMultilevelCacheClientFactory">多级缓存工厂</a>
 
-多级缓存工厂, 通过(多级缓存工厂根据`name`创建指定的`多级缓存客户端`
+`IMultilevelCacheClientFactory`被用来创建指定`name`的多级缓存缓存客户端, 它提供了以下方法: 
 
 * Create: 返回指定`name`的`多级缓存客户端`
