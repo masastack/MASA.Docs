@@ -1,6 +1,0 @@
-[submodule "Masa.Blazor/MASA.Blazor"]
-	path = Masa.Blazor/MASA.Blazor
-	url = git@github.com:BlazorComponent/MASA.Blazor.git
-[submodule "src/MASA.Blazor"]
-	path = src/MASA.Blazor
-	url = git@github.com:BlazorComponent/MASA.Blazor.git
