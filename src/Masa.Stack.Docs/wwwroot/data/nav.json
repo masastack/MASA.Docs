@@ -1,0 +1,70 @@
+[
+  {
+    "title": "auth",
+    "icon": "mdi-bookmark",
+    "items": [
+      "get-started",
+      {
+        "title": "use-guide",
+        "items": [
+          "identity-provider",
+          "operation-log",
+          "org",
+          "position",
+          "permission",
+          "team",
+          "user"
+        ]
+      },
+      {
+        "title": "develop-guide",
+        "items": [
+          "permission",
+          "identity-provider",
+          "swagger",
+          "user",
+          "role",
+          "sdk",
+          "sso",
+          "sso-future"
+        ]
+      },
+      {
+        "title": "sso",
+        "items": [
+          "api-resource",
+          "api-scope",
+          "client",
+          "identity-resource",
+          "user-claim"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "dcc",
+    "icon": "mdi-bookmark",
+    "items": [
+      "get-started",
+      "introduce",
+      "basic-concepts",
+      "best-practices",
+      "sdk-instance",
+      "related-agreements",
+      "faq"
+    ]
+  },
+  {
+    "title": "pm",
+    "icon": "mdi-bookmark",
+    "items": [
+      "get-started",
+      "introduce",
+      "basic-concepts",
+      "best-practices",
+      "sdk-instance",
+      "related-agreements",
+      "faq"
+    ]
+  }
+]
