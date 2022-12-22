@@ -25,85 +25,85 @@ date: 2022/07/01
 
 1. 上传对象
 
-    ``` C#
-    app.MapPost("/upload", async (HttpRequest request, IClient client) =>
-    {
-        var form = await request.ReadFormAsync();
-        var formFile = form.Files["file"];
-        if (formFile == null)
-            throw new FileNotFoundException("Can't upload empty file");
-    
-        await client.PutObjectAsync("storage1-test", formFile.FileName, formFile.OpenReadStream());
-    });
-    ``` 
+``` C#
+app.MapPost("/upload", async (HttpRequest request, IClient client) =>
+{
+    var form = await request.ReadFormAsync();
+    var formFile = form.Files["file"];
+    if (formFile == null)
+        throw new FileNotFoundException("Can't upload empty file");
 
-    > Form表单提交，key为file，类型为文件上传
+    await client.PutObjectAsync("storage1-test", formFile.FileName, formFile.OpenReadStream());
+});
+``` 
+
+> Form表单提交，key为file，类型为文件上传
 
 2. 删除对象
 
-    ``` C#
-    public class DeleteRequest
-    {
-        public string Key { get; set; }
-    }
-    
-    app.MapDelete("/delete", async (IClient client, [FromBody] DeleteRequest request) =>
-    {
-        await client.DeleteObjectAsync("storage1-test", request.Key);
-    });
-    ```
+``` C#
+public class DeleteRequest
+{
+    public string Key { get; set; }
+}
+
+app.MapDelete("/delete", async (IClient client, [FromBody] DeleteRequest request) =>
+{
+    await client.DeleteObjectAsync("storage1-test", request.Key);
+});
+```
 
 3. 判断对象是否存在
 
-    ``` C#
-    app.MapGet("/exist", async (IClient client, string key) =>
-    {
-        await client.ObjectExistsAsync("storage1-test", key);
-    });
-    ```
+``` C#
+app.MapGet("/exist", async (IClient client, string key) =>
+{
+    await client.ObjectExistsAsync("storage1-test", key);
+});
+```
 
 4. 返回对象数据的流
 
-    ``` C#
-    app.MapGet("/download", async (IClient client, string key, string path) =>
+``` C#
+app.MapGet("/download", async (IClient client, string key, string path) =>
+{
+    await client.GetObjectAsync("storage1-test", key, stream =>
     {
-        await client.GetObjectAsync("storage1-test", key, stream =>
+        //下载文件到指定路径
+        using var requestStream = stream;
+        byte[] buf = new byte[1024];
+        var fs = File.Open(path, FileMode.OpenOrCreate);
+        int len;
+        while ((len = requestStream.Read(buf, 0, 1024)) != 0)
         {
-            //下载文件到指定路径
-            using var requestStream = stream;
-            byte[] buf = new byte[1024];
-            var fs = File.Open(path, FileMode.OpenOrCreate);
-            int len;
-            while ((len = requestStream.Read(buf, 0, 1024)) != 0)
-            {
-                fs.Write(buf, 0, len);
-            }
-            fs.Close();
-        });
+            fs.Write(buf, 0, len);
+        }
+        fs.Close();
     });
-    ```
+});
+```
 
 5. 获取临时凭证(STS)
 
-    ``` C#
-    app.MapGet("/GetSts", (IClient client) =>
-    {
-        client.GetSecurityToken();
-    });
-    ```
+``` C#
+app.MapGet("/GetSts", (IClient client) =>
+{
+    client.GetSecurityToken();
+});
+```
 
-    > [阿里云](https://www.aliyun.com/product/oss)、[腾讯云存储](https://cloud.tencent.com/document/product/436)等平台使用STS来获取临时凭证
+> [阿里云](https://www.aliyun.com/product/oss)、[腾讯云存储](https://cloud.tencent.com/document/product/436)等平台使用STS来获取临时凭证
 
 6. 获取临时凭证(字符串类型的临时凭证)
 
-    ``` C#
-    app.MapGet("/GetToken", (IClient client) =>
-    {
-        client.GetToken();
-    });
-    ```
+``` C#
+app.MapGet("/GetToken", (IClient client) =>
+{
+    client.GetToken();
+});
+```
 
-    > [七牛云](https://www.qiniu.com/products/kodo)等存储平台使用较多
+> [七牛云](https://www.qiniu.com/products/kodo)等存储平台使用较多
 
 ### 存储空间提供者
 
@@ -115,46 +115,45 @@ date: 2022/07/01
 
 * 上传对象（上传到默认`Bucket`）
 
-    ``` C#
-    app.MapPost("/upload", async (HttpRequest request, IClientContainer clientContainer) =>
-    {
-        var form = await request.ReadFormAsync();
-        var formFile = form.Files["file"];
-        if (formFile == null)
-            throw new FileNotFoundException("Can't upload empty file");
-    
-        await clientContainer.PutObjectAsync(formFile.FileName, formFile.OpenReadStream());
-    });
-    ``` 
+``` C#
+app.MapPost("/upload", async (HttpRequest request, IClientContainer clientContainer) =>
+{
+    var form = await request.ReadFormAsync();
+    var formFile = form.Files["file"];
+    if (formFile == null)
+        throw new FileNotFoundException("Can't upload empty file");
+
+    await clientContainer.PutObjectAsync(formFile.FileName, formFile.OpenReadStream());
+});
+``` 
 
 * 上传到指定`Bucket`
 
-    ``` C#
-    [BucketName("picture")]
-    public class PictureContainer
-    {
+``` C#
+[BucketName("picture")]
+public class PictureContainer
+{
+}
 
-    }
-
-    builder.Services.Configure<StorageOptions>(option =>
+builder.Services.Configure<StorageOptions>(option =>
+{
+    option.BucketNames = new BucketNames(new List<KeyValuePair<string, string>>()
     {
-        option.BucketNames = new BucketNames(new List<KeyValuePair<string, string>>()
-        {
-            new("DefaultBucketName", "storage1-test"),//默认BucketName
-            new("picture", "storage1-picture")//指定别名为picture的BucketName为storage1-picture
-        });
+        new("DefaultBucketName", "storage1-test"),//默认BucketName
+        new("picture", "storage1-picture")//指定别名为picture的BucketName为storage1-picture
     });
+});
 
-    app.MapPost("/upload", async (HttpRequest request, IClientContainer<PictureContainer> clientContainer) =>
-    {
-        var form = await request.ReadFormAsync();
-        var formFile = form.Files["file"];
-        if (formFile == null)
-            throw new FileNotFoundException("Can't upload empty file");
-    
-        await clientContainer.PutObjectAsync(formFile.FileName, formFile.OpenReadStream());
-    });
-    ```
+app.MapPost("/upload", async (HttpRequest request, IClientContainer<PictureContainer> clientContainer) =>
+{
+    var form = await request.ReadFormAsync();
+    var formFile = form.Files["file"];
+    if (formFile == null)
+        throw new FileNotFoundException("Can't upload empty file");
+
+    await clientContainer.PutObjectAsync(formFile.FileName, formFile.OpenReadStream());
+});
+```
 
 ### 存储客户端工厂
 
