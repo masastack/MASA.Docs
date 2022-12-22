@@ -189,4 +189,4 @@ var result = await _logService.AggregateAsync(query);
 
 ### Metrics查询
 
-目前采用的标准[`Http api`](../utils/data/prometheus.md)，目前仅实现了几个常用的api。
+目前采用的标准[`Http Api`](../utils/data/prometheus.md)，目前仅实现了几个常用的api。
