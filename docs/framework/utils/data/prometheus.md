@@ -5,7 +5,7 @@ date: 2022/12/07
 
 ## 简介
 
-[Prometheus Http api](https://prometheus.io/docs/prometheus/latest/querying/api/)的功能实现，目前只支持了用到的部分api，详见[实现功能](#实现功能)。
+[Prometheus Http Api](https://prometheus.io/docs/prometheus/latest/querying/api/)的功能实现，目前只支持了用到的部分api，详见[实现功能](#实现功能)。
 
 ## 实现功能
 
@@ -28,7 +28,7 @@ dotnet add package Masa.Utils.Data.Prometheus
 2. 服务注册
 
 ``` C#
-var prometheusUrl="http://localhost:9090";
+var prometheusUrl = "http://localhost:9090";
 builder.Service.AddPrometheusClient(prometheusUrl);
 ```
 
@@ -43,7 +43,6 @@ public class MyPrometheusQueryService
     {
         _client = client;
     }
-
 }
 ```
 

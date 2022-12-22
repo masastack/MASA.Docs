@@ -11,10 +11,10 @@ date: 2022/12/07
  当前只集成了`OpenTelemetry`，采集的`Metrics`范围较少，可以根据需求，添加第三方更为成熟的`Metrics`监测库，或自定义添加，可参考[Metrics](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/metrics)
 
 ### Traces
-当前主要集成了`Http`和`Database`(EF core模式)链路追踪，链路相关详细资料可参见[Distributed tracing](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/distributed-tracing)和[Collect a distributed trace](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/distributed-tracing-collection-walkthroughs?source=recommendations)。
+当前主要集成了`Http`和`Database`(EF Core模式)链路追踪，链路相关详细资料可参见[Distributed tracing](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/distributed-tracing)和[Collect a distributed trace](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/distributed-tracing-collection-walkthroughs?source=recommendations)。
 
 #### Logs
-通过集成`OpenTelemetry`后，直接使用[ILogger](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line)记录日志，日志或自动与相关的trace相关联，在通过相关日志排查问题时，可以根据链路traceId查找相关的链路信息，更利于问题排查。
+通过集成`OpenTelemetry`后，直接使用[ILogger](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line)记录日志，由于`Logs`记录了相关联的链路`TraceId`，在通过相关日志排查问题时，可以根据链路`TraceId`查找相关的链路信息，更便于问题的排查。
 
 ### 功能
 
@@ -102,7 +102,7 @@ builder.Services.AddMasaTracing(builder =>
 });
 ```
 
-`resourceBuilder`创建参考[Log](#log)，此处需要明确下，由于在netcore6.0中，[基于`SignalR`的长链接，在链路处理上存在无法区分链路的问题](https://github.com/dotnet/aspnetcore/issues/29846)，当前我们采用了忽略长链接的链路，后续官方版本升级时，我们也会跟进和修正该问题。
+`resourceBuilder`创建参考Logs，此处需要明确下，由于在netcore6.0中，[基于`SignalR`的长链接，在链路处理上存在无法区分链路的问题](https://github.com/dotnet/aspnetcore/issues/29846)，当前我们采用了忽略长链接的链路，后续官方版本升级时，我们也会跟进和修正该问题。
 
 #### Metrics
 
