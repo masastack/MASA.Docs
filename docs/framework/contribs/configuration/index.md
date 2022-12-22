@@ -9,13 +9,19 @@ date: 2022/07/01
 
 ## 使用
 
-1. 注册`MasaConfiguration`
+1. 安装`Masa.Contrib.Configuration`
+
+``` powershell
+dotnet add package Masa.Contrib.Configuration
+```
+
+2. 注册`MasaConfiguration`
 
 ``` C#
 builder.AddMasaConfiguration();
 ```
 
-2. 新增配置信息，修改文件`appsettings.json`
+3. 新增配置信息，修改文件`appsettings.json`
 
  ``` json
 {
@@ -27,7 +33,7 @@ builder.AddMasaConfiguration();
 }
 ```
 
-3. 新建类`AppConfig`
+4. 新建类`AppConfig`
 
 ``` C#
 /// <summary>
@@ -44,7 +50,7 @@ public class ConnectionStrings
 }
 ```
 
-4. 获取`AppConfig`配置信息
+5. 获取`AppConfig`配置信息
 
 ``` C#
 // 通过DI获取到IOptions<AppConfig> options;

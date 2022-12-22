@@ -24,13 +24,19 @@ date: 2022/11/16
 
 以不使用远程配置, 仅使用本地配置为例:
 
-1. 注册MasaConfiguration
+1. 安装`Masa.Contrib.Configuration`
+
+``` powershell
+dotnet add package Masa.Contrib.Configuration
+```
+
+2. 注册MasaConfiguration
 
 ``` C#
 builder.Services.AddMasaConfiguration();
 ```
 
-2. 新建类`AppConfig.cs`, 并继承`LocalMasaConfigurationOptions`, 用于获取配置信息
+3. 新建类`AppConfig.cs`, 并继承`LocalMasaConfigurationOptions`, 用于获取配置信息
 
 ``` C#
 public class AppConfig : LocalMasaConfigurationOptions
@@ -44,7 +50,7 @@ public class ConnectionStrings
 }
 ```
 
-3. 新增配置信息, 修改`appsettings.json`
+4. 新增配置信息, 修改`appsettings.json`
 
 ``` appsettings.json
 {
@@ -56,7 +62,7 @@ public class ConnectionStrings
 }
 ```
 
-4. 获取`AppConfig`配置信息
+5. 获取`AppConfig`配置信息
 
 ``` C#
 // 通过DI获取到IOptions<AppConfig> options;
