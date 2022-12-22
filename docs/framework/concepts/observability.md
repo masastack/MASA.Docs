@@ -43,6 +43,6 @@ NPM 系统为组织提供解决网络问题的洞察力，以及规划持续网�
 网络可观测性系统采用类似的方法，通过从混合云环境收集一系列网络性能数据。这些数据包括来自路由器和交换机的指标，有助于了解它们的性能和健康状况，以及用于深入了解通过网络设备运行的应用程序的流数据，以及相关的元数据。
 
 ### OpenTelemetry
-[`OpenTelemetry`](https://opentelemetry.io/)，也简称为`OTel`，是一个供应商中立、开源的可观测性框架，用于检测、生成、收集和导出遥测数据，如 `traces`、`metrics`和`logs`。作为一项行业标准，它受到许多供应商的原生支持。
+[`OpenTelemetry`](https://opentelemetry.io/)，也简称为`OTel`，是一个供应商中立、开源的可观测性框架，用于检测、生成、收集和导出遥测数据，如 `Traces`、`Metrics`和`Logs`。作为一项行业标准，它受到许多供应商的原生支持。
 
 ![OpenTelemetry](/framework/otel.png)
