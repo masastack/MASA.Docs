@@ -23,14 +23,21 @@ builder.Services.AddMapster();
 
 3. 映射对象
 
-```
-IMapper mapper;// 通过DI获取
-var request = new
+``` C#
+public void Main()
 {
-    Name = "Teach you to learn Dapr ……",
-    OrderItem = new OrderItem("Teach you to learn Dapr hand by hand", 49.9m)
-};
-var order = mapper.Map<Order>(request);// 将request映射到新的对象
+    var request = new
+    {
+        Name = "Teach you to learn Dapr ……",
+        OrderItem = new OrderItem("Teach you to learn Dapr hand by hand", 49.9m)
+    };
+    IMapper mapper;// 通过DI获取
+    var order = _mapper.Map<Order>(request);// 将request映射到新的对象
+    Assert.IsNotNull(order);
+    Assert.AreEqual(request.Name, order.Name);
+    Assert.AreEqual(1, order.OrderItems.Count);
+    Assert.AreEqual(49.9m, order.TotalPrice);
+}
 ```
 
 映射类`Order`:

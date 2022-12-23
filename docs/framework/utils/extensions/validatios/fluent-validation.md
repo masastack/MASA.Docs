@@ -49,7 +49,7 @@ public class RegisterUserValidator : AbstractValidator<RegisterUser>
 * ChineseLetterUnderline: 中文字母下划线验证
 * ChineseLetter： 中文字母验证
 * ChineseLetterNumberUnderline: 中文字母数字下划线验证
-* ChineseLetterNumber: 中文数字验证
+* ChineseLetterNumber: 中文字母数字验证
 * Phone: 手机号验证 (支持`zh-CN`、`en-US`、`en-GB`)
 * IdCard: 身份证验证 (支持`zh-CN`)
 * Url: Url地址验证

@@ -1,11 +1,11 @@
 ---
-title: 安全 - jwt加密与验证
+title: 安全 - JWT加密与验证
 date: 2022/12/20
 ---
 
 ## 概念
 
-根据Jwt方案生成对应的Token并提供验证合法性方法
+根据JWT方案生成对应的Token并提供验证合法性方法
 
 ## 功能
 
@@ -22,7 +22,7 @@ date: 2022/12/20
 dotnet add package Masa.Utils.Security.Token
 ```
 
-1.注册`Jwt`扩展
+1.注册`JWT`扩展
 
 ``` C#
 services.AddJwt(options => {

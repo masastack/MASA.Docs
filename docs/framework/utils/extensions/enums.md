@@ -89,7 +89,6 @@ public void Main()
 * GetDescription\<TEnum\>(object? enumValue): 传入枚举的值并得到描述特性, 如果枚举值在枚举中不存在, 则返回`null`, 否则返回`DescriptionAttribute`, 如果未增加`DescriptionAttribute`特性, 则返回初始化后的`DescriptionAttribute`, 其`Description`的值为枚举的`name`值
 
 ``` C#
-[TestMethod]
 public void Main()
 {
     var value = EnumUtil.GetDescriptionValue<Human>(1);
@@ -156,7 +155,6 @@ public void Main()
 * GetList\<TEnum\>(bool withAll = false, string allName = "所有", int allValue = default): 得到枚举列表, 常被用于渲染下拉框 (withAll: 是否增加`所有`选项, 默认不增加)
 
 ``` C#
-[TestMethod]
 public void TestGetList()
 {
     var list = EnumUtil.GetList<Human>().ToList();

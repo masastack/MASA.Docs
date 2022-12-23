@@ -35,31 +35,37 @@ public void Main()
 ``` C#
 public void Main()
 {
-    var list = new List<int>()
+    DateTime? startTime = null;
+    DateTime? endTime = null;
+    var list = GetList(startTime, endTime);
+    Assert.AreEqual(3, list.Count);
+    startTime = DateTime.Parse("1990-01-01");
+    endTime = DateTime.Parse("2000-01-01");
+    list = GetList(startTime, endTime);
+    Assert.AreEqual(1, list.Count);
+}
+private List<Human> GetList(DateTime? startTime, DateTime? endTime)
+{
+    var list = new List<Human>()
     {
-        1, 2, 3, 4, 5, 6, 7
+        new("Tom", DateTime.Parse("2000-12-12")),
+        new("Adelaide", DateTime.Parse("1999-12-12")),
+        new("Adolf", DateTime.Parse("2005-12-12"))
     };
-    Expression<Func<int, bool>> condition = i => i > 0;
-    condition = condition.And(true, i => i < 5);
-    var result = _list.Where(condition.Compile()).ToList();
-    
-    Assert.AreEqual(4, result.Count);
-    Assert.AreEqual(1, result[0]);
-    Assert.AreEqual(2, result[1]);
-    Assert.AreEqual(3, result[2]);
-    Assert.AreEqual(4, result[3]);
-    
-    condition = i => i > 0;
-    condition = condition.And(false, i => i < 5);
-    list = _list.Where(condition.Compile()).ToList();
-    Assert.AreEqual(7, list.Count);
-    Assert.AreEqual(1, list[0]);
-    Assert.AreEqual(2, list[1]);
-    Assert.AreEqual(3, list[2]);
-    Assert.AreEqual(4, list[3]);
-    Assert.AreEqual(5, list[4]);
-    Assert.AreEqual(6, list[5]);
-    Assert.AreEqual(7, list[6]);
+    Expression<Func<Human, bool>> condition = h => h.BirthdayTime != null;
+    condition = condition.And(startTime != null, h => h.BirthdayTime >= startTime);
+    condition = condition.And(endTime != null, h => h.BirthdayTime <= endTime);
+    return list.Where(condition.Compile()).ToList();
+}
+public class Human
+{
+    public Human(string name, DateTime? birthdayTime)
+    {
+        Name = name;
+        BirthdayTime = birthdayTime;
+    }
+    public string Name { get; set; }
+    public DateTime? BirthdayTime { get; set; }
 }
 ```
 
@@ -69,12 +75,13 @@ public void Main()
 public void Main()
 {
     Expression<Func<int, bool>> condition = i => i >5;
-    condition = condition.Or(i => i < 1);
+    condition = condition.Or(i => i < 2);
     
     var result = _list.Where(condition.Compile()).ToList();
-    Assert.AreEqual(2, result.Count);
-    Assert.AreEqual(6, result[0]);
-    Assert.AreEqual(7, result[1]);
+    Assert.AreEqual(3, result.Count);
+    Assert.AreEqual(1, result[0]);
+    Assert.AreEqual(6, result[1]);
+    Assert.AreEqual(7, result[2]);
 }
 ```
 
@@ -83,19 +90,41 @@ public void Main()
 ``` C#
 public void Main()
 {
-    Expression<Func<int, bool>> condition = i => i >5;
-    condition = condition.Or(true, i => i < 9);
-    
-    var result = _list.Where(condition.Compile()).ToList();
-    Assert.AreEqual(2, result.Count);
-    Assert.AreEqual(6, result[0]);
-    Assert.AreEqual(7, result[1]);
+    string? name = null;
+    bool? gender = null;
+    var list = GetList(name, gender);
+    Assert.AreEqual(0, list.Count);
+    name = "Tom";
+    gender = false;
+    list = GetList(name, gender);
+    Assert.AreEqual(2, list.Count);
+}
 
-    condition = i => i >5;
-    condition = condition.Or(false, i => i < 9);
-    
-    var result = _list.Where(condition.Compile()).ToList();
-    Assert.AreEqual(7, result.Count);
+private List<Human> GetList(string? name, bool? gender)
+{
+    var list = new List<Human>()
+    {
+        new("Tom", true, DateTime.Parse("2000-12-12")),
+        new("Adelaide", false, DateTime.Parse("1999-12-12")),
+        new("Adolf", true, DateTime.Parse("2005-12-12"))
+    };
+    Expression<Func<Human, bool>> condition = h => false;
+    condition = condition.Or(name != null, h => h.Name.Contains(name!));
+    condition = condition.Or(gender != null, h => h.Gender == gender);
+    return list.Where(condition.Compile()).ToList();
+}
+
+public class Human
+{
+    public Human(string name, bool gender, DateTime? birthdayTime)
+    {
+        Name = name;
+        Gender = gender;
+        BirthdayTime = birthdayTime;
+    }
+    public string Name { get; set; }
+    public bool Gender { get; set; }
+    public DateTime? BirthdayTime { get; set; }
 }
 ```
 

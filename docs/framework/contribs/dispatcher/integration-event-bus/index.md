@@ -1,11 +1,11 @@
 ---
-title: 调度器 - 跨进程事件
+title: 调度器 - 集成事件
 date: 2022/08/19
 ---
 
 ## 概念
 
-跨进程事件总线允许发布和订阅跨服务传输的消息, 服务的发布与订阅不在同一个进程中, 在Masa Framework中, 跨进程总线事件提供了一个可以被开箱即用的程序, 它们由以下程序提供
+集成事件总线允许发布和订阅跨服务传输的消息, 服务的发布与订阅不在同一个进程中, 在Masa Framework中, 跨进程总线事件提供了一个可以被开箱即用的程序, 它们由以下程序提供
 
 * Masa.Contrib.Dispatcher.IntegrationEvents: 支持[发件箱模式](https://www.kamilgrzybek.com/design/the-outbox-pattern/), 但仅提供集成事件发布的抽象以及本地消息的抽象, 它们的实现由其它类库提供 
     * Masa.Contrib.Dispatcher.IntegrationEvents.Dapr: 借助[Dapr](https://docs.dapr.io/zh-hans/developing-applications/building-blocks/pubsub/pubsub-overview/)实现了集成事件发布
@@ -18,7 +18,7 @@ date: 2022/08/19
 1. 安装`Masa.Contrib.Dispatcher.IntegrationEvents`、`Masa.Contrib.Dispatcher.IntegrationEvents.Dapr`、`Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore`、`Masa.Contrib.Data.UoW.EFCore`、`Masa.Contrib.Data.EFCore.SqlServer`
 
 ``` powershell
-dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents //使用跨进程事件
+dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents //使用集成事件
 dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.Dapr //使用dapr提供的pubsub能力
 dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore //本地消息表
 dotnet add package Masa.Contrib.Data.UoW.EFCore //工作单元
@@ -70,7 +70,7 @@ public class CustomDbContext : MasaDbContext
 ```C#
 IIntegrationEventBus eventBus;//通过DI得到IIntegrationEventBus
 var @event = new DemoIntegrationEvent();
-await eventBus.PublishAsync(@event);//发送跨进程事件
+await eventBus.PublishAsync(@event);//发送集成事件
 ```
 
 ## 配置

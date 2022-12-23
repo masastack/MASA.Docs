@@ -34,18 +34,51 @@ public void Main()
 {
     var request = new
     {
-        Name = "masastack",
-        TotalPrice = 10
+        Name = "Teach you to learn Dapr ……",
+        OrderItem = new OrderItem("Teach you to learn Dapr hand by hand", 49.9m)
     };
     IMapper mapper;// 通过DI获取
-    var order = mapper.Map<Order>(request);// 将request映射到新的对象
+    var order = _mapper.Map<Order>(request);// 将request映射到新的对象
+    Assert.IsNotNull(order);
+    Assert.AreEqual(request.Name, order.Name);
+    Assert.AreEqual(1, order.OrderItems.Count);
+    Assert.AreEqual(49.9m, order.TotalPrice);
 }
 
 public class Order
 {
     public string Name { get; set; }
-
     public decimal TotalPrice { get; set; }
+    public List<OrderItem> OrderItems { get; set; }
+
+    public Order(string name)
+    {
+        Name = name;
+    }
+    
+    public Order(string name, OrderItem orderItem) : this(name)
+    {
+        OrderItems = new List<OrderItem> { orderItem };
+        TotalPrice = OrderItems.Sum(item => item.Price * item.Number);
+    }
+}
+
+public class OrderItem
+{
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    public int Number { get; set; }
+    
+    public OrderItem(string name, decimal price) : this(name, price, 1)
+    {
+    }
+
+    public OrderItem(string name, decimal price, int number)
+    {
+        Name = name;
+        Price = price;
+        Number = number;
+    }
 }
 ```
 

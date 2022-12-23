@@ -11,4 +11,4 @@ date: 2022/07/01
 
 <!-- * Authentication.OpenIdConnect -->
 * [Cryptography](/framework/utils/security/cryptography): 密码 (提供加解密的能力)
-* [Token](/framework/utils/security/token): Jwt加密验证
+* [Token](/framework/utils/security/token): JWT加密验证

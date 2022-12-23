@@ -11,8 +11,8 @@ date: 2022/07/01
 
 ## 功能列表
 
-* [编排](/framework/contribs/dispatcher/event-bus)
-* [中间件](/framework/contribs/dispatcher/event-bus)
+* [编排](/framework/contribs/dispatcher/event-bus#编排)
+* [中间件](/framework/contribs/dispatcher/event-bus.md#中间件)
 * 工作单元
 
 ## 入门

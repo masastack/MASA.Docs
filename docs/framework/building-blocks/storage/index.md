@@ -103,7 +103,7 @@ app.MapGet("/GetToken", (IClient client) =>
 });
 ```
 
-> [七牛云](https://www.qiniu.com/products/kodo)等存储平台使用较多
+> 例如: [七牛云](https://www.qiniu.com/products/kodo)
 
 ### 存储空间提供者
 

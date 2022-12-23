@@ -9,4 +9,4 @@ date: 2022/11/23
 
 ## 功能
 
-* 提供[自动补全功能](/framework/contribs/search-engine/autocomplete)
+* [提供自动补全功能](/framework/contribs/search-engine/autocomplete)
