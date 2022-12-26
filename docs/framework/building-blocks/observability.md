@@ -11,7 +11,7 @@ date: 2022/12/07
  当前只集成了`OpenTelemetry`，采集的`Metrics`范围较少，可以根据需求，添加第三方更为成熟的`Metrics`监测库，或自定义添加，可参考[Metrics](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/metrics)
 
 ### Traces
-当前主要集成了`Http`和`Database`(EF Core模式)链路追踪，链路相关详细资料可参见[Distributed tracing](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/distributed-tracing)和[Collect a distributed trace](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/distributed-tracing-collection-walkthroughs?source=recommendations)。
+当前主要集成了`HTTP`和`Database`(EF Core模式)链路追踪，链路相关详细资料可参见[Distributed tracing](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/distributed-tracing)和[Collect a distributed trace](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/distributed-tracing-collection-walkthroughs?source=recommendations)。
 
 #### Logs
 通过集成`OpenTelemetry`后，直接使用[ILogger](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line)记录日志，由于`Logs`记录了相关联的链路`TraceId`，在通过相关日志排查问题时，可以根据链路`TraceId`查找相关的链路信息，更便于问题的排查。
@@ -37,9 +37,9 @@ var options = new MasaObservableOptions
 {
     //服务名称，必须配置
     ServiceName = "my-project-api",
-    //环境，例如开发、测试、生产等，可不配置
+    //环境，例如开发、测试、生产等，可选配置，默认为空
     ServiceNameSpace = "development",
-    //服务版本号，可不配置
+    //服务版本号，可选配置，默认为空
     ServiceVersion = "1.0"
 };
 //otlpUrl默认为 "http://localhost:4717"
@@ -51,7 +51,7 @@ builder.Services.AddObservable(builder.Logging, options);
 
 ### 高级
 
-1. 如果想完全自定义可观测性的配置，可以参考[OpenTelemetry for netcore](https://opentelemetry.io/docs/instrumentation/net/getting-started/);
+1. 如果想完全自定义可观测性的配置，可以参考[OpenTelemetry for ASP.NET Core](https://opentelemetry.io/docs/instrumentation/net/getting-started/);
 2. 在我们的框架范围内实现自定义配置：
 
 #### Logs
@@ -88,7 +88,8 @@ builder.Services.AddMasaTracing(builder =>
     var resourceBuilder = ResourceBuilder.CreateDefault();
     ....
 
-    //balzor应用和api应用在链路的过滤执行条件上有区别
+    //blazor应用和API应用在链路的过滤条件上稍微有些区别，两者都会过滤js、css、image、icon和字体资源文件以及/swagger(API文档)和/healthz(服务健康检查)两个资源，
+    //blazor额外过滤以`/_blazor`、`/_content`和`/negotiate`开始的请求
     if (isBlazor)
         builder.AspNetCoreInstrumentationOptions.AppendBlazorFilter(builder);
     else
@@ -102,7 +103,7 @@ builder.Services.AddMasaTracing(builder =>
 });
 ```
 
-`resourceBuilder`创建参考Logs，此处需要明确下，由于在netcore6.0中，[基于`SignalR`的长链接，在链路处理上存在无法区分链路的问题](https://github.com/dotnet/aspnetcore/issues/29846)，当前我们采用了忽略长链接的链路，后续官方版本升级时，我们也会跟进和修正该问题。
+`resourceBuilder`创建参考Logs，由于在ASP.NET Core 6.0中，[基于`SignalR`的长链接，在链路处理上存在无法区分链路的问题](https://github.com/dotnet/aspnetcore/issues/29846)，当前我们采用了忽略长链接的链路，后续官方版本升级时，我们也会跟进和修正该问题。
 
 #### Metrics
 
@@ -133,8 +134,7 @@ dotnet add package Masa.Contrib.StackSdks.Tsc.Elasticsearch
 
 ### Logs查询
 
-1. `Task<PaginatedListBase<LogResponseDto>> ListAsync(BaseRequestDto query)`：日志列表分页查询，目前最大只能到第9999条数据，
-    更多的数据请添加更加细化的查询条件；
+1. `Task<PaginatedListBase<LogResponseDto>> ListAsync(BaseRequestDto query)`：日志列表分页查询，采用`Elasticsearch`的默认分页方式读取，最多返回前10000条，原因详见[Paginate search result](https://www.elastic.co/guide/en/elasticsearch/reference/current/paginate-search-results.html)；
 2. `Task<IEnumerable<MappingResponseDto>> GetMappingAsync()`：日志结构映射mapping查询，用来作为自定义查询的条件；
 3. `Task<object> AggregateAsync(SimpleAggregateRequestDto query)`：日志聚合统计功能，当前版本限于`Elasticsearch`，目前实现了几种简单的统计。
 
@@ -189,4 +189,4 @@ var result = await _logService.AggregateAsync(query);
 
 ### Metrics查询
 
-目前采用的标准[`Http API`](../utils/data/prometheus.md)，目前仅实现了几个常用的api。
+目前采用的标准[`Http API`](../utils/data/prometheus.md)。
