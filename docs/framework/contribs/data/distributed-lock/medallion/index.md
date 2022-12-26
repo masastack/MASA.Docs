@@ -3,30 +3,27 @@ title: 数据 - 分布式锁 - Medallion
 date: 2022/08/19
 ---
 
-## 介绍
+## 概念
 
-基于[DistributedLock](https://github.com/madelson/DistributedLock)的一个分布式锁，核心能力由`Masa.Contrib.Data.DistributedLock.Medallion`提供
+基于[DistributedLock](https://github.com/madelson/DistributedLock)的一个分布式锁，核心能力由`Masa.Contrib.Data.DistributedLock.Medallion`提供, 除此之外, 还必须选择一个提供者
 
-目前Medallion的提供者有:
+* [Azure](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.Azure): [查看详细](/framework/contribs/data/distributed-lock/medallion/azure)
+* [FileSystem](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.FileSystem): [查看详细](/framework/contribs/data/distributed-lock/medallion/file-system)
+* [MySql](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.MySql): [查看详细](/framework/contribs/data/distributed-lock/medallion/mysql)
+* [Oracle](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.Oracle): [查看详细](/framework/contribs/data/distributed-lock/medallion/oracle)
+* [PostgreSql](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.PostgreSql): [查看详细](/framework/contribs/data/distributed-lock/medallion/postgre-sql)
+* [Redis](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.Redis): [查看详细](/framework/contribs/data/distributed-lock/medallion/redis)
+* [SqlServer](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.SqlServer): [查看详细](/framework/contribs/data/distributed-lock/medallion/sql-server)
+* [WaitHandles](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.WaitHandles): [查看详细](/framework/contribs/data/distributed-lock/medallion/wait-handles)
+* [ZooKeeper](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion.ZooKeeper): [查看详细](/framework/contribs/data/distributed-lock/medallion/zoo-keeper)
 
-* [Azure](/framework/contribs/data/distributed-lock/medallion/azure)
-* [FileSystem](/framework/contribs/data/distributed-lock/medallion/file-system)
-* [MySql](/framework/contribs/data/distributed-lock/medallion/mysql)
-* [Oracle](/framework/contribs/data/distributed-lock/medallion/oracle)
-* [PostgreSql](/framework/contribs/data/distributed-lock/medallion/postgre-sql)
-* [Redis](/framework/contribs/data/distributed-lock/medallion/redis)
-* [SqlServer](/framework/contribs/data/distributed-lock/medallion/sql-server)
-* [WaitHandles](/framework/contribs/data/distributed-lock/medallion/wait-handles)
-* [ZooKeeper](/framework/contribs/data/distributed-lock/medallion/zoo-keeper)
-
-## 入门
+## 使用
 
 以Redis为例
 
-1. 安装`Masa.Contrib.Data.DistributedLock.Medallion`、`Masa.Contrib.Data.DistributedLock.Medallion.Redis`
+1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.Redis`
 
-``` shell
-dotnet add package Masa.Contrib.Data.DistributedLock.Medallion
+``` powershell
 dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.Redis
 ```
 

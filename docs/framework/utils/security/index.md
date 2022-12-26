@@ -3,14 +3,12 @@ title: 安全
 date: 2022/07/01
 ---
 
-提供身份验证的能力以及密码的加密和解密的能力
+## 概念
 
-## Authentication
+提供身份验证的能力以及密码的加解密的能力
 
-## Authentication.OpenIdConnect
+## 功能
 
-## [Cryptography](/framework/utils/security/cryptography)
-
-提供密码的加密和解密的能力
-
-## Token
+<!-- * Authentication.OpenIdConnect -->
+* [Cryptography](/framework/utils/security/cryptography): 密码 (提供加解密的能力)
+* [Token](/framework/utils/security/token): JWT加密验证

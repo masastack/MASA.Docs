@@ -15,7 +15,7 @@ date: 2022/11/17
 
 1. 安装`Masa.Contrib.Caching.MultilevelCache`、`Masa.Contrib.Caching.Distributed.StackExchangeRedis`
 
-``` C#
+``` powershell
 dotnet add package Masa.Contrib.Caching.MultilevelCache
 dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 ```

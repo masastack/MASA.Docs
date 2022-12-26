@@ -46,7 +46,7 @@ throw new MasaException("自定义异常错误, 当前日志等级为Warning.", 
 * 必要条件: 安装`Masa.Contrib.Exceptions`
 
 ``` powershell
-Install-Package Masa.Contrib.Exceptions
+dotnet add package Masa.Contrib.Exceptions
 ```
 
 ### 全局异常中间件

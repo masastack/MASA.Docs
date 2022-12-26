@@ -7,11 +7,11 @@ date: 2022/08/19
 
 1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.SqlServer`
 
-``` shell
+``` powershell
 dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.SqlServer
 ```
 
-1. 修改类`Program`
+2. 修改类`Program`
 
 ``` C#
 builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseSqlServer("server=localhost;uid=sa;pwd=P@ssw0rd;database=identity"));

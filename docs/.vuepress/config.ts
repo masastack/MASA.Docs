@@ -108,19 +108,20 @@ export default defineUserConfig<DefaultThemeOptions>({
                         '/framework/building-blocks/data',
                         '/framework/building-blocks/ddd',
                         '/framework/building-blocks/dispatcher',
-                        '/framework/building-blocks/bindings',
+                        // '/framework/building-blocks/bindings',
                         '/framework/building-blocks/isolation',
                         '/framework/building-blocks/observability',
                         '/framework/building-blocks/search-engine',
                         '/framework/building-blocks/service',
+                        '/framework/building-blocks/development',
                         '/framework/building-blocks/r-w-spliting',
                         '/framework/building-blocks/caching',
                         '/framework/building-blocks/storage',
-                        '/framework/building-blocks/testable',
-                        '/framework/building-blocks/consistency',
-                        '/framework/building-blocks/aop',
+                        // '/framework/building-blocks/testable',
+                        // '/framework/building-blocks/consistency',
+                        // '/framework/building-blocks/aop',
                         '/framework/building-blocks/i18n',
-            '/framework/building-blocks/exceptions',
+                        '/framework/building-blocks/exceptions',
                         '/framework/building-blocks/rule-engine',
                         '/framework/building-blocks/stack-sdks'
                     ]
@@ -128,11 +129,11 @@ export default defineUserConfig<DefaultThemeOptions>({
                 {
                     text: '工具包',
                     children: [
-                        '/framework/utils/configuration',
+                        // '/framework/utils/configuration',
                         '/framework/utils/data',
-                        '/framework/utils/development',
                         '/framework/utils/extensions',
-                        '/framework/utils/model',
+                        '/framework/utils/ldap',
+                        // '/framework/utils/model',
                         '/framework/utils/security'
                     ]
                 },

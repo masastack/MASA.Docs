@@ -1,21 +1,21 @@
 ---
-title: 数据 - 分布式锁 - Local
-date: 2022/07/01
+title: 数据 - 分布式锁供者 - 本地锁
+date: 2022/12/05
 ---
 
-## 介绍
+## 概念
 
-基于[`SemaphoreSlim`](https://docs.microsoft.com/zh-cn/dotnet/api/system.threading.semaphoreslim?redirectedfrom=MSDN&view=net-6.0)实现的分布式锁
+基于[`SemaphoreSlim`](https://learn.microsoft.com/zh-cn/dotnet/api/system.threading.semaphoreslim)实现的本地锁, 建议在单个应用中使用
 
-## 入门
+## 使用
 
 1. 安装`Masa.Contrib.Data.DistributedLock.Local`
 
-``` shell
+``` powershell
 dotnet add package Masa.Contrib.Data.DistributedLock.Local
 ```
 
-2. 修改类`Program`，注册分布式锁
+2. 注册锁, 修改类`Program.cs`
 
 ``` C#
 builder.Services.AddLocalDistributedLock();
@@ -24,12 +24,12 @@ builder.Services.AddLocalDistributedLock();
 3. 使用锁
 
 ``` C#
-IDistributedLock distributedLock;//从DI获取`IDistributedLock`
+IDistributedLock distributedLock; //从DI获取`IDistributedLock`
 using (var lockObj = distributedLock.TryGet("Replace Your Lock Name"))
 {
     if (lockObj != null)
     {
-        // todo: The code that needs to be executed after acquiring the distributed lock
+        // todo: 获取分布式锁后需要执行的代码
     }
 }
 ```
