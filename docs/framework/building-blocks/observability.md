@@ -103,7 +103,7 @@ builder.Services.AddMasaTracing(builder =>
 });
 ```
 
-`resourceBuilder`创建参考Logs，由于在ASP.NET Core 6.0中，[基于`SignalR`的长链接，在链路处理上存在无法区分链路的问题](https://github.com/dotnet/aspnetcore/issues/29846)，当前我们采用了忽略长链接的链路，后续官方版本升级时，我们也会跟进和修正该问题。
+`resourceBuilder`创建参考Logs，由于在.NET 6中，[基于`SignalR`的长链接，在链路处理上存在无法区分链路的问题](https://github.com/dotnet/aspnetcore/issues/29846)，当前我们采用了忽略长链接的链路，后续官方版本升级时，我们也会跟进和修正该问题。
 
 #### Metrics
 
