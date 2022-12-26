@@ -1,11 +1,11 @@
 ---
-title: Prometheus Http API 客户端实现
+title: Prometheus HTTP API 客户端实现
 date: 2022/12/07
 ---
 
 ## 简介
 
-[Prometheus Http API](https://prometheus.io/docs/prometheus/latest/querying/api/)的功能实现，目前只支持了用到的部分API，详见[实现功能](#实现功能)。
+[Prometheus HTTP API](https://prometheus.io/docs/prometheus/latest/querying/api/)的功能实现，目前只支持了用到的部分API，详见[实现功能](#实现功能)。
 
 ## 实现功能
 

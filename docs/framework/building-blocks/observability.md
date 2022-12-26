@@ -88,8 +88,10 @@ builder.Services.AddMasaTracing(builder =>
     var resourceBuilder = ResourceBuilder.CreateDefault();
     ....
 
-    //blazor应用和API应用在链路的过滤条件上稍微有些区别，两者都会过滤js、css、image、icon和字体资源文件以及/swagger(API文档)和/healthz(服务健康检查)两个资源，
-    //blazor额外过滤以`/_blazor`、`/_content`和`/negotiate`开始的请求
+    /* blazor应用和API应用在链路的过滤条件上稍微有些区别，
+     * 两者都会过滤js、css、image、icon和字体资源文件以及/swagger(API文档)和/healthz(服务健康检查)两个资源，
+     * blazor额外过滤以/_blazor、/_content和/negotiate开始的请求
+     */
     if (isBlazor)
         builder.AspNetCoreInstrumentationOptions.AppendBlazorFilter(builder);
     else
@@ -115,8 +117,7 @@ builder.Services.AddMasaMetrics(builder =>
 
     builder.SetResourceBuilder(resourceBuilder);    
     builder.AddRuntimeMetrics();
-    builder.AddOtlpExporter();
-    
+    builder.AddOtlpExporter();    
 });
 ```
 
@@ -134,7 +135,7 @@ dotnet add package Masa.Contrib.StackSdks.Tsc.Elasticsearch
 
 ### Logs查询
 
-1. `Task<PaginatedListBase<LogResponseDto>> ListAsync(BaseRequestDto query)`：日志列表分页查询，采用`Elasticsearch`的默认分页方式读取，最多返回前10000条，原因详见[Paginate search result](https://www.elastic.co/guide/en/elasticsearch/reference/current/paginate-search-results.html)；
+1. `Task<PaginatedListBase<LogResponseDto>> ListAsync(BaseRequestDto query)`：日志列表分页查询，采用`Elasticsearch`的默认分页方式读取，返回数据最多不超过10000条，原因详见[Paginate search result](https://www.elastic.co/guide/en/elasticsearch/reference/current/paginate-search-results.html)；
 2. `Task<IEnumerable<MappingResponseDto>> GetMappingAsync()`：日志结构映射mapping查询，用来作为自定义查询的条件；
 3. `Task<object> AggregateAsync(SimpleAggregateRequestDto query)`：日志聚合统计功能，当前版本限于`Elasticsearch`，目前实现了几种简单的统计。
 
@@ -163,7 +164,7 @@ var query = new BaseRequestDto
 
 var result = await _logService.ListAsync(query);
 ```
-该示例展示了查询日志列表，请求类`BaseRequestDto`包含了`TraceId`（链路id全匹配）、`Service`（服务名称全匹配）、`Instance`（服务实例全匹配）、`Endpoint`（服务类型为http服务时，请求的url路径全匹配）、`Start`（开始时间）、`End`（结束时间）和`Keyword`（全文模糊匹配）几个通用查询，如果需要更多的查询条件，可以使用 `Conditions` 和 `RawQuery` （Elasticsearch的原始查询条件json）添加更多过滤条件。
+该示例展示了查询日志列表，请求类`BaseRequestDto`包含了`TraceId`（链路id全匹配）、`Service`（服务名称全匹配）、`Instance`（服务实例全匹配）、`Endpoint`（服务类型为http服务时，请求的url路径全匹配）、`Start`（开始时间）、`End`（结束时间）和`Keyword`（全文模糊匹配）几个通用查询，如果需要更多的查询条件，可以使用 `Conditions` 和 `RawQuery` （json格式的Elasticsearch的原始查询条件）添加更多过滤条件。
     
 3. 聚合统计
 
@@ -189,4 +190,4 @@ var result = await _logService.AggregateAsync(query);
 
 ### Metrics查询
 
-目前采用的标准[`Http API`](../utils/data/prometheus.md)。
+目前采用的标准[`HTTP API`](../utils/data/prometheus.md)。

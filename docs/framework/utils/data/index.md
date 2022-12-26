@@ -10,4 +10,4 @@ date: 2022/12/06
 ## 功能
 
 * [Masa.Utils.Data.Elasticsearch](https://www.nuget.org/packages/Masa.Utils.Data.Elasticsearch): 提供[`Elasticsearch`](https://github.com/elastic/elasticsearch)的扩展, [查看详细](./elasticsearch)
-* [Masa.Utils.Data.Prometheus](https://www.nuget.org/packages/Masa.Utils.Data.Prometheus): 提供[`Prometheus`](https://github.com/prometheus/prometheus)的扩展, [查看详细]()
+* [Masa.Utils.Data.Prometheus](https://www.nuget.org/packages/Masa.Utils.Data.Prometheus): 提供[`Prometheus`](https://prometheus.io/docs/prometheus/latest/querying/api/)的HTTP API 实现, [查看详细](./prometheus)
