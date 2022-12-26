@@ -11,10 +11,10 @@ date: 2022/12/14
 
 * [`String`类型扩展](#string)
 * [`Type`类型扩展](#type)
-* [`object`类型扩展](#object)
+* [`Object`类型扩展](#object)
 * [`MethodInfo`类型扩展](#methodinfo)
 * [`JsonSerializerOptions`类型扩展](#json)
-* [`byte数组扩展`](#byte)
+* [`Byte数组扩展`](#byte)
 * [`Stream扩展`](#stream)
 * [常用工具类](#tools)
     * [特性帮助类](#attribute)
@@ -41,7 +41,7 @@ date: 2022/12/14
 * IsNullableType(): 是否可空类型
 * IsImplementerOfGeneric(Type genericType): 判断是否派生自泛型类, genericType必须是一个泛型类, 否则为false (例如: 得到`typeof(String).IsImplementerOfGeneric(typeof(IEquatable<>))`的结果为true)
 
-### <a id="object">`object`类型扩展</a>
+### <a id="object">`Object`类型扩展</a>
 
 * GetGenericTypeName(): 得到泛型类型名
 
@@ -53,7 +53,7 @@ date: 2022/12/14
 
 * EnableDynamicTypes(): 启用动态类型
 
-### <a id="byte">`byte数组扩展`</a>
+### <a id="byte">`Byte数组扩展`</a>
 
 * ToBase64String(): 将字节数组转换为字符串, 使用 base 64 数字编码，所以它生成的全部是 ASCII 字符. [查看详细](https://learn.microsoft.com/zh-cn/dotnet/api/system.convert.tobase64string)
 * ConvertToString(): 将字节数组转换为字符串 (就是转换成我们平常所认识的字符串, 但某些整数序列无法对应现实中的文字, 因此会出现方块或者问号) [查看详细](https://learn.microsoft.com/zh-cn/dotnet/api/system.text.encoding.getstring)
