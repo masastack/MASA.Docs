@@ -1,15 +1,12 @@
----
-title: 常见问题
-date: 2022/03/31
----
+# 常见问题
 
 ### Q：MASA.DCC是什么？
 
-A：[MASA.DCC产品介绍](introduce.md)
+A：[MASA.DCC产品介绍](stack/dcc/introduce)
 
 ### Q：我要怎么接入MASA.DCC?
 
-A：请参考[MASA.DCC使用指南](use-guide.md)和[SDK接入示例](sdk-instance.md)
+A：请参考[MASA.DCC使用指南](stack/dcc/get-started)和[SDK接入示例](stack/dcc/sdk-instance)
 
 ### Q：团队页面为什么没有项目数据？
 

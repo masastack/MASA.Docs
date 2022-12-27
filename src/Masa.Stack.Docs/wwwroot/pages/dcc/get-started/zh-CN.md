@@ -8,11 +8,11 @@
 
    1. 点击全景页面项目下的应用进入配置详情页
 
-      ![](\stack\dcc\overview.png)
+      ![](http://cdn.masastack.com/stack/doc/dcc/overview.png)
 
    2. 点击新增
 
-      ![](\stack\dcc\config.png)
+      ![](http://cdn.masastack.com/stack/doc/dcc/config.png)
 
    3. 输入配置对象信息
 
@@ -21,17 +21,17 @@
       - 是否加密（如果选择加密则该配置的内容会被加密存储，且只有管理员能看的到内容，获取配置时也需要解密）
       - 选择集群（该配置对象会被添加到哪些环境集群中）
 
-      ![](\stack\dcc\add-config-object.png)
+      ![](http://cdn.masastack.com/stack/doc/dcc/add-config-object.png)
 
 2. 修改配置内容
 
    1. 点击配置对象的编辑图标
 
-      ![](\stack\dcc\edit-config.png)
+      ![](http://cdn.masastack.com/stack/doc/dcc/edit-config.png)
 
    2. 把编辑好的内容填写进去并进行保存
 
-      ![](\stack\dcc\save-config.png)
+      ![](http://cdn.masastack.com/stack/doc/dcc/save-config.png)
 
 3. 发布配置
 
@@ -39,7 +39,7 @@
 
    1. 点击发布图标
 
-      ![](\stack\dcc\release.png)
+      ![](http://cdn.masastack.com/stack/doc/dcc/release.png)
 
    2. 填写发布信息并保存
 
@@ -47,7 +47,7 @@
 
       2. 描述（非必填）
 
-         ![](\stack\dcc\save-release.png)
+         ![](http://cdn.masastack.com/stack/doc/dcc/save-release.png)
 
 ### 标签管理
 
@@ -55,7 +55,7 @@
 
    1. 点击添加按钮
 
-      ![](\stack\dcc\label.png)
+      ![](http://cdn.masastack.com/stack/doc/dcc/label.png)
 
    2. 填写标签信息
 
@@ -65,5 +65,5 @@
          1. 标签值名称
          2. 标签值代码
 
-      ![](\stack\dcc\add-label.png)
+      ![](http://cdn.masastack.com/stack/doc/dcc/add-label.png)
 
