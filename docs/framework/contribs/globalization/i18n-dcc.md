@@ -1,18 +1,18 @@
 ---
-title: 国际化 - 分布式配置能力 (Dcc)
-date: 2022/12/23
+title: 国际化 - 分布式配置能力 (DCC)
+date: 2022/12/27
 ---
 
 ## 概念
 
-`I18n`让程序具备了支持多种语言能力, 但它必须配置在本地配置文件中, 它具有一定的局限性, 对于后期管理资源文件不太友好, 因此我们打通了与[`分布式配置中心-Dcc`](http://localhost:8080/stack/dcc/guide/introduce.html)的协作, 我们可以将多语言的资源内容在`Dcc`上进行配置, 后期管理资源文件可以在`Dcc`的界面上进行操作, 并且它是支持热更新的
+`I18n`让程序具备了支持多种语言能力, 但它必须配置在本地配置文件中, 具有一定的局限性, 对于后期管理资源文件不太友好, 因此我们打通了与[`分布式配置中心-DCC`](http://localhost:8080/stack/dcc/guide/introduce.html)的协作, 我们可以将多语言的资源内容在`DCC`上进行配置, 后期管理资源文件可以在`DCC`的界面上进行操作, 并且它是支持热更新的
 
 ## 使用
 
 1. 以`ASP.NET Core`项目为例, 安装`Masa.Contrib.Globalization.I18n.AspNetCore`、`Masa.Contrib.Globalization.I18n.Dcc`
 
 ``` powershell
-dotnet add package Masa.Contrib.Globalization.I18n.AspNetCore (通过中间件提供解析当前请求所属区域的能力)
+dotnet add package Masa.Contrib.Globalization.I18n.AspNetCore (通过中间件提供解析设置当前线程区域性的能力)
 dotnet add package Masa.Contrib.Globalization.I18n.Dcc (通过分布式配置中心使得`I18n`支持远程配置的能力)
 ```
 
@@ -59,7 +59,7 @@ dotnet add package Masa.Contrib.Globalization.I18n.Dcc (通过分布式配置中
 ]
 ```
 
-3. 注册`MasaConfiguration `, 并使用`分布式配置中心 (Dcc)`提供的远程配置能力
+3. 注册`MasaConfiguration `, 并使用`分布式配置中心 (DCC)`提供的远程配置能力
 
 ``` C#
 builder.Services.AddMasaConfiguration(configurationBuilder =>
@@ -68,7 +68,7 @@ builder.Services.AddMasaConfiguration(configurationBuilder =>
 });
 ```
 
-4. 配置`Dcc`所需信息, 修改`appsettings.json`
+4. 配置`DCC`所需信息, 修改`appsettings.json`
 
 ``` json
 {
@@ -96,4 +96,4 @@ builder.Services.AddMasaConfiguration(configurationBuilder =>
 builder.Services.AddI18n(null, options => options.UseDcc());
 ```
 
-通过以上配置, 我们将使用与`Dcc`配置中默认AppId, 并读取名称为`Culture.{语言}`的配置对象, 以上述例子来讲, 由于我们支持的语言为`zh-CN`、`en-US`, 因此我们将默认使用与Dcc配置一致的默认AppId下的`Culture.zh-CN`、`Culture.en-Us`两个配置对象的值, 后续如果需要管理资源的话, 对应修改它们的值即可, 无需重启应用, 因为它们是支持热更新的
+通过以上配置, 我们将使用与`DCC`配置中默认AppId, 并读取名称为`Culture.{语言}`的配置对象, 以上述例子来讲, 由于我们支持的语言为`zh-CN`、`en-US`, 因此我们将默认使用与DCC配置一致的默认AppId下的`Culture.zh-CN`、`Culture.en-Us`两个配置对象的值, 后续如果需要管理资源的话, 对应修改它们的值即可, 无需重启应用, 因为它们是支持热更新的 [如何管理对象](https://docs.masastack.com/stack/dcc/guide/quick-get-started/use-guide.html)

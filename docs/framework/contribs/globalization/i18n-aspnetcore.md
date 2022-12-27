@@ -1,11 +1,11 @@
 ---
 title: 国际化 - i18n
-date: 2022/12/23
+date: 2022/12/27
 ---
 
 ## 概念
 
-[`Masa.Contrib.Globalization.I18n.AspNetCore`](https://www.nuget.org/packages/Masa.Contrib.Globalization.I18n.AspNetCore)为`I18n`提供了解析当前请求属于哪个区域的能力, 对于`ASP.NET Core Web`项目来说, 只需要使用它即可, 它属于微软提供[本地化的中间件](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/localization#localization-middleware)的能力, 它默认支持以下三种方式进行语言切换
+[`Masa.Contrib.Globalization.I18n.AspNetCore`](https://www.nuget.org/packages/Masa.Contrib.Globalization.I18n.AspNetCore)为`I18n`协助解析设置当前线程的区域性, 对于`ASP.NET Core Web`项目来说, 只需要使用它即可, 它属于微软提供[本地化的中间件](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/localization#localization-middleware)的能力, 它默认支持以下三种方式进行语言切换
 
 * URL 参数 方式： ?culture=en-US，此方式优先级最高，格式为：culture=区域码
 * Cookies 方式：cookie 格式为 c=%LANGCODE%|uic=%LANGCODE%，其中 c 是 Culture，uic 是 UICulture, 例如:
@@ -18,6 +18,8 @@ c=en-UK|uic=en-US
 
 语言优先级: URL 参数 方式 > Cookies方式 > 客户端语言 > 默认语言
 
+> 如果当前请求的语言是不支持的, 则使用默认语言
+
 ## 使用
 
 与[`Masa.Contrib.Globalization.I18n`](./i18n.md)相比, 它仅仅是增加了使用`I18n`中间件的操作, 完整代码如下
@@ -27,8 +29,6 @@ c=en-UK|uic=en-US
 ``` powershell
 dotnet add package Masa.Contrib.Globalization.I18n.AspNetCore
 ```
-
-> 如果是非`Web`项目, 则仅安装`Masa.Contrib.Globalization.I18n`即可, `Masa.Contrib.Globalization.I18n.AspNetCore`对项目是毫无作用的
 
 2. 添加多语言资源文件, 文件夹结构如下:
 
@@ -82,7 +82,7 @@ builder.Services.AddI18n();
 4. 使用`I18N`
 
 ``` C#
-app.UseI18n();//启用本地化中间件, 解析并设置当前请求的区域信息
+app.UseI18n();//启用中间件, 完成对请求的解析并为当前请求设置区域
 ```
 
 5. 使用`I18n`
@@ -90,6 +90,21 @@ app.UseI18n();//启用本地化中间件, 解析并设置当前请求的区域�
 ``` C#
 app.Map("/test", (string key) => I18n.T(key));
 ```
+
+## 高阶用法
+
+### 默认语言
+
+默认语言有两种配置方式, 它们分别是:
+
+* 手动指定默认语言
+  * 通过`app.UseI18n("{Replace-Your-DefaultCulture}")`
+* 约定配置
+  * `supportedCultures.json`文件中的第一个语言
+
+它们的优先级是:
+
+手动指定默认语言 > 约定配置
 
 ## 其它
 
