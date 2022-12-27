@@ -6,19 +6,19 @@ MASA.DCC是一个分布式配置中心系统。随着系统越做越大，服务
 
 ### Environment（环境）
 
-参考：[MASA.PM环境介绍](../../../pm/guide/quick-get-started/basic-concepts.md)
+参考：[MASA.PM环境介绍](stack/pm/basic-concepts)
 
 ### Cluster（集群）
 
-参考：[MASA.PM集群介绍](../../../pm/guide/quick-get-started/basic-concepts.md)
+参考：[MASA.PM集群介绍](stack/pm/basic-concepts)
 
 ### Project（项目）
 
-参考：[MASA.PM项目介绍](../../../pm/guide/quick-get-started/basic-concepts.md)
+参考：[MASA.PM项目介绍](stack/pm/basic-concepts)
 
 ### App（应用）
 
-参考：[MASA.PM应用介绍](../../../pm/guide/quick-get-started/basic-concepts.md)
+参考：[MASA.PM应用介绍](stack/pm/basic-concepts)
 
 ### Config Object（配置对象）
 

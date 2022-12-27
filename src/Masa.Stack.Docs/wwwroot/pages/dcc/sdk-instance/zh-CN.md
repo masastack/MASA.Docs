@@ -9,7 +9,7 @@ MASA.DCC提供了两个SDK，一个是`Masa.Contrib.Configuration.ConfigurationA
 
 ### 配置管理用例
 
-通过DCC扩展IConfiguration管理远程配置的能力。而这不单依赖于DCC的SDK，还需要依赖[MasaConfiguration]()。MasaConfiguration把配置分为本地节点和远程节点，而DCC则对应的就是远程节点
+通过DCC扩展IConfiguration管理远程配置的能力。而这不单依赖于DCC的SDK，还需要依赖MasaConfiguration。MasaConfiguration把配置分为本地节点和远程节点，而DCC就是远程节点。
 
 ```
 IConfiguration
