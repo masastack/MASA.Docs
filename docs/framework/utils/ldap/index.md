@@ -11,28 +11,22 @@ date: 2022/12/20
 
 * [Masa.Utils.Ldap.Novell](https://www.nuget.org/packages/Masa.Utils.Ldap.Novell): 基于[Novell.Directory.Ldap.NETStandard](https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard)的实现, 适用于任何LDAP协议兼容的目录服务器 (包括 Microsoft Active Directory) [查看详细](/framework/utils/ldap/novell)
 
-<!-- ## 功能
+## 功能介绍
 
+### ILdapFactory
 
+工厂类，只提供一个`CreateProvider`方法返回`ILdapProvider`类型。
 
-## 源码解读
+### ILdapProvider
 
-## ILdapFactory
+Ldap功能提供者，可以直接通过Ioc获得也可以通过`ILdapFactory`创建返回, 提供以下功能：
 
-
-
-### ILdapProvider 
-
-Ldap功能提供者, 提供以下功能
-
-* GetGroupAsync(string groupName):
-* GetUsersInGroupAsync(string groupName):
-* GetUsersByEmailAddressAsync(string emailAddress):
-* GetUserByUserNameAsync(string userName):
-* GetAllUserAsync():
-* GetPagingUserAsync(int pageSize):
-* AddUserAsync(LdapUser user, string password):
-* DeleteUserAsync(string distinguishedName):
-* AuthenticateAsync(string distinguishedName, string password):  -->
-
-文档正在完善中...
+* GetGroupAsync(string groupName):根据分组名获取分组
+* GetUsersInGroupAsync(string groupName):根据分组名获取分组下用户
+* GetUsersByEmailAddressAsync(string emailAddress):根据邮件获取用户
+* GetUserByUserNameAsync(string userName):根据用户名获取用户
+* GetAllUserAsync():获取所有用户
+* GetPagingUserAsync(int pageSize):分页获取用户
+* AddUserAsync(LdapUser user, string password):添加域用户并指定密码
+* DeleteUserAsync(string distinguishedName):根据专有名删除用户
+* AuthenticateAsync(string distinguishedName, string password):根据专有名验证密码是否正确
