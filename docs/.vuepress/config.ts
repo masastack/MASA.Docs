@@ -145,12 +145,6 @@ export default defineUserConfig<DefaultThemeOptions>({
                     ]
                 },
                 {
-                    text: '故障排查',
-                    children: [
-                        '/framework/troubleshooting',
-                    ]
-                },
-                {
                     text: '参考',
                     children: [
                         '/framework/reference',

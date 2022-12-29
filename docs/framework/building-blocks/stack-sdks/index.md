@@ -15,10 +15,10 @@ date: 2022/07/01
 
 * [项目管理](/stack/pm/guide/sdk-instance): 简称: PM，全称Project Management，提供项目管理能力
 
-* [故障排查控制台](/framework/building-blocks/stack-sdks/tsc): 简称: TSC，全称: Troubleshooting Console，提供日志以及指标的交互
+* [故障排查控制台](/stack/tsc/guide/sdk-instance): 简称: TSC，全称: Troubleshooting Console，提供日志以及指标的交互
 
-* [任务调度中心](/framework/building-blocks/stack-sdks/scheduler): 全称: Scheduler，提供任务调度能力
+* [任务调度中心](/stack/scheduler/guide/sdk-instance): 全称: Scheduler，提供任务调度能力
 
-* [消息中心](/framework/building-blocks/stack-sdks/mc): 简称: MC，全称: Message Center，提供消息管理能力
+* [消息中心](/stack/mc/guide/sdk-instance): 简称: MC，全称: Message Center，提供消息管理能力
 
-* [告警管理](/framework/building-blocks/stack-sdks/alert): 全称: Alert，提供告警管理能力
+* [告警管理](/stack/alert/guide/introduce): 全称: Alert，提供告警管理能力
