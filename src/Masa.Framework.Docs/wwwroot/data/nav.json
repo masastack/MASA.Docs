@@ -1,3 +1,21 @@
-{
-
-}
+[
+  {
+    "title": "building-blocks",
+    "items": [
+      "caching"
+    ]
+  },
+  {
+    "title": "concepts",
+    "items": [
+      "basic-concepts",
+      "building-blocks-concept",
+      "contrib-concept",
+      "modern-application",
+      "observability",
+      "overview",
+      "security",
+      "terminology"
+    ]
+  }
+]
