@@ -42,4 +42,4 @@
 ### OpenTelemetry
 [`OpenTelemetry`](https://opentelemetry.io/)，也简称为`OTel`，是一个供应商中立、开源的可观测性框架，用于检测、生成、收集和导出遥测数据，如 `Traces`、`Metrics`和`Logs`。作为一项行业标准，它受到许多供应商的原生支持。
 
-![OpenTelemetry](/framework/otel.png)
+![OpenTelemetry](https://s2.loli.net/2022/12/30/UXOLRF91NloYfZS.png)

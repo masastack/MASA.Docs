@@ -6,7 +6,7 @@
 
 <iframe width="1120" height="630" src="//player.bilibili.com/player.html?aid=343814267&bvid=BV1h94y1D7tw&cid=783315594&page=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## [现代应用](/framework/concepts/modern-application)
+## 现代应用
 
 是现代技术、体系架构、软件交付实践和操作流程的组合，可以更快、更频繁、更一致、更安全地交付价值，最终让我们聚焦业务，让变化更简单
 
@@ -14,7 +14,7 @@
 
 通用的，高度可配置的，可重用的组件，提供分布式原语作为现成的能力。我们的灵感来自于[Mecha](https://skyao.io/talk/202004-mecha-mesh-through-to-the-end)，我们提炼出来了以下几点：
 
-![Mecha](/framework/mecha.png)
+![mecha.png](https://s2.loli.net/2022/12/30/KPBp7DE16sif2Lv.png)
 
 ## 一站式
 
@@ -28,7 +28,7 @@
 
 不魔改，降低学习成本
 
-## [可观测性](/framework/concepts/observability)
+## 可观测性
 
 通过收集日志、指标以及`Dapr`可观测性能力，提供了对应用程序的深入了解，便于.NET 诊断，例如追踪和度量。
 

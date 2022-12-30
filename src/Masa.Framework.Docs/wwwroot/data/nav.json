@@ -1,21 +1,60 @@
 [
   {
-    "title": "building-blocks",
+    "title": "concepts",
     "items": [
-      "caching"
+      "overview",
+      "building-blocks",
+      "observability",
+      "security",
+      "modern-application",
+      "terminology",
+      "faq"
     ]
   },
   {
-    "title": "concepts",
+    "title": "building-blocks",
     "items": [
-      "basic-concepts",
-      "building-blocks-concept",
-      "contrib-concept",
-      "modern-application",
-      "observability",
-      "overview",
-      "security",
-      "terminology"
+      {
+        "title": "identity",
+        "items": [
+          "overview",
+          "web",
+          "blazor-server",
+          "blazor-wasm"
+        ]
+      },
+      {
+        "title": "distributed-lock",
+        "items": [
+          "lock-local",
+          "medallion",
+          "medallion-azure",
+          "medallion-file-system",
+          "medallion-mysql",
+          "medallion-oracle",
+          "medallion-postgre-sql",
+          "medallion-redis",
+          "medallion-sql-server",
+          "medallion-wait-handles",
+          "medallion-zoo-keeper"
+        ]
+      },
+      {
+        "title": "mapping",
+        "items": [
+          "overview",
+          "mapster"
+        ]
+      },
+      {
+        "title": "dispatcher",
+        "items": [
+          "overview",
+          "local-event",
+          "integration-event"
+        ]
+      },
+      "caching"
     ]
   }
 ]
