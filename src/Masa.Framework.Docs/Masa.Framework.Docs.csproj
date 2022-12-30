@@ -15,4 +15,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\pages\concepts\contrib-concept\zh-CN.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\pages\building-blocks\identity\web\" />
+  </ItemGroup>
+
 </Project>
