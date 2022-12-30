@@ -4,7 +4,7 @@
 
 以下是`Framework`提供的构建块能力:
 
-![能力](/framework/ability.png)
+![能力](https://s2.loli.net/2022/12/30/zjD3RbHIuNkrQKW.png)
 
 |  能力   | 说明  |    |
 | :----| :---- |:---- |
