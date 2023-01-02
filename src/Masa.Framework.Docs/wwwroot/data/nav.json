@@ -54,6 +54,15 @@
           "integration-event"
         ]
       },
+      "minimal-apis",
+      {
+        "title": "caller",
+        "items": [
+          "overview",
+          "httpclient",
+          "daprclient"
+        ]
+      },
       "caching"
     ]
   }
