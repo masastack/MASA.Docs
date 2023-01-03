@@ -32,10 +32,14 @@ date: 2022/11/15
 
 服务调用抽象, 它提供了以下能力, 其生命周期为`Scoped`
 
+::: tip 提示
+autoThrowException为true会检查HttpStatus状态码并抛出对应的`Exception`, 部分方法的返回类型是指定类型, 且没有`autoThrowException`参数, 那么它们会自动检查HttpStatus状态码并抛出对应的`Exception` (gRPC请求除外)
+:::
+
 * ConfigRequestMessage: 提供设置当前Caller默认的`HttpRequestMessage`
 * SendAsync: 提供原始的Send方法, 需要自行提供`HttpRequestMessage`类型的请求信息
 * SendGrpcAsync: 提供基于gRPC的请求
-* GetStringAsync: 提供`Get`请求并获取返回类型为`String`的结果
+* GetStringAsync: 提供`Get`请求并获取返回类型为`string`的结果
 * GetByteArrayAsync: 提供`Get`请求并获取返回类型为`byte[]`的结果
 * GetStreamAsync: 提供`Get`请求并获取返回类型为`Stream`的结果
 * GetAsync: 提供`Get`请求并获取返回类型为`指定类型`的结果
@@ -55,6 +59,12 @@ date: 2022/11/15
 
 请求消息抽象, 提供了处理`HttpRequestMessage`的请求消息抽象, 默认实现: [`JsonRequestMessage`](https://github.com/masastack/MASA.Framework/blob/0.7.0/src/Contrib/Service/Caller/Masa.Contrib.Service.Caller/JsonRequestMessage.cs)
 
+* ProcessHttpRequestMessageAsync(HttpRequestMessage requestMessage): 处理请求消息默认程序 (不支持自定义请求参数)
+* ProcessHttpRequestMessageAsync\<TRequest\>(HttpRequestMessage requestMessage, TRequest data): 支持自定义请求参数的处理请求消息默认程序
+
 ### IResponseMessage
 
 响应消息抽象, 提供了处理`HttpResponseMessage`的响应消息抽象, 默认实现: [`JsonResponseMessage`](https://github.com/masastack/MASA.Framework/blob/0.7.0/src/Contrib/Service/Caller/Masa.Contrib.Service.Caller/JsonResponseMessage.cs)
+
+* ProcessResponseAsync\<TResponse\>(HttpResponseMessage response, CancellationToken cancellationToken = default): 针对指定响应类型的处理程序
+* ProcessResponseAsync(HttpResponseMessage response, CancellationToken cancellationToken = default): 针对未指定响应自定义类型的处理程序

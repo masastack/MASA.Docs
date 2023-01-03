@@ -9,13 +9,19 @@ date: 2022/07/01
 
 ## 使用
 
-1. 注册`MasaConfiguration`
+1. 安装`Masa.Contrib.Configuration`
+
+``` powershell
+dotnet add package Masa.Contrib.Configuration
+```
+
+2. 注册`MasaConfiguration`
 
 ``` C#
 builder.AddMasaConfiguration();
 ```
 
-2. 新增配置信息，修改文件`appsettings.json`
+3. 新增配置信息，修改文件`appsettings.json`
 
  ``` json
 {
@@ -27,7 +33,7 @@ builder.AddMasaConfiguration();
 }
 ```
 
-3. 新建类`AppConfig`
+4. 新建类`AppConfig`
 
 ``` C#
 /// <summary>
@@ -44,7 +50,7 @@ public class ConnectionStrings
 }
 ```
 
-4. 获取`AppConfig`配置信息
+5. 获取`AppConfig`配置信息
 
 ``` C#
 // 通过DI获取到IOptions<AppConfig> options;
@@ -72,3 +78,15 @@ public class AppConfig : LocalMasaConfigurationOptions
 ```
 
 > 手动映射可[查看](../../building-blocks/configuration/index.md#手动映射)
+
+## 特殊情况
+
+`Configuration`默认提供源/程序:
+
+* [`文件配置提供源/程序`](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers#file-configuration-provider)
+* [`环境变量配置提供源/程序`](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers#environment-variable-configuration-provider)
+* [`命令行配置提供源/程序`](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers#command-line-configuration-provider)
+* [`Key-per-file 配置提供源/程序`](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers#key-per-file-configuration-provider)
+* [`内存配置提供源/程序`](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers#memory-configuration-provider)
+
+其中[`环境变量配置提供源/程序`](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers#environment-variable-configuration-provider)、[`内存配置提供源/程序`](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers#memory-configuration-provider)、[`命令行配置提供源/程序`](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers#command-line-configuration-provider)、[`Key-per-file 配置提供源/程序`](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/configuration-providers#key-per-file-configuration-provider)默认将不会被迁移到新的目录结构

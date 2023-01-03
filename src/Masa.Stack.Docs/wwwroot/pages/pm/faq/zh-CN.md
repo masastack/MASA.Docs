@@ -2,7 +2,7 @@
 
 ### Q：MASA.PM是什么？
 
-A：[MASA.PM产品介绍](introduce.md)
+A：[MASA.PM产品介绍](stack/pm/introduce)
 
 ### Q：团队页面为什么没有项目数据？
 

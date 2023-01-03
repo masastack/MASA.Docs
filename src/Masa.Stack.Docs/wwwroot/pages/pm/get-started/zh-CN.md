@@ -2,13 +2,13 @@
 
 1. 初始化
 
-   1. 打开MASA.PM，第一步需要您初始化系统，默认会为您创建三个环境（Development、Staging、Production）一个集群（Default）并会初始化MASA.Stack的一些项目和应用。
+   1. 在使用 PM 时，第一步需要您初始化系统，默认会为您创建三个环境（Development、Staging、Production）一个集群（Default）并会初始化MASA.Stack的一些项目和应用。
 
 2. 创建环境
 
    1. 点击左侧“新增环境“
 
-      ![](\stack\pm\overview.jpg)
+      ![](http://cdn.masastack.com/stack/doc/pm/overview.jpg)
 
    2. 输入环境信息
 
@@ -16,7 +16,7 @@
       - 关联集群（多选）
       - 环境描述
 
-      ![](\stack\pm\environment.jpg)
+      ![](http://cdn.masastack.com/stack/doc/pm/environment.jpg)
 
 3. 创建集群
 
@@ -28,7 +28,7 @@
       - 关联环境（多选）
       - 集群描述
 
-      ![](\stack\pm\cluster.jpg)
+      ![](http://cdn.masastack.com/stack/doc/pm/cluster.jpg)
 
 4. 创建项目
 
@@ -43,7 +43,7 @@
       - 环境/集群（多选）
       - 项目描述
 
-      ![](\stack\pm\project.jpg)
+      ![](http://cdn.masastack.com/stack/doc/pm/project.jpg)
 
 5. 创建应用
 
@@ -53,4 +53,4 @@
       - 应用类型（Service、UI、Job）
       - 环境/集群（项目的中的环境/集群），多选
       
-      ![](\stack\pm\app.png)
+      ![](http://cdn.masastack.com/stack/doc/pm/app.jpg)

@@ -7,11 +7,11 @@ date: 2022/08/19
 
 1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.MySql`
 
-``` shell
+``` powershell
 dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.MySql
 ```
 
-1. 修改类`Program`
+2. 修改类`Program`
 
 ``` C#
 builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseMySQL("Server=localhost;Database=identity;Uid=myUsername;Pwd=P@ssw0rd"));

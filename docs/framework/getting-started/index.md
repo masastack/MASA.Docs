@@ -13,7 +13,7 @@ date: 2022/07/26
 
 1. 新建ASP.NET Core 空项目`Assignment.HelloWorld.Services`，并安装`Masa.Contrib.Service.MinimalAPIs`
 
-``` shell
+``` powershell
 dotnet new web -o Assignment.HelloWorld.Services
 cd Assignment.HelloWorld.Services
 
@@ -64,7 +64,7 @@ public class WeatherForecastService : ServiceBase
 
 1. 新建ASP.NET Core 空项目`Assignment.HelloWorld.Clients`，并安装`Masa.Contrib.Service.Caller`、`Masa.Contrib.Service.Caller.HttpClient`
 
-``` shell
+``` powershell
 dotnet new web -o Assignment.HelloWorld.Clients
 cd Assignment.HelloWorld.Clients
 

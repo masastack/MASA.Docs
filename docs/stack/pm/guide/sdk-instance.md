@@ -22,8 +22,8 @@ IPmClient
 
 ### 用例
 
-```
-Install-Package Masa.Contrib.StackSdks.Pm
+``` powershell
+dotnet add package Masa.Contrib.StackSdks.Pm
 ```
 
 ```c#
