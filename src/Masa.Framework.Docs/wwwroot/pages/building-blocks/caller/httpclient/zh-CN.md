@@ -16,7 +16,7 @@ dotnet add package Masa.Contrib.Service.Caller.HttpClient
 
 1. 注册`Caller`并使用基于`HttpClient`的Caller实现, 修改`Program.cs`
 
-``` C#
+```csharp
 builder.Services.AddCaller(options =>
 {
     //name可以是任意字符串, 但不可重复添加两个相同 name 的Caller实现
@@ -32,7 +32,7 @@ builder.Services.AddCaller(options =>
 
 例如: 服务端的接口请求地址为: $"http://localhost:5000/{Replace-With-Your-Prefix}/Hello?Name={name}", 则
 
-``` C#
+```csharp
 app.MapGet("/Test/User/Hello", ([FromServices] ICallerFactory callerFactory, string name)
 {
     var caller = callerFactory.Create($"{Replace-With-Your-Name}");
@@ -48,13 +48,13 @@ app.MapGet("/Test/User/Hello", ([FromServices] ICallerFactory callerFactory, str
 
 1. 注册`Caller`, 并自动注册`Caller`的实现, 修改`Program.cs`
 
-``` C#
+```csharp
 builder.Services.AddCaller();
 ```
 
 2. 新建类`CustomerCaller.cs`，并继承**HttpClientCallerBase**
 
-``` C#
+```csharp
 public class CustomerCaller : HttpClientCallerBase
 {
     protected override string BaseAddress { get; set; } = "http://localhost:5000";
@@ -68,7 +68,7 @@ public class CustomerCaller : HttpClientCallerBase
 
 3. 使用自定义`Caller`, 并调用`HelloAsync`方法, 修改`Program.cs`
 
-``` C#
+```csharp
 app.MapGet("/Test/User/Hello", ([FromServices] CustomerCaller caller, string name)
     => caller.HelloAsync(name);
 ```
@@ -80,14 +80,14 @@ app.MapGet("/Test/User/Hello", ([FromServices] CustomerCaller caller, string nam
 4. 如果`自定义Caller` (继承HttpClientCallerBase的类)与`AddCaller`方法不在一个程序集, 可能会出现自动注册自定义Caller失败的情况, 可通过下面提供的任一方案解决:
 
 ① 指定Assembly集合 (仅对当前Caller有效)
-``` C#
+```csharp
 var assemblies = typeof({Replace-With-Your-CustomerCaller}).Assembly;
 builder.Services.AddCaller(assemblies);
 ```
 
 ② 设置全局Assembly集合 (影响全局Assembly默认配置, 设置错误的Assembly集合会导致其它使用全局Assembly的服务出现错误)
 
-``` C#
+```csharp
 var assemblies = typeof({Replace-With-Your-CustomerCaller}).Assembly;
 MasaApp.SetAssemblies(assemblies);
 builder.Services.AddCaller();

@@ -12,13 +12,13 @@ dotnet add package Masa.Contrib.Data.DistributedLock.Local
 
 2. 注册锁, 修改类`Program.cs`
 
-``` C#
+```csharp
 builder.Services.AddLocalDistributedLock();
 ```
 
 3. 使用锁
 
-``` C#
+```csharp
 IDistributedLock distributedLock; //从DI获取`IDistributedLock`
 using (var lockObj = distributedLock.TryGet("Replace Your Lock Name"))
 {

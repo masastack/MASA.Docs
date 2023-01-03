@@ -13,7 +13,7 @@
 
 ### 原生写法
 
-``` C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -61,7 +61,7 @@ dotnet add package Masa.Contrib.Service.MinimalAPIs
 
 2. 注册 Minimal APIs
 
-``` C#
+```csharp
 var app = builder.AddServices();
 ```
 
@@ -81,7 +81,7 @@ var 路由 = $"{前缀}/{版本}/{服务名(默认复数)}/{路由方法名}"
 
 :::: code-group
 ::: code-group-item 自动注册路由(推荐)
-``` C#
+```csharp
 public class UserService : ServiceBase
 {
     /// <summary>
@@ -128,7 +128,7 @@ public class UserService : ServiceBase
 ```
 :::
 ::: code-group-item 手动映射路由
-``` C#
+```csharp
 public class UserService : ServiceBase
 {
     public UserService()
@@ -186,7 +186,7 @@ public class UserService : ServiceBase
 
 #### 生成规则
 
-``` C#
+```csharp
 var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
 ```
 
@@ -313,7 +313,7 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
 
 :::: code-group
 ::: code-group-item 全局配置
-``` C#
+```csharp
 builder.AddServices(options =>
 {
     options.Prefix = "api";//自定义前缀
@@ -322,7 +322,7 @@ builder.AddServices(options =>
 ```
 :::
 ::: code-group-item 服务内配置
-``` C#
+```csharp
 public class UserService: ServiceBase
 {
     public UserService()
@@ -347,7 +347,7 @@ public class UserService: ServiceBase
 
 :::: code-group
 ::: code-group-item 自定义完整路由
-``` C#
+```csharp
 public class UserService: ServiceBase
 {
     /// <summary>
@@ -363,7 +363,7 @@ public class UserService: ServiceBase
 ```
 :::
 ::: code-group-item 自定义RouteMethodName（自定义路由方法名）
-``` C#
+```csharp
 public class UserService: ServiceBase
 {
     /// <summary>
@@ -380,7 +380,7 @@ public class UserService: ServiceBase
 ```
 :::
 ::: code-group-item 自定义请求类型
-``` C#
+```csharp
 public class UserService: ServiceBase
 {
     /// <summary>
@@ -411,7 +411,7 @@ public class UserService: ServiceBase
 
 使用`IgnoreRoute`标记的方法不再自动映射路由，方法将不能通过API被访问
 
-``` C#
+```csharp
 public class UserService: ServiceBase
 {
     [IgnoreRoute]
@@ -433,7 +433,7 @@ public class UserService: ServiceBase
 
 :::: code-group
 ::: code-group-item 方法1
-``` C#
+```csharp
 public class UserService: ServiceBase
 {
     /// <summary>
@@ -449,7 +449,7 @@ public class UserService: ServiceBase
 ```
 :::
 ::: code-group-item 方法2
-``` C#
+```csharp
 public class UserService: ServiceBase
 {
     /// <summary>
@@ -473,7 +473,7 @@ public class UserService: ServiceBase
 
 1. 我希望修改路由方法名的规则，则可以重写`ServiceBase`的`GetMethodName`，例如：移除方法前缀为`GetAll`的方法、`GetAllUser` -> `User/List/All`
 
-``` C#
+```csharp
 protected override string GetMethodName(MethodInfo methodInfo, string prefix, ServiceRouteOptions globalOptions)
 {
     var methodName = methodInfo.Name;
@@ -509,7 +509,7 @@ protected override string GetMethodName(MethodInfo methodInfo, string prefix, Se
 
 我们可以在`自定义服务`中通过配置[BaseUri](#CustomBaseUri)来自定义根地址，例如：
 
-``` C#
+```csharp
 public class UserService: ServiceBase
 {
     public UserService()
@@ -523,7 +523,7 @@ public class UserService: ServiceBase
 
 当`BaseUri`为`null`或者空时，根地址则会根据规则自动生成
 
-``` C#
+```csharp
 var BaseUri = $"{前缀}/{版本}/{服务名(默认复数)}"
 ```
 
@@ -544,7 +544,7 @@ var BaseUri = $"{前缀}/{版本}/{服务名(默认复数)}"
 
 通过`RoutePattern`特性可自定义路由方法名
 
-``` C#
+```csharp
 public class UserService: ServiceBase
 {
     /// <summary>
@@ -580,7 +580,7 @@ public class UserService: ServiceBase
 
 通过`RoutePattern`特性可自定义请求类型
 
-``` C#
+```csharp
 public class UserService: ServiceBase
 {
     /// <summary>
@@ -599,7 +599,7 @@ public class UserService: ServiceBase
 
 当方法未自定义请求类型时，我们将根据方法名前缀只能匹配请求类型，例如：
 
-``` C#
+```csharp
 public class UserService: ServiceBase
 {
     /// <summary>
@@ -623,7 +623,7 @@ public class UserService: ServiceBase
 
 :::: code-group
 ::: code-group-item 全局配置
-``` C#
+```csharp
 builder.AddServices(options =>
 {
     MapHttpMethodsForUnmatched = new[] { "Post" };//当请求类型匹配失败后，默认映射为Post请求 (当前项目范围内，除非范围配置单独指定)
@@ -631,7 +631,7 @@ builder.AddServices(options =>
 ```
 :::
 ::: code-group-item 服务内配置
-``` C#
+```csharp
 public class UserService: ServiceBase
 {
     public UserService()

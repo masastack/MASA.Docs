@@ -18,13 +18,13 @@ dotnet add package Masa.Contrib.Data.Mapping.Mapster
 
 2. 注册`Mapster`的映射器
 
-``` C#
+```csharp
 builder.Services.AddMapster();
 ``` 
 
 3. 映射对象
 
-``` C#
+```csharp
 public void Main()
 {
     var request = new
@@ -89,13 +89,13 @@ dotnet add package Masa.BuildingBlocks.Data.MappingExtensions
 
 2. 注册`Mapster`的映射器
 
-``` C#
+```csharp
 builder.Services.AddMapster();
 ``` 
 
 3. 使用映射
 
-``` C#
+```csharp
 public void Main()
 {
     var request = new
@@ -124,7 +124,7 @@ public class Order
 * Map\<TDestination\>(object source, MapOptions? options = null): 根据目标类型将源类型对象转换为目标类型并返回
 * Map\<TSource, TDestination\>(TSource source, TDestination destination, MapOptions? options = null): 将源类型映射为目标类型并返回, 在映射过程中, 仅映射符合映射的参数信息, 属于目标类型独有的参数将不会被重新初始化
 
-``` C#
+```csharp
 public void Main()
 {
     var request = new

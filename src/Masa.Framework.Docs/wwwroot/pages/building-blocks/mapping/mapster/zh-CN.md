@@ -12,13 +12,13 @@ dotnet add package Masa.Contrib.Data.Mapping.Mapster
 
 2. 修改`Program.cs`，注册`Mapster`的映射器
 
-``` C#
+```csharp
 builder.Services.AddMapster();
 ```
 
 3. 映射对象
 
-``` C#
+```csharp
 public void Main()
 {
     var request = new

@@ -22,7 +22,7 @@ dotnet add package Masa.Contrib.Data.EFCore.SqlServer // SqlServer数据库
 
 2. 修改`Program.cs`，注册`IntegrationEventBus`
 
-```C#
+```csharp
 builder.Services
     .AddIntegrationEventBus(options=>
     {
@@ -37,7 +37,7 @@ builder.Services
 
 3. 自定义类`DemoIntegrationEvent`, 并集成`IntegrationEvent`
 
-```C#
+```csharp
 public record DemoIntegrationEvent : IntegrationEvent
 {
     public override string Topic { get; set; } = nameof(DemoIntegrationEvent);//topic name
@@ -48,7 +48,7 @@ public record DemoIntegrationEvent : IntegrationEvent
 
 4. 自定义CustomDbContext
 
-```C#
+```csharp
 public class CustomDbContext : MasaDbContext
 {
     public DbSet<User> Users { get; set; } = null!;
@@ -62,7 +62,7 @@ public class CustomDbContext : MasaDbContext
 
 5. 发送集成事件 (IntegrationEvent)
 
-```C#
+```csharp
 IIntegrationEventBus eventBus;//通过DI得到IIntegrationEventBus
 var @event = new DemoIntegrationEvent();
 await eventBus.PublishAsync(@event);//发送集成事件
@@ -85,7 +85,7 @@ await eventBus.PublishAsync(@event);//发送集成事件
 
 例如, 最大重试次数改为5次, 则:
 
-``` C#
+```csharp
 builder.Services
     .AddIntegrationEventBus(options=>
     { 
@@ -172,7 +172,7 @@ dotnet add package RabbitMQ.Client //使用RabbitMq
 
 2. 新增类`Publisher`, 并实现`IPublisher`
 
-``` C#
+```csharp
 public class Publisher : IPublisher
 {
     public async Task PublishAsync<T>(string topicName, T @event, CancellationToken stoppingToken = default) where T : IIntegrationEvent
@@ -185,7 +185,7 @@ public class Publisher : IPublisher
 
 3. 新建类`DispatcherOptionsExtensions`, 将自定义`Publisher`注册到服务集合
 
-``` C#
+```csharp
 public static class DispatcherOptionsExtensions
 {
     public static DispatcherOptions UseRabbitMq(this Masa.Contrib.Dispatcher.IntegrationEvents.Options.DispatcherOptions options)
@@ -199,7 +199,7 @@ public static class DispatcherOptionsExtensions
 
 4. 如何使用自定义实现`RabbitMq`
 
-``` C#
+```csharp
 builder.Services.AddIntegrationEventBus(option =>
 {
     option.UseRabbitMq();//修改为使用RabbitMq

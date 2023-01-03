@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\pages\building-blocks\data\orm-efcore" />
     <Folder Include="wwwroot\pages\building-blocks\identity\web\" />
   </ItemGroup>
 

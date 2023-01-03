@@ -6,7 +6,7 @@
 
 1. 注册`MasaConfiguration`
 
-``` C#
+```csharp
 builder.AddMasaConfiguration();
 ```
 
@@ -24,7 +24,7 @@ builder.AddMasaConfiguration();
 
 3. 新建类`AppConfig`
 
-``` C#
+```csharp
 /// <summary>
 /// 自动映射本地节点
 /// </summary>
@@ -41,7 +41,7 @@ public class ConnectionStrings
 
 4. 获取`AppConfig`配置信息
 
-``` C#
+```csharp
 // 通过DI获取到IOptions<AppConfig> options;
 
 IOptions<AppConfig> options = serviceProvider.GetRequiredService<IOptions<AppConfig>>(); 
@@ -52,7 +52,7 @@ Console.WriteLine(options.Value.ConnectionStrings.DefaultConnection);
 
 MasaConfiguration默认支持选项模式, 本地配置可以通过继承`LocalMasaConfigurationOptions`来实现自动映射, 例如:
 
-``` C#
+```csharp
 public class AppConfig : LocalMasaConfigurationOptions
 {
     /// <summary>
