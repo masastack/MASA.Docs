@@ -59,11 +59,27 @@
         "title": "development",
         "items": [
           "overview",
-          "dapr-sidecar"
+          "dapr-starter"
         ]
       },
       "cqrs",
-      "caching",
+      {
+        "title": "data",
+        "items": [
+          "overview",
+          "orm-efcore",
+          "data-filter",
+          "connection-strings"
+        ]
+      },
+      {
+        "title": "caching",
+        "items": [
+          "overview",
+          "stackexchange-redis",
+          "multilevel-cache"
+        ]
+      },
       {
         "title": "storage",
         "items": [
@@ -80,10 +96,43 @@
           "i18n-dcc"
         ]
       },
+      "exception"
+    ]
+  },
+  {
+    "title": "utils",
+    "items": [
       {
-        "title": "exception",
+        "title": "data",
         "items": [
-          "overview"
+          "overview",
+          "elasticsearch",
+          "prometheus"
+        ]
+      },
+      {
+        "title": "extensions",
+        "items": [
+          "overview",
+          "fluent-validation",
+          "dependency-injection",
+          "dotnet",
+          "enums",
+          "expression"
+        ]
+      },
+      {
+        "title": "ldap",
+        "items": [
+          "overview",
+          "novell"
+        ]
+      },
+      {
+        "title": "security",
+        "items": [
+          "cryptography",
+          "token"
         ]
       }
     ]

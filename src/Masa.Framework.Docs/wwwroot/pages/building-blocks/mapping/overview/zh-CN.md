@@ -4,7 +4,7 @@
 
 目前对象映射的提供者有:
 
-* [Masa.Contrib.Data.Mapping.Mapster](https://www.nuget.org/packages/Masa.Contrib.Data.Mapping.Mapster): 基于[Mapster](https://github.com/MapsterMapper/Mapster)的扩展, 轻松完成对象映射的能力 [查看详细](/framework/building-blocks/mapping/mapster)
+* [Masa.Contrib.Data.Mapping.Mapster](/framework/building-blocks/mapping/mapster): 基于[Mapster](https://github.com/MapsterMapper/Mapster)的扩展, 轻松完成对象映射的能力
 
 ## 使用
 

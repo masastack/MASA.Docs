@@ -11,6 +11,27 @@
 
 * [服务调用](#ICaller)
 
+## 高级
+
+我们可以重写`CallerBase`类提供的`ConfigHttpRequestMessageAsync`方法, 通过它我们可以自定义`HttpRequestMessage`, 并且它支持从生命周期为`Scoped`的服务中获取登录凭证, 例如:
+
+```csharp
+public class CustomHeaderCaller : HttpClientCallerBase
+{
+    private readonly TokenProvider _tokenProvider;
+    
+    protected override string BaseAddress { get; set; } = "https://github.com/masastack";
+    
+    public CustomHeaderCaller(TokenProvider tokenProvider = null) => _tokenProvider = tokenProvider;
+    
+    protected override Task ConfigHttpRequestMessageAsync(HttpRequestMessage requestMessage)
+    {
+        requestMessage.Headers.Add("Authorization",$"Bearer {_tokenProvider.Token}");
+        return Task.CompletedTask;
+    }
+}
+```
+
 ## 源码解读
 
 ::: tip 提示

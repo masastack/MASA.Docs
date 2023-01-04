@@ -90,3 +90,30 @@ MasaApp.SetAssemblies(assemblies);
 builder.Services.AddCaller();
 ```
 :::
+
+## 高级
+
+如果你希望在发送请求之前可以增加一个发送请求日志的功能, 则可以通过重写`DaprCallerBase`提供的`UseDapr`方法, 例如:
+
+```csharp
+public class CustomDaprCaller : DaprCallerBase
+{
+    protected override string AppId { get; set; } = "{Replace-Your-BaseAddress}";
+    
+    protected override DefaultDaprClientBuilder UseDapr()
+    {
+        return base
+            .UseDapr()
+            .AddHttpRequestMessage<LogDelegatingHandler>();
+    }
+}
+
+public class LogDelegatingHandler : IDaprRequestMessage
+{
+    public Task<HttpRequestMessage> ProcessHttpRequestMessageAsync(HttpRequestMessage requestMessage)
+    {
+        //记录请求日志
+        return Task.FromResult(requestMessage);
+    }
+}
+```

@@ -4,7 +4,7 @@
 
 ## 功能
 
-* [支持I18n](./i18n.md)
+* [支持I18n](/framework/building-blocks/globalization/i18n)
 * [支持自定义异常处理](#高阶用法)
 * [自定义异常类型](#自定义异常处理)
 

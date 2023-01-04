@@ -4,4 +4,4 @@
 
 ## 功能
 
-* [Dapr Sidecar](https://nuget.org/packages/Masa.Contrib.Development.DaprStarter.AspNetCore): 在开发环境中运行Dapr (自托管模式) [查看详细](/framework/building-blocks/development/dapr-starter)
+* [Dapr Sidecar](/framework/building-blocks/development/dapr-starter): 在开发环境中运行Dapr (自托管模式)

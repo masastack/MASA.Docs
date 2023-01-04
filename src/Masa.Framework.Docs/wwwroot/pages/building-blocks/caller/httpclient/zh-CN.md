@@ -93,3 +93,44 @@ MasaApp.SetAssemblies(assemblies);
 builder.Services.AddCaller();
 ```
 :::
+
+## 高级
+
+如果你希望设置超时时间, 默认请求头等信息, 则可通过重写`HttpClientCallerBase`提供的`ConfigureHttpClient`方法, 例如:
+
+```csharp
+public class CustomHttpClientCaller : HttpClientCallerBase
+{
+    protected override string BaseAddress { get; set; } = "{Replace-Your-BaseAddress}";
+    
+    protected override void ConfigureHttpClient(System.Net.Http.HttpClient httpClient)
+    {
+        httpClient.Timeout = TimeSpan.FromSeconds(30);//30s超时
+    }
+}
+```
+
+如果你希望在发送请求之前可以增加一个发送请求日志的功能, 则可以通过重写`HttpClientCallerBase`提供的`UseHttpClient`方法, 例如:
+
+```csharp
+public class CustomHttpClientCaller : HttpClientCallerBase
+{
+    protected override string BaseAddress { get; set; } = "{Replace-Your-BaseAddress}";
+    
+    protected override IHttpClientBuilder UseHttpClient()
+    {
+        return base
+            .UseHttpClient()
+            .AddHttpMessageHandler<LogDelegatingHandler>();
+    }
+}
+
+public class LogDelegatingHandler : DelegatingHandler
+{
+    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        //记录请求日志
+        return base.SendAsync(request, cancellationToken);
+    }
+}
+```
