@@ -17,10 +17,14 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\pages\concepts\contrib-concept\zh-CN.md" />
+    <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\medallion-azure\zh-CN.md" />
+    <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\medallion-mysql\zh-CN.md" />
+    <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\medallion-postgre-sql\zh-CN.md" />
+    <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\medallion-wait-handles\zh-CN.md" />
+    <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\medallion-sql-server\zh-CN.md" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\pages\building-blocks\data\orm-efcore" />
     <Folder Include="wwwroot\pages\building-blocks\identity\web\" />
   </ItemGroup>
 

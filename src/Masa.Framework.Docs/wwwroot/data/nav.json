@@ -26,17 +26,9 @@
       {
         "title": "distributed-lock",
         "items": [
+          "overview",
           "lock-local",
-          "medallion",
-          "medallion-azure",
-          "medallion-file-system",
-          "medallion-mysql",
-          "medallion-oracle",
-          "medallion-postgre-sql",
-          "medallion-redis",
-          "medallion-sql-server",
-          "medallion-wait-handles",
-          "medallion-zoo-keeper"
+          "medallion"
         ]
       },
       {
@@ -63,7 +55,37 @@
           "daprclient"
         ]
       },
-      "caching"
+      {
+        "title": "development",
+        "items": [
+          "overview",
+          "dapr-sidecar"
+        ]
+      },
+      "cqrs",
+      "caching",
+      {
+        "title": "storage",
+        "items": [
+          "overview",
+          "oss"
+        ]
+      },
+      {
+        "title": "globalization",
+        "items": [
+          "overview",
+          "i18n",
+          "i18n-aspnetcore",
+          "i18n-dcc"
+        ]
+      },
+      {
+        "title": "exception",
+        "items": [
+          "overview"
+        ]
+      }
     ]
   }
 ]

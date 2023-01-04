@@ -1,4 +1,4 @@
-## 概念
+## DaprStarter
 
 为了方便在开发过程中使用`Dapr`, 而不需要部署`Kubernetes`、`Docker Compose`环境, 通过`DaprStarter`协助管理启动`Dapr`
 
