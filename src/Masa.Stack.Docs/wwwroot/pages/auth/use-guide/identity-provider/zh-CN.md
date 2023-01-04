@@ -8,7 +8,7 @@
 
 > 模糊搜索支持名称、显示名称
 
-![](\stack\auth\third-party-search.png)
+![](http://cdn.masastack.com/stack/doc/auth/third-party-search.png)
 
 ### 新建
 
@@ -17,8 +17,8 @@
 > 名称字段唯一不可重复
 > 高级配置用于将第三方平台返回的用户json数据配置映射为Auth的用户数据
 
-![](\stack\auth\third-party-add-button.png)
-![](\stack\auth\third-party-add.png)
+![](http://cdn.masastack.com/stack/doc/auth/third-party-add-button.png)
+![](http://cdn.masastack.com/stack/doc/auth/third-party-add.png)
 
 ### 编辑
 
@@ -26,12 +26,12 @@
 
 > 名称字段不可编辑
 
-![](\stack\auth\third-party-edit-icon.png)
-![](\stack\auth\third-party-edit.png)
+![](http://cdn.masastack.com/stack/doc/auth/third-party-edit-icon.png)
+![](http://cdn.masastack.com/stack/doc/auth/third-party-edit.png)
 
 ### 删除
 
 点击表格中指定行对应的操作列中的删除图标可删除所在行数据
 
-![](\stack\auth\third-party-remove-icon.png)
-![](\stack\auth\third-party-remove.png)
+![](http://cdn.masastack.com/stack/doc/auth/third-party-remove-icon.png)
+![](http://cdn.masastack.com/stack/doc/auth/third-party-remove.png)

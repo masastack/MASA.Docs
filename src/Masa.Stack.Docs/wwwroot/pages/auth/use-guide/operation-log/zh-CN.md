@@ -10,20 +10,20 @@
 
 #### 时间范围搜索
 
-![](\stack\auth\operationLog-time-range-search.png)
+![](http://cdn.masastack.com/stack/doc/auth/operationLog-time-range-search.png)
 
 #### 相对时间搜索
 
-![](\stack\auth\operationLog-relativ-time-search.png)
+![](http://cdn.masastack.com/stack/doc/auth/operationLog-relativ-time-search.png)
 
 #### 操作类型筛选
 
-![](\stack\auth\operationLog-operation-type-search.png)
+![](http://cdn.masastack.com/stack/doc/auth/operationLog-operation-type-search.png)
 
 #### 操作人筛选
 
-![](\stack\auth\operationLog-operator-search.png)
+![](http://cdn.masastack.com/stack/doc/auth/operationLog-operator-search.png)
 
 #### 模糊搜索
 
-![](\stack\auth\operationLog-search.png)
+![](http://cdn.masastack.com/stack/doc/auth/operationLog-search.png)
