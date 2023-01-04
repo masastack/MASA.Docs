@@ -8,7 +8,7 @@
 
 > 模糊搜索支持用户声明名称
 
-![](\stack\auth\userClaim-search.png)
+![](http://cdn.masastack.com/stack/doc/auth/userClaim-search.png)
 
 ### 新建
 
@@ -16,8 +16,8 @@
 
 > 此窗口创建的用户申明类型为自定义类型
 
-![](\stack\auth\userClaim-add-button.png)
-![](\stack\auth\userClaim-add.png)
+![](http://cdn.masastack.com/stack/doc/auth/userClaim-add-button.png)
+![](http://cdn.masastack.com/stack/doc/auth/userClaim-add.png)
 
 ### 快速创建标准申明
 
@@ -25,18 +25,18 @@
 
 > 系统创建的用户申明类型为标准类型
 
-![](\stack\auth\userClaim-add-standard-button.png)
+![](http://cdn.masastack.com/stack/doc/auth/userClaim-add-standard-button.png)
 
 ### 编辑
 
 点击表格里指定行对应的操作列中的编辑图标，可打开编辑用户申明的表单窗口。
 
-![](\stack\auth\userClaim-edit-icon.png)
-![](\stack\auth\userClaim-edit.png)
+![](http://cdn.masastack.com/stack/doc/auth/userClaim-edit-icon.png)
+![](http://cdn.masastack.com/stack/doc/auth/userClaim-edit.png)
 
 ### 删除
 
 点击表格里指定行对应的操作列中的删除图标，可打开删除用户申明提示框，点击确认后将删除改数据。
 
-![](\stack\auth\userClaim-remove-icon.png)
-![](\stack\auth\userClaim-remove.png)
+![](http://cdn.masastack.com/stack/doc/auth/userClaim-remove-icon.png)
+![](http://cdn.masastack.com/stack/doc/auth/userClaim-remove.png)

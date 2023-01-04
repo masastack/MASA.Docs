@@ -19,11 +19,11 @@ Auth用户列表以表格形式展现，有分页、时间范围搜索、用户�
 
 > 模糊搜索支持昵称、手机号、邮箱、账号
 
-![](\stack\auth\user-search.png)
+![](http://cdn.masastack.com/stack/doc/auth/user-search.png)
 
 2.高级搜索
 
-![](\stack\auth\user-advanced-search-icon.png)
+![](http://cdn.masastack.com/stack/doc/auth/user-advanced-search-icon.png)
 
 ### 新增
 
@@ -33,7 +33,7 @@ Auth用户列表以表格形式展现，有分页、时间范围搜索、用户�
 
 > 头像组件带有切换默认头像、上传自定义头像功能
 
-![](\stack\auth\user-add-step1.png)
+![](http://cdn.masastack.com/stack/doc/auth/user-add-step1.png)
 
 第二步：填写基本信息、详细信息。
 
@@ -41,39 +41,39 @@ Auth用户列表以表格形式展现，有分页、时间范围搜索、用户�
 > 账号为非必填项，如若账号未填写，创建用户后会以手机号做为账号。
 > 密码为非必填项，如若密码未填写，此用户可以使用手机号登录Auth系统修改个人密码。
 
-![](\stack\auth\user-add-step2.png)
+![](http://cdn.masastack.com/stack/doc/auth/user-add-step2.png)
 
 第三步：配置权限：选择绑定的角色、配置当前用户的扩展权限。可点击预览查看配置完成后的全局导航窗口。
 
-![](\stack\auth\user-add-step3.png)
+![](http://cdn.masastack.com/stack/doc/auth/user-add-step3.png)
 
 ### 编辑
 
 点击表格中指定行所在的操作列中的编辑图标可打开编辑Auth用户的表单窗口。
 
-![](\stack\auth\user-edit-icon.png)
+![](http://cdn.masastack.com/stack/doc/auth/user-edit-icon.png)
 
 在表单中可更换头像、修改基础信息、详细信息
 
 > 账号为不可编辑项
 > 表单校验规则仍遵循新增Auth用户表单的校验规则。
 
-![](\stack\auth\user-edit.png)
+![](http://cdn.masastack.com/stack/doc/auth/user-edit.png)
 
 在表单中可重置用户密码
 
 > 重置密码需要二次确认
 > 重置密码是随机生成的密码，管理员不可自定义密码，管理员在重置密码后可点击复制图标复制新密码给相关用户。
 
-![](\stack\auth\user-reset-password.png)
+![](http://cdn.masastack.com/stack/doc/auth/user-reset-password.png)
 
 在表单中可查看此用户的授权认证、历史记录的简要信息
 
-![](\stack\auth\user-record.png)
+![](http://cdn.masastack.com/stack/doc/auth/user-record.png)
 
 在表单中可禁用、删除用户
 
-![](\stack\auth\user-remove-disabled.png)
+![](http://cdn.masastack.com/stack/doc/auth/user-remove-disabled.png)
 
 ### 授权
 
@@ -83,7 +83,7 @@ Auth用户列表以表格形式展现，有分页、时间范围搜索、用户�
 
 当此用户也为员工时，表单中会多出一个团队切换组件，用于切换不同的团队来查看此用户在当前团队时的权限。
 
-![](\stack\auth\user-authorize.png)
+![](http://cdn.masastack.com/stack/doc/auth/user-authorize.png)
 
 ## 第三方用户
 
@@ -97,14 +97,14 @@ Auth用户列表以表格形式展现，有分页、时间范围搜索、用户�
 
 > 模糊搜索支持昵称、手机号、邮箱、账号
 
-![](\stack\auth\third-party-user-search.png)
+![](http://cdn.masastack.com/stack/doc/auth/third-party-user-search.png)
 
 ### 域账号同步
 
 点击列表页域账号按钮可打开域账号同步窗口，域账号同步功能可将域用户同步到Auth员工中，以手机号作为同步绑定标识。
 
-![](\stack\auth\third-party-user-ldap-icon.png)
-![](\stack\auth\third-party-user-ldap.png)
+![](http://cdn.masastack.com/stack/doc/auth/third-party-user-ldap-icon.png)
+![](http://cdn.masastack.com/stack/doc/auth/third-party-user-ldap.png)
 
 ## 员工
 
@@ -116,7 +116,7 @@ Auth用户列表以表格形式展现，有分页、时间范围搜索、用户�
 
 员工列表以表格形式展现，有分页、模糊搜索功能。
 
-![](\stack\auth\staff-search.png)
+![](http://cdn.masastack.com/stack/doc/auth/staff-search.png)
 
 ### 新建
 
@@ -126,13 +126,13 @@ Auth用户列表以表格形式展现，有分页、时间范围搜索、用户�
 
 > 头像组件带有切换默认头像、上传自定义头像功能
 
-![](\stack\auth\staff-add-step1.png)
+![](http://cdn.masastack.com/stack/doc/auth/staff-add-step1.png)
 
 第二步：填写基本信息、详细信息。
 
 > 手机号为必填项且不可重复，邮箱、身份证号不可重复。不可重复：指在员工中唯一性。
 
-![](\stack\auth\staff-add-step2.png)
+![](http://cdn.masastack.com/stack/doc/auth/staff-add-step2.png)
 
 ### 编辑
 
@@ -142,16 +142,16 @@ Auth用户列表以表格形式展现，有分页、时间范围搜索、用户�
 
 > 表单校验规则仍遵循新增员工表单的校验规则。
 
-![](\stack\auth\staff-edit-icon.png)
-![](\stack\auth\staff-edit.png)
+![](http://cdn.masastack.com/stack/doc/auth/staff-edit-icon.png)
+![](http://cdn.masastack.com/stack/doc/auth/staff-edit.png)
 
 在表单中可查看此用户的授权认证、历史记录的简要信息
 
-![](\stack\auth\staff-record.png)
+![](http://cdn.masastack.com/stack/doc/auth/staff-record.png)
 
 在表单中可禁用、删除员工
 
-![](\stack\auth\staff-remove-disabled.png)
+![](http://cdn.masastack.com/stack/doc/auth/staff-remove-disabled.png)
 
 ### 授权
 
@@ -159,11 +159,11 @@ Auth用户列表以表格形式展现，有分页、时间范围搜索、用户�
 
 > 权限配置功能与新增员工时权限配置一至。
 
-![](\stack\auth\staff-authorize-icon.png)
-![](\stack\auth\staff-authorize.png)
+![](http://cdn.masastack.com/stack/doc/auth/staff-authorize-icon.png)
+![](http://cdn.masastack.com/stack/doc/auth/staff-authorize.png)
 
 ### 同步
 
 点击列表页的同步按钮可打开同步员工的的窗口,员工同步支持utf8格式的csv文件，可将csv文件里的员工数据同步至员工列表
 
-![](\stack\auth\staff-sync.png)
+![](http://cdn.masastack.com/stack/doc/auth/staff-sync.png)

@@ -8,25 +8,25 @@
 
 > 模糊搜索支持名称
 
-![](\stack\auth\position-search.png)
+![](http://cdn.masastack.com/stack/doc/auth/position-search.png)
 
 ### 新建
 
 点击列表页的新建按钮可打开新增职位的表单窗口。
 
-![](\stack\auth\position-add-button.png)
-![](\stack\auth\position-add.png)
+![](http://cdn.masastack.com/stack/doc/auth/position-add-button.png)
+![](http://cdn.masastack.com/stack/doc/auth/position-add.png)
 
 ### 编辑
 
 点击表格中指定行对应的操作列中的编辑图标可打开编辑职位的表单窗口。
 
-![](\stack\auth\position-edit-icon.png)
-![](\stack\auth\position-edit.png)
+![](http://cdn.masastack.com/stack/doc/auth/position-edit-icon.png)
+![](http://cdn.masastack.com/stack/doc/auth/position-edit.png)
 
 ### 删除
 
 点击表格中指定行对应的操作列中的删除图标可删除所在行数据
 
-![](\stack\auth\position-remove-icon.png)
-![](\stack\auth\position-remove.png)
+![](http://cdn.masastack.com/stack/doc/auth/position-remove-icon.png)
+![](http://cdn.masastack.com/stack/doc/auth/position-remove.png)
