@@ -12,6 +12,14 @@
     ]
   },
   {
+    "title": "getting-started",
+    "items": [
+      "mf-part-1",
+      "mf-part-2",
+      "mf-part-3"
+    ]
+  },
+  {
     "title": "building-blocks",
     "items": [
       {
@@ -135,6 +143,13 @@
           "token"
         ]
       }
+    ]
+  },
+  {
+    "title": "upgrade",
+    "items": [
+      "0.6.0",
+      "0.7.0"
     ]
   }
 ]
