@@ -16,7 +16,8 @@
     "items": [
       "mf-part-1",
       "mf-part-2",
-      "mf-part-3"
+      "mf-part-3",
+      "mf-part-4"
     ]
   },
   {
@@ -78,6 +79,20 @@
           "orm-efcore",
           "data-filter",
           "connection-strings"
+        ]
+      },
+      {
+        "title": "ddd",
+        "items": [
+          "overview",
+          "domain-model",
+          "value-model",
+          "entity",
+          "aggregate-root",
+          "repository",
+          "enumeration",
+          "domain-service",
+          "domain-event"
         ]
       },
       {

@@ -1,51 +1,25 @@
-## 存储或获取数据
+## 自定义仓储实现
 
-在开发中, 我们需要用到数据库, 以便对数据能进行存储或读取, 下面例子我们将使用`Sqlite`数据库进行数据的存储与读取, 如果你的业务使用的是其它数据库, 可参考[文档](/framework/building-blocks/data/orm-efcore)选择与之匹配的数据库包
-
-1. 安装`Masa.Contrib.Data.EFCore.Sqlite`、`Masa.Contrib.Data.Contracts`
-
-```powershell
-dotnet add package Masa.Contrib.Data.EFCore.Sqlite
-dotnet add package Masa.Contrib.Data.Contracts
-```
-
-`Masa.Contrib.Data.Contracts`提供了[数据过滤](/framework/building-blocks/data/data-filter)的能力, 它不是必须的, 根据需要使用即可
-
-2. 新建数据上下文类`CatalogDbContext.cs`, 并继承`MasaDbContext<TDbContext>`
+在项目根目录新建`Infrastructure`文件夹, 并在其中新建`Repositories`文件夹, 用于存放自定义仓储的实现
 
 ```csharp
-public class CatalogDbContext : MasaDbContext<CatalogDbContext>
+public class CatalogItemRepository : Repository<CatalogDbContext, CatalogItem, int>, ICatalogItemRepository
 {
-    public CatalogDbContext(MasaDbContextOptions<CatalogDbContext> options) : base(options)
+    public CatalogItemRepository(CatalogDbContext context, IUnitOfWork unitOfWork) : base(context, unitOfWork)
     {
-
     }
 }
 ```
 
-3. 配置数据库连接字符串
+自定义仓储实现可以继承`Repository<CatalogDbContext, CatalogItem, int>`, 它将继承默认提供的能力, 我们仅需要实现自己新扩展的方法即可, 当然如果你不满意父类提供的某个实现, 也可重写父类的方法, 之后再使用这些方法时将会执行我们重写后的实现, 而不是父类的默认实现, 仓储默认支持了很多功能, 详情可查看[文档](/framework/building-blocks/ddd/repository)
 
-```appsettings.json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Data Source=./Data/Catalog.db;"
-  }
-}
-```
-
-4. 注册数据上下文
+无论是直接使用框架提供的仓储能力, 还是希望基于仓储默认提供的能力基础上进行扩展, 都需要我们在`Program.cs`中进行注册, 否则仓储将无法正常使用, 例如:
 
 ```csharp
-builder.Services.AddMasaDbContext<CatalogDbContext>(dbContextBuilder =>
+builder.Services.AddDomainEventBus(options =>
 {
-    dbContextBuilder
-        .UseSqlite() //使用Sqlite数据库
-        .UseFilter(); //数据数据过滤
+    options.UseRepository<CatalogDbContext>();
 });
 ```
 
-继承`MasaDbContext`的数据库默认使用`ConnectionStrings`节点下的`DefaultConnection`配置, 如果你需要更改默认读取节点可参考[文档](/framework/building-blocks/data/connection-strings)
-
-## 其它
-
-`MasaFramework`并未约束您的项目必须使用[`Entity Framework Core`](https://learn.microsoft.com/zh-cn/ef/core/), 查看已支持的[`ORM`](/framework/building-blocks/data/overview)框架 
+框架是如何完成自动注册, 为何项目提示仓储未注册, 点击查看[文档](/framework/building-blocks/ddd/repository)

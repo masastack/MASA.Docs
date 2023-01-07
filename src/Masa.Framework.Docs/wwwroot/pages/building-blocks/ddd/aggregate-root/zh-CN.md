@@ -91,3 +91,5 @@ public class Order: AggregateRoot<int>
 * AggregateRoot: 聚合根基类
 * AuditAggregateRoot: 拥有审计功能的聚合根基类
 * FullAggregateRoot: 拥有审计、软删除功能的聚合根基类
+
+同时支持审计功能的实体, 有一些很好用的小功能, 比如: 我们将根据当前操作类型对创建时间以及修改时间完成自动赋值操作 (时间使用`UTC +0` 时区), 同时如果使用了[`用户身份`](/framework/building-blocks/identity/overview)功能, 创建人、修改人框架也会完成自动赋值操作
