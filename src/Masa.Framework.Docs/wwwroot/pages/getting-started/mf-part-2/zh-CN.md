@@ -80,3 +80,13 @@ public interface ICatalogItemRepository : IRepository<CatalogItem, int>
 ```
 
 > 对于新增加继承`IRepository<CatalogItem, int>`的接口, 我们需要在Repository<CatalogDbContext, CatalogItem, int>的基础上扩展其实现, 由于实现并不属于领域层, 这里我们会在下一篇文档实现这个Repository
+
+## IDomainEventBus
+
+在`DDD`中提供了领域事件总线, 它提供了:
+
+* Enqueue<TDomainEvent>(TDomainEvent @event): 领域事件入队
+* PublishQueueAsync(): 发布领域事件 (根据领域事件入队顺序依次发布)
+* AnyQueueAsync(): 得到是否存在领域事件
+
+> 领域事件总线不仅仅可以发布[进程内事件](/framework/building-blocks/dispatcher/local-event)、也可发布[集成事件](/framework/building-blocks/dispatcher/integration-event)

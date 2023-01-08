@@ -8,6 +8,7 @@
 
 * [链接字符串](/framework/building-blocks/data/connection-strings)
 * [数据过滤](/framework/building-blocks/data/data-filter)
+* [全局配置](/framework/building-blocks/data/global-configuration)
 
 ## 贡献?
 
