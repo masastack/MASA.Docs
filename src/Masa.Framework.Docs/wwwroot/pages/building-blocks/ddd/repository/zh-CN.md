@@ -52,7 +52,7 @@ public class CatalogItemRepository: Repository<CatalogDbContext, CatalogItem, Gu
 
 基于`约定大于配置`, 我们约定好继承`IRepository<TEntity, TKey>`的接口属于自定义仓储, 它是针对默认仓储的扩展, 我们会在项目启动时找到自定义仓储接口以及对应的实现进行注册, 如果出现自定义仓储未注册的情况, 则需要检查以下两点:
 
-1. 仓储锁使用的类是否属于实体
+1. 仓储所使用的类是否属于实体
 
 例如: `ICatalogItemRepository`提示未注册, 则需要检查`CatalogItem`是否继承`IEntity`, 只有实体才可以使用仓储, 后续会调整为只有聚合根才支持仓储
 
@@ -60,7 +60,7 @@ public class CatalogItemRepository: Repository<CatalogDbContext, CatalogItem, Gu
 
 框架完成仓储的自动注册是通过查询实体以及自定义仓储的接口以及实现完成的, 而获取自定义仓储接口以及自定义仓储的实现需要通过获取其所在程序集后利用反射获取, 但默认程序集使用的是全局配置中的程序集, 查看全局配置[文档](/framework/building-blocks/data/global-configuration)
 
-我们可以通过修改全局配置中的程序集或者指定自定义仓储的程序集来修复自定义仓储的注册问题
+因此此类问题可以通过指定自定义仓储的程序集或者修改全局配置中的程序集来修复
 
 * 为当前领域以及仓储指定程序集
 
