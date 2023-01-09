@@ -1,13 +1,13 @@
-## 事件总线
+## 5. 事件总线
 
 通过事件总线帮助我们解耦不同架构层次, 根据事件类型我们将事件总线划分为:
 
 * [进程内事件总线](/framework/building-blocks/dispatcher/local-event)
 * [集成事件总线](/framework/building-blocks/dispatcher/integration-event)
 
-我们可以在`Program.cs`进行注册, 我们可以
+### 使用
 
-1. 安装`Masa.Contrib.Dispatcher.IntegrationEvents.Dapr`、"Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore"、"Masa.Contrib.Dispatcher.Events"
+1. 安装`Masa.Contrib.Dispatcher.IntegrationEvents.Dapr`、`Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore`、`Masa.Contrib.Dispatcher.Events`
 
 ```powershell
 dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents //使用具有发件箱模式的集成事件
@@ -58,6 +58,8 @@ builder.Services.AddIntegrationEventBus(integrationEventBus =>
 
 > 本地事件的中间件是先进后出
 
+除此之外, 进程内事件还支持`Handler编排`、`Saga`等, 查看详细[文档](/framework/building-blocks/dispatcher/local-event)
+
 由于我们的项目使用了`DomainEventBus`, 我们可以将领域事件总线与进程内事件总线、集成事件总线注册代码简写为:
 
 ```csharp
@@ -68,7 +70,8 @@ builder.Services.AddIntegrationEventBus(integrationEventBus =>
                 .UseDapr()
                 .UseEventLog<CatalogDbContext>())
         .UseEventBus()
-        .UseUoW<CatalogDbContext>()
+        .UseUoW<CatalogDbContext>() //使用工作单元, 确保原子性
         .UseRepository<CatalogDbContext>();
 });
 ```
+

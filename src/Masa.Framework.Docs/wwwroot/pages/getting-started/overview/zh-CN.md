@@ -10,8 +10,10 @@
 
 * [1. 创建最小APIs服务](/framework/getting-started/mf-part-1)
 * [2. 商品: 领域层](/framework/getting-started/mf-part-2)
-* [2. 存储或获取数据](/framework/getting-started/mf-part-3)
-* [3. 使用多级缓存](/framework/getting-started/mf-part-4)
+* [3. 自定义仓储实现](/framework/getting-started/mf-part-3)
+* [4. 保存或获取数据](/framework/getting-started/mf-part-4)
+* [5. 事件总线](/framework/getting-started/mf-part-5)
+* [6. 使用多级缓存](/framework/getting-started/mf-part-6)
 
 ## 下载源码
 

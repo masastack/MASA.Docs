@@ -1,4 +1,4 @@
-## 存储或获取数据
+## 保存或获取数据
 
 在开发中, 我们需要用到数据库, 以便对数据能进行存储或读取, 下面例子我们将使用`Sqlite`数据库进行数据的存储与读取, 如果你的业务使用的是其它数据库, 可参考[文档](/framework/building-blocks/data/orm-efcore)选择与之匹配的数据库包
 
@@ -9,7 +9,7 @@ dotnet add package Masa.Contrib.Data.EFCore.Sqlite
 dotnet add package Masa.Contrib.Data.Contracts
 ```
 
-`Masa.Contrib.Data.Contracts`提供了[数据过滤](/framework/building-blocks/data/data-filter)的能力, 它不是必须的, 根据需要使用即可
+`Masa.Contrib.Data.Contracts`提供了[数据过滤](/framework/building-blocks/data/data-filter)的能力, 但它不是必须的
 
 2. 新建数据上下文类`CatalogDbContext.cs`, 并继承`MasaDbContext<TDbContext>`
 

@@ -46,6 +46,38 @@ public class CatalogItemRepository: Repository<CatalogDbContext, CatalogItem, Gu
 
 由于一些特殊的原因, 我们解除了对非聚合根的限制, 使得它们也可以使用`IRepository`, 但这个是错误的, 后续版本仍然会增加限制, 届时`IRepository`将只允许对聚合根进行操作
 
+## 功能
+
+* AddAsync(TEntity entity, CancellationToken cancellationToken = default): 添加实体
+* AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default): 批量添加实体
+* UpdateAsync(TEntity entity, CancellationToken cancellationToken = default): 更新实体
+* UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default): 批量更新实体
+* RemoveAsync(TEntity entity, CancellationToken cancellationToken = default): 移除指定实体
+* RemoveRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default): 批量移除指定实体集合
+* RemoveAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default): 根据条件移除满足条件的实体
+* FindAsync(IEnumerable<KeyValuePair<string, object>> keyValues, CancellationToken cancellationToken = default): 根据主键查询满足条件的实体, 不存在则返回`null` (忽略软删除)
+* FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default): 根据条件查询满足条件的实体, 不存在则返回`null` (忽略软删除)
+* GetListAsync(CancellationToken cancellationToken = default): 获取所有列表
+* GetListAsync(string sortField, bool isDescending = true, CancellationToken cancellationToken = default): 获取所有列表并按照指定字段进行降序或升序
+* GetListAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default): 获取符合条件的实体列表
+* GetListAsync(Expression<Func<TEntity, bool>> predicate, string sortField, bool isDescending = true, CancellationToken cancellationToken = default): 获取符合条件的实体列表并按照指定字段进行降序或升序
+* GetCountAsync(CancellationToken cancellationToken = default): 获取所有实体数量
+* GetCountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default): 获取符合条件的实体数量
+* GetPaginatedListAsync(int skip, int take, string sortField, bool isDescending = true, CancellationToken cancellationToken = default): 根据指定排序字段进行降序或者升序排序并获取分页数据
+* GetPaginatedListAsync(int skip, int take, Dictionary<string, bool>? sorting = null, CancellationToken cancellationToken = default): 根据指定排序字段进行降序或者升序排序并获取分页数据, 支持多字段排序
+* GetPaginatedListAsync(Expression<Func<TEntity, bool>> predicate, int skip, int take, string sortField, bool isDescending = true, CancellationToken cancellationToken = default): 获取符合条件、并根据指定排序字段进行降序或者升序排序并获取分页数据
+* GetPaginatedListAsync(Expression<Func<TEntity, bool>> predicate, int skip, int take, Dictionary<string, bool>? sorting = null, CancellationToken cancellationToken = default): 获取符合条件、并根据指定排序字段进行降序或者升序排序并获取分页数据, 支持多字段排序
+* GetPaginatedListAsync(PaginatedOptions options, CancellationToken cancellationToken = default): 根据指定排序字段进行降序或者升序排序并获取分页数据, 支持多字段排序
+* GetPaginatedListAsync(Expression<Func<TEntity, bool>> predicate, PaginatedOptions options, CancellationToken cancellationToken = default): 获取符合条件、并根据指定排序字段进行降序或者升序排序并获取分页数据, 支持多字段排序
+
+对于指定主键的`IRepository<TEntity, TKey>`仓储, 除了支持上述方法之外, 还提供了:
+
+* FindAsync(TKey id, CancellationToken cancellationToken = default): 获取指定主键`id`的实体
+* RemoveAsync(TKey id, CancellationToken cancellationToken = default): 移除指定主键`id`的实体
+* RemoveRangeAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default): 移除指定`id`集合的实体
+
+> 如果启用了[数据过滤](/framework/building-blocks/data/data-filter)功能, 则除了`FindAsync`方法默认忽略软删除, 其余查询都将使用[数据过滤](/framework/building-blocks/data/data-filter)
+
 ## 原理剖析
 
 * 为何自定义仓储不需要注册就可以直接使用?

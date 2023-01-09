@@ -178,11 +178,11 @@ public class UserService : ServiceBase
 
 提供默认支持[`RESTful`](https://docs.microsoft.com/zh-cn/azure/architecture/best-practices/api-design)标准，开发人员可以通过`builder.AddServices()`或`builder.Services.AddServices(builder)`来使用`Masa`版的`Minimal APIs`，下面就让我们来看一下它都支持了哪些功能
 
-### <a id = "自动映射规则">自动映射路由规则</a>
+### 自动映射规则
 
 #### 优先级
 
-**[自定义路由](#RoutePattern) > [规则生成路由](#生成规则)**
+**[自定义路由](#自定义路由) > [规则生成路由](#生成规则)**
 
 #### 生成规则
 
@@ -190,7 +190,7 @@ public class UserService : ServiceBase
 var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
 ```
 
-> [BaseUri](#BaseUri): 根地址
+> [BaseUri](#根地址): 根地址
 > 
 > [RouteMethodName](#自定义路由方法名): 路由方法名
 
@@ -341,7 +341,7 @@ public class UserService: ServiceBase
 
 ### 特性
 
-#### <a id = "RoutePattern">自定义路由</a>
+#### 自定义路由
 
 被用于`自定义完整路由`或自定义`RouteMethodName（路由方法名）`或自定义`请求类型`
 
@@ -407,7 +407,7 @@ public class UserService: ServiceBase
 :::
 ::::
 
-#### <a id = "IgnoreRoute">忽略路由自动映射</a>
+#### 忽略路由自动映射
 
 使用`IgnoreRoute`标记的方法不再自动映射路由，方法将不能通过API被访问
 
@@ -501,7 +501,7 @@ protected override string GetMethodName(MethodInfo methodInfo, string prefix, Se
 1. 方法的访问级别为`Public`
 2. 服务必须是非抽象类，抽象类将不被支持自动映射
 
-### <a id = "BaseUri">BaseUri (根地址)</a>
+### 根地址
 
 优先级：`自定义根地址` > `规则生成根地址`
 
