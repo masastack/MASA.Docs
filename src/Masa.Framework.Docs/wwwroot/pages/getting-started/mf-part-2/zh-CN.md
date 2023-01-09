@@ -79,7 +79,9 @@ public interface ICatalogItemRepository : IRepository<CatalogItem, int>
 }
 ```
 
-> 对于新增加继承`IRepository<CatalogItem, int>`的接口, 我们需要在Repository<CatalogDbContext, CatalogItem, int>的基础上扩展其实现, 由于实现并不属于领域层, 这里我们会在下一篇文档实现这个Repository
+> 对于新增加继承`IRepository<CatalogItem, int>`的接口, 我们需要在`Repository<CatalogDbContext, CatalogItem, int>`的基础上扩展其实现, 由于实现并不属于领域层, 这里我们会在下一篇文档实现这个Repository
+
+仓储服务我们建议以`Repository`结尾, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强.
 
 ## IDomainEventBus
 
@@ -90,3 +92,20 @@ public interface ICatalogItemRepository : IRepository<CatalogItem, int>
 * AnyQueueAsync(): 得到是否存在领域事件
 
 > 领域事件总线不仅仅可以发布[进程内事件](/framework/building-blocks/dispatcher/local-event)、也可发布[集成事件](/framework/building-blocks/dispatcher/integration-event)
+
+## IDomainService
+
+继承`IDomainService`接口的类被标记为领域服务, 我们可以继承`DomainService`, 它提供了领域事件总线`EventBus`
+
+```csharp
+public class CatalogItemDomainService : DomainService
+{
+    public CatalogItemDomainService(IDomainEventBus eventBus) : base(eventBus)
+    {
+    }
+}
+```
+
+> 继承`DomainService`的类会自动完成服务注册, 无需手动注册
+
+领域服务我们建议以`DomainService`结尾, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强.

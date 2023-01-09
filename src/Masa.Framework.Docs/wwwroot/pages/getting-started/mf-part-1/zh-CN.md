@@ -15,7 +15,7 @@ dotnet add package Masa.Contrib.Service.MinimalAPIs
 var app = builder.AddServices();
 ```
 
-3. 新建`Service`目录并新增加类`HealthService.cs`, 并继承`ServiceBase`
+3. 新建`Services`目录并新增加类`HealthService.cs`, 并继承`ServiceBase`
 
 ```csharp
 public class HealthService : ServiceBase
