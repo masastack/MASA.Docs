@@ -53,10 +53,10 @@ builder.Services.AddIntegrationEventBus(integrationEventBus =>
     integrationEventBus
         .UseDapr()
         .UseEventLog<CatalogDbContext>()
-        .UseEventBus(typeof(LoggingMiddleware<>))) //指定需要执行的中间件
+        .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingMiddleware<>))) //指定需要执行的中间件
 ```
 
-> 本地事件的中间件是先进后出
+> 进程内事件总线的中间件是先进后出
 
 除此之外, 进程内事件还支持`Handler编排`、`Saga`等, 查看详细[文档](/framework/building-blocks/dispatcher/local-event)
 
@@ -69,7 +69,7 @@ builder.Services.AddIntegrationEventBus(integrationEventBus =>
             integrationEventBus
                 .UseDapr()
                 .UseEventLog<CatalogDbContext>())
-        .UseEventBus(typeof(LoggingMiddleware<>))
+        .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingMiddleware<>)))
         .UseUoW<CatalogDbContext>() //使用工作单元, 确保原子性
         .UseRepository<CatalogDbContext>();
 });
