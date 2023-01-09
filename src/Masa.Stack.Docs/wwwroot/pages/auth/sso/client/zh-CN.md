@@ -19,11 +19,11 @@
 * 客户端Id：客户端唯一标识，对接Oidc时指定的ClientId值。
 * 客户端名称：授权页等页面展示的客户端名称。
 
-![sso-client-add](/stack/auth/sso-client-add.png)
+![sso-client-add](http://cdn.masastack.com/stack/doc/auth/sso-client-add.png)
 
 资源信息包括：身份资源和Api范围。
 
-![sso-client-add-2](/stack/auth/sso-client-add-2.png)
+![sso-client-add-2](http://cdn.masastack.com/stack/doc/auth/sso-client-add-2.png)
 
 ## 编辑客户端
 
@@ -31,16 +31,16 @@
 
 > 客户端配置说明参考系统内提示
 
-![sso-client-update-basic](/stack/auth/sso-client-update-basic.png)
+![sso-client-update-basic](http://cdn.masastack.com/stack/doc/auth/sso-client-update-basic.png)
 
-![sso-client-update-consent](/stack/auth/sso-client-update-consent.png)
+![sso-client-update-consent](http://cdn.masastack.com/stack/doc/auth/sso-client-update-consent.png)
 
-![sso-client-update-authentication](/stack/auth/sso-client-update-authentication.png)
+![sso-client-update-authentication](http://cdn.masastack.com/stack/doc/auth/sso-client-update-authentication.png)
 
-![sso-client-update-authentication](/stack/auth/sso-client-update-resource.png)
+![sso-client-update-authentication](http://cdn.masastack.com/stack/doc/auth/sso-client-update-resource.png)
 
-![sso-client-update-token](/stack/auth/sso-client-update-token.png)
+![sso-client-update-token](http://cdn.masastack.com/stack/doc/auth/sso-client-update-token.png)
 
-![sso-client-update-secret](/stack/auth/sso-client-update-secret.png)
+![sso-client-update-secret](http://cdn.masastack.com/stack/doc/auth/sso-client-update-secret.png)
 
-![sso-client-update-device-flow](/stack/auth/sso-client-update-device-flow.png)
+![sso-client-update-device-flow](http://cdn.masastack.com/stack/doc/auth/sso-client-update-device-flow.png)

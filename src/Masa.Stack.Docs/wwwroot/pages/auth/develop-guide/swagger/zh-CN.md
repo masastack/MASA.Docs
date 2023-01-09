@@ -4,20 +4,20 @@ Swagger可以看作接口文档，用于浏览Auth的接口，MAsaAuth专门针�
 
 ## 未登录时执行接口会报401未授权错误
 
-![](\stack\auth\swagger-401.png)
+![](http://cdn.masastack.com/stack/doc/auth/swagger-401.png)
 
 ## 完成登录认证
 
 点击Swagger页面中的Authorize按钮，打开认证弹窗
 
-![](\stack\auth\swagger-authorize-button.png)
+![](http://cdn.masastack.com/stack/doc/auth/swagger-authorize-button.png)
 
-![](\stack\auth\swagger-authorize.png)
+![](http://cdn.masastack.com/stack/doc/auth/swagger-authorize.png)
 
 输入账号密码认证后，页面会显示如下
 
-![](\stack\auth\swagger-authorize-success.png)
+![](http://cdn.masastack.com/stack/doc/auth/swagger-authorize-success.png)
 
 认证完成后调用api/user/Select接口，返回200
 
-![](\stack\auth\swagger-200.png)
+![](http://cdn.masastack.com/stack/doc/auth/swagger-200.png)

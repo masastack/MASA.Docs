@@ -7,28 +7,28 @@
 ## 新建组织节点
 
 <div align=center>
-<img src="/stack/auth/org-menu.png"/>
+<img src="http://cdn.masastack.com/stack/doc/auth/org-menu.png"/>
 </div>
 
 输入节点名称和描述（可选）即可
 
-![auth/org-add](/stack/auth/org-add.png)
+![auth/org-add](http://cdn.masastack.com/stack/doc/auth/org-add.png)
 
 ## 复制组织节点
 
 节点弹出菜单中选择`复制`,修改部门名称和根据需要勾选迁移原部门人员
 
-![auth/org-copy](/stack/auth/org-copy.png)
+![auth/org-copy](http://cdn.masastack.com/stack/doc/auth/org-copy.png)
 
 点击`下一步`按钮，在新的窗口中调整节点位置和进一步筛选迁移哪些部门成员
 
-![auth/org-copy-2](/stack/auth/org-copy-2.png)
+![auth/org-copy-2](http://cdn.masastack.com/stack/doc/auth/org-copy-2.png)
 
 ## 修改组织节点
 
 点击对应节点菜单的`编辑`按钮，新弹出的窗口中，修改名称、部门位置、描述，点击提交即可。
 
-![auth/org-edit](/stack/auth/org-edit.png)
+![auth/org-edit](http://cdn.masastack.com/stack/doc/auth/org-edit.png)
 
 ## 删除组织节点
 

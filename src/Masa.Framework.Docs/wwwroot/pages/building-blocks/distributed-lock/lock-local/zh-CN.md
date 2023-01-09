@@ -1,4 +1,4 @@
-﻿## 概念
+## 概念
 
 基于[`SemaphoreSlim`](https://learn.microsoft.com/zh-cn/dotnet/api/system.threading.semaphoreslim)实现的本地锁, 建议在单个应用中使用
 

@@ -1,4 +1,4 @@
-﻿## 概念
+## 概念
 
 基于[DistributedLock](https://github.com/madelson/DistributedLock)的一个分布式锁，核心能力由`Masa.Contrib.Data.DistributedLock.Medallion`提供, 但我们在使用时必须选择一个提供者
 

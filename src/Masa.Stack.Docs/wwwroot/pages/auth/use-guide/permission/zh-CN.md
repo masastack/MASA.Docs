@@ -15,11 +15,11 @@
 * 限制绑定次数：该角色可以被几个用户使用
 * 描述说明：角色的描述信息
 
-![role-add](/stack/auth/role-add.png)
+![role-add](http://cdn.masastack.com/stack/doc/auth/role-add.png)
 
 点击下一步，进入绑定角色权限窗口。通过继承角色可以选择继承哪些角色的权限，底部权限树可以进一步补充角色权限和禁用从继承角色继承的权限。
 
-![role-add-2](/stack/auth/role-add-2.png)
+![role-add-2](http://cdn.masastack.com/stack/doc/auth/role-add-2.png)
 
 ## 权限
 
@@ -30,7 +30,7 @@ MASA Auth 将权限分为菜单权限、元素权限、Api权限、数据权限(
 * Api权限：Api接口访问权限配置
 * 数据权限：用户数据控制、如业务员只能看到自己的业务数据
 
-![permission-view](/stack/auth/permission-view.png)
+![permission-view](http://cdn.masastack.com/stack/doc/auth/permission-view.png)
 
 ### 新建权限
 
@@ -52,7 +52,7 @@ MASA Auth 将权限分为菜单权限、元素权限、Api权限、数据权限(
 * Icon代码：目前仅菜单权限有效，做菜单展示的图标。内容格式为Masa Blazor [Icon](https://blazor.masastack.com/components/icons)支持的图标
 * 描述说明：权限描述说明
 
-![permission-add](/stack/auth/permission-add.png)
+![permission-add](http://cdn.masastack.com/stack/doc/auth/permission-add.png)
 
 #### Api权限
 
@@ -63,4 +63,4 @@ MASA Auth 将权限分为菜单权限、元素权限、Api权限、数据权限(
 * 权限地址：Api权限路由
 * 描述说明：权限描述说明
 
-![permission-add-api](/stack/auth/permission-add-api.png)
+![permission-add-api](http://cdn.masastack.com/stack/doc/auth/permission-add-api.png)
