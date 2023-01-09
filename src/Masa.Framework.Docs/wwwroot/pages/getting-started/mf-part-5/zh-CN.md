@@ -1,11 +1,11 @@
 ## 5. 事件总线
 
+### 使用
+
 通过事件总线帮助我们解耦不同架构层次, 根据事件类型我们将事件总线划分为:
 
 * [进程内事件总线](/framework/building-blocks/dispatcher/local-event)
 * [集成事件总线](/framework/building-blocks/dispatcher/integration-event)
-
-### 使用
 
 1. 安装`Masa.Contrib.Dispatcher.IntegrationEvents.Dapr`、`Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore`、`Masa.Contrib.Dispatcher.Events`
 
@@ -69,9 +69,8 @@ builder.Services.AddIntegrationEventBus(integrationEventBus =>
             integrationEventBus
                 .UseDapr()
                 .UseEventLog<CatalogDbContext>())
-        .UseEventBus()
+        .UseEventBus(typeof(LoggingMiddleware<>))
         .UseUoW<CatalogDbContext>() //使用工作单元, 确保原子性
         .UseRepository<CatalogDbContext>();
 });
 ```
-

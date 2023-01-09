@@ -1,5 +1,7 @@
 ## 6. 使用多级缓存
 
+### 使用
+
 随着业务的增长, 访问系统的用户越来越多, 直接读取数据库的性能也变得越来越差, IO读取出现瓶颈, 这个时候我们可以有两种选择:
 
 * 使用IO读写更快的磁盘, 比如: 使用固态磁盘代替读写速度差一点的机械磁盘
@@ -9,8 +11,6 @@
 * 使用缓存技术代替直接读取数据库
   * 优点: 服务器硬件成本未上涨, 但可以带来十倍的性能提升
   * 缺点: 针对读大于写的场景更为实用, 不可用于复杂查询
-
-### 使用
 
 下面我们将使用[多级缓存](/framework/building-blocks/caching/multilevel-cache)技术, 用于提升获取`商品`详情的速度
 
@@ -103,4 +103,4 @@ public class CatalogItemRepository : Repository<CatalogDbContext, CatalogItem, i
 }
 ```
 
-> 多级缓存与分布式缓存相比, 它有更高的性能, 对Redis集群的压力更小, 但当缓存更新时, 多级缓存会有1-2秒左右的刷新延迟, 详细原因可查看[文档](/framework/building-blocks/caching/multilevel-cache)
+> 多级缓存与分布式缓存相比, 它有更高的性能, 对Redis集群的压力更小, 但当缓存更新时, 多级缓存会有1-2秒左右的刷新延迟, 详细可查看[文档](/framework/building-blocks/caching/multilevel-cache)
