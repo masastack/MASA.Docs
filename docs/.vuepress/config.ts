@@ -81,6 +81,10 @@ export default defineUserConfig<DefaultThemeOptions>({
                         '/stack/mc/guides/receiverGroup',
                         '/stack/mc/guides/sendMessage',
                         '/stack/mc/guides/messageRecord',
+                        '/stack/mc/sdk/mc',
+                        '/stack/mc/practices/best-practices',
+                        '/stack/mc/faq/faq',
+                        '/stack/mc/agreement/related-agreements',
                     ]
                 }
             ],
