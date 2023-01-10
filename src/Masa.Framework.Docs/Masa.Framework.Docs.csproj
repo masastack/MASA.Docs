@@ -15,5 +15,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\override\zh-CN.md" />
+  </ItemGroup>
+
 
 </Project>

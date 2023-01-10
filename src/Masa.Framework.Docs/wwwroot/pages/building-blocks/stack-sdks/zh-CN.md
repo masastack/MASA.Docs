@@ -16,4 +16,4 @@
 
 * [消息中心](/stack/mc/sdk-instance): 简称: MC，全称: Message Center，提供消息管理能力
 
-* [告警管理](/stack/alert/guide/introduce): 全称: Alert，提供告警管理能力
+* [告警管理](/stack/alert/introduce): 全称: Alert，提供告警管理能力

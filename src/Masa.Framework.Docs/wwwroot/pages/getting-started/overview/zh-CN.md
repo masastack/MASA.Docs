@@ -4,18 +4,23 @@
 
 * `Entity Framework Core`提供获取数据的能力
 * `Redis`: 提供获取数据的能力, 相比直接操作数据库, 它有更高的并发读写性能
-* [`Minimal APIs`]()对外提供最小依赖项的`HTTP API`
+* [`Minimal APIs`](/framework/building-blocks/minimal-apis)对外提供最小依赖项的`HTTP API`
 
 ## 目录
 
 * [1. 创建最小APIs服务](/framework/getting-started/mf-part-1)
-* [2. 商品: 领域层](/framework/getting-started/mf-part-2)
+* [2. 领域层](/framework/getting-started/mf-part-2)
 * [3. 自定义仓储实现](/framework/getting-started/mf-part-3)
 * [4. 保存或获取数据](/framework/getting-started/mf-part-4)
 * [5. 事件总线](/framework/getting-started/mf-part-5)
-* [6. 使用多级缓存](/framework/getting-started/mf-part-6)
+* [6. 应用服务层](/framework/getting-started/mf-part-6)
+* [7. 对象映射](/framework/getting-started/mf-part-7)
+* [8. 多级缓存](/framework/getting-started/mf-part-8)
+* [9. 全局异常处理与I18n](/framework/getting-started/mf-part-9)
 
 ## 下载源码
+
+* [Masa.EShop.Demo](https://github.com/zhenlei520/Masa.EShop.Demo)
 
 ## 创建解决方案
 

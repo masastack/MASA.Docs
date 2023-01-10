@@ -20,10 +20,62 @@ public class CatalogDbContext : MasaDbContext<CatalogDbContext>
     {
 
     }
+    
+    protected override void OnModelCreatingExecuting(ModelBuilder builder)
+    {
+        builder.ApplyConfigurationsFromAssembly(typeof(CatalogDbContext).Assembly);
+        base.OnModelCreatingExecuting(builder);
+    }
 }
 ```
 
-3. 配置数据库连接字符串
+3. 配置自定义映射类, 以`CatalogItem`为例
+
+```csharp
+public class CatalogItemEntityTypeConfiguration
+    : IEntityTypeConfiguration<CatalogItem>
+{
+    public void Configure(EntityTypeBuilder<CatalogItem> builder)
+    {
+        builder.ToTable("Catalog");
+
+        builder.Property(ci => ci.Id)
+            .IsRequired();
+
+        builder.Property(ci => ci.Name)
+            .IsRequired(true)
+            .HasMaxLength(50);
+
+        builder.Property(ci => ci.Price)
+            .IsRequired(true);
+
+        builder.Property(ci => ci.PictureFileName)
+            .IsRequired(false);
+
+        builder
+            .Property<Guid>("_catalogBrandId")
+            .UsePropertyAccessMode(PropertyAccessMode.Field)
+            .HasColumnName("CatalogBrandId")
+            .IsRequired();
+        
+        builder
+            .Property<int>("_catalogTypeId")
+            .UsePropertyAccessMode(PropertyAccessMode.Field)
+            .HasColumnName("CatalogTypeId")
+            .IsRequired();
+        
+        builder.HasOne(ci => ci.CatalogBrand)
+            .WithMany()
+            .HasForeignKey("_catalogBrandId");
+        
+        builder.HasOne(ci => ci.CatalogType)
+            .WithMany()
+            .HasForeignKey("_catalogTypeId");
+    }
+}
+```
+
+4. 配置数据库连接字符串
 
 ```appsettings.json
 {
@@ -33,7 +85,7 @@ public class CatalogDbContext : MasaDbContext<CatalogDbContext>
 }
 ```
 
-4. 注册数据上下文
+5. 注册数据上下文
 
 ```csharp
 builder.Services.AddMasaDbContext<CatalogDbContext>(dbContextBuilder =>

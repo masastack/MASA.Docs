@@ -20,14 +20,35 @@ dotnet add package Masa.Contrib.Dispatcher.Events // 支持进程内事件
 2. 注册集成事件与进程内事件, 修改`Program.cs`
 
 ```csharp
-builder.AddIntegrationEventBus(integrationEventBus => 
+builder.Services
+    .AddIntegrationEventBus(integrationEventBus => 
         integrationEventBus
             .UseDapr()
             .UseEventLog<CatalogDbContext>()
             .UseEventBus())
 ```
 
-其中进程内事件支持`AOP`, 提供类似`中间件`的功能, 例如记录所有事件的日志
+由于我们的项目使用了`DomainEventBus`, 我们可以将领域事件总线与进程内事件总线、集成事件总线注册代码简写为:
+
+```csharp
+builder.Services
+    .AddDomainEventBus(options =>
+    {
+        options.UseIntegrationEventBus(integrationEventBus =>
+                integrationEventBus
+                    .UseDapr()
+                    .UseEventLog<CatalogDbContext>())
+            .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingMiddleware<>)))
+            .UseUoW<CatalogDbContext>() //使用工作单元, 确保原子性
+            .UseRepository<CatalogDbContext>();
+    });
+```
+
+### 中间件
+
+进程内事件支持`AOP`, 提供与`ASP.NET Core`类似的`中间件`的功能, 例如: 记录所有事件的日志
+
+### 自定义日志中间件
 
 1. 新建日志中间件`LoggingMiddleware`, 并继承`Middleware<TEvent>`
 
@@ -49,28 +70,49 @@ public class LoggingMiddleware<TEvent> : Middleware<TEvent>
 2. 修改注册进程内事件代码, 指定需要执行的中间件, 修改`Program.cs`
 
 ```csharp
-builder.Services.AddIntegrationEventBus(integrationEventBus => 
-    integrationEventBus
-        .UseDapr()
-        .UseEventLog<CatalogDbContext>()
-        .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingMiddleware<>))) //指定需要执行的中间件
+builder.Services
+    .AddDomainEventBus(options =>
+    {
+        options.UseIntegrationEventBus(integrationEventBus =>
+                integrationEventBus
+                    .UseDapr()
+                    .UseEventLog<CatalogDbContext>())
+            .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingMiddleware<>))) //指定需要执行的中间件
+            .UseUoW<CatalogDbContext>() //使用工作单元, 确保原子性
+            .UseRepository<CatalogDbContext>();
+    });
 ```
 
 > 进程内事件总线的中间件是先进后出
 
 除此之外, 进程内事件还支持`Handler编排`、`Saga`等, 查看详细[文档](/framework/building-blocks/dispatcher/local-event)
 
-由于我们的项目使用了`DomainEventBus`, 我们可以将领域事件总线与进程内事件总线、集成事件总线注册代码简写为:
+### 验证中间件
+
+在`Masa.Contrib.Dispatcher.Events.FluentValidation`中我们提供了基于`FluentValidation`的验证中间件, 它可以帮助我们在发送进程内事件后自动调用验证, 协助我们完成对参数的校验
+
+1. 安装`Masa.Contrib.Dispatcher.Events.FluentValidation`、`FluentValidation.AspNetCore`
+
+```powershell
+dotnet add package Masa.Contrib.Dispatcher.Events.FluentValidation
+dotnet add package FluentValidation.AspNetCore
+```
+
+2. 指定进程内事件使用`FluentValidation`的中间件
 
 ```csharp
-.AddDomainEventBus(options =>
-{
-    options.UseIntegrationEventBus(integrationEventBus =>
-            integrationEventBus
-                .UseDapr()
-                .UseEventLog<CatalogDbContext>())
-        .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingMiddleware<>)))
-        .UseUoW<CatalogDbContext>() //使用工作单元, 确保原子性
-        .UseRepository<CatalogDbContext>();
-});
+builder.Services
+    .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly()) //添加指定程序集下的`FluentValidation`验证器
+    .AddDomainEventBus(options =>
+    {
+        options.UseIntegrationEventBus(integrationEventBus =>
+                integrationEventBus
+                    .UseDapr()
+                    .UseEventLog<CatalogDbContext>())
+            .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(new[] { typeof(ValidatorMiddleware<>), typeof(LoggingMiddleware<>) })) //使用验证中间件、日志中间件
+            .UseUoW<CatalogDbContext>() //使用工作单元, 确保原子性
+            .UseRepository<CatalogDbContext>();
+    });
 ```
+
+> 基于`FluentValidation`的验证部分代码将在下一篇文章中讲到

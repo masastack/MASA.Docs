@@ -1,106 +1,141 @@
-## 6. 使用多级缓存
+## 6. 应用服务层
 
-### 使用
+新建`Application`文件夹, 并在其中新建`Catalogs`文件夹, 在其中根据读写操作分为`Commands`、`Queries`
 
-随着业务的增长, 访问系统的用户越来越多, 直接读取数据库的性能也变得越来越差, IO读取出现瓶颈, 这个时候我们可以有两种选择:
+### Command
 
-* 使用IO读写更快的磁盘, 比如: 使用固态磁盘代替读写速度差一点的机械磁盘
-  * 优点: 无需更改代码
-  * 缺点: 读写速度更高的磁盘意味着更大的成本压力, 且提升是有限的
+我们将写操作放到`Commands`中, 类名以`Command`结尾, 例如:
 
-* 使用缓存技术代替直接读取数据库
-  * 优点: 服务器硬件成本未上涨, 但可以带来十倍的性能提升
-  * 缺点: 针对读大于写的场景更为实用, 不可用于复杂查询
+1. 在`Commands`文件夹中新建`CatalogItemCommand`类并继承`Command`
 
-下面我们将使用[多级缓存](/framework/building-blocks/caching/multilevel-cache)技术, 用于提升获取`商品`详情的速度
-
-1. 安装`Masa.Contrib.Caching.MultilevelCache`、`Masa.Contrib.Caching.Distributed.StackExchangeRedis`
-
-多级缓存是基于内存缓存与分布式缓存组合实现的, 在使用它时必须要配合使用分布式缓存, 查看已支持的[缓存提供者](/framework/building-blocks/caching/overview)
-
-```powershell
-dotnet add package Masa.Contrib.Caching.MultilevelCache // 多级缓存提供者
-
-dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis //分布式Redis缓存提供者
-```
-
-2. 配置分布式Redis缓存配置信息, 修改`appsettings.json`
-
-```appsettings.json
+```csharp
+public record CatalogItemCommand : Command
 {
-  "RedisConfig": {
-    "Servers": [
-      {
-        "Host": "localhost",
-        "Port": 6379
-      }
-    ],
-    "DefaultDatabase": 0
-  }
+    public string Name { get; set; } = null!;
+
+    public string Description { get; set; } = string.Empty;
+
+    public decimal Price { get; set; }
+
+    public string PictureFileName { get; set; } = string.Empty;
+
+    public Guid CatalogBrandId { get;  set; }
+    
+    public int CatalogTypeId { get; set; }
 }
 ```
 
-3. 配置多级缓存中内存缓存的配置信息, 修改`appsettings.json`
+> 我们建议命令事件以`Command`结尾, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强.
 
-```appsettings.json
+2. 在`Commands`文件夹中新建`CatalogItemCommandValidator`类并继承`AbstractValidator<CatalogItemCommand>`
+
+自定义验证提供了很多验证方法, 比如`NotNull`、`Length`等, 更多使用技巧查看[文档](https://docs.fluentvalidation.net/en/latest)
+
+```csharp
+public class CatalogItemCommandValidator : AbstractValidator<CatalogItemCommand>
 {
-  "MultilevelCache": {
-    "CacheEntryOptions": {
-      "AbsoluteExpirationRelativeToNow": "72:00:00", //绝对过期时间（从当前时间算起）
-      "SlidingExpiration": "00:05:00" //滑动到期时间（从当前时间开始）
+    public CatalogItemCommandValidator()
+    {
+        RuleFor(command => command.Name).NotNull().Length(1, 20).WithMessage("商品名称长度介于在1-20之间");
+        RuleFor(command => command.CatalogTypeId).Must(typeId => Enumeration.GetAll<CatalogType>().Any(item => item.Id == typeId)).WithMessage("不支持的商品分类");
     }
-  }
 }
 ```
 
-4. 注册缓存, 修改`Program.cs`
+> 除此之外, 我们还扩展了其它验证方法, 例如: 中文验证、手机号验证、身份证验证等, 查看[文档](/framework/utils/extensions/fluent-validation)
+
+### Query
+
+我们在读操作放到`Queries`中, 类名以`Query`结尾, 例如:
+
+1. 在`Queries`文件夹中新建`CatalogItemQuery`类并继承`Query`
 
 ```csharp
-builder.Services.AddMultilevelCache(distributedCacheOptions =>
+public record CatalogItemQuery: ItemsQueryBase<List<CatalogItem>>
 {
-    distributedCacheOptions.UseStackExchangeRedisCache();
-});
-```
+    public string Name { get; set; }
+    
+    public int Page { get; set; } = 1;
 
-分布式Redis缓存、多级缓存支持通过其它方式配置, 详细可参考[Redis文档](/framework/building-blocks/caching/stackexchange-redis), [多级缓存文档](/framework/building-blocks/caching/multilevel-cache) 
-
-5. 重写`FindAsync`, 优先从缓存中获取数据, 缓存不存在时读取数据库
-
-```csharp
-public class CatalogItemRepository : Repository<CatalogDbContext, CatalogItem, int>, ICatalogItemRepository
-{
+    public int PageSize { get; set; } = 20;
+    
     /// <summary>
-    /// 使用多级缓存
+    /// 存储查询结果
     /// </summary>
-    private readonly IMultilevelCacheClient _multilevelCacheClient;
+    public override List<CatalogItem> Result { get; set; }
+}
+```
 
-    public CatalogItemRepository(CatalogDbContext context, IUnitOfWork unitOfWork, IMultilevelCacheClient multilevelCacheClient) : base(context, unitOfWork)
+> 我们建议读事件以`Query`结尾, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强.
+
+2. 在`Queries`文件夹中新建`CatalogItemsQueryValidator`类并继承`AbstractValidator<CatalogItemsQuery>`
+
+```csharp
+public class CatalogItemsQueryValidator : AbstractValidator<CatalogItemsQuery>
+{
+    public CatalogItemsQueryValidator()
     {
-        _multilevelCacheClient = multilevelCacheClient;
-    }
-
-    public override async Task<CatalogItem?> FindAsync(int id, CancellationToken cancellationToken = default)
-    {
-        var catalogInfo = await _multilevelCacheClient.GetOrSetAsync(id.ToString(), () =>
-        {
-            //仅当内存缓存、Redis缓存都不存在时执行
-            var info = Context.Set<CatalogItem>()
-                .Include(catalogItem => catalogItem.CatalogType)
-                .Include(catalogItem => catalogItem.CatalogBrand)
-                .AsSplitQuery()
-                .FirstOrDefaultAsync(catalogItem => catalogItem.Id == id, cancellationToken).ConfigureAwait(false).GetAwaiter().GetResult();
-
-            if (info != null)
-                return new CacheEntry<CatalogItem>(info, TimeSpan.FromDays(3))
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                };
-            
-            return new CacheEntry<CatalogItem>(info!, TimeSpan.FromSeconds(5));
-        });
-        return catalogInfo;
+        RuleFor(command => command.Page).GreaterThan(1).WithMessage("页码错误");
+        RuleFor(command => command.PageSize).GreaterThan(0).WithMessage("页大小错误");
     }
 }
 ```
 
-> 多级缓存与分布式缓存相比, 它有更高的性能, 对Redis集群的压力更小, 但当缓存更新时, 多级缓存会有1-2秒左右的刷新延迟, 详细可查看[文档](/framework/building-blocks/caching/multilevel-cache)
+> 验证类不是必须的, 根据业务情况选择性创建即可, 并没有强制性要求每个`Event`都必须有对应的`EventValidator`
+
+### Handler
+
+在`Catalogs`文件夹中新建`CatalogItemHandler`类, 用于存放商品事件的处理程序
+
+```csharp
+public class CatalogItemHandler
+{
+    private readonly ICatalogItemRepository _catalogItemRepository;
+
+    public CatalogItemHandler(ICatalogItemRepository catalogItemRepository)
+    {
+        _catalogItemRepository = catalogItemRepository;
+    }
+
+    /// <summary>
+    /// 创建商品处理程序
+    /// </summary>
+    [EventHandler]
+    public async Task AddAsync(CatalogItemCommand command, ISequentialGuidGenerator guidGenerator, CancellationToken cancellationToken)
+    {
+        var catalogItem = new CatalogItem(guidGenerator.NewId(), command.CatalogBrandId, command.CatalogTypeId, command.Name, command.Description, command.Price, command.PictureFileName);
+        await _catalogItemRepository.AddAsync(catalogItem, cancellationToken);
+    }
+
+    /// <summary>
+    /// 查询处理程序
+    /// </summary>
+    [EventHandler]
+    public async Task GetListAsync(CatalogItemsQuery query, CancellationToken cancellationToken)
+    {
+        Expression<Func<CatalogItem, bool>> condition = catalogItem => true;
+        condition = condition.And(!query.Name.IsNullOrWhiteSpace(), catalogItem => catalogItem.Name.Contains(query.Name!));
+
+        var catalogItems = await repository.GetPaginatedListAsync(condition, new PaginatedOptions(query.Page, query.PageSize), cancellationToken);
+
+        query.Result = new PaginatedListBase<CatalogListItemDto>()
+        {
+            Total = catalogItems.Total,
+            TotalPages = catalogItems.TotalPages,
+            Result = catalogItems.Result.Map<List<CatalogListItemDto>>()
+        };
+    }
+}
+```
+
+使用`EventBus`后无需手动保存, 除非你有以下需求:
+
+* 主键id是子增的, 后续代码需要使用主键id, 则需要通过`IUnitOfWork`执行`SaveChangesAsync()`
+
+> `CatalogItemHandler`构造函数的参数必须支持从`DI`获取, 否则将无法正常使用, 更多信息查看[文档](/framework/building-blocks/dispatcher/local-event)
+
+在`QueryHandler`中我们还使用了对象映射功能, 使用它使得我们的代码变得更加优美, 查看[文档](/framework/building-blocks/getting-started/) 
+
+## 其它
+
+* [基于 .NET 的 FluentValidation 验证教程](https://www.xcode.me/post/5849)

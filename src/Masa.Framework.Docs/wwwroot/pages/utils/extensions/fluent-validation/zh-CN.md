@@ -46,6 +46,8 @@ public class RegisterUserValidator : AbstractValidator<RegisterUser>
 * ChineseLetterNumberUnderline: 中文字母数字下划线验证
 * ChineseLetterNumber: 中文字母数字验证
 * Phone: 手机号验证 (支持`zh-CN`、`en-US`、`en-GB`)
+* IdCard: 身份验证 (支持`zh-CN`)
+  * 目前身份验证仅支持中国15、18位身份证
 
 > 不同国家的手机号码有着不同的规则, 并不是简单通过输入内容是否数字以及数字的长度来验证手机号码
 
