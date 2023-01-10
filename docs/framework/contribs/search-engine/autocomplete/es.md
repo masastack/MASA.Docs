@@ -7,8 +7,8 @@ date: 2022/07/21
 
 1. 安装`Masa.Contrib.SearchEngine.AutoComplete.ElasticSearch`
 
-```c#
-Install-Package Masa.Contrib.SearchEngine.AutoComplete.ElasticSearch
+``` powershell
+dotnet add package Masa.Contrib.SearchEngine.AutoComplete.ElasticSearch
 ```
 
 基本用法:

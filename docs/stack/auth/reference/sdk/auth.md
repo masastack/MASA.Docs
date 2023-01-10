@@ -30,8 +30,8 @@ IAuthClient
 
 ### 安装依赖包
 
-```C#
-Install-Package Masa.Contrib.StackSdks.Auth
+``` powershell
+dotnet add package Masa.Contrib.StackSdks.Auth
 ```
 
 ### 注册相关服务

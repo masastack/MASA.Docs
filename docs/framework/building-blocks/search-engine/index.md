@@ -1,12 +1,12 @@
 ---
 title: 搜索引擎
-date: 2022/07/01
+date: 2022/11/23
 ---
 
-## AutoComplete
+## 概念
 
-提供自动补全功能
+基于搜索引擎提供服务
 
-目前提供者有:
+## 功能
 
-* [ElasticSearch](/framework/contribs/search-engine/autocomplete/es): 基于ElasticSearch的自动补全
+* [提供自动补全功能](/framework/contribs/search-engine/autocomplete)

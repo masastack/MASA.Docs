@@ -3,15 +3,15 @@ title: 数据 - 分布式锁 - Medallion - FileSystem
 date: 2022/08/19
 ---
 
-## 入门
+## 使用
 
 1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.FileSystem`
 
-``` shell
+``` powershell
 dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.FileSystem
 ```
 
-1. 修改类`Program`
+2. 修改类`Program`
 
 ``` C#
 builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseFileSystem("Replace your directory path"));
