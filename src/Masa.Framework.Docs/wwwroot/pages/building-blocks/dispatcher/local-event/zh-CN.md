@@ -18,13 +18,13 @@ dotnet add package Masa.Contrib.Dispatcher.Events
 
 2. 注册EventBus
 
-``` C#
+```csharp
 builder.Services.AddEventBus();
 ```
 
 3. 新增 RegisterUserEvent 类
 
-``` C#
+```csharp
 public record RegisterEvent : Event
 {
     public string Account { get; set; }
@@ -37,7 +37,7 @@ public record RegisterEvent : Event
 
 4. 注册用户的处理程序
 
-``` C#
+```csharp
 public class UserHandler
 {
     private readonly ILogger<UserHandler>? _logger;
@@ -59,7 +59,7 @@ public class UserHandler
 
 5. 发布注册用户事件
 
-``` C#
+```csharp
 app.MapPost("/register", async (RegisterUserEvent @event, IEventBus eventBus) =>
 {
     await eventBus.PublishAsync(@event);
@@ -72,7 +72,7 @@ app.MapPost("/register", async (RegisterUserEvent @event, IEventBus eventBus) =>
 
 Handler按照Order的值从小到大升序执行
 
-``` C#
+```csharp
 public class UserHandler
 {
     private readonly ILogger<UserHandler>? _logger;
@@ -119,12 +119,12 @@ EventBus的请求管道包含一系列请求委托，依次调用。 它们与 [
 
 :::: code-group
 ::: code-group-item 1. 注册 FluentValidation
-``` C#
+```csharp
 builder.Services.AddValidatorsFromAssembly(Assembly.GetEntryAssembly());
 ```
 :::
 ::: code-group-item 2. 自定义验证中间件 ValidatorMiddleware.cs
-``` C#
+```csharp
 public class ValidatorMiddleware<TEvent> : Middleware<TEvent>
     where TEvent : IEvent
 {
@@ -165,12 +165,12 @@ public class ValidatorMiddleware<TEvent> : Middleware<TEvent>
 ```
 :::
 ::: code-group-item 3. 注册EventBus时使用验证中间件
-``` C#
+```csharp
 builder.Services.AddEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(ValidatorMiddleware<>)));
 ```
 :::
 ::: code-group-item 4. 添加注册用户的验证规则类
-``` C#
+```csharp
 /// <summary>
 /// 继承 AbstractValidator<TEvent>, 其中TEvent需要更改为待验证的类
 /// </summary>
@@ -200,7 +200,7 @@ public class RegisterUserEventValidator : AbstractValidator<RegisterUserEvent>
 
 **RegisterUser -> SendAwardByRegister -> CancelSendAwardByRegister**
 
-``` C#
+```csharp
 public class UserHandler
 {
     private readonly ILogger<UserHandler>? _logger;
@@ -279,10 +279,14 @@ BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19043.1023 (21H1/May2021Update)
 
 Runtime=.NET 6.0  IterationCount=100  RunStrategy=ColdStart
 
+<div class="custom-table">
+
 |                         Method |      Mean |     Error |      StdDev |   Median |      Min |         Max |
 |------------------------------- |----------:|----------:|------------:|---------:|---------:|------------:|
 | AddShoppingCartByEventBusAsync | 124.80 us | 346.93 us | 1,022.94 us | 8.650 us | 6.500 us | 10,202.4 us |
 |  AddShoppingCartByMediatRAsync | 110.57 us | 306.47 us |   903.64 us | 7.500 us | 5.300 us |  9,000.1 us |
+
+</div>
 
 根据性能测试我们发现，EventBus与MediatR性能差距很小，但EventBus提供的功能却要强大的多
 
@@ -294,13 +298,13 @@ Runtime=.NET 6.0  IterationCount=100  RunStrategy=ColdStart
 
 ②. 注册`EventBus`时指定程序集集合, Assembly被用于注册时获取并保存事件与Handler的对应关系
 
-::: tip Assembly的优先级
+* Assembly的优先级
+
 ```csharp 
 手动指定Assembly集合 -> MasaApp.GetAssemblies() -> AppDomain.CurrentDomain.GetAssemblies() 
 ```
-:::
 
-``` C#
+```csharp
 var assemblies = new[]
 {
     typeof(UserHandler).Assembly

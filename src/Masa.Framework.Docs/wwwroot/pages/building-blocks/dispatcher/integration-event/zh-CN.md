@@ -22,7 +22,7 @@ dotnet add package Masa.Contrib.Data.EFCore.SqlServer // SqlServer数据库
 
 2. 修改`Program.cs`，注册`IntegrationEventBus`
 
-```C#
+```csharp
 builder.Services
     .AddIntegrationEventBus(options=>
     {
@@ -37,7 +37,7 @@ builder.Services
 
 3. 自定义类`DemoIntegrationEvent`, 并集成`IntegrationEvent`
 
-```C#
+```csharp
 public record DemoIntegrationEvent : IntegrationEvent
 {
     public override string Topic { get; set; } = nameof(DemoIntegrationEvent);//topic name
@@ -48,7 +48,7 @@ public record DemoIntegrationEvent : IntegrationEvent
 
 4. 自定义CustomDbContext
 
-```C#
+```csharp
 public class CustomDbContext : MasaDbContext
 {
     public DbSet<User> Users { get; set; } = null!;
@@ -62,13 +62,15 @@ public class CustomDbContext : MasaDbContext
 
 5. 发送集成事件 (IntegrationEvent)
 
-```C#
+```csharp
 IIntegrationEventBus eventBus;//通过DI得到IIntegrationEventBus
 var @event = new DemoIntegrationEvent();
 await eventBus.PublishAsync(@event);//发送集成事件
 ```
 
 ## 配置
+
+<div class="custom-table">
 
 |  参数名   | 参数描述  | 默认值  | 
 |  ----  | ----  | ----  |
@@ -83,9 +85,11 @@ await eventBus.PublishAsync(@event);//发送集成事件
 | PublishedExpireTime  | 发布成功消息的过期时间 (当状态为已发布, 且修改时间与当前时间间隔大于设置的过期时间后, 消息将会被删除, 持久化队列) | (24 * 3600) 秒 |
 | DeleteBatchCount  | 批量删除过期的本地消息记录的最大条数 (持久化队列) | 1000 |
 
+</div>
+
 例如, 最大重试次数改为5次, 则:
 
-``` C#
+```csharp
 builder.Services
     .AddIntegrationEventBus(options=>
     { 
@@ -138,9 +142,7 @@ builder.Services
 
 > 它可以被替换成任何具有[PubSub](https://zh.wikipedia.org/wiki/%E5%8F%91%E5%B8%83/%E8%AE%A2%E9%98%85)能力的库
 
-::: tip 提示
-Dapr提供了PubSub的抽象, 它有多个实现方, 根据自己的需要选择一个即可, [查看Dapr提供的PubSub实现](https://docs.dapr.io/zh-hans/reference/components-reference/supported-pubsub/)
-:::
+`Dapr`提供了PubSub的抽象, 它有多个实现方, 根据自己的需要选择一个即可, [查看Dapr提供的PubSub实现](https://docs.dapr.io/zh-hans/reference/components-reference/supported-pubsub/)
 
 ### Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore
 
@@ -172,7 +174,7 @@ dotnet add package RabbitMQ.Client //使用RabbitMq
 
 2. 新增类`Publisher`, 并实现`IPublisher`
 
-``` C#
+```csharp
 public class Publisher : IPublisher
 {
     public async Task PublishAsync<T>(string topicName, T @event, CancellationToken stoppingToken = default) where T : IIntegrationEvent
@@ -185,7 +187,7 @@ public class Publisher : IPublisher
 
 3. 新建类`DispatcherOptionsExtensions`, 将自定义`Publisher`注册到服务集合
 
-``` C#
+```csharp
 public static class DispatcherOptionsExtensions
 {
     public static DispatcherOptions UseRabbitMq(this Masa.Contrib.Dispatcher.IntegrationEvents.Options.DispatcherOptions options)
@@ -199,7 +201,7 @@ public static class DispatcherOptionsExtensions
 
 4. 如何使用自定义实现`RabbitMq`
 
-``` C#
+```csharp
 builder.Services.AddIntegrationEventBus(option =>
 {
     option.UseRabbitMq();//修改为使用RabbitMq

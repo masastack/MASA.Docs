@@ -1,10 +1,12 @@
-# 构建块
+## 概念
 
 提供非业务能力的接口，并提供组合多个能力形成新的能力
 
 以下是`Framework`提供的构建块能力:
 
 ![能力](https://s2.loli.net/2022/12/30/zjD3RbHIuNkrQKW.png)
+
+<div class="custom-table">
 
 |  能力   | 说明  |    |
 | :----| :---- |:---- |
@@ -28,6 +30,8 @@
 | [面向切面编程](/framework/building-blocks/aop)  | EventBus支持自定义Middleware来实现切面编程 ||
 | [国际化](/framework/building-blocks/i18n) | 支持语言本地化和时间本地化 ||
 | [规则引擎](/framework/building-blocks/rule-engine)  |  ||
+
+</div>
 
 <style>
 td, th {
