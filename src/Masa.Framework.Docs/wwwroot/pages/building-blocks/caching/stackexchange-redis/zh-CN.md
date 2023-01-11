@@ -330,11 +330,15 @@ Redis缓存仅支持绝对过期, 即通过`EXPIRE`为给定`Key`设置过期时
 
 因此当缓存超过设置的滑动过期时间后, 缓存会被删除, 当在滑动过期时间内时, 会重新计算过期时间并更新
 
+<div class="custom-table">
+
 |  Hash 字段   | 描述  | 详细  | 特殊 |
 |  ----  | ----  | ----  | ----  |
 |   absexp    | 绝对过期时间的[Ticks](https://learn.microsoft.com/zh-cn/dotnet/api/system.datetime.ticks?view=net-6.0) | 自公历 `0001-01-01 00:00:00:000` 到绝对过期时间的计时周期数 (1周期 = 100ns 即 1/10000 ms) | -1 为永不过期 |
 |   sldexp   | 滑动过期时间的[Ticks](https://learn.microsoft.com/zh-cn/dotnet/api/system.datetime.ticks?view=net-6.0)  |  自公历 `0001-01-01 00:00:00:000` 到滑动过期时间的计时周期数 (1周期 = 100ns 即 1/10000 ms，每次获取数据时会刷新滑动过期时间) | -1 为永不过期 |
 |   data   | 数据 | 存储用户设置的缓存数据 |
+
+</div>
 
 ### 内容压缩规则
 
