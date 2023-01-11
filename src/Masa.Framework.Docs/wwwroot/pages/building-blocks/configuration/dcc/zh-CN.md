@@ -40,13 +40,13 @@ dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc
 
 3. 使用Dcc
 
-``` C#
+```csharp
 var app = builder.AddMasaConfiguration(configurationBuilder => configurationBuilder.UseDcc()).Build();
 ```
 
 4. 新增Redis配置类，用于在项目中获取Reids配置
 
-``` C#
+```csharp
 /// <summary>
 /// 自动映射远程节点Redis映射到RedisOptions类
 /// </summary>
@@ -64,7 +64,7 @@ public class RedisOptions : ConfigurationApiMasaConfigurationOptions
 
 5. 获取Redis配置信息
 
-``` C#
+```csharp
 // 通过DI获取到IOptions<RedisOptions> options;
 
 IOptions<RedisOptions> options = serviceProvider.GetRequiredService<IOptions<RedisOptions>>(); 
@@ -75,7 +75,7 @@ Console.WriteLine(options.Value.Host + ":" + options.Value.Port);
 
 MasaConfiguration默认支持选项模式, Dcc 可以通过继承`ConfigurationApiMasaConfigurationOptions`来实现自动映射, 例如: 
 
-``` C#
+```csharp
 /// <summary>
 /// 自动映射远程节点Redis映射到RedisOptions类
 /// </summary>

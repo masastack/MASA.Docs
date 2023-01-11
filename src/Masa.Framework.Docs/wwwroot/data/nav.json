@@ -3,12 +3,29 @@
     "title": "concepts",
     "items": [
       "overview",
-      "building-blocks",
       "observability",
-      "security",
       "modern-application",
-      "terminology",
-      "faq"
+      {
+        "title": "faq",
+        "items": [
+          "load-event"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "getting-started",
+    "items": [
+      "overview",
+      "mf-part-1",
+      "mf-part-2",
+      "mf-part-3",
+      "mf-part-4",
+      "mf-part-5",
+      "mf-part-6",
+      "mf-part-7",
+      "mf-part-8",
+      "mf-part-9"
     ]
   },
   {
@@ -26,17 +43,9 @@
       {
         "title": "distributed-lock",
         "items": [
+          "overview",
           "lock-local",
-          "medallion",
-          "medallion-azure",
-          "medallion-file-system",
-          "medallion-mysql",
-          "medallion-oracle",
-          "medallion-postgre-sql",
-          "medallion-redis",
-          "medallion-sql-server",
-          "medallion-wait-handles",
-          "medallion-zoo-keeper"
+          "medallion"
         ]
       },
       {
@@ -54,7 +63,124 @@
           "integration-event"
         ]
       },
-      "caching"
+      "minimal-apis",
+      {
+        "title": "caller",
+        "items": [
+          "overview",
+          "httpclient",
+          "daprclient"
+        ]
+      },
+      {
+        "title": "development",
+        "items": [
+          "overview",
+          "dapr-starter"
+        ]
+      },
+      "cqrs",
+      {
+        "title": "data",
+        "items": [
+          "overview",
+          "orm-efcore",
+          "data-filter",
+          "connection-strings"
+        ]
+      },
+      {
+        "title": "ddd",
+        "items": [
+          "overview",
+          "domain-model",
+          "value-model",
+          "entity",
+          "aggregate-root",
+          "repository",
+          "enumeration",
+          "domain-service",
+          "domain-event"
+        ]
+      },
+      {
+        "title": "caching",
+        "items": [
+          "overview",
+          "stackexchange-redis",
+          "multilevel-cache"
+        ]
+      },
+      {
+        "title": "storage",
+        "items": [
+          "overview",
+          "oss"
+        ]
+      },
+      {
+        "title": "globalization",
+        "items": [
+          "overview",
+          "i18n",
+          "i18n-aspnetcore",
+          "i18n-dcc"
+        ]
+      },
+      "exception",
+      "stack-sdks"
+    ]
+  },
+  {
+    "title": "utils",
+    "items": [
+      {
+        "title": "data",
+        "items": [
+          "overview",
+          "elasticsearch",
+          "prometheus"
+        ]
+      },
+      {
+        "title": "extensions",
+        "items": [
+          "overview",
+          "fluent-validation",
+          "dependency-injection",
+          "dotnet",
+          "enums",
+          "expression"
+        ]
+      },
+      {
+        "title": "ldap",
+        "items": [
+          "overview",
+          "novell"
+        ]
+      },
+      {
+        "title": "security",
+        "items": [
+          "cryptography",
+          "token"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "upgrade",
+    "items": [
+      "0.6.0",
+      "0.7.0"
+    ]
+  },
+  {
+    "title": "contribution",
+    "items": [
+      "issues",
+      "pr"
     ]
   }
 ]

@@ -6,14 +6,14 @@
 
 ## 功能列表
 
-* 分布式缓存: [IDistributedCacheClient](#IDistributedCacheClient)
-    * [Redis 缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.Distributed.StackExchangeRedis): 基于[StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)实现的分布式缓存 [查看详细](/framework/contribs/cache/stackexchange-redis)
-* [多级缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.MultilevelCache): [IMultilevelCacheClient](#IMultilevelCacheClient), 基于内存缓存与分布式缓存实现的多级缓存 [查看详细](/framework/contribs/cache/multilevel-cache)
+* 分布式缓存:
+    * [Redis 缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.Distributed.StackExchangeRedis): 基于[StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)实现的分布式缓存 [查看详细](/framework/building-blocks/cache/stackexchange-redis)
+* [多级缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.MultilevelCache): 基于内存缓存与分布式缓存实现的多级缓存, 相比分布式缓存而言, 它减少了一次网络传入与反序列化的消耗, 具有更好的性能优势 [查看详细](/framework/building-blocks/cache/multilevel-cache)
 * [内存缓存](https://www.nuget.org/packages/Masa.Utils.Caching.Memory): 提供了线程安全的字典集合 [查看详细](/framework/utils/caching/memory)
 
 ## 使用
 
-以`StackExchange.Redis`为例:
+以分布式缓存`StackExchange.Redis`为例:
 
 1. 安装`Masa.Contrib.Caching.Distributed.StackExchangeRedis`
 
@@ -40,7 +40,7 @@ dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 
 3. 注册分布式缓存，并使用Redis缓存，修改`Program.cs`
 
-``` C#
+```csharp
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache();//使用分布式Redis缓存, 默认使用本地`RedisConfig`节点的配置
@@ -49,7 +49,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 
 4. 新建`User`类，用于接收、存储用户信息使用
 
-``` C#
+```csharp
 public class User
 {
     public string Name { get; set; }
@@ -64,7 +64,7 @@ public class User
 
 * 设置缓存
 
-``` C#
+```csharp
 app.MapPost("/set/{id}", async (IDistributedCacheClient distributedCacheClient, [FromRoute] string id, [FromBody] User user) =>
 {
     await distributedCacheClient.SetAsync(id, user);
@@ -73,7 +73,7 @@ app.MapPost("/set/{id}", async (IDistributedCacheClient distributedCacheClient, 
 
 * 获取缓存
 
-``` C#
+```csharp
 app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, [FromRoute] string id) =>
 {
     var value = await distributedCacheClient.GetAsync<User>(id);
@@ -99,7 +99,7 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, [
 
 注册分布式缓存指定的`CacheKeyType`为全局缓存Key规则, 设置使用当前分布式缓存客户端时, 默认传入的缓存key即为最终的缓存Key
 
-``` C#
+```csharp
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache(options =>
@@ -120,7 +120,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 
 2. 为当前调用使用指定缓存Key规则
  
-``` C#
+```csharp
 var value = await distributedCacheClient.GetAsync<User>(id, options =>
 {
     options.CacheKeyType = CacheKeyType.TypeName;
@@ -135,12 +135,7 @@ var value = await distributedCacheClient.GetAsync<User>(id, options =>
 
 `IDistributedCacheClient`被用来管理分布式缓存, 它提供了以下方法: 
 
-<!-- 以下方法会根据全局缓存Key的规则配置以及传入缓存Key的规则配置，检测是否需要格式化缓存Key，对需要格式化Key的操作按照缓存Key格式化规则进行处理，[详细查看](#缓存Key的生成规则):  -->
-::: tip 提示
-* 分布式缓存中实际的缓存Key与传入的缓存Key不一定是相同的
-    * 泛型方法以及HashIncrementAsync、HashDecrementAsync方法的实际缓存Key是需要经过格式化得到
-    * 非泛型方法的实际缓存Key与传入的缓存Key一致
-:::
+> 分布式缓存中实际执行的缓存Key与传入的缓存Key不一定是相同的, 它受到全局配置的`CacheKeyType`以及当前方法传入`CacheKeyType`以及缓存Key三者共同决定 [查看规则](#缓存Key规则优先级)
 
 ① 需要重新计算缓存Key的方法
 

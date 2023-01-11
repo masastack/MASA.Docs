@@ -4,17 +4,17 @@
 
 目前分布式锁有两个实现, 它们分别是
 
-* [`Masa.Contrib.Data.DistributedLock.Local`](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Local): 基于[`SemaphoreSlim`](https://learn.microsoft.com/zh-cn/dotnet/api/system.threading.semaphoreslim)实现的本地锁, 建议在单个应用中使用, [查看详细](/framework/contribs/data/distributed-lock/local)
-* [`Masa.Contrib.Data.DistributedLock.Medallion`](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Medallion): 基于[DistributedLock](https://github.com/madelson/DistributedLock)实现的分布式锁, [查看详细](/framework/contribs/data/distributed-lock/medallion)
+* [`Masa.Contrib.Data.DistributedLock.Local`](/framework/contribs/data/distributed-lock/local): 基于[`SemaphoreSlim`](https://learn.microsoft.com/zh-cn/dotnet/api/system.threading.semaphoreslim)实现的本地锁, 建议在单个应用中使用
+* [`Masa.Contrib.Data.DistributedLock.Medallion`](/framework/contribs/data/distributed-lock/medallion): 基于[DistributedLock](https://github.com/madelson/DistributedLock)实现的分布式锁
 
-尽管[`Masa.Contrib.Data.DistributedLock.Local`](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Local)不支持分布式锁, 但它仍然是一个有用的实现
+尽管[`Masa.Contrib.Data.DistributedLock.Local`](/framework/contribs/data/distributed-lock/local)不支持分布式锁, 但它仍然是一个有用的实现
 
 * 在开发或者测试场景中
 * 当在生产环境中使用单个服务器时, 但后期可能会使用多个服务器时, 可通过快速更换注册分布式锁代码, 从而实现真正的分布式锁
 
 ## 使用
 
-以[`Masa.Contrib.Data.DistributedLock.Local`](https://www.nuget.org/packages/Masa.Contrib.Data.DistributedLock.Local)为例:
+以[`Masa.Contrib.Data.DistributedLock.Local`](/framework/contribs/data/distributed-lock/local)为例:
 
 1. 安装`Masa.Contrib.Data.DistributedLock.Local`
 
@@ -24,13 +24,13 @@ dotnet add package Masa.Contrib.Data.DistributedLock.Local
 
 2. 注册锁, 修改类`Program.cs`
 
-``` C#
+```csharp
 builder.Services.AddLocalDistributedLock();
 ```
 
 3. 使用锁
 
-``` C#
+```csharp
 IDistributedLock distributedLock; //从DI获取`IDistributedLock`
 using (var lockObj = distributedLock.TryGet("Replace Your Lock Name"))
 {
