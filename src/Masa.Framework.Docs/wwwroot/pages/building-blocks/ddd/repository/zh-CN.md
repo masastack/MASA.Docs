@@ -76,7 +76,7 @@ public class CatalogItemRepository: Repository<CatalogDbContext, CatalogItem, Gu
 * RemoveAsync(TKey id, CancellationToken cancellationToken = default): 移除指定主键`id`的实体
 * RemoveRangeAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default): 移除指定`id`集合的实体
 
-> 如果启用了[数据过滤](/framework/building-blocks/data/data-filter)功能, 则除了`FindAsync`方法默认忽略软删除, 其余查询都将使用[数据过滤](/framework/building-blocks/data/data-filter)
+> 如果启用了[数据过滤](/framework/building-blocks/data/data-filter)功能, 查询都将使用默认使用过滤, 如果希望查询到已被删除的数据, 可以临时禁用过滤, 详细可查看[文档](/framework/building-blocks/data/data-filter)
 
 ## 原理剖析
 
