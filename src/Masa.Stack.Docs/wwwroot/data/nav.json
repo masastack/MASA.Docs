@@ -66,5 +66,26 @@
       "related-agreements",
       "faq"
     ]
+  },
+  {
+    "title": "mc",
+    "icon": "mdi-bookmark",
+    "items": [
+      "introduce",
+      {
+        "title": "use-guide",
+        "items": [
+          "channel",
+          "message-template",
+          "receiver-group",
+          "send-message",
+          "message-record"
+        ]
+      },
+      "sdk-instance",
+      "best-practices",
+      "faq",
+      "related-agreements"
+    ]
   }
 ]
