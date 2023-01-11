@@ -119,3 +119,29 @@ app.MapGet("/SendWebsiteMessage", async ([FromServices] IMcClient mcClient) =>
 
 app.Run();
 ```
+4. 广播模式下通过SignalR发送检查通知，客户端接收后需要主动调用sdk的检查方法才会生成当前用户的站内信数据
+```c#
+ HubConnection = new HubConnectionBuilder()
+    .WithUrl(NavigationManager.ToAbsoluteUri($"{McApiOptions.BaseAddress}/signalr-hubs/notifications"), options =>
+    {
+        options.AccessTokenProvider = async () =>
+        {
+            string? accessToken = string.Empty;
+            if (httpContextAccessor.HttpContext != null)
+            {
+                accessToken = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+            }
+            return accessToken;
+        };
+    })
+.Build();
+
+await HubConnection.StartAsync();
+
+//订阅检查通知
+HubConnection?.On(SignalRMethodConsts.CHECK_NOTIFICATION, async () =>
+{
+    //广播下检查生成当前用户的站内信数据
+    await McClient.WebsiteMessageService.CheckAsync();
+});
+```

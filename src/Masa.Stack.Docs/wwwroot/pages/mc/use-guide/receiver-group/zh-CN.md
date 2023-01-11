@@ -9,14 +9,14 @@ date: 2022/12/09 14:50
 
 消息组列表以卡片形式展现，支持糊搜索、分页等功能
 
-![receiverGroups](_content/Masa.Stack.Docs/img/stack/mc/receiverGroups.png)
+![receiverGroups](http://cdn.masastack.com/stack/doc/mc/receiverGroups.png)
 
 ### 编辑
 
 支持masa auth中的角色、部门、团队、用户的组合
 
-![receiverGroup-edit](_content/Masa.Stack.Docs/img/stack/mc/receiverGroup-edit.png)
+![receiverGroup-edit](http://cdn.masastack.com/stack/doc/mc/receiverGroup-edit.png)
 
 支持添加外部用户
 
-![receiverGroup-externalUser](_content/Masa.Stack.Docs/img/stack/mc/receiverGroup-externalUser.png)
+![receiverGroup-externalUser](http://cdn.masastack.com/stack/doc/mc/receiverGroup-externalUser.png)
