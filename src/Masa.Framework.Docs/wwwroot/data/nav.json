@@ -24,6 +24,12 @@
         ]
       },
       {
+        "title": "openId-connect",
+        "items": [
+          "overview"
+        ]
+      },
+      {
         "title": "distributed-lock",
         "items": [
           "lock-local",
