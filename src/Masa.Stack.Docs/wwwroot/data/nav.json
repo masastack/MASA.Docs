@@ -87,5 +87,24 @@
       "faq",
       "related-agreements"
     ]
+  },
+  {
+    "title": "alert",
+    "icon": "mdi-bookmark",
+    "items": [
+      "introduce",
+      {
+        "title": "use-guide",
+        "items": [
+          "alarm-rule",
+          "alarm-history",
+          "web-hook"
+        ]
+      },
+      "sdk-instance",
+      "best-practices",
+      "faq",
+      "related-agreements"
+    ]
   }
 ]
