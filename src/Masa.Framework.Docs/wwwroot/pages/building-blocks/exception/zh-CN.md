@@ -38,7 +38,7 @@ throw new MasaException("自定义异常错误, 当前日志等级为Warning.", 
 
 它们默认支持i18n, 当服务使用i18n后, 异常信息会根据请求文化 ( Culture) 信息转换为对应的语言
 
-* 必要条件: 安装`Masa.Contrib.Exceptions`
+安装`Masa.Contrib.Exceptions`
 
 ``` powershell
 dotnet add package Masa.Contrib.Exceptions
@@ -158,6 +158,8 @@ builder.Services
 
 ### Exception与HttpStatusCode
 
+<div class="custom-table">
+
 |  异常类型   | 描述  |  HttpStatusCode  |
 |  ----  | ----  | ----  |
 | UserFriendlyException  | 用户友好异常 | 299 |
@@ -165,13 +167,8 @@ builder.Services
 | MasaArgumentException  | 参数异常 | 500 |
 | MasaException  | 内部服务错误 | 500 |
 
-> HttpStatusCode为298是验证异常，存在固定格式的响应信息
->
-> Validation failed:
->
-> -- {Name}: {Message} Severity: {ValidationLevel}
+</div>
 
-::: tip 提示
 HttpStatusCode为298是验证异常，存在固定格式的响应信息
 
 ``` http
@@ -179,7 +176,8 @@ Validation failed:
 -- {Name}: {Message} Severity: {ValidationLevel}
 -- {Name2}: {Message2} Severity: {ValidationLevel}
 ```
-:::
+
+> 配合[`Masa Blazor`](https://docs.masastack.com/blazor/introduction/why-masa-blazor)使用, 可以提供更友好的表单验证
 
 ## 源码解读
 

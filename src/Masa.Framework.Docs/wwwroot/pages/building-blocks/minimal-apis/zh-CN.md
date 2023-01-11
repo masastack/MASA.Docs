@@ -69,13 +69,13 @@ var app = builder.AddServices();
 
 > 两种注册路由方式任选一个即可
 
+其中自动映射路由规则为:
 
-::: tip 自动映射路由规则
 ```csharp 
 var 路由 = $"{前缀}/{版本}/{服务名(默认复数)}/{路由方法名}" 
 ```
-详细规则请[查看](#自动映射路由规则)
-:::
+
+> 详细规则请[查看](#自动映射路由规则)
 
 <a id = "路由注册"></a>
 
@@ -198,13 +198,11 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
 
 提供了全局配置以及服务内配置
 
-::: tip 配置优先级与null值处理
-服务内配置 > 全局配置
-
-当服务内配置为`null`时，使用全局配置的值
-:::
+> 服务内配置 > 全局配置 (当服务内配置为`null`时，使用全局配置的值)
 
 #### 全局配置
+
+<div class="custom-table">
 
 |  参数名   | 参数描述  | 默认值  |
 |  ----  | ----  | ----  |
@@ -222,92 +220,96 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
 | Assemblies | 用于扫描服务所在的程序集 | `MasaApp.GetAssemblies()`（全局Assembly集合，默认为当前域程序集集合） |
 | RouteHandlerBuilder | 基于`RouteHandlerBuilder`的委托，可用于权限认证、[CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)等 | `null` |
 
+</div>
+
 #### 服务内配置
 
-<table style='border-collapse: collapse;table-layout:fixed;width:100%'>
- <col span=6>
- <tr style="background-color:#f3f4f5; font-weight: bold">
-  <td colspan=3>参数名</td>
-  <td colspan=2>参数描述</td>
-  <td>默认值(未赋值为null)</td>
- </tr>
- <tr>
-  <td colspan=3><a id = "CustomBaseUri">BaseUri</a></td>
-  <td colspan=2>根地址</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=3>ServiceName</td>
-  <td colspan=2>服务名称</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=3>RouteHandlerBuilder</td>
-  <td colspan=2>基于RouteHandlerBuilder的委托，可用于权限认证、<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS">CORS</a>等</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=3>RouteOptions（对象）</td>
-  <td colspan=2>局部路由配置</td>
-  <td> </td>
- </tr>
- <tr>
-  <td rowspan=12></td>
-  <td colspan=2>DisableAutoMapRoute</td>
-  <td colspan=2>是否禁用自动映射路由，如果为true (禁用)，则框架不会自动映射路由</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=2>Prefix</td>
-  <td colspan=2>前缀</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=2>Version</td>
-  <td colspan=2>版本</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=2><a id ="AutoAppendId">AutoAppendId></a></td>
-  <td colspan=2>路由中是否包含{Id}, 例如: /api/v1/user/{id}</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=2><a id = "PluralizeServiceName">PluralizeServiceName</a></td>
-  <td colspan=2>服务名称是否启用复数</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=2><a id = "GetPrefixes">GetPrefixes</a></td>
-  <td colspan=2>用于识别当前方法类型为`Get`请求</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=2>PostPrefixes</td>
-  <td colspan=2>用于识别当前方法类型为`Post`请求</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=2>PutPrefixes</td>
-  <td colspan=2>用于识别当前方法类型为`Put`请求</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=2>DeletePrefixes</td>
-  <td colspan=2>用于识别当前方法类型为`Delete`请求</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=2><a id = "DisableTrimMethodPrefix">DisableTrimMethodPrefix</a></td>
-  <td colspan=2>禁用移除方法前缀(上方`Get`、`Post`、`Put`、`Delete`请求的前缀)</td>
-  <td></td>
- </tr>
- <tr>
-  <td colspan=2><a id ="MapHttpMethodsForUnmatched">MapHttpMethodsForUnmatched</a></td>
-  <td colspan=2>通过方法名前缀匹配请求方式失败后，路由将使用指定的HttpMethod发起请求</td>
-  <td></td>
- </tr>
-</table>
+<div class="custom-table">
+  <table style='border-collapse: collapse;table-layout:fixed;width:100%'>
+   <col span=6>
+   <tr style="background-color:#f3f4f5; font-weight: bold">
+    <td colspan=3>参数名</td>
+    <td colspan=2>参数描述</td>
+    <td>默认值(未赋值为null)</td>
+   </tr>
+   <tr>
+    <td colspan=3><a id = "CustomBaseUri">BaseUri</a></td>
+    <td colspan=2>根地址</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=3>ServiceName</td>
+    <td colspan=2>服务名称</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=3>RouteHandlerBuilder</td>
+    <td colspan=2>基于RouteHandlerBuilder的委托，可用于权限认证、<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS">CORS</a>等</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=3>RouteOptions（对象）</td>
+    <td colspan=2>局部路由配置</td>
+    <td> </td>
+   </tr>
+   <tr>
+    <td rowspan=12></td>
+    <td colspan=2>DisableAutoMapRoute</td>
+    <td colspan=2>是否禁用自动映射路由，如果为true (禁用)，则框架不会自动映射路由</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=2>Prefix</td>
+    <td colspan=2>前缀</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=2>Version</td>
+    <td colspan=2>版本</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=2><a id ="AutoAppendId">AutoAppendId></a></td>
+    <td colspan=2>路由中是否包含{Id}, 例如: /api/v1/user/{id}</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=2><a id = "PluralizeServiceName">PluralizeServiceName</a></td>
+    <td colspan=2>服务名称是否启用复数</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=2><a id = "GetPrefixes">GetPrefixes</a></td>
+    <td colspan=2>用于识别当前方法类型为`Get`请求</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=2>PostPrefixes</td>
+    <td colspan=2>用于识别当前方法类型为`Post`请求</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=2>PutPrefixes</td>
+    <td colspan=2>用于识别当前方法类型为`Put`请求</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=2>DeletePrefixes</td>
+    <td colspan=2>用于识别当前方法类型为`Delete`请求</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=2><a id = "DisableTrimMethodPrefix">DisableTrimMethodPrefix</a></td>
+    <td colspan=2>禁用移除方法前缀(上方`Get`、`Post`、`Put`、`Delete`请求的前缀)</td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan=2><a id ="MapHttpMethodsForUnmatched">MapHttpMethodsForUnmatched</a></td>
+    <td colspan=2>通过方法名前缀匹配请求方式失败后，路由将使用指定的HttpMethod发起请求</td>
+    <td></td>
+   </tr>
+  </table>
+</div>
 
 ### 如何使用
 
@@ -467,9 +469,7 @@ public class UserService: ServiceBase
 :::
 ::::
 
-::: tip ServiceBase
-在`ServiceBase`中我们提供了`GetService<TService>()`、`GetRequiredService<TService>()`方法用于从DI中获取服务
-:::
+> 在`ServiceBase`中我们提供了`GetService<TService>()`、`GetRequiredService<TService>()`方法用于从`DI`中获取当前请求的服务 (支持获取生命周期为`Scoped`的服务)
 
 1. 我希望修改路由方法名的规则，则可以重写`ServiceBase`的`GetMethodName`，例如：移除方法前缀为`GetAll`的方法、`GetAllUser` -> `User/List/All`
 
@@ -527,14 +527,14 @@ public class UserService: ServiceBase
 var BaseUri = $"{前缀}/{版本}/{服务名(默认复数)}"
 ```
 
-::: tip 其它
 1. 服务名默认使用复数，如果希望禁用复数，则可通过配置[`PluralizeServiceName`](#PluralizeServiceName)进行更改
 2. 当前缀、版本为null或空字符串时，忽略其属性的值，当服务名为空字符串时，`BaseUri`将不再包含服务名
 
 例如：
+
 * 当版本为`null`或者空字符串时，此时 `var BaseUri = $"{前缀}/{服务名(默认复数)}"` 
 * 当服务名为空字符串时，此时 `var BaseUri = $"{前缀}/{版本}"` 
-:::
+
 
 ### RouteMethodName (路由方法名)
 
@@ -615,7 +615,7 @@ public class UserService: ServiceBase
 
 > Get请求默认不支持对象，如果希望支持对象，[请参考](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-6.0#custom-binding)
 
-> 由于GetAsync以`Get`开头，并且在[Get请求前缀配置](#GetPrefixes)中已经存在，因此智能匹配为`Get`请求
+由于GetAsync以`Get`开头，并且在[Get请求前缀配置](#GetPrefixes)中已经存在，因此智能匹配为`Get`请求
 
 #### 智能匹配失败
 

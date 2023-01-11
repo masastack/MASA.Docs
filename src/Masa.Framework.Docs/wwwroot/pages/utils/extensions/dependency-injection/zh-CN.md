@@ -9,7 +9,7 @@
 
 ## 使用
 
-* 必要条件: 安装`Masa.Utils.Extensions.DependencyInjection`
+安装`Masa.Utils.Extensions.DependencyInjection`
 
 ``` powershell
 dotnet add package Masa.Utils.Extensions.DependencyInjection

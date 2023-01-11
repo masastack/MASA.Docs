@@ -70,6 +70,8 @@ await eventBus.PublishAsync(@event);//发送集成事件
 
 ## 配置
 
+<div class="custom-table">
+
 |  参数名   | 参数描述  | 默认值  | 
 |  ----  | ----  | ----  |
 | LocalRetryTimes  | 发布事件最大允许重试次数 (本地队列任务) | 3 |
@@ -82,6 +84,8 @@ await eventBus.PublishAsync(@event);//发送集成事件
 | CleaningExpireInterval  | 执行删除过期任务的时间间隔 (持久化队列) | 300 秒 |
 | PublishedExpireTime  | 发布成功消息的过期时间 (当状态为已发布, 且修改时间与当前时间间隔大于设置的过期时间后, 消息将会被删除, 持久化队列) | (24 * 3600) 秒 |
 | DeleteBatchCount  | 批量删除过期的本地消息记录的最大条数 (持久化队列) | 1000 |
+
+</div>
 
 例如, 最大重试次数改为5次, 则:
 
@@ -138,9 +142,7 @@ builder.Services
 
 > 它可以被替换成任何具有[PubSub](https://zh.wikipedia.org/wiki/%E5%8F%91%E5%B8%83/%E8%AE%A2%E9%98%85)能力的库
 
-::: tip 提示
-Dapr提供了PubSub的抽象, 它有多个实现方, 根据自己的需要选择一个即可, [查看Dapr提供的PubSub实现](https://docs.dapr.io/zh-hans/reference/components-reference/supported-pubsub/)
-:::
+`Dapr`提供了PubSub的抽象, 它有多个实现方, 根据自己的需要选择一个即可, [查看Dapr提供的PubSub实现](https://docs.dapr.io/zh-hans/reference/components-reference/supported-pubsub/)
 
 ### Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore
 

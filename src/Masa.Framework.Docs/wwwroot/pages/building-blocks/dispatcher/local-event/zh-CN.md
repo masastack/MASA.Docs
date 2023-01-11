@@ -294,11 +294,11 @@ Runtime=.NET 6.0  IterationCount=100  RunStrategy=ColdStart
 
 ②. 注册`EventBus`时指定程序集集合, Assembly被用于注册时获取并保存事件与Handler的对应关系
 
-::: tip Assembly的优先级
+* Assembly的优先级
+
 ```csharp 
 手动指定Assembly集合 -> MasaApp.GetAssemblies() -> AppDomain.CurrentDomain.GetAssemblies() 
 ```
-:::
 
 ```csharp
 var assemblies = new[]

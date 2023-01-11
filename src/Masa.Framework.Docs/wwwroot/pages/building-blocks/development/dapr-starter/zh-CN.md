@@ -10,7 +10,8 @@
 ## 必要条件
 
 * [安装Dapr-Cli](https://docs.dapr.io/zh-hans/getting-started/install-dapr-cli/)并初始化[Dapr](https://docs.dapr.io/zh-hans/getting-started/install-dapr-selfhost/)
-* 安装`Masa.Contrib.Development.DaprStarter.AspNetCore`
+
+安装`Masa.Contrib.Development.DaprStarter.AspNetCore`
 
 ``` powershell
 dotnet add package Masa.Contrib.Development.DaprStarter.AspNetCore
@@ -59,11 +60,9 @@ builder.Services.AddDaprStarter(opt =>
 builder.Services.AddDaprStarter(builder.Configuration.GetSection("DaprOptions"));
 ```
 
-> 优势：更改appsettings.json配置后，dapr sidecar会自动更新，项目无需重启
+> 优势：更改`appsettings.json`配置后，dapr sidecar会自动更新，项目无需重启
 
-::: tip 提示
 除上述三种方法以外, 还支持[`选项模式`](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/options), Dapr Starter的数据源是`IOptionsMonitor<DaprOptions>`, 借助[`MasaConfiguration`](/framework/building-blocks/configuration), 我们也可以将Dapr Starter的配置存储到远程配置中心, 但这个是没有太大必要的, 它只是开发环境下用来运行Dapr的
-:::
 
 ## 配置
 
