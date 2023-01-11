@@ -34,7 +34,6 @@ public class CustomHeaderCaller : HttpClientCallerBase
 
 ## 源码解读
 
-::: tip 提示
 当返回类型为
 * `TResponse`: `自定义返回类型`, 框架自行处理异常请求
 * `其它类型 (非自定义返回类型)`: 根据传入参数`autoThrowException`的值决定是否默认处理框架异常, 默认: true
@@ -42,15 +41,12 @@ public class CustomHeaderCaller : HttpClientCallerBase
 框架处理异常请求机制, 当请求响应的 `HttpStatusCode`为
 * `299`: 上抛`UserFriendlyException`异常
 * `298`: 上抛`ValidatorException`异常
-:::
 
 ### ICaller
 
 服务调用抽象, 它提供了以下能力, 其生命周期为`Scoped`
 
-::: tip 提示
-autoThrowException为true会检查HttpStatus状态码并抛出对应的`Exception`, 部分方法的返回类型是指定类型, 且没有`autoThrowException`参数, 那么它们会自动检查HttpStatus状态码并抛出对应的`Exception` (gRPC请求除外)
-:::
+> `autoThrowException`为`true`会检查`HttpStatus`状态码并抛出对应的`Exception`, 部分方法的返回类型是指定类型, 且没有`autoThrowException`参数, 那么它们会自动检查HttpStatus状态码并抛出对应的`Exception` (gRPC请求除外)
 
 * ConfigRequestMessage: 提供设置当前Caller默认的`HttpRequestMessage`
 * SendAsync: 提供原始的Send方法, 需要自行提供`HttpRequestMessage`类型的请求信息

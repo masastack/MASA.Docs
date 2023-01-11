@@ -4,7 +4,7 @@
 
 ## 使用
 
-* 必要条件: 安装`Masa.Contrib.Service.Caller.HttpClient`
+安装`Masa.Contrib.Service.Caller.HttpClient`
 
 ``` powershell
 dotnet add package Masa.Contrib.Service.Caller.HttpClient
@@ -73,27 +73,6 @@ app.MapGet("/Test/User/Hello", ([FromServices] CustomerCaller caller, string nam
     => caller.HelloAsync(name);
 ```
 
-::: tip HttpClientCallerBase
-1. 继承`HttpClientCallerBase`的实现类支持从DI获取, 如果你需要获取来自DI的服务，可通过构造函数注入所需服务
-2. 继承`HttpClientCallerBase`的自定义Caller默认支持身份认证, 它需要借助`Masa.Contrib.Service.Caller.Authentication.OpenIdConnect`来实现, 如果你需要重写Caller默认的`HttpRequestMessage`信息, 也可重写`HttpClientCallerBase`父类提供的`ConfigHttpRequestMessage`方法来实现
-3. 继承`HttpClientCallerBase`的实现类的生命周期为: `Scoped`
-4. 如果`自定义Caller` (继承HttpClientCallerBase的类)与`AddCaller`方法不在一个程序集, 可能会出现自动注册自定义Caller失败的情况, 可通过下面提供的任一方案解决:
-
-① 指定Assembly集合 (仅对当前Caller有效)
-```csharp
-var assemblies = typeof({Replace-With-Your-CustomerCaller}).Assembly;
-builder.Services.AddCaller(assemblies);
-```
-
-② 设置全局Assembly集合 (影响全局Assembly默认配置, 设置错误的Assembly集合会导致其它使用全局Assembly的服务出现错误)
-
-```csharp
-var assemblies = typeof({Replace-With-Your-CustomerCaller}).Assembly;
-MasaApp.SetAssemblies(assemblies);
-builder.Services.AddCaller();
-```
-:::
-
 ## 高级
 
 如果你希望设置超时时间, 默认请求头等信息, 则可通过重写`HttpClientCallerBase`提供的`ConfigureHttpClient`方法, 例如:
@@ -133,4 +112,25 @@ public class LogDelegatingHandler : DelegatingHandler
         return base.SendAsync(request, cancellationToken);
     }
 }
+```
+
+## 常见问题
+
+* 继承`HttpClientCallerBase`的实现类支持从DI获取, 如果你需要获取来自DI的服务，可通过构造函数注入所需服务
+* 继承`HttpClientCallerBase`的自定义Caller默认支持身份认证, 它需要借助`Masa.Contrib.Service.Caller.Authentication.OpenIdConnect`来实现, 如果你需要重写Caller默认的`HttpRequestMessage`信息, 也可重写`HttpClientCallerBase`父类提供的`ConfigHttpRequestMessage`方法来实现
+* 继承`HttpClientCallerBase`的实现类的生命周期为: `Scoped`
+* 如果`自定义Caller` (继承HttpClientCallerBase的类)与`AddCaller`方法不在一个程序集, 可能会出现自动注册自定义Caller失败的情况, 可通过下面提供的任一方案解决:
+
+① 指定Assembly集合 (仅对当前Caller有效)
+```csharp
+var assemblies = typeof({Replace-With-Your-CustomerCaller}).Assembly;
+builder.Services.AddCaller(assemblies);
+```
+
+② 设置全局Assembly集合 (影响全局Assembly默认配置, 设置错误的Assembly集合会导致其它使用全局Assembly的服务出现错误)
+
+```csharp
+var assemblies = typeof({Replace-With-Your-CustomerCaller}).Assembly;
+MasaApp.SetAssemblies(assemblies);
+builder.Services.AddCaller();
 ```

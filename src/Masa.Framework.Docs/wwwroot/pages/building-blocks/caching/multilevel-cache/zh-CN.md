@@ -58,53 +58,55 @@ app.MapGet("/get/{id}", async (IMultilevelCacheClient multilevelCacheClient, [Fr
 
 ## 配置
 
-<table style='border-collapse: collapse;table-layout:fixed;width:100%'>
- <col span=6>
- <tr style="background-color:#f3f4f5; font-weight: bold">
-  <td colspan=3>参数名</td>
-  <td colspan=2>参数描述</td>
-  <td>类型</td>
-  <td>默认值</td>
- </tr>
- <tr>
-  <td colspan=3>SubscribeKeyType</td>
-  <td colspan=2>订阅Key规则 (生成订阅Channel)</td>
-  <td><a href="https://github.com/masastack/MASA.Framework/blob/0.7.0/src/BuildingBlocks/Caching/Masa.BuildingBlocks.Caching/Enumerations/SubscribeKeyType.cs">Enum</a></td>
-  <td>2</td>
- </tr>
- <tr>
-  <td colspan=3>SubscribeKeyPrefix</td>
-  <td colspan=2>订阅Key前缀 (生成订阅Channel)</td>
-  <td>string</td>
-  <td>空字符串</td>
- </tr>
- <tr>
-  <td colspan=3>CacheEntryOptions</td>
-  <td colspan=2>内存缓存有效期</td>
-  <td><a href="https://github.com/masastack/MASA.Framework/blob/0.7.0/src/Contrib/Caching/Masa.Contrib.Caching.MultilevelCache/Options/MultilevelCacheOptions.cs">object</a></td>
-  <td></td>
- </tr>
-
-<tr>
-  <td rowspan=12></td>
-  <td colspan=2>AbsoluteExpiration</td>
-  <td colspan=2>绝对过期时间</td>
-  <td>DateTimeOffset?</td>
-  <td>null (永不过期)</td>
- </tr>
- <tr>
-  <td colspan=2>AbsoluteExpirationRelativeToNow</td>
-  <td colspan=2>相对于现在的绝对到期时间 (与AbsoluteExpiration共存时，优先使用AbsoluteExpirationRelativeToNow)</td>
-  <td>TimeSpan?</td>
-  <td>null (永不过期)</td>
- </tr>
- <tr>
-  <td colspan=2>SlidingExpiration</td>
-  <td colspan=2>滑动过期时间</td>
-  <td>TimeSpan?</td>
-  <td>null (永不过期)</td>
- </tr>
-</table>
+<div class="custom-table">
+  <table style='border-collapse: collapse;table-layout:fixed;width:100%'>
+   <col span=6>
+   <tr style="background-color:#f3f4f5; font-weight: bold">
+    <td colspan=3>参数名</td>
+    <td colspan=2>参数描述</td>
+    <td>类型</td>
+    <td>默认值</td>
+   </tr>
+   <tr>
+    <td colspan=3>SubscribeKeyType</td>
+    <td colspan=2>订阅Key规则 (生成订阅Channel)</td>
+    <td><a href="https://github.com/masastack/MASA.Framework/blob/0.7.0/src/BuildingBlocks/Caching/Masa.BuildingBlocks.Caching/Enumerations/SubscribeKeyType.cs">Enum</a></td>
+    <td>2</td>
+   </tr>
+   <tr>
+    <td colspan=3>SubscribeKeyPrefix</td>
+    <td colspan=2>订阅Key前缀 (生成订阅Channel)</td>
+    <td>string</td>
+    <td>空字符串</td>
+   </tr>
+   <tr>
+    <td colspan=3>CacheEntryOptions</td>
+    <td colspan=2>内存缓存有效期</td>
+    <td><a href="https://github.com/masastack/MASA.Framework/blob/0.7.0/src/Contrib/Caching/Masa.Contrib.Caching.MultilevelCache/Options/MultilevelCacheOptions.cs">object</a></td>
+    <td></td>
+   </tr>
+  
+  <tr>
+    <td rowspan=12></td>
+    <td colspan=2>AbsoluteExpiration</td>
+    <td colspan=2>绝对过期时间</td>
+    <td>DateTimeOffset?</td>
+    <td>null (永不过期)</td>
+   </tr>
+   <tr>
+    <td colspan=2>AbsoluteExpirationRelativeToNow</td>
+    <td colspan=2>相对于现在的绝对到期时间 (与AbsoluteExpiration共存时，优先使用AbsoluteExpirationRelativeToNow)</td>
+    <td>TimeSpan?</td>
+    <td>null (永不过期)</td>
+   </tr>
+   <tr>
+    <td colspan=2>SlidingExpiration</td>
+    <td colspan=2>滑动过期时间</td>
+    <td>TimeSpan?</td>
+    <td>null (永不过期)</td>
+   </tr>
+  </table>
+</div>
 
 ## 高阶用法
 
