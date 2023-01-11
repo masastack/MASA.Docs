@@ -21,13 +21,13 @@
 
 1. 注册`MasaConfiguration`
 
-``` C#
+```csharp
 builder.Services.AddMasaConfiguration();
 ```
 
 2. 新建类`AppConfig.cs`, 并继承`LocalMasaConfigurationOptions`, 用于获取配置信息
 
-``` C#
+```csharp
 public class AppConfig : LocalMasaConfigurationOptions
 {
     public ConnectionStrings ConnectionStrings { get; set; }
@@ -53,7 +53,7 @@ public class ConnectionStrings
 
 4. 获取`AppConfig`配置信息
 
-``` C#
+```csharp
 // 通过DI获取到IOptions<AppConfig> options;
 
 IOptions<AppConfig> options = serviceProvider.GetRequiredService<IOptions<AppConfig>>(); 
@@ -66,7 +66,7 @@ Console.WriteLine(options.Value.ConnectionStrings.DefaultConnection);
 
 * 设置全局配置
 
-``` C#
+```csharp
 builder.Services.Configure<MasaAppConfigureOptions>(options =>
 {
     options.AppId = "{Replace-With-Your-AppId}";
@@ -83,14 +83,14 @@ builder.Services.Configure<MasaAppConfigureOptions>(options =>
 
 ① 可通过从DI获取`IOptions<MasaAppConfigureOptions>`的值获取
 
-``` C#
+```csharp
 IOptions<MasaAppConfigureOptions> options;// 由DI获取
 var appId = options.Value.AppId;
 ```
 
 ② 通过`MasaApp`获取
 
-``` C#
+```csharp
 var options = MasaApp.GetRequiredService<IOptions<MasaAppConfigureOptions>>();
 var appId = options.Value.AppId;
 ```
@@ -118,7 +118,7 @@ var appId = options.Value.AppId;
 
 1. 注册`MasaConfiguration`并手动映射节点与配置对象关系
 
-``` C#
+```csharp
 builder.Services.AddMasaConfiguration(configurationBuilder =>
 {
     configurationBuilder.UseMasaOptions(options =>
@@ -131,7 +131,7 @@ builder.Services.AddMasaConfiguration(configurationBuilder =>
 
 2. 通过选项模式获取配置
 
-``` C#
+```csharp
 IOptions<TModel> options;//由DI获取
 var model = options.Value;
 ```
@@ -203,7 +203,7 @@ IConfiguration
 1. 新建类库`Masa.Contrib.Configuration.ConfigurationApi.Apollo`
 2. 新建`ApolloConfigurationRepository`并继承类`AbstractConfigurationRepository`
 
-``` C#
+```csharp
 internal class ApolloConfigurationRepository : AbstractConfigurationRepository
 {
     private readonly IConfigurationApiClient _client;
@@ -229,7 +229,7 @@ internal class ApolloConfigurationRepository : AbstractConfigurationRepository
 
 3. 新建类`ConfigurationApiClient`, 为`ConfigurationApi`提供获取基础配置的能力
 
-``` C#
+```csharp
 public class ConfigurationApiClient : IConfigurationApiClient
 {
     public Task<(string Raw, ConfigurationTypes ConfigurationType)> GetRawAsync(string configObject, Action<string>? valueChanged = null)
@@ -264,7 +264,7 @@ public class ConfigurationApiClient : IConfigurationApiClient
 
 4. 新建类`ConfigurationApiManage`, 为`ConfigurationApi`提供管理配置的能力
 
-``` C#
+```csharp
 public class ConfigurationApiManage : IConfigurationApiManage
 {
     // 通过管理端初始化AppId下的远程配置
@@ -285,7 +285,7 @@ public class ConfigurationApiManage : IConfigurationApiManage
 
 不同的配置中心中存储配置的名称是不一样的, 在Apollo中配置对象名称叫做命名空间, 因此为了方便开发人员可以使用起来更方便, 我们建议不同的配置中心可以有自己专属的属性, 以此来降低开发人员的学习成本
 
-``` C#
+```csharp
 public abstract class ConfigurationApiMasaConfigurationOptions : MasaConfigurationOptions
 {
     /// <summary>
@@ -318,7 +318,7 @@ public abstract class ConfigurationApiMasaConfigurationOptions : MasaConfigurati
 
 6. 选中类库`Masa.Contrib.BasicAbility.Apollo`, 并新建`IMasaConfigurationBuilder`的扩展方法UseApollo
 
-``` C#
+```csharp
 public static class MasaConfigurationExtensions
 {
     public static IMasaConfigurationBuilder UseApollo(this IMasaConfigurationBuilder builder)

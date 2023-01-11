@@ -16,11 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\pages\concepts\contrib-concept\zh-CN.md" />
+    <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\override\zh-CN.md" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\pages\building-blocks\identity\web\" />
-  </ItemGroup>
 
 </Project>

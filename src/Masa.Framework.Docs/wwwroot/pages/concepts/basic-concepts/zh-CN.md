@@ -1,5 +1,3 @@
-# 基础概念
-
 ## [概述](/framework/concepts/overview)
 
 .NET下一代微服务开发框架，提供基于分布式运行时--Dapr云原生最佳实践，能够快速实现分布式、微服务、DDD，SaaS等现代应用开发
