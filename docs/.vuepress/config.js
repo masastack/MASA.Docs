@@ -71,6 +71,12 @@ exports.default = (0, vuepress_1.defineUserConfig)({
                         '/stack/dcc/guide/related-agreements',
                         '/stack/dcc/guide/faq',
                     ]
+                },
+                {
+                    text: 'Mc',
+                    children: [
+                        '/stack/mc/introduce/introduce'
+                    ]
                 }
             ],
             '/framework/': [
@@ -169,7 +175,8 @@ exports.default = (0, vuepress_1.defineUserConfig)({
                     { text: 'MASA Stack', link: '/stack/guide/introduce' },
                     { text: '项目管理(PM)', link: '/stack/pm/guide/introduce' },
                     { text: '权限中心(Auth)', link: '/stack/auth/guides/user/introduce' },
-                    { text: '分布式配置中心(DCC)', link: '/stack/dcc/guide/introduce' }
+                    { text: '分布式配置中心(DCC)', link: '/stack/dcc/guide/introduce' },
+                    { text: '消息中心(Mc)', link: '/stack/mc/introduce/introduce' }
                 ]
             },
             { text: 'MASA Framework', link: '/framework/concepts' },
