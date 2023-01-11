@@ -3,7 +3,7 @@ title: 使用指南-消息组
 date: 2022/12/09 14:50
 ---
 
-预设收件人组，用于发送消息时的收件人选择，支持masa auth中的角色、部门、团队、用户的组合
+预设收件人组，用于发送消息时的收件人选择，支持MASA Auth中的角色、部门、团队、用户的组合
 
 ### 列表
 
@@ -13,7 +13,7 @@ date: 2022/12/09 14:50
 
 ### 编辑
 
-支持masa auth中的角色、部门、团队、用户的组合
+支持MASA Auth中的角色、部门、团队、用户的组合
 
 ![receiverGroup-edit](http://cdn.masastack.com/stack/doc/mc/receiverGroup-edit.png)
 
