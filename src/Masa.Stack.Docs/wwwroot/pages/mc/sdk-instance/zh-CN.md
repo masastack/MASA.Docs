@@ -5,7 +5,7 @@ date: 2023/01/10 16:30
 
 ## 简介
 
-通过注入`IMcClient`接口，调用对应Service获取Mc SDK 提供的能力。
+通过注入`IMcClient`接口，调用对应Service获取MC SDK 提供的能力。
 
 ## 服务介绍
 
@@ -34,7 +34,7 @@ dotnet add package Masa.Contrib.StackSdks.Mc
 builder.Services.AddMcClient("http://mcservice.com");
 ```
 
-> `http://mcservice.com` 为Mc后台服务地址
+> `http://mcservice.com` 需要替换为真实的MC后台服务地址
 
 ### 用例
 1. 给外部用户发送普通消息(邮箱)
@@ -67,7 +67,7 @@ app.MapGet("/SendEmail", async ([FromServices] IMcClient mcClient) =>
 
 app.Run();
 ```
-2. 给auth用户发送模板消息(短信)
+2. 给Auth用户发送模板消息(短信)
 
 ```c#
 var app = builder.Build();

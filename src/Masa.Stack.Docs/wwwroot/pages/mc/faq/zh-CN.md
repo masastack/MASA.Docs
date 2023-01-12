@@ -3,9 +3,9 @@ title: 常见问题
 date: 2023/01/10 17:45:00
 ---
 
-### Q：MASA.Mc是什么？
+### Q：MASA.MC是什么？
 
-A：[MASA.Mc产品介绍](stack/mc/introduce)
+A：[MASA.MC产品介绍](stack/mc/introduce)
 
 ### Q：短信模板审核状态如何更新?
 
@@ -17,7 +17,7 @@ A：模板标题、内容、跳转url都支持变量, 变量格式为： \{ \{ �
 
 ### Q：发送消息中手动选择的收件人数据哪里添加？
 
-A：MASA.Mc中用户对接的MASA.Auth，如果需要给内部用户发送消息，需要接入MASA.Auth。
+A：MASA.MC中用户对接的MASA.Auth，如果需要给内部用户发送消息，需要接入MASA.Auth。
 
 ### Q：如何定时发送消息及分批次发送？
 
