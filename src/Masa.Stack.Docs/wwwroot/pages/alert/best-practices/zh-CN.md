@@ -1,20 +1,17 @@
 ---
 title: 最佳实践
-date: 2023/01/10 17:22:00
+date: 2023/01/12 15:22:00
 ---
 
-### 使用MASA.Mc统一消息发送和管理
+## 告警规则配置
 
-1. 创建渠道。请参考[使用指南-渠道管理](stack/mc/use-guide/channel)
+### 连续10分钟错误请求数超过阈值告警
+1. 新建指标告警规则，检查频率选择固定间隔，间隔时间1，间隔时间类型分钟。
+2. 按下方图片所示，配置错误请求数监控项
+![alarmRule-example-monitoring](http://cdn.masastack.com/stack/doc/alert/alarmRule-example-monitoring.png)
+3. 用配置监控项填写的变量名填写触发规则的表达式
+4. 在触发规则处勾选告警通知，选择消息模板和收件人
+![alarmRule-example-setting1](http://cdn.masastack.com/stack/doc/alert/alarmRule-example-setting1.png)
+5. 在告警配置处填写连续触发阈值为10，沉默周期按需配置
+![alarmRule-example-setting2](http://cdn.masastack.com/stack/doc/alert/alarmRule-example-setting2.png)
 
-2. 创建消息模板。请参考[使用指南-消息模板](stack/mc/use-guide/message-template)
-
-3. 发送消息。请参考[使用指南-发送消息](stack/mc/use-guide/send-message)
-
-### 业务系统调用MASA.Mc发送消息
-
-1. 创建渠道。请参考[使用指南-渠道管理](stack/mc/use-guide/channel)
-
-2. 创建消息模板。请参考[使用指南-消息模板](stack/mc/use-guide/send-message)
-
-3. SDK调用。请参考[SDK示例](stack/mc/sdk-instance)
