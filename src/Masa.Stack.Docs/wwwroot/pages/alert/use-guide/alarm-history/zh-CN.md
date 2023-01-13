@@ -18,7 +18,7 @@ date: 2022/13/12 14:16
 ![handleAlarm-details2](http://cdn.masastack.com/stack/doc/alert/handleAlarm-details2.png)
 
 2. 处理告警
-- 已处理，标记告警已处理并指定处理完成后的通知
+- 已处理，标记告警已处理并指定处理完成后的通知，处理人为当前操作人。
 - 第三方处理，选择WebHook和处理人，使用选择的WebHook通知第三方，让第三方业务方自己处理告警。
 ![handleAlarm](http://cdn.masastack.com/stack/doc/alert/handleAlarm.png)
 

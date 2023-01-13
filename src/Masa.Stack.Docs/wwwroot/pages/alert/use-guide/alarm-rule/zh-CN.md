@@ -42,3 +42,4 @@ date: 2023/01/12 13:22
     - 沉默周期：支持按周期和按时间，告警发生后未恢复正常，间隔多久重复发送一次告警通知
     - 触发规则表达式：请参考MASA Stack 文档站点规则引擎介绍：http://docs.masastack.com/framework/building-blocks/rules-engine/overview
     ![alarmRule-add-ruleSetting](http://cdn.masastack.com/stack/doc/alert/alarmRule-add-ruleSetting.png)
+    ![alarmRule-example-setting2](http://cdn.masastack.com/stack/doc/alert/alarmRule-example-setting2.png)
