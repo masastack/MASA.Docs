@@ -89,6 +89,26 @@
     ]
   },
   {
+    "title": "alert",
+    "icon": "mdi-bookmark",
+    "items": [
+      "introduce",
+      {
+        "title": "use-guide",
+        "items": [
+          "alarm-rule",
+          "alarm-history",
+          "web-hook"
+        ]
+      },
+      "develop-guide",
+      "sdk-instance",
+      "best-practices",
+      "faq",
+      "related-agreements"
+    ]
+  },
+  {
     "title": "scheduler",
     "icon": "mdi-bookmark",
     "items": [
