@@ -87,5 +87,24 @@
       "faq",
       "related-agreements"
     ]
+  },
+  {
+    "title": "scheduler",
+    "icon": "mdi-bookmark",
+    "items": [
+      "introduce",
+      {
+        "title": "use-guide",
+        "items": [
+          "scheduler-job",
+          "scheduler-task",
+          "scheduler-resource"
+        ]
+      },
+      "sdk-instance",
+      "best-practices",
+      "faq",
+      "related-agreements"
+    ]
   }
 ]
