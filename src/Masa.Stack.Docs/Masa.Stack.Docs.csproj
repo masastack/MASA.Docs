@@ -22,4 +22,12 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\stack\auth\" />
+    <Folder Include="wwwroot\img\stack\pm\" />
+    <Folder Include="wwwroot\img\stack\dcc\" />
+    <Folder Include="wwwroot\img\stack\alert\" />
+    <Folder Include="wwwroot\img\stack\mc\" />
+  </ItemGroup>
+
 </Project>

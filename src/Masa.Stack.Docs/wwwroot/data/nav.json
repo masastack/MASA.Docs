@@ -4,6 +4,7 @@
     "icon": "mdi-bookmark",
     "items": [
       "get-started",
+      "introduce",
       {
         "title": "use-guide",
         "items": [
@@ -142,6 +143,19 @@
           "temporary"
         ]
       }
+    ]
+  },
+  {
+    "title": "tsc",
+    "icon": "mdi-bookmark",
+    "items": [
+      "introduce",
+      "basic-concepts",
+      "use-guide",
+      "sdk-instance",
+      "best-practices",
+      "faq",
+      "related-agreements"
     ]
   }
 ]
