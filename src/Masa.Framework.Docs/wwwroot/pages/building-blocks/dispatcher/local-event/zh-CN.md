@@ -107,7 +107,7 @@ public class UserHandler
 
 ### 中间件
 
-EventBus的请求管道包含一系列请求委托，依次调用。 它们与 [ASP.NET Core中间件](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/middleware/?view=aspnetcore-7.0#create-a-middleware-pipeline-with-webapplication)有异曲同工之妙，区别点在于中间件的**执行顺序与注册顺序相反，最先注册的最后执行**
+EventBus的请求管道包含一系列请求委托，依次调用。 它们与 [ASP.NET Core中间件](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/middleware/?view=aspnetcore-7.0#create-a-middleware-pipeline-with-webapplication)有异曲同工之妙
 
 ![EventBus.png](https://s2.loli.net/2023/01/15/mT916WIDAkcPZFt.png)
 
