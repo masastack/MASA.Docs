@@ -11,7 +11,7 @@ date: 2023/01/13 15:30
 
 Scheduler SDK 包含一下几个大类的服务
 
-```c#
+```csharp
 ISchedulerClient
 ├── SchedulerJobService             调度Job服务
 ├── SchedulerTaskService            调度任务服务
@@ -27,15 +27,17 @@ dotnet add package Masa.Contrib.StackSdks.Scheduler
 
 ### 注册相关服务
 
-```C#
+```csharp
 builder.Services.AddSchedulerClient("http://schedulerservice.com");
 ```
 
 > `http://schedulerservice.com` 需要替换为真实的Scheduler后台服务地址
 
 ### 用例
+
 1. 注册Http类型的Job
-```c#
+
+```csharp
 var alertUrl = _configuration.ConfigurationApi.GetPublic().GetValue<string>("$public.AppSettings:AlertClient:Url");
 var request = new AddSchedulerJobRequest
 {
@@ -53,9 +55,10 @@ var request = new AddSchedulerJobRequest
 
 var jobId = await _schedulerClient.SchedulerJobService.AddAsync(request);
 ```
+
 2. 注册Job应用类型的Job
 
-```c#
+```csharp
 var request = new AddSchedulerJobRequest
 {
     ProjectIdentity = MasaStackConsts.MC_SYSTEM_ID,
@@ -74,8 +77,10 @@ var request = new AddSchedulerJobRequest
 
 var jobId = await _schedulerClient.SchedulerJobService.AddAsync(request);
 ```
+
 3. 自己的业务Job类，需要继承SchedulerJob类
-```c#
+
+```csharp
 public class MyExecuteJob : SchedulerJob
 {
     public override async Task<object?> ExcuteAsync(JobContext context)

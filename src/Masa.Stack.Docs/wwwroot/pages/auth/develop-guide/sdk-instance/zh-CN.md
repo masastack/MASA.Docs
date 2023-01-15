@@ -1,6 +1,4 @@
-# MASA Auth SDK
-
-## StackSdks.Auth
+## 简介
 
 通过注入`IAuthClient`接口，调用对应Service获取Auth SDK 提供的能力。
 SDK依赖`IMultiEnvironmentUserContext`获取当前用户，所有用到当前用户ID的方法均不用传递改值，通过`IMultiEnvironmentUserContext`解析获取用户信息。

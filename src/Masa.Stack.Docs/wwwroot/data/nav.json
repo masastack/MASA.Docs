@@ -24,9 +24,8 @@
           "swagger",
           "user",
           "role",
-          "sdk",
-          "sso",
-          "sso-future"
+          "sdk-instance",
+          "sso"
         ]
       },
       {
@@ -125,6 +124,24 @@
       "best-practices",
       "faq",
       "related-agreements"
+    ]
+  },
+  {
+    "title": "operations",
+    "icon": "mdi-bookmark",
+    "items": [
+      {
+        "title": "kubernetes",
+        "items": [
+          "kubernetes-deploy"
+        ]
+      },
+      {
+        "title": "tls",
+        "items": [
+          "temporary"
+        ]
+      }
     ]
   }
 ]
