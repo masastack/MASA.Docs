@@ -11,7 +11,7 @@ date: 2023/01/10 16:30
 
 Mc SDK 包含一下几个大类的服务
 
-```c#
+```csharp
 IMcClient
 ├── ChannelService                  渠道服务
 ├── MessageTaskService              消息任务服务
@@ -30,15 +30,17 @@ dotnet add package Masa.Contrib.StackSdks.Mc
 
 ### 注册相关服务
 
-```C#
+```csharp
 builder.Services.AddMcClient("http://mcservice.com");
 ```
 
 > `http://mcservice.com` 需要替换为真实的MC后台服务地址
 
 ### 用例
+
 1. 给外部用户发送普通消息(邮箱)
-```c#
+
+```csharp
 var app = builder.Build();
 
 app.MapGet("/SendEmail", async ([FromServices] IMcClient mcClient) =>
@@ -67,9 +69,10 @@ app.MapGet("/SendEmail", async ([FromServices] IMcClient mcClient) =>
 
 app.Run();
 ```
+
 2. 给Auth用户发送模板消息(短信)
 
-```c#
+```csharp
 var app = builder.Build();
 
 app.MapGet("/SendSms", async ([FromServices] IMcClient mcClient) =>
@@ -100,8 +103,10 @@ app.MapGet("/SendSms", async ([FromServices] IMcClient mcClient) =>
 
 app.Run();
 ```
+
 3. 发送站内信广播
-```c#
+
+```csharp
 var app = builder.Build();
 
 app.MapGet("/SendWebsiteMessage", async ([FromServices] IMcClient mcClient) =>
@@ -119,8 +124,10 @@ app.MapGet("/SendWebsiteMessage", async ([FromServices] IMcClient mcClient) =>
 
 app.Run();
 ```
+
 4. 广播模式下通过SignalR发送检查通知，客户端接收后需要主动调用sdk的检查方法才会生成当前用户的站内信数据
-```c#
+
+```csharp
  HubConnection = new HubConnectionBuilder()
     .WithUrl(NavigationManager.ToAbsoluteUri($"{McApiOptions.BaseAddress}/signalr-hubs/notifications"), options =>
     {
