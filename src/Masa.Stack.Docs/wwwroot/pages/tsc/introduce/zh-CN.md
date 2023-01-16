@@ -2,7 +2,7 @@
 
 ### MASA TSC是什么？
 故障排查中心是MASA Stack 1.0中一个核心产品，主要负责对MASA整个系统中的项目/应用进行监测来排查故障情况，其中包含从项目维度视角来查看监测的故障情况。以及溯源到具体的链路日志中去。产品功能如：
-![introduce](http://cdn.masastack.com/stack/doc/tsc/introduce_1.png)
+![introduce](https://s2.loli.net/2023/01/16/AjeIwP3lhydJ7a5.png)
 
 ### 特性与优势
 1. 产品设计参考市面上常见监测性软件，在指标设置这一块有部分统一标准让用户通俗易懂；
