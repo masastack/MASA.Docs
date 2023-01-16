@@ -8,7 +8,7 @@
 
 点击某个项目进入到项目详情：
 
-![team-detail](http://cdn.masastack.com/stack/doc/tsc/team-detail.png)
+![team_detail_2.png](https://s2.loli.net/2023/01/16/Ej4wQJINSCRrO1G.png)
 
 ## 仪表盘
 
