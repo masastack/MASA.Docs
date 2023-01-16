@@ -3,6 +3,7 @@
 ### MASA PM是什么？
 
 PM是一款底层基建设项目管理产品，提供0-1初始化的部分内容。从最初的底层环境创建，部署和创建对应的集群。编辑环境与集群的组合关系，在所需求的环境集群上创建项目。
+
  ![introduce](http://cdn.masastack.com/stack/doc/pm/introduce.png)
 
 ### 功能特性与优势

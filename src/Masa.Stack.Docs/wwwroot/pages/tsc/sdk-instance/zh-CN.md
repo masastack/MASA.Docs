@@ -34,7 +34,28 @@ var app = builder.Build();
 
 app.MapGet("/log-mapping", ([FromServices] ITscClient tscClient) =>
 {
-    return tscClient.LogService.GetMappingAsync();
+    var mapping = tscClient.LogService.GetMappingAsync();
+
+    // 利用mapping自定义查询条件统计日志信息，例如查询过去15分钟内 服务名称：service1  的错误日志总条数
+    var query = new SimpleAggregateRequestDto
+    {
+        Start = time.AddMinutes(-15),            
+        End = time,
+        Name = "Resource.service.name",
+        Type = AggregateTypes.Count,
+        //服务
+        Service="service1",
+        //自定义条件
+        Conditions=new FieldConditionDto[] {
+            new FieldConditionDto{
+                Name="SeverityText",
+                Type= ConditionTypes.Equal,
+                 Value="Error"
+            }
+        }
+    };
+
+    var count await _client.LogService.GetAggregationAsync<long>(query);
 });
 
 app.Run();

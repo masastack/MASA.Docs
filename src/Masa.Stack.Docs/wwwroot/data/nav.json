@@ -1,5 +1,12 @@
 [
   {
+    "title": "stack",
+    "icon": "mdi-bookmark",
+    "items": [
+      "introduce"
+    ]
+  },
+  {
     "title": "auth",
     "icon": "mdi-bookmark",
     "items": [
@@ -128,6 +135,19 @@
     ]
   },
   {
+    "title": "tsc",
+    "icon": "mdi-bookmark",
+    "items": [
+      "introduce",
+      "basic-concepts",
+      "use-guide",
+      "sdk-instance",
+      "best-practices",
+      "faq",
+      "related-agreements"
+    ]
+  },
+  {
     "title": "operations",
     "icon": "mdi-bookmark",
     "items": [
@@ -143,19 +163,6 @@
           "temporary"
         ]
       }
-    ]
-  },
-  {
-    "title": "tsc",
-    "icon": "mdi-bookmark",
-    "items": [
-      "introduce",
-      "basic-concepts",
-      "use-guide",
-      "sdk-instance",
-      "best-practices",
-      "faq",
-      "related-agreements"
     ]
   }
 ]
