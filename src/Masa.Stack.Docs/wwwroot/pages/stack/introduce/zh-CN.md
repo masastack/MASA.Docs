@@ -21,13 +21,13 @@ Stack是新一代数字化云原生技术底座产品，其中核心产品包括
 
 1. 3个基础核心产品
 
-[PM](stack/pm/introduce)、[Auth](stack/auth/introduce)和[DCC](stack/dcc/introduce) 3款产品作为核心基建，提供了最开始的初始化过程，围绕实际项目创立到应用部署的一整套流程，支持多种环境多个集群的关系，后续用户单点登录与登录授权等。相关不同环境的配置都可以在DCC中心配置，可以快速变更替换不同版本的不同配置。 
+[PM](stack/pm/introduce)、[Auth](stack/auth/introduce)和[DCC](stack/dcc/introduce) 3款产品做为核心基建，提供了最开始的初始化过程，围绕实际项目创立到应用部署的一整套流程，支持多种环境多个集群的关系，后续用户单点登录与登录授权等。相关不同环境的配置都可以在DCC中心配置，可以快速变更替换不同版本的不同配置。 
 
 ![introduce_2.png](https://s2.loli.net/2023/01/16/vf4emXwLEryQB1I.png)
 
 2. 4个关联应用型产品
 
-[Scheduler](stack/scheduler/introduce)、[TSC](stack/tsc/introduce)、[Alert](stack/alert/introduce)和[MC](stack/mc/introduce) 4款产品合集可以作为业务底层必不可少的基建产品，提供了关于执行任务的调度、失败重试问题。监测目前已有的项目与应用程序，对于监测内容设置相
-关告警指标以及告警规则，通过消息中心来触发传达消息，减少故障可能性。作为做产品合集与关联来进行一个简单可理解的搭配关系。单个产品都可以专门在使用在独特需求场景中。为企业数字化提供服务。
+[Scheduler](stack/scheduler/introduce)、[TSC](stack/tsc/introduce)、[Alert](stack/alert/introduce)和[MC](stack/mc/introduce) 4款产品合集可以做为业务底层必不可少的基建产品，提供了关于执行任务的调度、失败重试问题。监测目前已有的项目与应用程序，对于监测内容设置相
+关告警指标以及告警规则，通过消息中心来触发传达消息，减少故障可能性。单个产品都可以专门在使用在独特需求场景中。为企业数字化提供服务。
 
 ![introduce_3.png](https://s2.loli.net/2023/01/16/KubSkdCYpBtf2Nh.png)
