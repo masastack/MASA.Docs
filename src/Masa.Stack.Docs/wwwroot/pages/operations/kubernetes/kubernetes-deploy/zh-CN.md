@@ -28,14 +28,14 @@ kubectl create secret tls masastack --cert=./tls.crt  --key=./tls.key  -n masast
 
 > 没有`ssl/tls`证书? 查看如何[创建临时证书](/stack/operations/tls/temporary)
 
-## 安装MasaStack Hlem chart
+## 安装MasaStack Helm chart
 
 * 必要条件: 安装了helm3
 
 1. 添加仓库并更新
 
 ```
-// add then officaial MasaStack Hlem chart
+// add then officaial MasaStack Helm chart
 helm repo add masastack https://masastack.github.io/helm/
 // update Helm chart
 helm repo update 
