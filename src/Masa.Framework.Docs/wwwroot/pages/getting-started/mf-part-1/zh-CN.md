@@ -26,7 +26,7 @@ public class HealthService : ServiceBase
 }
 ```
 
-> 访问地址: {域}/api/v1/healths
+> 访问地址: {域名}/api/v1/healths
 
 我们建议对外提过API服务的类以`Service`结尾, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强.
 
