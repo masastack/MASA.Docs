@@ -15,7 +15,7 @@ https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/
 ## 创建Masastack需要的namespace
 
 ```shell
-kubectl create masastack
+kubectl create namespace masastack
 ```
 
 ## 导入证书
