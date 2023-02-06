@@ -39,7 +39,7 @@ cd Masa.EShop.Service.Catalog
 
 我们建议大家在同一个解决方案中使用同一版本的`MasaFramework`包, 避免因为版本不一致导致出现的bug
 
-1. 在解决方案根目录增加名字为`Directory.Build`, 扩展名为`.props`的文件, 并指定`MasaFramework`使用的是`1.0.0-preview.1`版本的nuget包
+1. 在解决方案根目录增加名字为`Directory.Build`、扩展名为`.props`的文件, 并指定`MasaFramework`使用的是`1.0.0-preview.1`版本的nuget包
 
 ```xml
 <Project>
@@ -51,7 +51,7 @@ cd Masa.EShop.Service.Catalog
 
 > 如果遇到`IDE`不能正确识别包版本号的情况, 请再次检查文件名, 确保其扩展名为`props`, 而不是扩展名为`.txt`的文件
 
-2. 打开名为`Masa.XXX.XXX.csproj`的文件, 并使用配置的nuget版本  
+2. 打开名为`Masa.XXX.XXX.csproj`的文件, 并使用全局配置文件的版本  
 
 以`Masa.Contrib.Service.MinimalAPIs`为例, 我们修改其`Version`的值为`$(MasaFrameworkPackageVersion)`
 
@@ -71,7 +71,7 @@ cd Masa.EShop.Service.Catalog
 
 ### 全局Using
 
-使用全局using代理局部using，避免每个类中都需要引用命名空间, 在类库跟目录新增名子为`_Imports.cs`的类, 其中引入当前类库使用的命名空间, 例如:
+使用全局using代替局部using, 避免每个类中都需要引用命名空间, 在类库跟目录新增名子为`_Imports.cs`的类, 其中引入当前类库使用的命名空间, 例如:
 
 ```csharp
 global using System.Linq.Expressions;

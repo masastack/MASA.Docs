@@ -4,7 +4,15 @@
 
 ### 使用
 
-在项目根目录新建`Infrastructure`文件夹, 并在其中新建`Repositories`文件夹, 用于存放自定义仓储的实现
+选中仓储的实现所属的项目, 并安装`Masa.Contrib.Ddd.Domain.Repository.EFCore`
+
+```powershell
+dotnet add package Masa.Contrib.Ddd.Domain.Repository.EFCore
+```
+
+> 如果后续考虑可能更换`ORM`框架, 建议将仓储的实现可以单独存储到一个独立的类库中
+
+此处我们选择将仓储的实现与主服务在同一个项目中, 并新建`CatalogItemRepository`用于实现`ICatalogItemRepository`
 
 ```csharp
 public class CatalogItemRepository : Repository<CatalogDbContext, CatalogItem, Guid>, ICatalogItemRepository
@@ -29,3 +37,7 @@ builder.Services.AddDomainEventBus(options =>
 框架是如何完成自动注册, 为何项目提示仓储未注册, 点击查看[文档](/framework/building-blocks/ddd/repository)
 
 > 如果不在默认仓储的的基础上扩展, 而是完全自定义仓储, 则可以使用[`按约定自动注册`](/framework/utils/extensions/dependency-injection)功能简化服务注册
+
+最终的文件结构应该如下所示:
+
+![Repository](https://s2.loli.net/2023/02/06/FbGLOVINUfXow3S.png)

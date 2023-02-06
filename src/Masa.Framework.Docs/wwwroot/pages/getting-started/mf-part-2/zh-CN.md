@@ -6,27 +6,27 @@
 
 ### 使用
 
-领域是项目的核心，我们建议您按照以下文件夹格式来存放:
+领域层是项目的核心，我们建议您按照以下结构来存放:
 
 * Domain //领域层(可以与主服务在同一项目，也可单独存储到一个独立的类库中)
   * Aggregates // [聚合根](/framework/building-blocks/ddd/aggregate-root)及相关[实体](/framework/building-blocks/ddd/entity)
   * Events // [领域事件](/framework/building-blocks/ddd/domain-event) (建议领域事件以`DomainEvent`结尾)
-  * Repositories //[仓储](/framework/building-blocks/ddd/repository) (仅存储仓储的接口)
+  * Repositories //[仓储](/framework/building-blocks/ddd/repository) (仅存放仓储的接口)
   * Services //[领域服务](/framework/building-blocks/ddd/domain-service)
 
-我们将在领域层下的`Aggregates`文件夹中创建名为`CatalogItem`、`CatalogBrand`的聚合根以及`CatalogType`枚举类
-
-选中领域层所属项目, 并安装
-
-* Masa.Contrib.Ddd.Domain
+选中领域层所属项目, 并安装`Masa.Contrib.Ddd.Domain`
 
 ```powershell
 dotnet add package Masa.Contrib.Ddd.Domain
 ```
 
-### 商品实体
+### 聚合
 
-新建`Domain`文件夹并创建`Aggregates`文件夹, 并在其中加入`CatalogItem`类, 并继承`FullAggregateRoot`
+选中`Aggregates`文件夹, 我们将新建包括`CatalogItem`、`CatalogBrand`的[聚合根](/framework/building-blocks/ddd/aggregate-root)以及`CatalogType`[枚举类](/framework/building-blocks/ddd/enumeration), 并在初始化商品时添加商品领域事件
+
+#### 商品
+
+新建`CatalogItem`类, 并继承`FullAggregateRoot`
 
 ```csharp
 public class CatalogItem : FullAggregateRoot<Guid, int>
@@ -68,7 +68,7 @@ public class CatalogItem : FullAggregateRoot<Guid, int>
 
     private void AddCatalogItemDomainEvent()
     {
-        var domainEvent = this.Map<CatalogItemDomainEvent>();
+        var domainEvent = this.Map<CatalogItemCreatedIntegrationDomainEvent>();
         domainEvent.CatalogBrandId = _catalogBrandId;
         domainEvent.CatalogTypeId = _catalogTypeId;
         AddDomainEvent(domainEvent);
@@ -76,11 +76,14 @@ public class CatalogItem : FullAggregateRoot<Guid, int>
 }
 ```
 
-> 继承`FullAggregateRoot<Guid, int>`类使得商品实体支持了[`软删除`](/framework/building-blocks/data/data-filter) (指的是当我们删除数据时, 数据仅被标记为删除, 并非从数据库真的删除), 同时还具备了审计的特性, 这将使得实体在被新建、修改、删除时会针对应的修改创建时间、创建人、修改时间、修改人
+* 继承`IAggregateRoot`接口的类为聚合根, 由于`CatalogItem`继承了`FullAggregateRoot<Guid, int>`使得它支持了[`软删除`](/framework/building-blocks/data/data-filter) (指的是当我们删除数据时, 数据仅被标记为删除, 并非从数据库真的删除), 同时还具备了审计的特性, 这将使得实体在被新建、修改、删除时会针对应的修改创建时间、创建人、修改时间、修改人
+* 继承`IGenerateDomainEvents`接口的类支持添加或删除领域事件, 而`CatalogItem`继承了`FullAggregateRoot<Guid, int>`使得它支持了添加领域事件的功能
+  * 在聚合根中添加的领域事件将在工作单元保存时通过`IDomainEventBus`入队, 并在工作单元提交时统一发送
+  * 如果使用工作单元并且没有禁用工作单元, 那么无论是直接使用还是间接使用`IDomainEventBus`的领域事件入队, 当Handler出现异常时, 框架会通过工作单元进行回滚 (目前仅关系型数据库支持回滚, 而集成事件由于借助本地消息表实现发件箱模式, 因而回滚也同样生效, 其它服务暂不支持)
 
-### 商品类型
+#### 商品类型
 
-`CatalogType`类是一个[枚举类](/framework/building-blocks/ddd/enumeration), 它位于`Masa.EShop.Service.Catalog`项目的`Domain`命名空间(文件夹)中:
+新建`CatalogType`类, 并继承`Enumeration`
 
 ```csharp
 public class CatalogType : Enumeration
@@ -94,22 +97,55 @@ public class CatalogType : Enumeration
     public CatalogType(int id, string name) : base(id, name)
     {
     }
+    
+    public virtual decimal TotalPrice(decimal price, int num)
+    {
+        return price * num;
+    }
+}
+
+public class Cap : CatalogType
+{
+    public Cap(int id, string name) : base(id, name)
+    {
+    }
+
+    public override decimal TotalPrice(decimal price, int num)
+    {
+        return price * num * 0.95m;
+    }
+}
+```
+
+#### 品牌
+
+新建`CatalogBrand`类, 并继承`FullAggregateRoot<Guid, int>`
+
+```csharp
+public class CatalogBrand : FullAggregateRoot<Guid, int>
+{
+    public string Brand { get; private set; } = null!;
+
+    public CatalogBrand(string brand)
+    {
+        Brand = brand;
+    }
 }
 ```
 
 ### 领域事件
 
-在创建商品时发送一个创建商品的领域事件`CatalogItemCreatedDomainEvent`, 它将在事件总线执行成功后发送
+我们将新建创建商品的领域事件, 但由于此事件是集成事件, 需要被其它服务订阅, 因此我们将其拆分为`CatalogItemCreatedIntegrationDomainEvent`、`CatalogItemCreatedIntegrationEvent`两个类
+
+其中`CatalogItemCreatedIntegrationDomainEvent`继承`CatalogItemCreatedIntegrationEvent`、`IIntegrationDomainEvent`，并将`CatalogItemCreatedIntegrationDomainEvent`存放到`领域层`下的`Events`文件夹 (领域事件)中
 
 ```csharp
-public record CatalogItemCreatedDomainEvent : CatalogItemCreatedIntegrationEvent, IIntegrationDomainEvent
+public record CatalogItemCreatedIntegrationDomainEvent : CatalogItemCreatedIntegrationEvent, IIntegrationDomainEvent
 {
 }
 ```
 
-> 在聚合根中支持发送通过`AddDomainEvent`方法发送领域事件, 查看相关[文档](/framework/building-blocks/ddd/aggregate-root)
-
-创建商品事件属于集成事件, `集成事件`需要被其它服务订阅使用
+其中`CatalogItemCreatedIntegrationEvent`继承`IntegrationEvent`并存放到一个独立的类库中
 
 ```csharp
 public record CatalogItemCreatedIntegrationEvent : IntegrationEvent
@@ -130,11 +166,13 @@ public record CatalogItemCreatedIntegrationEvent : IntegrationEvent
 }
 ```
 
-> `CatalogItemCreatedIntegrationEvent`存储于`Masa.EShop.Contracts.Catalog`类库中, 它可以被其它服务所引用, 或者将它发布为`nuget`包以供其它服务使用
+> `CatalogItemCreatedIntegrationEvent`可以被其它服务所引用使用, 或者将它发布为`nuget`包以供其它服务使用
 
-### ICatalogItemRepository
+`IntegrationEvent`由`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`提供, 请确保已正确安装`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`
 
-在`Domain`文件夹下新建`Repositories`文件夹并创建`ICatalogItemRepository`接口, 继承`IRepository<CatalogItem, Guid>`, 可用于扩展商品仓储
+### 仓储
+
+选中`Repositories`文件夹 (领域层下)并创建`ICatalogItemRepository`接口, 继承`IRepository<CatalogItem, Guid>`, 可用于扩展商品仓储
 
 ```csharp
 public interface ICatalogItemRepository : IRepository<CatalogItem, Guid>
@@ -145,21 +183,11 @@ public interface ICatalogItemRepository : IRepository<CatalogItem, Guid>
 
 > 对于新增加继承`IRepository<CatalogItem, Guid>`的接口, 我们需要在`Repository<CatalogDbContext, CatalogItem, Guid>`的基础上扩展其实现, 由于实现并不属于领域层, 这里我们会在下一篇文档实现这个Repository
 
-仓储服务我们建议以`Repository`结尾, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强.
+仓储服务我们建议以`Repository`结尾, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强
 
-### IDomainEventBus
+### 领域服务
 
-在`DDD`中提供了领域事件总线, 它提供了:
-
-* Enqueue<TDomainEvent>(TDomainEvent @event): 领域事件入队
-* PublishQueueAsync(): 发布领域事件 (根据领域事件入队顺序依次发布)
-* AnyQueueAsync(): 得到是否存在领域事件
-
-> 领域事件总线不仅仅可以发布[进程内事件](/framework/building-blocks/dispatcher/local-event)、也可发布[集成事件](/framework/building-blocks/dispatcher/integration-event)
-
-### IDomainService
-
-继承`IDomainService`接口的类被标记为领域服务, 我们可以继承`DomainService`, 它提供了领域事件总线`EventBus`
+选中`Services`文件夹 (领域层下)并创建商品[领域服务](/framework/building-blocks/ddd/domain-service)
 
 ```csharp
 public class CatalogItemDomainService : DomainService
@@ -170,6 +198,10 @@ public class CatalogItemDomainService : DomainService
 }
 ```
 
-> 继承`DomainService`的类会自动完成服务注册, 无需手动注册
+* 继承`DomainService`的类会自动完成服务注册, 无需手动注册
 
-领域服务我们建议以`DomainService`结尾, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强.
+领域服务我们建议以`DomainService`结尾, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强
+
+最终的文件结构应该如下所示:
+
+![DDD](https://s2.loli.net/2023/02/06/3qjgALZJS2ynt9F.png)
