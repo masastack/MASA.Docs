@@ -1,14 +1,16 @@
 ## 1. 创建最小APIs服务
 
+对外提供API服务
+
 ### 使用
 
-1. 安装`Masa.Contrib.Service.MinimalAPIs`, 它默认提供了符合[`RESTful API`](https://aws.amazon.com/cn/what-is/restful-api)标准的API
+1. 选中`Masa.EShop.Service.Catalog`项目并安装`Masa.Contrib.Service.MinimalAPIs`, 它默认提供了符合[`RESTful API`](https://aws.amazon.com/cn/what-is/restful-api)标准的API
 
 ```powershell
 dotnet add package Masa.Contrib.Service.MinimalAPIs
 ```
 
-> 想了解更多`MinimalAPIs`的功能, 请查看[`MinimalAPIs`](/framework/building-blocks/minimal-apis)
+> 想了解更多`MinimalAPIs`的功能, 请查看[MinimalAPIs](/framework/building-blocks/minimal-apis)
 
 2. 使用`MinimalAPIs`, 修改`Program.cs`
 

@@ -4,6 +4,26 @@
 
 对于本篇文档, 我们将要展示创建一个[充血模型](https://paulovich.net/rich-domain-model-with-ddd-tdd-reviewed/)的商品模型, 并实现`领域驱动设计 (DDD)`的最佳实践
 
+### 使用
+
+领域是项目的核心，我们建议您按照以下文件夹格式来存放:
+
+* Domain //领域层(可以与主服务在同一项目，也可单独存储到一个独立的类库中)
+  * Aggregates // [聚合根](/framework/building-blocks/ddd/aggregate-root)及相关[实体](/framework/building-blocks/ddd/entity)
+  * Events // [领域事件](/framework/building-blocks/ddd/domain-event) (建议领域事件以`DomainEvent`结尾)
+  * Repositories //[仓储](/framework/building-blocks/ddd/repository) (仅存储仓储的接口)
+  * Services //[领域服务](/framework/building-blocks/ddd/domain-service)
+
+我们将在领域层下的`Aggregates`文件夹中创建名为`CatalogItem`、`CatalogBrand`的聚合根以及`CatalogType`枚举类
+
+选中领域层所属项目, 并安装
+
+* Masa.Contrib.Ddd.Domain
+
+```powershell
+dotnet add package Masa.Contrib.Ddd.Domain
+```
+
 ### 商品实体
 
 新建`Domain`文件夹并创建`Aggregates`文件夹, 并在其中加入`CatalogItem`类, 并继承`FullAggregateRoot`

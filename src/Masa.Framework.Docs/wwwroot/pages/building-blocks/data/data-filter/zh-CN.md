@@ -34,7 +34,7 @@ public class User : IMultiTenant
 }
 ```
 
-> 如果你的租户id是`int`类型时, 可通过修改继承接口为`IMultiTenant<int>`以支持其他类型的租户id
+> 如果你的租户id不是`Guid`类型时, 可通过修改继承接口为`IMultiTenant<T>`以支持其他类型的租户id, 例如: `IMultiTenant<int>`
 
 ### `IMultiEnvironment`
 

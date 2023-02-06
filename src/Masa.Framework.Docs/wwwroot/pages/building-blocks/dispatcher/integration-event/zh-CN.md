@@ -28,12 +28,12 @@ builder.Services
     {
         options
             .UseDapr()//使用Dapr提供pub/sub能力，也可以自行选择其他的
-            .UseEventLog<UserDbContext>()//使用基于EFCore的本地消息表
-            .UseUoW<CatalogDbContext>(dbOptions => dbOptions.UseSqlServer("server=localhost;uid=sa;pwd=P@ssw0rd;database=identity"))//使用工作单元，并指定数据库链接字符串
+            .UseEventLog<CustomDbContext>()//使用基于EFCore的本地消息表
+            .UseUoW<CatalogDbContext>(dbOptions => dbOptions.UseSqlServer("server=localhost;uid=sa;pwd=P@ssw0rd;database=catalog"))//使用工作单元，并指定数据库链接字符串
     });
 ```
 
-> CustomDbContext 需要继承[`MasaDbContext`](/framework/building-blocks/orm/efcore), 数据库链接字符串部分代码可简化, 具体代码可[参考](/framework/building-blocks/orm/efcore)
+> `CatalogDbContext`需要继承[`MasaDbContext`](/framework/building-blocks/data/orm-efcore), 数据库链接字符串部分代码可简化, 具体代码可[参考](/framework/building-blocks/data/orm-efcore)
 
 3. 自定义类`DemoIntegrationEvent`, 并集成`IntegrationEvent`
 
@@ -49,7 +49,7 @@ public record DemoIntegrationEvent : IntegrationEvent
 4. 自定义CustomDbContext
 
 ```csharp
-public class CustomDbContext : MasaDbContext
+public class CatalogDbContext : MasaDbContext
 {
     public DbSet<User> Users { get; set; } = null!;
 

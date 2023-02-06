@@ -27,7 +27,7 @@ public void Main()
         OrderItem = new OrderItem("Teach you to learn Dapr hand by hand", 49.9m)
     };
     IMapper mapper;// 通过DI获取
-    var order = _mapper.Map<Order>(request);// 将request映射到新的对象
+    var order = mapper.Map<Order>(request);// 将request映射到新的对象
     Assert.IsNotNull(order);
     Assert.AreEqual(request.Name, order.Name);
     Assert.AreEqual(1, order.OrderItems.Count);

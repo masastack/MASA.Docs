@@ -32,3 +32,51 @@
 dotnet new web -o Masa.EShop.Service.Catalog
 cd Masa.EShop.Service.Catalog
 ```
+
+## 全局配置
+
+### nuget版本
+
+我们建议大家在同一个解决方案中使用同一版本的`MasaFramework`包, 避免因为版本不一致导致出现的bug
+
+1. 在解决方案根目录增加名字为`Directory.Build`, 扩展名为`.props`的文件, 并指定`MasaFramework`使用的是`1.0.0-preview.1`版本的nuget包
+
+```xml
+<Project>
+  <PropertyGroup>
+    <MasaFrameworkPackageVersion>1.0.0-preview.1</MasaFrameworkPackageVersion>
+  </PropertyGroup>
+</Project>
+```
+
+> 如果遇到`IDE`不能正确识别包版本号的情况, 请再次检查文件名, 确保其扩展名为`props`, 而不是扩展名为`.txt`的文件
+
+2. 打开名为`Masa.XXX.XXX.csproj`的文件, 并使用配置的nuget版本  
+
+以`Masa.Contrib.Service.MinimalAPIs`为例, 我们修改其`Version`的值为`$(MasaFrameworkPackageVersion)`
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Masa.Contrib.Service.MinimalAPIs" Version="$(MasaFrameworkPackageVersion)" />
+  </ItemGroup>
+</Project>
+```
+
+### 全局Using
+
+使用全局using代理局部using，避免每个类中都需要引用命名空间, 在类库跟目录新增名子为`_Imports.cs`的类, 其中引入当前类库使用的命名空间, 例如:
+
+```csharp
+global using System.Linq.Expressions;
+```
+
+## 其它
+
+当前文档适用于`1.0.0-preview.1`, 请确保`Masa.XXX.XXX`包安装统一版本, 后续文档将不再特殊注明包的版本信息

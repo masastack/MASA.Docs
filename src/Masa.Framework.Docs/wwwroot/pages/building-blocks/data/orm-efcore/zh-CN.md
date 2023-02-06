@@ -27,15 +27,27 @@ Install-Package Masa.Contrib.Data.Contracts //使用规约提供的数据过滤�
 ``` appsettings.json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "server=localhost;uid=sa;pwd=P@ssw0rd;database=identity"
+    "DefaultConnection": "server=localhost;uid=sa;pwd=P@ssw0rd;database=catalog"
   }
 }
 ```
 
-3. 注册`MasaDbContext`
+3. 声明`CatalogDbContext`并继承`MasaDbContext`
+
+```csharp
+public class CatalogDbContext : MasaDbContext<CatalogDbContext>
+{
+    public CatalogDbContext(MasaDbContextOptions<CatalogDbContext> options) : base(options)
+    {
+
+    }
+}
+```
+
+4. 注册`MasaDbContext`
 
 ``` C#
-builder.Services.AddMasaDbContext<CustomDbContext>(optionsBuilder =>
+builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder =>
 {
     optionsBuilder.UseFilter();//启用数据过滤，由`Masa.Contrib.Data.Contracts`提供
     optionsBuilder.UseSqlServer();//使用SqlServer数据库，也可自行选择其它实现
@@ -55,7 +67,7 @@ Install-Package Masa.Contrib.Data.EFCore.SqlServer
 ``` appsettings.json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "server=localhost;uid=sa;pwd=P@ssw0rd;database=identity"
+    "DefaultConnection": "server=localhost;uid=sa;pwd=P@ssw0rd;database=catalog"
   }
 }
 ```
@@ -63,7 +75,7 @@ Install-Package Masa.Contrib.Data.EFCore.SqlServer
 3. 注册`MasaDbContext`
 
 ``` C#
-builder.Services.AddMasaDbContext<CustomDbContext>(optionsBuilder => optionsBuilder.UseSqlServer());
+builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseSqlServer());
 ```
 
 ### Pomelo.MySql
@@ -81,7 +93,7 @@ Install-Package Masa.Contrib.Data.EFCore.Pomelo.MySql
 ``` appsettings.json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;port=3306;Database=identity;Uid=myUsername;Pwd=P@ssw0rd;"
+    "DefaultConnection": "Server=localhost;port=3306;Database=catalog;Uid=myUsername;Pwd=P@ssw0rd;"
   }
 }
 ```
@@ -89,7 +101,7 @@ Install-Package Masa.Contrib.Data.EFCore.Pomelo.MySql
 3. 注册`MasaDbContext`
 
 ``` C#
-builder.Services.AddMasaDbContext<CustomDbContext>(optionsBuilder => optionsBuilder.UseMySql(new MySqlServerVersion("5.7.26")));
+builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseMySql(new MySqlServerVersion("5.7.26")));
 ```
 
 ### MySql
@@ -107,7 +119,7 @@ Install-Package Masa.Contrib.Data.EFCore.MySql
 ``` appsettings.json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;port=3306;Database=identity;Uid=myUsername;Pwd=P@ssw0rd;"
+    "DefaultConnection": "Server=localhost;port=3306;Database=catalog;Uid=myUsername;Pwd=P@ssw0rd;"
   }
 }
 ```
@@ -115,7 +127,7 @@ Install-Package Masa.Contrib.Data.EFCore.MySql
 3. 注册`MasaDbContext`
 
 ``` C#
-builder.Services.AddMasaDbContext<CustomDbContext>(optionsBuilder => optionsBuilder.UseMySQL());
+builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseMySQL());
 ```
 
 ### Sqlite
@@ -139,7 +151,7 @@ Install-Package Masa.Contrib.Data.EFCore.Sqlite
 3. 注册`MasaDbContext`
 
 ``` C#
-builder.Services.AddMasaDbContext<CustomDbContext>(optionsBuilder => optionsBuilder.UseSqlite());
+builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseSqlite());
 ```
 
 ### Cosmos
@@ -163,7 +175,7 @@ Install-Package Masa.Contrib.Data.EFCore.Cosmos
 3. 注册`MasaDbContext`
 
 ``` C#
-builder.Services.AddMasaDbContext<CustomDbContext>(optionsBuilder => optionsBuilder.UseCosmos());
+builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseCosmos());
 ```
 
 ### InMemory
@@ -179,7 +191,7 @@ Install-Package Masa.Contrib.Data.EFCore.InMemory
 ``` appsettings.json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "identity"
+    "DefaultConnection": "catalog"
   }
 }
 ```
@@ -187,7 +199,7 @@ Install-Package Masa.Contrib.Data.EFCore.InMemory
 3. 注册`MasaDbContext`
 
 ``` C#
-builder.Services.AddMasaDbContext<CustomDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase());
+builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase());
 ```
 
 ### Oracle
@@ -211,7 +223,7 @@ Install-Package Masa.Contrib.Data.EFCore.Oracle
 3. 注册`MasaDbContext`
 
 ``` C#
-builder.Services.AddMasaDbContext<CustomDbContext>(optionsBuilder => optionsBuilder.UseOracle());
+builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseOracle());
 ```
 
 ### PostgreSql
@@ -227,7 +239,7 @@ Install-Package Masa.Contrib.Data.EFCore.PostgreSql
 ``` appsettings.json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=myserver;Username=sa;Password=P@ssw0rd;Database=identity;"
+    "DefaultConnection": "Host=myserver;Username=sa;Password=P@ssw0rd;Database=catalog;"
   }
 }
 ```
@@ -235,5 +247,5 @@ Install-Package Masa.Contrib.Data.EFCore.PostgreSql
 3. 注册`MasaDbContext`
 
 ``` C#
-builder.Services.AddMasaDbContext<CustomDbContext>(optionsBuilder => optionsBuilder.UseNpgsql());
+builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseNpgsql());
 ```
