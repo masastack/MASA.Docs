@@ -10,7 +10,7 @@
 dotnet add package Masa.Contrib.Data.Mapping.Mapster
 ```
 
-2. 修改`Program.cs`，注册`Mapster`的映射器
+2. 修改`Program`，注册`Mapster`的映射器
 
 ```csharp
 builder.Services.AddMapster();

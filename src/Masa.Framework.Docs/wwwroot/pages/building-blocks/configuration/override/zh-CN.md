@@ -25,7 +25,7 @@
 builder.Services.AddMasaConfiguration();
 ```
 
-2. 新建类`AppConfig.cs`, 并继承`LocalMasaConfigurationOptions`, 用于获取配置信息
+2. 新建类`AppConfig`, 并继承`LocalMasaConfigurationOptions`, 用于获取配置信息
 
 ```csharp
 public class AppConfig : LocalMasaConfigurationOptions
@@ -110,7 +110,7 @@ var appId = options.Value.AppId;
     * ConfigurationApi: 2 (远程节点)
   * Section: 节点名称, 当未配置节点名称时, 默认映射到与当前类名一致的{SectionType}节点上 (默认: null)
 
-> 例: `AppConfig.cs` 类继承了`LocalMasaConfigurationOptions`, 但由于未配置`Section`,则默认映射的节点为: `Local:AppConfig`
+> 例: `AppConfig` 类继承了`LocalMasaConfigurationOptions`, 但由于未配置`Section`,则默认映射的节点为: `Local:AppConfig`
 
 #### 手动映射
 

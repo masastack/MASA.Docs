@@ -12,14 +12,14 @@ dotnet add package Masa.Contrib.Service.MinimalAPIs
 
 > 想了解更多`MinimalAPIs`的功能, 请查看[MinimalAPIs](/framework/building-blocks/minimal-apis)
 
-2. 使用`MinimalAPIs`, 修改`Program.cs`
+2. 使用`MinimalAPIs`, 修改`Program`
 
 ```csharp
 //todo: 服务注册必须在生成app之前完成 (升级到.NET 6.0后增加的约束)
 var app = builder.AddServices();
 ```
 
-3. 新建`Services`目录并新增加类`HealthService.cs`, 并继承`ServiceBase`
+3. 新建`Services`目录并新增加类`HealthService`, 并继承`ServiceBase`
 
 ```csharp
 public class HealthService : ServiceBase

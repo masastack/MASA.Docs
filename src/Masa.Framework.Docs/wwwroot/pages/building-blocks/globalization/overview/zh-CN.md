@@ -64,7 +64,7 @@ dotnet add package Masa.Contrib.Globalization.I18n.AspNetCore
 ]
 ```
 
-3. 注册`I18n`, 并修改`Program.cs`
+3. 注册`I18n`, 并修改`Program`
 
 ```csharp
 builder.Services.AddI18n();

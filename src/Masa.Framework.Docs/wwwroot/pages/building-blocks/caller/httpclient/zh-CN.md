@@ -14,7 +14,7 @@ dotnet add package Masa.Contrib.Service.Caller.HttpClient
 
 使用`Caller`并使用指定实现的`Caller`
 
-1. 注册`Caller`并使用基于`HttpClient`的Caller实现, 修改`Program.cs`
+1. 注册`Caller`并使用基于`HttpClient`的Caller实现, 修改`Program`
 
 ```csharp
 builder.Services.AddCaller(options =>
@@ -28,7 +28,7 @@ builder.Services.AddCaller(options =>
 });
 ```
 
-2. 获取指定 name 的Caller, 并发送`Get`请求, 修改`Program.cs`
+2. 获取指定 name 的Caller, 并发送`Get`请求, 修改`Program`
 
 例如: 服务端的接口请求地址为: $"http://localhost:5000/{Replace-With-Your-Prefix}/Hello?Name={name}", 则
 
@@ -46,16 +46,16 @@ app.MapGet("/Test/User/Hello", ([FromServices] ICallerFactory callerFactory, str
 
 使用`Caller`并根据约定自动注册其实现
 
-1. 注册`Caller`, 并自动注册`Caller`的实现, 修改`Program.cs`
+1. 注册`Caller`, 并自动注册`Caller`的实现, 修改`Program`
 
 ```csharp
 builder.Services.AddCaller();
 ```
 
-2. 新建类`CustomerCaller.cs`，并继承**HttpClientCallerBase**
+2. 新建类`CustomCaller`，并继承**HttpClientCallerBase**
 
 ```csharp
-public class CustomerCaller : HttpClientCallerBase
+public class CustomCaller : HttpClientCallerBase
 {
     protected override string BaseAddress { get; set; } = "http://localhost:5000";
 
@@ -66,10 +66,10 @@ public class CustomerCaller : HttpClientCallerBase
 }
 ```
 
-3. 使用自定义`Caller`, 并调用`HelloAsync`方法, 修改`Program.cs`
+3. 使用自定义`Caller`, 并调用`HelloAsync`方法, 修改`Program`
 
 ```csharp
-app.MapGet("/Test/User/Hello", ([FromServices] CustomerCaller caller, string name)
+app.MapGet("/Test/User/Hello", ([FromServices] CustomCaller caller, string name)
     => caller.HelloAsync(name);
 ```
 
@@ -123,14 +123,14 @@ public class LogDelegatingHandler : DelegatingHandler
 
 ① 指定Assembly集合 (仅对当前Caller有效)
 ```csharp
-var assemblies = typeof({Replace-With-Your-CustomerCaller}).Assembly;
+var assemblies = typeof({Replace-With-Your-CustomCaller}).Assembly;
 builder.Services.AddCaller(assemblies);
 ```
 
 ② 设置全局Assembly集合 (影响全局Assembly默认配置, 设置错误的Assembly集合会导致其它使用全局Assembly的服务出现错误)
 
 ```csharp
-var assemblies = typeof({Replace-With-Your-CustomerCaller}).Assembly;
+var assemblies = typeof({Replace-With-Your-CustomCaller}).Assembly;
 MasaApp.SetAssemblies(assemblies);
 builder.Services.AddCaller();
 ```

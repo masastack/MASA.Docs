@@ -38,7 +38,7 @@ dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 }
 ```
 
-3. 注册分布式缓存，并使用Redis缓存，修改`Program.cs`
+3. 注册分布式缓存，并使用Redis缓存，修改`Program`
 
 ```csharp
 builder.Services.AddDistributedCache(distributedCacheOptions =>

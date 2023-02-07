@@ -17,7 +17,7 @@ dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore //
 dotnet add package Masa.Contrib.Dispatcher.Events // 支持进程内事件
 ```
 
-2. 注册集成事件与进程内事件, 修改`Program.cs`
+2. 注册集成事件与进程内事件, 修改`Program`
 
 ```csharp
 builder.Services
@@ -67,7 +67,7 @@ public class LoggingMiddleware<TEvent> : Middleware<TEvent>
 }
 ```
 
-2. 修改注册进程内事件代码, 指定需要执行的中间件, 修改`Program.cs`
+2. 修改注册进程内事件代码, 指定需要执行的中间件, 修改`Program`
 
 ```csharp
 builder.Services

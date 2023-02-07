@@ -15,7 +15,7 @@ dotnet add package Masa.Contrib.Caching.MultilevelCache
 dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 ```
 
-2. 注册多级缓存，并使用[`分布式Redis缓存`](./stackexchange-redis.md)，修改`Program.cs`
+2. 注册多级缓存，并使用[`分布式Redis缓存`](./stackexchange-redis.md)，修改`Program`
 
 ```csharp
 //注册多级缓存
@@ -36,7 +36,7 @@ public class User
 }
 ```
 
-4. 如何使用`IMultilevelCacheClient`，修改`Program.cs`
+4. 如何使用`IMultilevelCacheClient`，修改`Program`
 
 ```csharp
 // 设置缓存

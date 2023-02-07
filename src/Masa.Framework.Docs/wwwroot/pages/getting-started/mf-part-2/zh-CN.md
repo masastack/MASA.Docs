@@ -8,11 +8,11 @@
 
 领域层是项目的核心，我们建议您按照以下结构来存放:
 
-* Domain //领域层(可以与主服务在同一项目，也可单独存储到一个独立的类库中)
-  * Aggregates // [聚合根](/framework/building-blocks/ddd/aggregate-root)及相关[实体](/framework/building-blocks/ddd/entity)
-  * Events // [领域事件](/framework/building-blocks/ddd/domain-event) (建议领域事件以`DomainEvent`结尾)
-  * Repositories //[仓储](/framework/building-blocks/ddd/repository) (仅存放仓储的接口)
-  * Services //[领域服务](/framework/building-blocks/ddd/domain-service)
+* Domain: 领域层(可以与主服务在同一项目，也可单独存储到一个独立的类库中)
+  * Aggregates: [聚合根](/framework/building-blocks/ddd/aggregate-root)及相关[实体](/framework/building-blocks/ddd/entity)
+  * Events: [领域事件](/framework/building-blocks/ddd/domain-event) (建议领域事件以`DomainEvent`结尾)
+  * Repositories: [仓储](/framework/building-blocks/ddd/repository) (仅存放仓储的接口)
+  * Services: [领域服务](/framework/building-blocks/ddd/domain-service)
 
 选中领域层所属项目, 并安装`Masa.Contrib.Ddd.Domain`
 
@@ -31,29 +31,27 @@ dotnet add package Masa.Contrib.Ddd.Domain
 ```csharp
 public class CatalogItem : FullAggregateRoot<Guid, int>
 {
-    public string Name { get; private set; } = null!;
+    public string Name { get; private set; } = default!;
 
-    public string Description { get; private set; } = string.Empty;
+    public string Description { get; private set; } = default!;
 
     public decimal Price { get; private set; }
 
-    public string PictureFileName { get; private set; } = "";
+    public string PictureFileName { get; private set; } = default!;
 
     private int _catalogTypeId;
 
-    public CatalogType CatalogType { get; private set; } = null!;
+    public CatalogType CatalogType { get; private set; } = default!;
 
     private Guid _catalogBrandId;
 
-    public CatalogBrand CatalogBrand { get; private set; } = null!;
+    public CatalogBrand CatalogBrand { get; private set; } = default!;
 
     public int AvailableStock { get; private set; }
 
     public int RestockThreshold { get; private set; }
 
     public int MaxStockThreshold { get; private set; }
-
-    public bool OnReorder { get; private set; }
 
     public CatalogItem(Guid id, Guid catalogBrandId, int catalogTypeId, string name, string description, decimal price, string pictureFileName) : base(id)
     {
@@ -76,10 +74,12 @@ public class CatalogItem : FullAggregateRoot<Guid, int>
 }
 ```
 
-* 继承`IAggregateRoot`接口的类为聚合根, 由于`CatalogItem`继承了`FullAggregateRoot<Guid, int>`使得它支持了[`软删除`](/framework/building-blocks/data/data-filter) (指的是当我们删除数据时, 数据仅被标记为删除, 并非从数据库真的删除), 同时还具备了审计的特性, 这将使得实体在被新建、修改、删除时会针对应的修改创建时间、创建人、修改时间、修改人
-* 继承`IGenerateDomainEvents`接口的类支持添加或删除领域事件, 而`CatalogItem`继承了`FullAggregateRoot<Guid, int>`使得它支持了添加领域事件的功能
-  * 在聚合根中添加的领域事件将在工作单元保存时通过`IDomainEventBus`入队, 并在工作单元提交时统一发送
-  * 如果使用工作单元并且没有禁用工作单元, 那么无论是直接使用还是间接使用`IDomainEventBus`的领域事件入队, 当Handler出现异常时, 框架会通过工作单元进行回滚 (目前仅关系型数据库支持回滚, 而集成事件由于借助本地消息表实现发件箱模式, 因而回滚也同样生效, 其它服务暂不支持)
+* 继承`IAggregateRoot`接口的类为聚合根
+  * `CatalogItem`继承了`FullAggregateRoot<Guid, int>`使得它获得了[`软删除`](/framework/building-blocks/data/data-filter) (指的是当我们删除数据时, 数据仅被标记为删除, 并非从数据库真的删除)的能力, 同时还具备了审计的特性, 这将使得实体在被新建、修改、删除时会针对应的修改创建时间、创建人、修改时间、修改人
+* 继承`IGenerateDomainEvents`接口的类支持添加或删除领域事件
+  * `CatalogItem`继承了`FullAggregateRoot<Guid, int>`使得它获得了添加[领域事件](/framework/building-blocks/ddd/domain-event)的能力
+
+> 在聚合根中添加的领域事件在何时被执行? 查看[文档](/framework/building-blocks/ddd/aggregate-root) 
 
 #### 商品类型
 
@@ -88,7 +88,7 @@ public class CatalogItem : FullAggregateRoot<Guid, int>
 ```csharp
 public class CatalogType : Enumeration
 {
-    public static CatalogType Cap = new(1, "Cap");
+    public static CatalogType Cap = new Cap();
     public static CatalogType Mug = new(2, "Mug");
     public static CatalogType Pin = new(3, "Pin");
     public static CatalogType Sticker = new(4, "Sticker");
@@ -106,7 +106,7 @@ public class CatalogType : Enumeration
 
 public class Cap : CatalogType
 {
-    public Cap(int id, string name) : base(id, name)
+    public Cap() : base(1, "Cap")
     {
     }
 
@@ -172,7 +172,7 @@ public record CatalogItemCreatedIntegrationEvent : IntegrationEvent
 
 ### 仓储
 
-选中`Repositories`文件夹 (领域层下)并创建`ICatalogItemRepository`接口, 继承`IRepository<CatalogItem, Guid>`, 可用于扩展商品仓储
+选中领域层中的`Repositories`文件夹并创建`ICatalogItemRepository`接口, 继承`IRepository<CatalogItem, Guid>`, 可用于扩展商品仓储
 
 ```csharp
 public interface ICatalogItemRepository : IRepository<CatalogItem, Guid>
@@ -181,20 +181,17 @@ public interface ICatalogItemRepository : IRepository<CatalogItem, Guid>
 }
 ```
 
-> 对于新增加继承`IRepository<CatalogItem, Guid>`的接口, 我们需要在`Repository<CatalogDbContext, CatalogItem, Guid>`的基础上扩展其实现, 由于实现并不属于领域层, 这里我们会在下一篇文档实现这个Repository
+> 对于新增加继承`IRepository<CatalogItem, Guid>`的接口, 我们需要在`Repository<CatalogDbContext, CatalogItem, Guid>`的基础上扩展其实现, 由于实现并不属于领域层, 这里我们会在后面的文档实现这个Repository
 
 仓储服务我们建议以`Repository`结尾, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强
 
 ### 领域服务
 
-选中`Services`文件夹 (领域层下)并创建商品[领域服务](/framework/building-blocks/ddd/domain-service)
+选中领域层中的`Services`文件夹并创建商品[领域服务](/framework/building-blocks/ddd/domain-service)
 
 ```csharp
 public class CatalogItemDomainService : DomainService
 {
-    public CatalogItemDomainService(IDomainEventBus eventBus) : base(eventBus)
-    {
-    }
 }
 ```
 

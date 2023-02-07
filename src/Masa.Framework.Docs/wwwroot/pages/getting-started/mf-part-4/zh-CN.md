@@ -1,103 +1,43 @@
-## 保存或获取数据
+## 4. 自定义仓储实现
 
-在开发中, 我们需要用到数据库, 以便对数据能进行存储或读取, 下面例子我们将使用`Sqlite`数据库进行数据的存储与读取, 如果你的业务使用的是其它数据库, 可参考[文档](/framework/building-blocks/data/orm-efcore)选择与之匹配的数据库包
+虽然框架已经提供了仓储功能, 但它的功能是有限的, 当默认仓储提供的功能不足以满足我们的需求时, 我们就需要在默认仓储的基础上进行扩展或者重写, 自定义仓储的接口与实现是一对一的, 它们必须是成对出现的
 
-1. 安装`Masa.Contrib.Data.EFCore.Sqlite`、`Masa.Contrib.Data.Contracts`
+### 使用
+
+选中仓储的实现所属的项目, 并安装`Masa.Contrib.Ddd.Domain.Repository.EFCore`
 
 ```powershell
-dotnet add package Masa.Contrib.Data.EFCore.Sqlite
-dotnet add package Masa.Contrib.Data.Contracts
+dotnet add package Masa.Contrib.Ddd.Domain.Repository.EFCore
 ```
 
-`Masa.Contrib.Data.Contracts`提供了[数据过滤](/framework/building-blocks/data/data-filter)的能力, 但它不是必须的
+> 如果后续考虑可能更换`ORM`框架, 建议将仓储的实现可以单独存储到一个独立的类库中
 
-2. 新建数据上下文类`CatalogDbContext.cs`, 并继承`MasaDbContext<TDbContext>`
+此处我们选择将仓储的实现与主服务在同一个项目中, 并新建`CatalogItemRepository`用于实现`ICatalogItemRepository`
 
 ```csharp
-public class CatalogDbContext : MasaDbContext<CatalogDbContext>
+public class CatalogItemRepository : Repository<CatalogDbContext, CatalogItem, Guid>, ICatalogItemRepository
 {
-    public CatalogDbContext(MasaDbContextOptions<CatalogDbContext> options) : base(options)
+    public CatalogItemRepository(CatalogDbContext context, IUnitOfWork unitOfWork) : base(context, unitOfWork)
     {
-
-    }
-    
-    protected override void OnModelCreatingExecuting(ModelBuilder builder)
-    {
-        builder.ApplyConfigurationsFromAssembly(typeof(CatalogDbContext).Assembly);
-        base.OnModelCreatingExecuting(builder);
     }
 }
 ```
 
-3. 配置自定义映射类, 以`CatalogItem`为例
+自定义仓储实现可以继承`Repository<CatalogDbContext, CatalogItem, Guid>`, 我们只需要在默认仓储实现的基础上扩展新扩展的方法即可, 如果你不满意默认实现, 也可重写父类的方法, 默认仓储支持了很多功能, 查看详细[文档](/framework/building-blocks/ddd/repository)
+
+无论是直接使用框架提供的仓储能力, 还是基于默认仓储提供的能力基础上进行扩展, 都需要我们在`Program`中进行注册, 否则仓储将无法正常使用, 例如:
 
 ```csharp
-public class CatalogItemEntityTypeConfiguration
-    : IEntityTypeConfiguration<CatalogItem>
+builder.Services.AddDomainEventBus(options =>
 {
-    public void Configure(EntityTypeBuilder<CatalogItem> builder)
-    {
-        builder.ToTable("Catalog");
-
-        builder.Property(ci => ci.Id)
-            .IsRequired();
-
-        builder.Property(ci => ci.Name)
-            .IsRequired(true)
-            .HasMaxLength(50);
-
-        builder.Property(ci => ci.Price)
-            .IsRequired(true);
-
-        builder.Property(ci => ci.PictureFileName)
-            .IsRequired(false);
-
-        builder
-            .Property<Guid>("_catalogBrandId")
-            .UsePropertyAccessMode(PropertyAccessMode.Field)
-            .HasColumnName("CatalogBrandId")
-            .IsRequired();
-        
-        builder
-            .Property<int>("_catalogTypeId")
-            .UsePropertyAccessMode(PropertyAccessMode.Field)
-            .HasColumnName("CatalogTypeId")
-            .IsRequired();
-        
-        builder.HasOne(ci => ci.CatalogBrand)
-            .WithMany()
-            .HasForeignKey("_catalogBrandId");
-        
-        builder.HasOne(ci => ci.CatalogType)
-            .WithMany()
-            .HasForeignKey("_catalogTypeId");
-    }
-}
-```
-
-4. 配置数据库连接字符串
-
-```appsettings.json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Data Source=./Data/Catalog.db;"
-  }
-}
-```
-
-5. 注册数据上下文
-
-```csharp
-builder.Services.AddMasaDbContext<CatalogDbContext>(dbContextBuilder =>
-{
-    dbContextBuilder
-        .UseSqlite() //使用Sqlite数据库
-        .UseFilter(); //数据数据过滤
+    options.UseRepository<CatalogDbContext>();
 });
 ```
 
-继承`MasaDbContext`的数据库默认使用`ConnectionStrings`节点下的`DefaultConnection`配置, 如果你需要更改默认读取节点可参考[文档](/framework/building-blocks/data/connection-strings)
+框架是如何完成自动注册, 为何项目提示仓储未注册, 点击查看[文档](/framework/building-blocks/ddd/repository)
 
-## 其它
+> 如果不在默认仓储的的基础上扩展, 而是完全自定义仓储, 则可以使用[`按约定自动注册`](/framework/utils/extensions/dependency-injection)功能简化服务注册
 
-`MasaFramework`并未约束您的项目必须使用[`Entity Framework Core`](https://learn.microsoft.com/zh-cn/ef/core/), 查看已支持的[`ORM`](/framework/building-blocks/data/overview)框架 
+最终的文件结构应该如下所示:
+
+![Repository](https://s2.loli.net/2023/02/06/FbGLOVINUfXow3S.png)

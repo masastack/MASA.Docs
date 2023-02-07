@@ -10,7 +10,7 @@
 dotnet add package Masa.Contrib.Exceptions
 ```
 
-2. 使用全局异常处理, 修改`Program.cs`
+2. 使用全局异常处理, 修改`Program`
 
 ```csharp
 app.UseMasaExceptionHandler();
@@ -37,7 +37,7 @@ public class HealthService : ServiceBase
 dotnet add package Masa.Contrib.Exceptions
 ```
 
-2. 注册`i18n`并使用, 修改`Program.cs`
+2. 注册`i18n`并使用, 修改`Program`
 
 ```csharp
 builder.Services.AddI18n();

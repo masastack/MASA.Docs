@@ -20,7 +20,7 @@ dotnet add package Masa.Contrib.Data.UoW.EFCore //工作单元
 dotnet add package Masa.Contrib.Data.EFCore.SqlServer // SqlServer数据库
 ```
 
-2. 修改`Program.cs`，注册`IntegrationEventBus`
+2. 修改`Program`，注册`IntegrationEventBus`
 
 ```csharp
 builder.Services

@@ -10,8 +10,8 @@
 
 * [1. 创建最小APIs服务](/framework/getting-started/mf-part-1)
 * [2. 领域层](/framework/getting-started/mf-part-2)
-* [3. 自定义仓储实现](/framework/getting-started/mf-part-3)
-* [4. 保存或获取数据](/framework/getting-started/mf-part-4)
+* [3. 保存或获取数据](/framework/getting-started/mf-part-3)
+* [4. 自定义仓储实现](/framework/getting-started/mf-part-4)
 * [5. 事件总线](/framework/getting-started/mf-part-5)
 * [6. 应用服务层](/framework/getting-started/mf-part-6)
 * [7. 对象映射](/framework/getting-started/mf-part-7)
@@ -71,7 +71,7 @@ cd Masa.EShop.Service.Catalog
 
 ### 全局Using
 
-使用全局using代替局部using, 避免每个类中都需要引用命名空间, 在类库跟目录新增名子为`_Imports.cs`的类, 其中引入当前类库使用的命名空间, 例如:
+使用全局using代替局部using, 避免每个类中都需要引用命名空间, 在类库跟目录新增名子为`_Imports`的类, 其中引入当前类库使用的命名空间, 例如:
 
 ```csharp
 global using System.Linq.Expressions;

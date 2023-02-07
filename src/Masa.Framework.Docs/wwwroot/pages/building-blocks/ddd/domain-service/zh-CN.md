@@ -11,7 +11,7 @@ public class PaymentDomainService : DomainService
 {
     private readonly ILogger<PaymentDomainService> _logger;
 
-    public PaymentDomainService(IDomainEventBus eventBus, ILogger<PaymentDomainService> logger) : base(eventBus)
+    public PaymentDomainService(ILogger<PaymentDomainService> logger)
     {
         _logger = logger;
     }

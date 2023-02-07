@@ -46,7 +46,7 @@ dotnet add package Masa.Contrib.Exceptions
 
 ### 全局异常中间件
 
-1. 修改`Program.cs`, 使用全局异常中间件
+1. 修改`Program`, 使用全局异常中间件
 
 ```csharp
 app.UseMasaExceptionHandler();
@@ -54,7 +54,7 @@ app.UseMasaExceptionHandler();
 
 ### 全局异常过滤器
 
-1. 修改`Program.cs`, 使用全局异常过滤器
+1. 修改`Program`, 使用全局异常过滤器
 
 ```csharp
 builder.Services

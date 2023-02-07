@@ -14,7 +14,7 @@ dotnet add package Masa.Contrib.Data.Mapping.Mapster // 使用`Mapster`作为自
 dotnet add package Masa.BuildingBlocks.Data.MappingExtensions //为`object`类型提供自动映射扩展方法, 使得映射更简单
 ```
 
-2. 注册`Mapster`, 修改`Program.cs`
+2. 注册`Mapster`, 修改`Program`
 
 ```csharp
 builder.Services
@@ -69,7 +69,7 @@ public class CatalogListItemDto
 }
 ```
 
-4. 在项目启动时指定自定义映射规则, 修改`Program.cs`
+4. 在项目启动时指定自定义映射规则, 修改`Program`
 
 ```csharp
 GlobalMappingConfig.Mapping();//指定自定义映射
