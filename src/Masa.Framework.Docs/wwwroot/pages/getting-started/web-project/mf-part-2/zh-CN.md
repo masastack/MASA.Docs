@@ -8,7 +8,7 @@
 
 领域层是项目的核心，我们建议您按照以下结构来存放:
 
-* Domain: 领域层(可以与主服务在同一项目，也可单独存储到一个独立的类库中)
+* Domain: 领域层 (可以与主服务在同一项目, 也可单独存储到一个独立的类库中)
   * Aggregates: [聚合根](/framework/building-blocks/ddd/aggregate-root)及相关[实体](/framework/building-blocks/ddd/entity)
   * Events: [领域事件](/framework/building-blocks/ddd/domain-event) (建议领域事件以`DomainEvent`结尾)
   * Repositories: [仓储](/framework/building-blocks/ddd/repository) (仅存放仓储的接口)
@@ -135,7 +135,7 @@ public class CatalogBrand : FullAggregateRoot<Guid, int>
 
 ### 领域事件
 
-我们将新建创建商品的领域事件, 但由于此事件是集成事件, 需要被其它服务订阅, 因此我们将其拆分为`CatalogItemCreatedIntegrationDomainEvent`、`CatalogItemCreatedIntegrationEvent`两个类
+我们将创建商品的领域事件, 但由于此事件是集成事件, 需要被其它服务订阅, 因此我们将其拆分为`CatalogItemCreatedIntegrationDomainEvent`、`CatalogItemCreatedIntegrationEvent`两个类
 
 其中`CatalogItemCreatedIntegrationDomainEvent`继承`CatalogItemCreatedIntegrationEvent`、`IIntegrationDomainEvent`，并将`CatalogItemCreatedIntegrationDomainEvent`存放到`领域层`下的`Events`文件夹 (领域事件)中
 
@@ -166,9 +166,7 @@ public record CatalogItemCreatedIntegrationEvent : IntegrationEvent
 }
 ```
 
-> `CatalogItemCreatedIntegrationEvent`可以被其它服务所引用使用, 或者将它发布为`nuget`包以供其它服务使用
-
-`IntegrationEvent`由`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`提供, 请确保已正确安装`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`
+> `CatalogItemCreatedIntegrationEvent`可以被其它服务所引用使用, 或者将它发布为`nuget`包以供其它服务使用 (`IntegrationEvent`由`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`提供, 请确保已正确安装`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`)
 
 ### 仓储
 
@@ -183,8 +181,6 @@ public interface ICatalogItemRepository : IRepository<CatalogItem, Guid>
 
 > 对于新增加继承`IRepository<CatalogItem, Guid>`的接口, 我们需要在`Repository<CatalogDbContext, CatalogItem, Guid>`的基础上扩展其实现, 由于实现并不属于领域层, 这里我们会在后面的文档实现这个Repository
 
-仓储服务我们建议以`Repository`结尾, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强
-
 ### 领域服务
 
 选中领域层中的`Services`文件夹并创建商品[领域服务](/framework/building-blocks/ddd/domain-service)
@@ -196,8 +192,6 @@ public class CatalogItemDomainService : DomainService
 ```
 
 * 继承`DomainService`的类会自动完成服务注册, 无需手动注册
-
-领域服务我们建议以`DomainService`结尾, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强
 
 最终的文件结构应该如下所示:
 

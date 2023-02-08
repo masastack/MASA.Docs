@@ -19,5 +19,9 @@
     <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\override\zh-CN.md" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\pages\contribution\criterion" />
+  </ItemGroup>
+
 
 </Project>
