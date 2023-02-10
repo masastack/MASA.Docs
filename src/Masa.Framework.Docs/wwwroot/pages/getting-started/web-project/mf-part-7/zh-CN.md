@@ -2,19 +2,25 @@
 
 在开发中, 对象赋值是很枯燥的工作, 它不仅仅浪费时间, 并且会使得代码看起来更复杂, 通过对象映射功能我们可以简化对象的赋值操作, 我们根据需要选择`Mapping`的提供者使用即可
 
+### 必要条件
+
+对象映射由`Masa.Contrib.Data.Mapping.Mapster`提供, 我们需要在项目启动时注册, 它通常被放在`Program`中
+
+```csharp
+dotnet add package Masa.Contrib.Data.Mapping.Mapster
+```
+
+但使用对象映射需要通过`DI`来获取`IMapper`, 使用不是特别方便, 因此我们为`object`类型提供自动映射扩展方法, 使得映射更简单
+
+```csharp
+dotnet add package Masa.BuildingBlocks.Data.MappingExtensions
+```
+
 ### 注册对象映射
 
 在上篇文章的`QueryHandler`中我们也使用了对象映射功能, 使用`Mapster`的提供者
 
-1. 安装`Masa.Contrib.Data.Mapping.Mapster`、`Masa.BuildingBlocks.Data.MappingExtensions`
-
-```powershell
-dotnet add package Masa.Contrib.Data.Mapping.Mapster // 使用`Mapster`作为自动映射的提供者
-
-dotnet add package Masa.BuildingBlocks.Data.MappingExtensions //为`object`类型提供自动映射扩展方法, 使得映射更简单
-```
-
-2. 注册`Mapster`, 修改`Program`
+注册`Mapster`, 修改`Program`
 
 ```csharp
 builder.Services

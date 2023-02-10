@@ -1,23 +1,25 @@
 ## 1. 创建最小APIs服务
 
-### 使用
+### 必要条件
 
-1. 选中`Masa.EShop.Service.Catalog`项目并安装`Masa.Contrib.Service.MinimalAPIs`, 它默认提供了符合[`RESTful API`](https://aws.amazon.com/cn/what-is/restful-api)标准的API
+选中API服务所在类库并安装`Masa.Contrib.Service.MinimalAPIs`, 它默认提供了符合[`RESTful API`](https://aws.amazon.com/cn/what-is/restful-api)标准的API
 
 ```powershell
 dotnet add package Masa.Contrib.Service.MinimalAPIs
 ```
 
-> 想了解更多`MinimalAPIs`的功能, 请查看[MinimalAPIs](/framework/building-blocks/minimal-apis)
+> 想了解更多`MinimalAPIs`的功能, 请查看[文档](/framework/building-blocks/minimal-apis)
 
-2. 使用`MinimalAPIs`, 修改`Program`
+### 使用
+
+1. 使用`MinimalAPIs`, 修改`Program`
 
 ```csharp
 //todo: 服务注册必须在生成app之前完成 (升级到.NET 6.0后增加的约束)
 var app = builder.AddServices();
 ```
 
-3. 新建`Services`目录并新增加类`HealthService`, 并继承`ServiceBase`
+2. 新建`Services`目录并新增加类`HealthService`, 并继承`ServiceBase`
 
 ```csharp
 public class HealthService : ServiceBase

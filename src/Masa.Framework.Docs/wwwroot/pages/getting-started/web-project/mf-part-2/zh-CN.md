@@ -4,8 +4,6 @@
 
 对于本篇文档, 我们将要展示创建一个[充血模型](https://paulovich.net/rich-domain-model-with-ddd-tdd-reviewed/)的商品模型, 并实现`领域驱动设计 (DDD)`的最佳实践
 
-### 使用
-
 领域层是项目的核心，我们建议您按照以下结构来存放:
 
 * Domain: 领域层 (可以与主服务在同一项目, 也可单独存储到一个独立的类库中)
@@ -14,7 +12,9 @@
   * Repositories: [仓储](/framework/building-blocks/ddd/repository) (仅存放仓储的接口)
   * Services: [领域服务](/framework/building-blocks/ddd/domain-service)
 
-选中领域层所属项目, 并安装`Masa.Contrib.Ddd.Domain`
+### 必要条件
+
+选中领域层所属类库, 并安装`Masa.Contrib.Ddd.Domain`
 
 ```powershell
 dotnet add package Masa.Contrib.Ddd.Domain

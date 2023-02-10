@@ -61,13 +61,6 @@
         ]
       },
       {
-        "title": "mapping",
-        "items": [
-          "overview",
-          "mapster"
-        ]
-      },
-      {
         "title": "dispatcher",
         "items": [
           "overview",
@@ -99,6 +92,13 @@
           "orm-efcore",
           "data-filter",
           "connection-strings"
+        ]
+      },
+      {
+        "title": "data-mapping",
+        "items": [
+          "overview",
+          "mapster"
         ]
       },
       {

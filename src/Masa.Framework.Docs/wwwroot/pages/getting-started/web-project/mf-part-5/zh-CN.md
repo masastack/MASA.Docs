@@ -1,23 +1,37 @@
 ## 5. 事件总线
 
-### 使用
-
 通过事件总线帮助我们解耦不同架构层次, 根据事件类型我们将事件总线划分为:
 
 * [进程内事件总线](/framework/building-blocks/dispatcher/local-event)
 * [集成事件总线](/framework/building-blocks/dispatcher/integration-event)
 
-1. 安装`Masa.Contrib.Dispatcher.IntegrationEvents.Dapr`、`Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore`、`Masa.Contrib.Dispatcher.Events`
+### 必要条件
+
+* 进程内事件总线
+
+进程内事件总线的实现由`Masa.Contrib.Dispatcher.Events`提供, 我们需要在项目启动时注册, 它通常被放在`Program`中
+
+```powershell
+dotnet add package Masa.Contrib.Dispatcher.Events // 支持进程内事件
+```
+
+而后续发送事件的类所在类库只需要引用`Masa.BuildingBlocks.Dispatcher.Events`即可 (如果当前类库已经引用了`Masa.Contrib.Dispatcher.Events`, 则无需重复引用`Masa.BuildingBlocks.Dispatcher.Events`)
+
+* 集成事件 (跨进程事件)总线
+
+集成事件总线的实现由`Masa.Contrib.Dispatcher.IntegrationEvents.Dapr`、`Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore`提供, 我们需要在项目启动时注册, 它通常被放在`Program`中
 
 ```powershell
 dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents //使用具有发件箱模式的集成事件
 dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.Dapr //使用dapr提供的pubsub能力
 dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore //本地消息表
-
-dotnet add package Masa.Contrib.Dispatcher.Events // 支持进程内事件
 ```
 
-2. 注册集成事件与进程内事件, 修改`Program`
+而后续发送集成事件的类所在类库只需引用`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`即可 (如果当前类库已经引用了`Masa.Contrib.Dispatcher.IntegrationEvents.*`, 则无需重复引用`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`)
+
+### 使用
+
+注册集成事件与进程内事件, 修改`Program`
 
 ```csharp
 builder.Services
@@ -28,7 +42,7 @@ builder.Services
             .UseEventBus())
 ```
 
-由于我们的项目使用了`DomainEventBus`, 我们可以将领域事件总线与进程内事件总线、集成事件总线注册代码简写为:
+由于我们的项目使用了`DDD`, 我们可以将领域事件总线与进程内事件总线、集成事件总线注册代码简写为:
 
 ```csharp
 builder.Services

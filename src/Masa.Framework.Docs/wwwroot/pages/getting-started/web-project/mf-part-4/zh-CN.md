@@ -2,7 +2,7 @@
 
 虽然框架已经提供了仓储功能, 但它的功能是有限的, 当默认仓储提供的功能不足以满足我们的需求时, 我们就需要在默认仓储的基础上进行扩展或者重写, 自定义仓储的接口与实现是一对一的, 它们必须是成对出现的
 
-### 使用
+### 必要条件
 
 选中仓储的实现所属的项目, 并安装`Masa.Contrib.Ddd.Domain.Repository.EFCore`
 
@@ -11,6 +11,8 @@ dotnet add package Masa.Contrib.Ddd.Domain.Repository.EFCore
 ```
 
 > 如果后续考虑可能更换`ORM`框架, 建议将仓储的实现可以单独存储到一个独立的类库中
+
+### 使用
 
 此处我们选择将仓储的实现与主服务在同一个项目中, 并新建`CatalogItemRepository`用于实现`ICatalogItemRepository`
 

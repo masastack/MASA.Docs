@@ -17,6 +17,10 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\override\zh-CN.md" />
+    <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\medallion-file-system\zh-CN.md" />
+    <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\medallion-oracle\zh-CN.md" />
+    <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\medallion-redis\zh-CN.md" />
+    <_ContentIncludedByDefault Remove="wwwroot\pages\building-blocks\distributed-lock\medallion-wait-handles\zh-CN.md" />
   </ItemGroup>
 
   <ItemGroup>

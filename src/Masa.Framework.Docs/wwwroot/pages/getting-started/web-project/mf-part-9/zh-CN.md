@@ -2,15 +2,17 @@
 
 我们建议在项目中使用全局异常处理, 它对外提供了统一的响应信息, 这将使得我们的项目体验更好
 
-### 全局异常
+### 必要条件
 
-1. 安装`Masa.Contrib.Exceptions`
+安装`Masa.Contrib.Exceptions`
 
 ```powershell
 dotnet add package Masa.Contrib.Exceptions
 ```
 
-2. 使用全局异常处理, 修改`Program`
+### 全局异常
+
+1. 使用全局异常处理, 修改`Program`
 
 ```csharp
 app.UseMasaExceptionHandler();

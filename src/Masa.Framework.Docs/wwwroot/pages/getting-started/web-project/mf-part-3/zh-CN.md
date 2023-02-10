@@ -2,9 +2,9 @@
 
 在开发中, 我们需要用到数据库, 以便对数据能进行存储或读取, 下面例子我们将使用`Sqlite`数据库进行数据的存储与读取, 如果你的业务使用的是其它数据库, 可参考[文档](/framework/building-blocks/data/orm-efcore)选择与之匹配的数据库包
 
-### 使用
+### 必要条件
 
-1. 安装`Masa.Contrib.Data.EFCore.Sqlite`、`Masa.Contrib.Data.Contracts`
+选中用于提供数据上下文以及不同`Orm`的适配层所属类库并安装`Masa.Contrib.Data.EFCore.Sqlite`、`Masa.Contrib.Data.Contracts`
 
 ```powershell
 dotnet add package Masa.Contrib.Data.EFCore.Sqlite
@@ -13,7 +13,11 @@ dotnet add package Masa.Contrib.Data.Contracts
 
 `Masa.Contrib.Data.Contracts`提供了[数据过滤](/framework/building-blocks/data/data-filter)的能力, 但它不是必须的
 
-2. 新建数据上下文类`CatalogDbContext`
+> 如果不考虑分层也可与服务放在一个类库中, 这取决于开发者以及实际的业务情况
+
+### 使用
+
+1. 新建数据上下文类`CatalogDbContext`
 
 * 格式: `XXXDbContext`, 并继承`MasaDbContext<XXXDbContext>`
 
@@ -35,7 +39,7 @@ public class CatalogDbContext : MasaDbContext<CatalogDbContext>
 
 > 数据库迁移时将执行`OnModelCreatingExecuting`方法, 我们可以在其中配置与数据库表的映射关系, 为避免出现流水账式的数据库映射记录, 我们通常会将不同表的映射情况分别写到不同的配置对象中去, 并在`OnModelCreatingExecuting`指定当前上下文映射的程序集
 
-3. 配置数据库中商品表与`CatalogItem`的映射关系, 新建`CatalogItemEntityTypeConfiguration`类
+2. 配置数据库中商品表与`CatalogItem`的映射关系, 新建`CatalogItemEntityTypeConfiguration`类
 
 ```csharp
 public class CatalogItemEntityTypeConfiguration
@@ -83,7 +87,7 @@ public class CatalogItemEntityTypeConfiguration
 
 映射关系类我们建议按照`XXXEntityTypeConfiguration`格式进行创建, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强
 
-4. 配置数据库连接字符串
+3. 配置数据库连接字符串
 
 通常情况下数据库链接字符串配置信息存储在本地配置文件中, 框架支持在不同的配置文件中存放不同环境下使用的数据库链接字符串, 而不需要修改任何代码
 
@@ -97,7 +101,7 @@ public class CatalogItemEntityTypeConfiguration
 
 > 如果你的项目使用了配置中心, 数据库链接字符串也在配置中心存储, 那么请跳过步骤4, 它不会对你有任何的帮助
 
-5. 注册数据上下文
+4. 注册数据上下文
 
 ```csharp
 builder.Services.AddMasaDbContext<CatalogDbContext>(dbContextBuilder =>
