@@ -209,3 +209,9 @@ builder.Services.AddIntegrationEventBus(option =>
     option.UseEventLog<UserDbContext>();
 });
 ```
+
+## 常见问题
+
+1. 发生异常后, 集成事件还会发送成功吗？
+
+此类问题需要判断当前场景是否开启事务, 如果开启了事务, 且提交事务在发生异常之后, 那么集成事件是不会发送成功的, 反之则会继续发送. [哪些场景会自动开启事务?](/framework/building-blocks/data/uow)

@@ -6,6 +6,8 @@
 * `Redis`: 提供获取数据的能力, 相比直接操作数据库, 它有更高的并发读写性能
 * [`Minimal APIs`](/framework/building-blocks/minimal-apis)对外提供最小依赖项的`HTTP API`
 
+通过此Demo项目，希望对大家了解`MASA Framework`有一定的帮助
+
 ## 目录
 
 * [1. 创建最小APIs服务](/framework/getting-started/web-project/mf-part-1)

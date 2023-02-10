@@ -364,7 +364,7 @@ public class UserService: ServiceBase
 }
 ```
 :::
-::: code-group-item 自定义RouteMethodName（自定义路由方法名）
+::: code-group-item 自定义路由方法名
 ```csharp
 public class UserService: ServiceBase
 {
@@ -642,6 +642,43 @@ public class UserService: ServiceBase
 ```
 :::
 ::::
+
+## 常见问题
+
+1. 按照文档操作后, 接口并没有在`Swagger`上看到, 这是什么原因？
+
+根据以下文档检查当前的问题属于哪种:
+
+* 检查当前服务是否满足自动映射条件？
+  * 当前类不属于抽象类
+  * 当前类未增加特性[IgnoreRoute]
+  * `MinimalAPIs`服务没有全局禁用自动映射路由或当前服务并没有禁用自动映射路由
+
+    :::: code-group
+    ::: code-group-item 全局禁用自动映射
+    ```csharp
+    builder.AddServices(globalRouteOptions =>
+    {
+        globalRouteOptions.DisableAutoMapRoute = true;
+    });
+    ```
+    :::
+    ::: code-group-item 局部禁用自动映射
+    ```csharp
+    public class UserService: ServiceBase
+    {
+        public UserService()
+        {
+            RouteOptions.DisableAutoMapRoute = true;
+        }
+    }
+    ```
+    :::
+    ::::
+* 当前`API`方法名的前缀不满足`Get`、`Post`、`Put`、`Delete`规则中任何一种, 并且未通过[自定义路由](#自定义路由)特性设置请求方式、未修改匹配前缀请求方式失败后使用什么样的请求方式 (满足此情况的服务支持`Post`、`Get`、`Put`、`Delete`请求, 但`Swagger`暂不支持, 因此界面上无法看到)
+  * 修改方法名前缀满足所需请求方式中的规则或修改识别方法类型前缀规则  (根据需要修改 全局配置/局部配置中属性`XXXPrefixes`的值)
+  * 通过[自定义路由](#自定义路由)特性设置请求方式
+  * 修改根据前缀匹配请求方式失败后将以指定的请求方式发起请求 (根据需要修改 全局配置/局部配置中属性`MapHttpMethodsForUnmatched`的值)
 
 ## 相关Issues
 

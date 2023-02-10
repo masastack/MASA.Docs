@@ -135,9 +135,9 @@ public class CatalogBrand : FullAggregateRoot<Guid, int>
 
 ### 领域事件
 
-我们将创建商品的领域事件, 但由于此事件是集成事件, 需要被其它服务订阅, 因此我们将其拆分为`CatalogItemCreatedIntegrationDomainEvent`、`CatalogItemCreatedIntegrationEvent`两个类
+我们将创建商品的领域事件, 同时它还是集成事件, 需要被其它服务订阅, 因此我们将其拆分为`CatalogItemCreatedIntegrationDomainEvent`、`CatalogItemCreatedIntegrationEvent`两个类
 
-其中`CatalogItemCreatedIntegrationDomainEvent`继承`CatalogItemCreatedIntegrationEvent`、`IIntegrationDomainEvent`，并将`CatalogItemCreatedIntegrationDomainEvent`存放到`领域层`下的`Events`文件夹 (领域事件)中
+* `CatalogItemCreatedIntegrationDomainEvent`继承`CatalogItemCreatedIntegrationEvent`、`IIntegrationDomainEvent` (位于`领域层`下的`Events`文件夹 (领域事件)中)
 
 ```csharp
 public record CatalogItemCreatedIntegrationDomainEvent : CatalogItemCreatedIntegrationEvent, IIntegrationDomainEvent
@@ -145,9 +145,9 @@ public record CatalogItemCreatedIntegrationDomainEvent : CatalogItemCreatedInteg
 }
 ```
 
-其中`CatalogItemCreatedIntegrationEvent`继承`IntegrationEvent`并存放到一个独立的类库中
+* `CatalogItemCreatedIntegrationEvent`继承`IntegrationEvent` (建议独立一个类库)
 
-```csharp
+```
 public record CatalogItemCreatedIntegrationEvent : IntegrationEvent
 {
     public Guid Id { get; set; }
@@ -166,7 +166,7 @@ public record CatalogItemCreatedIntegrationEvent : IntegrationEvent
 }
 ```
 
-> `CatalogItemCreatedIntegrationEvent`可以被其它服务所引用使用, 或者将它发布为`nuget`包以供其它服务使用 (`IntegrationEvent`由`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`提供, 请确保已正确安装`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`)
+> 独立一个类库方便被其他服务直接或间接以`nuget`包的方式使用 (`IntegrationEvent`由`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`提供, 请确保已正确安装`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`)
 
 ### 仓储
 

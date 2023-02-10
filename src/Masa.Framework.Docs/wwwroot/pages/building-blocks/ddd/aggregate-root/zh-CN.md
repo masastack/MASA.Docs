@@ -89,7 +89,7 @@ public class Order: AggregateRoot<int>
 除此之外, 我们还提供了支持审计的功能, 继承`IAuditEntity`接口的类拥有`Creator` (创建人)、`CreationTime` (创建时间)、`Modifier` (修改人)、`ModificationTime` (修改时间), 以及继承`ISoftDelete`接口的类拥有软删除功能, 我们可以根据需要自行继承对应的接口, 但为了方便使用, 我们也提供了以下类:
 
 * AggregateRoot: 聚合根基类
-* AuditAggregateRoot: 拥有审计功能的聚合根基类
-* FullAggregateRoot: 拥有审计、软删除功能的聚合根基类
+* AuditAggregateRoot: 在`AggregateRoot`的基础上增加了审计功能
+* FullAggregateRoot: 在`AuditAggregateRoot`的基础上增加了软删除功能
 
 同时支持审计功能的实体, 有一些很好用的小功能, 比如: 我们将根据当前操作类型对创建时间以及修改时间完成自动赋值操作 (时间使用`UTC +0` 时区), 同时如果使用了[`用户身份`](/framework/building-blocks/identity/overview)功能, 创建人、修改人框架也会完成自动赋值操作

@@ -95,7 +95,7 @@ public class CatalogItemEntityTypeConfiguration
 }
 ```
 
-如果你的项目使用了配置中心, 数据库链接字符串也在配置中心存储, 那么请跳过步骤4, 它不会对你有任何的帮助
+> 如果你的项目使用了配置中心, 数据库链接字符串也在配置中心存储, 那么请跳过步骤4, 它不会对你有任何的帮助
 
 5. 注册数据上下文
 
@@ -110,7 +110,7 @@ builder.Services.AddMasaDbContext<CatalogDbContext>(dbContextBuilder =>
 
 > `UseSqlite`方法由`Masa.Contrib.Data.EFCore.Sqlite`提供, 我们建议在使用时不传入数据库字符串, 虽然它也支持传入数据库链接字符串, 但我们不建议你这样做
 
-继承`MasaDbContext`的数据库默认使用`ConnectionStrings`节点下的`DefaultConnection`配置, 想了解更多关于链接字符串相关的知识可查看[文档](/framework/building-blocks/data/connection-strings)
+继承`MasaDbContext`的数据库默认使用`ConnectionStrings`节点下的`DefaultConnection`配置, 想了解更多关于链接字符串相关的知识可查看[文档](/framework/building-blocks/data/connection-strings), 除了使用本地配置文件存放数据库链接字符串之外, 它还支持其它方式, 详细请查看[文档](/framework/building-blocks/data/orm-efcore#section-900998796a215f0f)
 
 ### 其它
 

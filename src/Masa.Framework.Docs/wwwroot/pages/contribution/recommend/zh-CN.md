@@ -56,19 +56,22 @@ global using System.Linq.Expressions;
 
 <div class="custom-table">
 
-| 后缀                     | 描述                    |
-|------------------------|------------------------|
-| Service                | API服务                  |
-| DomainEvent            | 领域事件                  |
-| DomainService          | 领域服务                  |
-| Repository             | 仓储                     |
-| DbContext              | 数据上下文                 |
-| Event                  | 进程内事件                 |
-| DomainEvent            | 领域事件                   |
-| Command                | 写命令的进程内事件           |
-| Query                  | 读命令的进程内事件           |
-| DomainCommand          | 写命令的领域事件             |
-| DomainQuery            | 读命令的领域事件             |
-| IntegrationDomainEvent | 集成领域事件 (服务的发布与订阅不在同一个进程中) |
+| 后缀               | 描述                             |
+|------------------|--------------------------------|
+| Service          | API服务                          |
+| DomainEvent      | 领域事件                           |
+| DomainService    | 领域服务                           |
+| Repository       | 仓储                             |
+| DbContext        | 数据上下文                          |
+| Event            | 进程内事件                          |
+| EventHandler     | 事件处理程序                         |
+| DomainEvent      | 领域事件                           |
+| DomainEventHandler | 领域事件处理程序                       |
+| Command          | 写命令的进程内事件                      |
+| Query            | 读命令的进程内事件                      |
+| DomainCommand    | 写命令的领域事件                       |
+| DomainQuery      | 读命令的领域事件                       |
+| IntegrationDomainEvent | 集成领域事件 (服务的发布与订阅不在同一个进程中)      |
+| EntityTypeConfiguration | 数据库表与实体映射关系, [相关文档](https://learn.microsoft.com/zh-cn/dotnet/api/system.data.entity.modelconfiguration.entitytypeconfiguration-1) (EFCore) |
 
 </div>
