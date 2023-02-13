@@ -21,8 +21,7 @@ dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
                 "Port":6379
             }
         ],
-        "DefaultDatabase":3,
-        "ConnectionPoolSize":10
+        "DefaultDatabase":3
     }
 }
 ```
@@ -214,8 +213,7 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, [
                 "Port":6379
             }
         ],
-        "DefaultDatabase":3,
-        "ConnectionPoolSize":10
+        "DefaultDatabase":3
     }
 }
 ```
@@ -246,7 +244,6 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
             new("localhost", 6379)
         };
         options.DefaultDatabase = 3;
-        options.ConnectionPoolSize = 10;
         options.GlobalCacheOptions = new CacheOptions()
         {
             CacheKeyType = CacheKeyType.None //可以全局禁用缓存Key格式化处理
@@ -270,8 +267,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
                 "Port": 6379
             }
         ],
-        "DefaultDatabase": 3,
-        "ConnectionPoolSize": 10
+        "DefaultDatabase": 3
     }
 }
 ```
@@ -298,7 +294,6 @@ builder.Services.Configure<RedisConfigurationOptions>(redisConfigurationOptions 
         new("localhost", 6379)
     };
     redisConfigurationOptions.DefaultDatabase = 3;
-    redisConfigurationOptions.ConnectionPoolSize = 10;
     redisConfigurationOptions.GlobalCacheOptions = new CacheOptions()
     {
         CacheKeyType = CacheKeyType.None
