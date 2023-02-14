@@ -103,7 +103,7 @@
       {
         "title": "configuration",
         "items": [
-          "override",
+          "overview",
           "configuration-local",
           "dcc"
         ]

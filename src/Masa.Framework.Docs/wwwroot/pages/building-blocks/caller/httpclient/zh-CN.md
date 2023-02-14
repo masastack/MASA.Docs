@@ -17,10 +17,10 @@ dotnet add package Masa.Contrib.Service.Caller.HttpClient
 1. 注册`Caller`并使用基于`HttpClient`的Caller实现, 修改`Program`
 
 ```csharp
-builder.Services.AddCaller(options =>
+builder.Services.AddCaller("{Replace-With-Your-Name}", options =>
 {
     //name可以是任意字符串, 但不可重复添加两个相同 name 的Caller实现
-    options.UseHttpClient("{Replace-With-Your-Name}", clientBuilder =>
+    options.UseHttpClient(clientBuilder =>
     {
         clientBuilder.BaseAddress = "http://localhost:5000" ;
         clientBuilder.Prefix = "{Replace-With-Your-Prefix}"; //服务前缀
@@ -49,7 +49,7 @@ app.MapGet("/Test/User/Hello", ([FromServices] ICallerFactory callerFactory, str
 1. 注册`Caller`, 并自动注册`Caller`的实现, 修改`Program`
 
 ```csharp
-builder.Services.AddCaller();
+builder.Services.AddAutoRegistrationCaller();
 ```
 
 2. 新建类`CustomCaller`，并继承**HttpClientCallerBase**
@@ -119,12 +119,12 @@ public class LogDelegatingHandler : DelegatingHandler
 * 继承`HttpClientCallerBase`的实现类支持从DI获取, 如果你需要获取来自DI的服务，可通过构造函数注入所需服务
 * 继承`HttpClientCallerBase`的自定义Caller默认支持身份认证, 它需要借助`Masa.Contrib.Service.Caller.Authentication.OpenIdConnect`来实现, 如果你需要重写Caller默认的`HttpRequestMessage`信息, 也可重写`HttpClientCallerBase`父类提供的`ConfigHttpRequestMessage`方法来实现
 * 继承`HttpClientCallerBase`的实现类的生命周期为: `Scoped`
-* 如果`自定义Caller` (继承HttpClientCallerBase的类)与`AddCaller`方法不在一个程序集, 可能会出现自动注册自定义Caller失败的情况, 可通过下面提供的任一方案解决:
+* 如果`自定义Caller` (继承HttpClientCallerBase的类)与`AddAutoRegistrationCaller`方法不在一个程序集, 可能会出现自动注册自定义Caller失败的情况, 可通过下面提供的任一方案解决:
 
 ① 指定Assembly集合 (仅对当前Caller有效)
 ```csharp
 var assemblies = typeof({Replace-With-Your-CustomCaller}).Assembly;
-builder.Services.AddCaller(assemblies);
+builder.Services.AddAutoRegistrationCaller(assemblies);
 ```
 
 ② 设置全局Assembly集合 (影响全局Assembly默认配置, 设置错误的Assembly集合会导致其它使用全局Assembly的服务出现错误)
@@ -132,5 +132,5 @@ builder.Services.AddCaller(assemblies);
 ```csharp
 var assemblies = typeof({Replace-With-Your-CustomCaller}).Assembly;
 MasaApp.SetAssemblies(assemblies);
-builder.Services.AddCaller();
+builder.Services.AddAutoRegistrationCaller();
 ```

@@ -42,4 +42,6 @@ builder.Services.AddDomainEventBus(options =>
 
 最终的文件结构应该如下所示:
 
-![Repository](https://s2.loli.net/2023/02/06/FbGLOVINUfXow3S.png)
+<div>
+  <img alt="repository" src="https://s2.loli.net/2023/02/06/FbGLOVINUfXow3S.png"/>
+</div>

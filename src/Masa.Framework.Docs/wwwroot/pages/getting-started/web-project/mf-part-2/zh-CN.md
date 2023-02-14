@@ -213,4 +213,6 @@ public class CatalogItemDomainService : DomainService
 
 最终的文件结构应该如下所示:
 
-![DDD](https://s2.loli.net/2023/02/06/3qjgALZJS2ynt9F.png)
+<div>
+  <img alt="ddd" src="https://s2.loli.net/2023/02/06/3qjgALZJS2ynt9F.png"/>
+</div>
