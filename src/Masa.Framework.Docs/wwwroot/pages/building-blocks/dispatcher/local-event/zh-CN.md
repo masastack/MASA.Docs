@@ -115,88 +115,39 @@ EventBus的请求管道包含一系列请求委托，依次调用。 它们与 [
 
 > EventBus 支持嵌套发布事件，这意味着我们可以在Handler中重新发布一个新的Event，但对于不支持嵌套的中间件，其仅会在最外层进入时被触发一次
 
-比如：通过增加验证中间件将参数验证从业务代码中剥离开来，使得处理程序更专注于业务
+比如： 新增日志事件中间件, 用于记录事件的日志信息
 
 :::: code-group
-::: code-group-item 1. 注册 FluentValidation
+::: code-group-item 1. 创建日志中间件
 ```csharp
-builder.Services.AddValidatorsFromAssembly(Assembly.GetEntryAssembly());
-```
-:::
-::: code-group-item 2. 自定义验证中间件 ValidatorMiddleware.cs
-```csharp
-public class ValidatorMiddleware<TEvent> : Middleware<TEvent>
+public class LoggingMiddleware<TEvent> : Middleware<TEvent>
     where TEvent : IEvent
 {
-    private readonly ILogger<ValidatorMiddleware<TEvent>>? _logger;
-    private readonly IEnumerable<IValidator<TEvent>> _validators;
-
-    public ValidatorMiddleware(IEnumerable<IValidator<TEvent>> validators, ILogger<ValidatorMiddleware<TEvent>>? logger = null)
-    {
-        _validators = validators;
-        _logger = logger;
-    }
+    private readonly ILogger<LoggingMiddleware<TEvent>> _logger;
+    public LoggingMiddleware(ILogger<LoggingMiddleware<TEvent>> logger) => _logger = logger;
 
     public override async Task HandleAsync(TEvent @event, EventHandlerDelegate next)
     {
-        var typeName = @event.GetType().FullName;
-
-        _logger?.LogDebug("----- Validating command {CommandType}", typeName);
-
-        var failures = _validators
-            .Select(v => v.Validate(@event))
-            .SelectMany(result => result.Errors)
-            .Where(error => error != null)
-            .ToList();
-
-        if (failures.Any())
-        {
-            _logger?.LogError("Validation errors - {CommandType} - Event: {@Command} - Errors: {@ValidationErrors}",
-                typeName,
-                @event,
-                failures);
-
-            throw new ValidationException("Validation exception", failures);
-        }
-
+        _logger.LogInformation("----- Handling command {CommandName} ({@Command})", @event.GetType().GetGenericTypeName(), @event);
         await next();
     }
 }
 ```
 :::
-::: code-group-item 3. 注册EventBus时使用验证中间件
+::: code-group-item 2. 注册EventBus时使用验证中间件
 ```csharp
-builder.Services.AddEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(ValidatorMiddleware<>)));
-```
-:::
-::: code-group-item 4. 添加注册用户的验证规则类
-```csharp
-/// <summary>
-/// 继承 AbstractValidator<TEvent>, 其中TEvent需要更改为待验证的类
-/// </summary>
-public class RegisterUserEventValidator : AbstractValidator<RegisterUserEvent>
-{
-    public RegisterUserEventValidator()
-    {
-        RuleFor(e => e.Account).NotNull().WithMessage("用户名不能为空");
-        RuleFor(e => e.Email).NotNull().WithMessage("邮箱不能为空");
-        RuleFor(e => e.Password)
-            .NotNull().WithMessage("密码不能为空")
-            .MinimumLength(6)
-            .WithMessage("密码必须大于6位")
-            .MaximumLength(20)
-            .WithMessage("密码必须小于20位");
-    }
-}
+builder.Services.AddEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingMiddleware<>)));
 ```
 :::
 ::::
 
 ### Saga 模式
 
-![Saga](https://s2.loli.net/2022/11/11/windOvB95Z4eAKu.png)
+一种业务补偿模式，将一个请求的处理程序划分为不同的步骤执行, 每个步骤都对应一个取消方法，当所有步骤成功后, 提交数据并保存, 如果出现错误，则按照执行顺序反向执行取消动作, 默认情况下, 当出现异常时, 将执行
 
-新增加`CancelSendAwardByRegister`方法用于补偿发送失败奖励出错的问题. 实际执行流程为:
+<div><img alt="saga" src="https://s2.loli.net/2023/02/14/cnEWvwpCXoGZiqt.png"/></div>
+
+例如: 新增加`CancelSendAwardByRegister`方法用于补偿发送失败奖励出错的问题. 执行流程为:
 
 **RegisterUser -> SendAwardByRegister -> CancelSendAwardByRegister**
 
@@ -241,6 +192,8 @@ public class UserHandler
 }
 ```
 
+> SendAwardByRegister出错后, 将执行的补偿动作的顺序为: 1 -> 0, 如果希望执行与其Order一致的补偿动作, 则需要更改`FailureLevels`属性的值, 详细可查看[特性](#特性)
+
 ### 事务
 
 EventBus 支持事务, 当配合UnitOfWork使用时, 当出现异常时会自动回滚, 避免脏数据入库
@@ -266,6 +219,46 @@ EventBus 支持事务, 当配合UnitOfWork使用时, 当出现异常时会自动
 * CancelAsync(TEvent @event): 提供事件的补偿Handler
 
 接口约束与`EventHandler`特性的功能类似，唯一的区别在于写法，接口约束目前仅支持最基本的Handler以及补偿Handler，我们更推荐通过 `EventHandler`特性来使用EventBus, 两种任选其一即可
+
+## 扩展
+
+基于进程内事件总线, 我们提供了基于`FluentValidation`的事件验证中间件, 通过它可以使得我们的事件校验变得更加优雅
+
+### 事件验证中间件
+
+1. 安装`Masa.Contrib.Dispatcher.Events.FluentValidation`、`FluentValidation.AspNetCore`
+
+```csharp
+dotnet add package Masa.Contrib.Dispatcher.Events.FluentValidation
+dotnet add package FluentValidation.AspNetCore
+```
+
+2. 指定进程内事件使用FluentValidation的中间件
+
+```csharp
+builder.Services.AddEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(ValidatorMiddleware<>)));
+```
+
+3. 创建事件的校验处理, 例如:
+
+```csharp
+public class RegisterEventValidator : AbstractValidator<RegisterEvent>
+{
+    public RegisterEventValidator()
+    {
+        RuleFor(e => e.Account).NotNull().WithMessage("用户名不能为空");
+        RuleFor(e => e.Email).NotNull().WithMessage("邮箱不能为空");
+        RuleFor(e => e.Password)
+            .NotNull().WithMessage("密码不能为空")
+            .MinimumLength(6)
+            .WithMessage("密码必须大于6位")
+            .MaximumLength(20)
+            .WithMessage("密码必须小于20位");
+    }
+}
+```
+
+> 不满足事件校验规则的请求会对外抛出指定内容的`MasaValidatorException`异常
 
 ## 性能测试
 

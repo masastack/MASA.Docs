@@ -46,7 +46,7 @@ dotnet add package Masa.Contrib.Exceptions
 
 ### 全局异常中间件
 
-1. 修改`Program.cs`, 使用全局异常中间件
+1. 修改`Program`, 使用全局异常中间件
 
 ```csharp
 app.UseMasaExceptionHandler();
@@ -54,7 +54,7 @@ app.UseMasaExceptionHandler();
 
 ### 全局异常过滤器
 
-1. 修改`Program.cs`, 使用全局异常过滤器
+1. 修改`Program`, 使用全局异常过滤器
 
 ```csharp
 builder.Services
@@ -152,11 +152,9 @@ builder.Services
   });
 ```
 
-### I18n
+### 异常与Http状态码
 
-当异常类型是`MasaException`时, 如果`ErrorCode`不等于`null`或空字符 且使用了I18n，则会根据当前请求的Culture返回对应语言下的Message, 否则返回其Message
-
-### Exception与HttpStatusCode
+MasaFramework提供的了几种常用的异常类型, 当API服务对外抛出以下异常类型时, 服务端将响应与之对应的Http状态码:  
 
 <div class="custom-table">
 
@@ -169,7 +167,7 @@ builder.Services
 
 </div>
 
-HttpStatusCode为298是验证异常，存在固定格式的响应信息
+其中HttpStatusCode为298是验证异常，存在固定格式的响应信息
 
 ``` http
 Validation failed: 
@@ -179,21 +177,85 @@ Validation failed:
 
 > 配合[`Masa Blazor`](https://docs.masastack.com/blazor/introduction/why-masa-blazor)使用, 可以提供更友好的表单验证
 
+### 多语言
+
+当异常类型是`MasaException`时, 如果`ErrorCode`不等于`null`或空字符且使用了[I18n](/framework/building-blocks/globalization/overview)，则会根据当前请求的Culture返回对应语言下的Message, 否则返回其Message, 例如:
+
+:::: code-group
+::: code-group-item 注册全局异常使用多语言
+```csharp
+builder.Services.AddI18n();
+
+------省略------
+
+app.UseI18n();//使用i18n
+
+app.UseMasaExceptionHandler();
+```
+:::
+::: code-group-item 多语言资源文件
+```csharp
+
+文件夹结构如下:
+
+- Resources
+  - I18n
+    - en-US.json
+    - zh-CN.json
+    - supportedCultures.json
+
+* supportedCultures.json (支持语言配置)
+[
+    {
+        "Culture":"zh-CN",
+        "DisplayName":"中文简体",
+        "Icon": "{Replace-Your-Icon}"
+    },
+    {
+        "Culture":"en-US",
+        "DisplayName":"English (United States)",
+        "Icon": "{Replace-Your-Icon}"
+    }
+]
+
+* en-US.json
+{
+  "Home":"Home",
+  "CustomFailed": "自定义错误"
+}
+
+* zh-CN.json
+{
+  "Home":"首页",
+  "CustomFailed": "custom error"
+}
+```
+:::
+::: code-group-item 抛出支持多语言的异常
+```csharp
+public class HealthService : ServiceBase
+{
+    public IResult GetFailed() => throw new UserFriendlyException(errorCode: "CustomFailed");
+}
+```
+:::
+::::
+
 ## 源码解读
 
 ### MasaException
 
-Masa提供的异常基类, 其父类是: Exception, 对外抛出`HttpStatusCode`为`299`的错误码, 并将其Message作为响应内容输出
+基于Exception的扩展类, 是Masa提供的异常基类, 对外抛出`HttpStatusCode`为`500`的错误码, 并将其Message作为响应内容输出
 
-* ErrorCode: 错误码, 针对ErrorCode不为null且不等于空字符, 且开启了i18n后, 可以通过`GetLocalizedMessage`方法获取当前语言的错误信息
+* ErrorCode: 错误码, 针对ErrorCode不为null且不等于空字符, 且开启了[多语言](/framework/building-blocks/globalization/overview)后, 可以通过`GetLocalizedMessage`方法获取当前语言的错误信息
 
 ### UserFriendlyException
 
-Masa提供的用户友好异常类, 其父类是: MasaException, 对外抛出`HttpStatusCode`为`299`的错误码, 并将其Message作为响应内容输出
+基于MasaException的扩展类, 是Masa提供的用户友好异常类, 对外抛出`HttpStatusCode`为`299`的错误码, 并将其Message作为响应内容输出
 
 ### MasaArgumentException
 
-Masa提供的参数异常类型, 其父类是: MasaException, 默认对外抛出`HttpStatusCode`为`500`的错误码, 并将其Message作为响应内容输出, 提供了以下方法
+基于MasaException的扩展类, 是Masa提供的参数异常类, 默认对外抛出`HttpStatusCode`为`500`的错误码, 并将其Message作为响应内容输出, 提供了以下方法
 
 * ThrowIfNullOrEmptyCollection: 若参数为Null或者空集合时抛出异常
 * ThrowIfNull: 若参数为Null时抛出异常
@@ -209,10 +271,12 @@ Masa提供的参数异常类型, 其父类是: MasaException, 默认对外抛出
 
 ### MasaValidatorException
 
-Masa提供的验证异常类型, 其父类是: MasaArgumentException, 默认对外抛出`HttpStatusCode`为`298`的错误码, 对外输出内容为固定格式:
+基于MasaArgumentException的扩展类, 是Masa提供的验证异常类, 默认对外抛出`HttpStatusCode`为`298`的错误码, 对外输出内容为固定格式:
 
 ``` http
 "Validation failed: 
 -- {Name}: {Message1} Severity: {ValidationLevel}
 -- {Name2}: {Message2} Severity: {ValidationLevel}"
 ```
+
+> 与[MasaBlazor](/blazor/introduction/why-masa-blazor)结合使用可以提供更好的表单验证效果

@@ -17,15 +17,20 @@
     "title": "getting-started",
     "items": [
       "overview",
-      "mf-part-1",
-      "mf-part-2",
-      "mf-part-3",
-      "mf-part-4",
-      "mf-part-5",
-      "mf-part-6",
-      "mf-part-7",
-      "mf-part-8",
-      "mf-part-9"
+      {
+        "title": "web-project",
+        "items": [
+          "overview",
+          "mf-part-1",
+          "mf-part-2",
+          "mf-part-3",
+          "mf-part-4",
+          "mf-part-5",
+          "mf-part-6",
+          "mf-part-7",
+          "mf-part-8"
+        ]
+      }
     ]
   },
   {
@@ -52,13 +57,6 @@
           "overview",
           "lock-local",
           "medallion"
-        ]
-      },
-      {
-        "title": "mapping",
-        "items": [
-          "overview",
-          "mapster"
         ]
       },
       {
@@ -93,6 +91,21 @@
           "orm-efcore",
           "data-filter",
           "connection-strings"
+        ]
+      },
+      {
+        "title": "data-mapping",
+        "items": [
+          "overview",
+          "mapster"
+        ]
+      },
+      {
+        "title": "configuration",
+        "items": [
+          "overview",
+          "configuration-local",
+          "dcc"
         ]
       },
       {
