@@ -52,7 +52,7 @@ builder.Services
                 integrationEventBus
                     .UseDapr()
                     .UseEventLog<CatalogDbContext>())
-            .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingMiddleware<>)))
+            .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingEventMiddleware<>)))
             .UseUoW<CatalogDbContext>() //使用工作单元, 确保原子性
             .UseRepository<CatalogDbContext>();
     });
@@ -64,14 +64,14 @@ builder.Services
 
 ### 自定义日志中间件
 
-1. 新建日志中间件`LoggingMiddleware`, 并继承`Middleware<TEvent>`
+1. 新建日志中间件`LoggingEventMiddleware`, 并继承`EventMiddleware<TEvent>`
 
 ```csharp
-public class LoggingMiddleware<TEvent> : Middleware<TEvent>
+public class LoggingEventMiddleware<TEvent> : EventMiddleware<TEvent>
     where TEvent : IEvent
 {
-    private readonly ILogger<LoggingMiddleware<TEvent>> _logger;
-    public LoggingMiddleware(ILogger<LoggingMiddleware<TEvent>> logger) => _logger = logger;
+    private readonly ILogger<LoggingEventMiddleware<TEvent>> _logger;
+    public LoggingEventMiddleware(ILogger<LoggingEventMiddleware<TEvent>> logger) => _logger = logger;
 
     public override async Task HandleAsync(TEvent @event, EventHandlerDelegate next)
     {
@@ -91,7 +91,7 @@ builder.Services
                 integrationEventBus
                     .UseDapr()
                     .UseEventLog<CatalogDbContext>())
-            .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingMiddleware<>))) //指定需要执行的中间件
+            .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingEventMiddleware<>))) //指定需要执行的中间件
             .UseUoW<CatalogDbContext>() //使用工作单元, 确保原子性
             .UseRepository<CatalogDbContext>();
     });
@@ -123,7 +123,7 @@ builder.Services
                 integrationEventBus
                     .UseDapr()
                     .UseEventLog<CatalogDbContext>())
-            .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(new[] { typeof(ValidatorMiddleware<>), typeof(LoggingMiddleware<>) })) //使用验证中间件、日志中间件
+            .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(new[] { typeof(ValidatorMiddleware<>), typeof(LoggingEventMiddleware<>) })) //使用验证中间件、日志中间件
             .UseUoW<CatalogDbContext>() //使用工作单元, 确保原子性
             .UseRepository<CatalogDbContext>();
     });
