@@ -29,7 +29,3 @@ public class HealthService : ServiceBase
 ```
 
 > 访问地址: {域名}/api/v1/healths
-
-### 其它
-
-继承`ServiceBase`的类仅会在项目启动时被初始化一次, 不需要担心使用它会带来性能损失, 但同时如果你需要注入服务, 可在方法参数中增加待注入的服务, 如果在服务的构造函数中增加服务, 则该服务的生命周期只能是单例, 详细原因可查看[文档](/framework/building-blocks/minimal-apis)

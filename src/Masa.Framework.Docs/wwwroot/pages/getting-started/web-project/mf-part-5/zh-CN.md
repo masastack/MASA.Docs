@@ -97,9 +97,9 @@ builder.Services
     });
 ```
 
-> 进程内事件总线的中间件是先进后出
+> 进程内事件总线的中间件是先进先执行
 
-除此之外, 进程内事件还支持`Handler编排`、`Saga`等, 查看详细[文档](/framework/building-blocks/dispatcher/local-event)
+除此之外, 进程内事件还支持[Handler编排](/framework/building-blocks/dispatcher/local-event#section-7f166392)、[Saga](/framework/building-blocks/dispatcher/local-event#saga-6a215f0f)等, 查看详细[文档](/framework/building-blocks/dispatcher/local-event)
 
 ### 验证中间件
 

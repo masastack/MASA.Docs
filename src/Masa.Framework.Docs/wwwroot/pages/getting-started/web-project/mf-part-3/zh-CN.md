@@ -8,7 +8,7 @@
 
 ```powershell
 dotnet add package Masa.Contrib.Data.EFCore.Sqlite
-dotnet add package Masa.Contrib.Data.Contracts
+dotnet add package Masa.Contrib.Data.Contracts //根据需要选择性引用
 ```
 
 `Masa.Contrib.Data.Contracts`提供了[数据过滤](/framework/building-blocks/data/data-filter)的能力, 但它不是必须的
@@ -85,8 +85,6 @@ public class CatalogItemEntityTypeConfiguration
 }
 ```
 
-映射关系类我们建议按照`XXXEntityTypeConfiguration`格式进行创建, 虽然它不是必须的, 但是遵守此约定会使得我们的项目可读性更强
-
 3. 配置数据库连接字符串
 
 通常情况下数据库链接字符串配置信息存储在本地配置文件中, 框架支持在不同的配置文件中存放不同环境下使用的数据库链接字符串, 而不需要修改任何代码
@@ -99,7 +97,7 @@ public class CatalogItemEntityTypeConfiguration
 }
 ```
 
-> 如果你的项目使用了配置中心, 数据库链接字符串也在配置中心存储, 那么请跳过步骤4, 它不会对你有任何的帮助
+> 如果你的项目使用了配置中心, 数据库链接字符串也在配置中心存储, 那么请跳过步骤3, 它不会对你有任何的帮助
 
 4. 注册数据上下文
 
@@ -112,10 +110,10 @@ builder.Services.AddMasaDbContext<CatalogDbContext>(dbContextBuilder =>
 });
 ```
 
-> `UseSqlite`方法由`Masa.Contrib.Data.EFCore.Sqlite`提供, 我们建议在使用时不传入数据库字符串, 虽然它也支持传入数据库链接字符串, 但我们不建议你这样做
+> `UseSqlite`方法由`Masa.Contrib.Data.EFCore.Sqlite`提供, 我们建议在使用时不传入数据库字符串
 
-继承`MasaDbContext`的数据库默认使用`ConnectionStrings`节点下的`DefaultConnection`配置, 想了解更多关于链接字符串相关的知识可查看[文档](/framework/building-blocks/data/connection-strings), 除了使用本地配置文件存放数据库链接字符串之外, 它还支持其它方式, 详细请查看[文档](/framework/building-blocks/data/orm-efcore#section-900998796a215f0f)
+继承`MasaDbContext`的数据库默认使用`ConnectionStrings`节点下的`DefaultConnection`配置, 想了解更多关于链接字符串相关的知识可查看[文档](/framework/building-blocks/data/connection-strings), 除了使用本地配置文件存放数据库链接字符串之外, 它还支持其它方式, 详细请查看[文档](/framework/building-blocks/data/orm-efcore#section-4f7f752851765b8365b95f0f5b5850a86570636e5e9394fe63a55b577b264e32)
 
 ### 其它
 
-`MasaFramework`并未约束您的项目必须使用[`Entity Framework Core`](https://learn.microsoft.com/zh-cn/ef/core/), 查看已支持的[`ORM`](/framework/building-blocks/data/overview)框架 
+`MasaFramework`并未约束项目必须使用[`Entity Framework Core`](https://learn.microsoft.com/zh-cn/ef/core/), 查看已支持的[`ORM`](/framework/building-blocks/data/overview)框架 

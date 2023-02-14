@@ -36,9 +36,9 @@ builder.Services.AddDomainEventBus(options =>
 });
 ```
 
-框架是如何完成自动注册, 为何项目提示仓储未注册, 点击查看[文档](/framework/building-blocks/ddd/repository)
+框架是如何完成自动注册, 为何项目提示仓储未注册, 点击查看[文档](/framework/building-blocks/ddd/repository#section-5e3889c195ee9898)
 
-> 如果不在默认仓储的的基础上扩展, 而是完全自定义仓储, 则可以使用[`按约定自动注册`](/framework/utils/extensions/dependency-injection)功能简化服务注册
+> 如果不在默认仓储的的基础上扩展, 而是完全自定义仓储, 则可以使用[`按约定自动注册`](/framework/utils/extensions/dependency-injection#section-9ad87ea775286cd5)功能简化服务注册
 
 最终的文件结构应该如下所示:
 

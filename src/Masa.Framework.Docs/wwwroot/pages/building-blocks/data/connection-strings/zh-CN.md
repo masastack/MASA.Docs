@@ -41,7 +41,7 @@ public class OrderReadDbContext: MasaDbContext<OrderReadDbContext>
 
 #### 其它 
 
-当数据上下文未指定[ConnectionStringName]特性或者指定的名称为时
+当数据上下文未指定[ConnectionStringName]特性或者指定的名称为时, 上下文对应读取的节点与注册上下文的顺序有关
 
 * 第一个注册的数据上下文默认读取的节点为`DefaultConnection`
 * 第二个注册的数据上下文默认读取的节点为当前数据上下文的[完全限定名称](https://learn.microsoft.com/zh-cn/dotnet/api/system.type.fullname) (即 `typeof(CustomDbContext).FullName`)

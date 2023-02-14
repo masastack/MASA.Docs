@@ -60,33 +60,34 @@ public class Order: AggregateRoot<int>
         _orderStatusId = OrderStatus.Submitted.Id;
         _orderDate = DateTime.UtcNow;
         Address = address;
-
-        AddOrderStartedDomainEvent(userId, userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderName, cardExpiration);
-    }
-    
-    private void AddOrderStartedDomainEvent(
-        string userId, 
-        string userName, 
-        int cardTypeId, 
-        string cardNumber,
-        string cardSecurityNumber,
-        string cardHolderName, 
-        DateTime cardExpiration)
-    {
-        var orderStartedDomainEvent = new OrderStartedDomainEvent(this, userId, userName, cardTypeId,
-                                                                    cardNumber, cardSecurityNumber,
-                                                                    cardHolderName, cardExpiration);
-
-        this.AddDomainEvent(orderStartedDomainEvent);
     }
 }
 ```
 
-在聚合根中被允许发布[`领域事件`](/framework/building-blocks/ddd/domain-event), 它将在工作单元提交前执行, 例如: 在`Order`的构造函数中添加了一个订单状态为已提交的领域事件, 我们可以在项目的其他地方定义其`Handler`实现业务解耦
+### 功能
+
+#### 添加领域事件
+
+在聚合根中被允许添加[`领域事件`](/framework/building-blocks/ddd/domain-event), 它们将在工作单元被保存时入队到领域事件总线, 并在 
+
+
+例如: 在`Order`的构造函数中添加了一个订单状态为已提交的领域事件, 我们可以在项目的其他地方定义其`Handler`实现业务解耦
+
+### 聚合根扩展
+
+在`IAggregateRoot`的基础上, 新增了一些扩展属性 , 并且自动设置它们的值
+
+* AuditAggregateRoot: 在`AggregateRoot`的基础上增加了审计功能
+  * `Creator` (创建人)
+  * `CreationTime` (创建时间)
+  * `Modifier` (修改人)
+  * `ModificationTime` (修改时间)
+* FullAggregateRoot: 在`AuditAggregateRoot`的基础上增加了软删除功能
+  * IsDeleted (是否删除)
 
 ## 其它
 
-除此之外, 我们还提供了支持审计的功能, 继承`IAuditEntity`接口的类拥有`Creator` (创建人)、`CreationTime` (创建时间)、`Modifier` (修改人)、`ModificationTime` (修改时间), 以及继承`ISoftDelete`接口的类拥有软删除功能, 我们可以根据需要自行继承对应的接口, 但为了方便使用, 我们也提供了以下类:
+除此之外, 我们还提供了支持审计的功能, 继承`IAuditEntity`接口的类拥有, 以及继承`ISoftDelete`接口的类拥有软删除功能, 我们可以根据需要自行继承对应的接口, 但为了方便使用, 我们也提供了以下类:
 
 * AggregateRoot: 聚合根基类
 * AuditAggregateRoot: 在`AggregateRoot`的基础上增加了审计功能

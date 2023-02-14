@@ -61,8 +61,24 @@ dotnet add package Masa.Contrib.Service.MinimalAPIs
 
 2. 注册 Minimal APIs
 
+以下两种方式都可成功注册路由, 任选其一即可:
+
+方案1:
+
 ```csharp
-var app = builder.AddServices();
+var app = builder.AddServices();//注册并映射路由
+```
+
+方案2: 
+
+```csharp
+var services = builder.AddMasaMinimalAPIs();//注册MinimalAPI
+
+var app = builder.Build();
+
+-------省略代码----------
+
+app.MapMasaMinimalAPIs();//映射MinimalAPI路由
 ```
 
 3. 新建用户服务, **并继承`ServiceBase`**（注册路由）
@@ -76,8 +92,6 @@ var 路由 = $"{前缀}/{版本}/{服务名(默认复数)}/{路由方法名}"
 ```
 
 > 详细规则请[查看](#自动映射规则)
-
-<a id = "路由注册"></a>
 
 :::: code-group
 ::: code-group-item 自动注册路由(推荐)
@@ -425,73 +439,6 @@ public class UserService: ServiceBase
 }
 ```
 
-## 常见问题
-
-1. 继承`ServiceBase`服务的类的构造函数中不能使用生命周期为`Scoped`、`Transient`的服务，且构造函数中的参数类型必须支持从`DI`中获取
-
-在`builder.AddServices()`执行后，框架会自动扫描继承`ServiceBase`服务的类会获取其示例注册到路由上，无论它是动态注册路由还是手动注册路由，它仅会被注册一次，它的生命周期与项目的生命周期一致，是单例的
-
-2. 在`Minimal APIs`中如何使用服务
-
-:::: code-group
-::: code-group-item 方法1
-```csharp
-public class UserService: ServiceBase
-{
-    /// <summary>
-    /// Post：/api/v1/users/audit
-    /// </summary>
-    [RoutePattern(HttpMethod = "Post")]
-    public IResult Audit(Guid id, [FromBody] AuditUserRequest request, [FromServices]IUserRepository userRepository)
-    {
-        //todo: 审核用户信息
-        return Results.Ok();
-    }
-}
-```
-:::
-::: code-group-item 方法2
-```csharp
-public class UserService: ServiceBase
-{
-    /// <summary>
-    /// Post：/api/v1/users/audit
-    /// </summary>
-    [RoutePattern(HttpMethod = "Post")]
-    public IResult Audit(Guid id, [FromBody] AuditUserRequest request)
-    {
-        IUserRepository userRepository = GetRequiredService<IUserRepository>();
-        //todo: 审核用户信息
-        return Results.Ok();
-    }
-}
-```
-:::
-::::
-
-> 在`ServiceBase`中我们提供了`GetService<TService>()`、`GetRequiredService<TService>()`方法用于从`DI`中获取当前请求的服务 (支持获取生命周期为`Scoped`的服务)
-
-1. 我希望修改路由方法名的规则，则可以重写`ServiceBase`的`GetMethodName`，例如：移除方法前缀为`GetAll`的方法、`GetAllUser` -> `User/List/All`
-
-```csharp
-protected override string GetMethodName(MethodInfo methodInfo, string prefix, ServiceRouteOptions globalOptions)
-{
-    var methodName = methodInfo.Name;
-    //todo: 重写获取自定义方法，通过重新指定规则定义自定义方法名
-    if (methodName.StartsWith("GetAll", StringComparison.OrdinalIgnoreCase))
-    {
-        var list = new List<string>()
-        {
-            (methodName.TrimStart("GetAll", StringComparison.OrdinalIgnoreCase)),
-            "List",
-            "All"
-        };
-        return string.Join('/', list);
-    }
-    return methodName;
-}
-```
-
 ## 原理解剖
 
 ### 自动映射范围
@@ -679,6 +626,83 @@ public class UserService: ServiceBase
   * 修改方法名前缀满足所需请求方式中的规则或修改识别方法类型前缀规则  (根据需要修改 全局配置/局部配置中属性`XXXPrefixes`的值)
   * 通过[自定义路由](#自定义路由)特性设置请求方式
   * 修改根据前缀匹配请求方式失败后将以指定的请求方式发起请求 (根据需要修改 全局配置/局部配置中属性`MapHttpMethodsForUnmatched`的值)
+
+2. API服务中通过构造函数被注册的服务, 新的请求不会被重新获取, 应该如何修改?
+
+继承`ServiceBase`服务的生命周期为单例, 并且它是不支持更改的, 如果希望使用生命周期为`Scoped`、`Transient`的服务, 可通过`GetRequiredService<CatalogDbContext>()`来使用:
+
+```csharp
+public class CatalogItemService : ServiceBase
+{
+    private CatalogDbContext _dbContext => GetRequiredService<CatalogDbContext>();
+    
+    public async Task<IResult> GetListAsync()
+        => Results.Ok(await _dbContext.Set<CatalogItem>().ToListAsync());
+}
+```
+
+在`builder.AddServices()`执行后，框架会自动扫描继承`ServiceBase`服务的类会获取其示例注册到路由上，无论它是动态注册路由还是手动注册路由，它仅会被注册一次，它的生命周期与项目的生命周期一致，是单例的
+
+3. 在`Minimal APIs`中如何使用服务
+
+:::: code-group
+::: code-group-item 方法1
+```csharp
+public class UserService: ServiceBase
+{
+    /// <summary>
+    /// Post：/api/v1/users/audit
+    /// </summary>
+    [RoutePattern(HttpMethod = "Post")]
+    public IResult Audit(Guid id, [FromBody] AuditUserRequest request, [FromServices]IUserRepository userRepository)
+    {
+        //todo: 审核用户信息
+        return Results.Ok();
+    }
+}
+```
+:::
+::: code-group-item 方法2
+```csharp
+public class UserService: ServiceBase
+{
+    /// <summary>
+    /// Post：/api/v1/users/audit
+    /// </summary>
+    [RoutePattern(HttpMethod = "Post")]
+    public IResult Audit(Guid id, [FromBody] AuditUserRequest request)
+    {
+        IUserRepository userRepository = GetRequiredService<IUserRepository>();
+        //todo: 审核用户信息
+        return Results.Ok();
+    }
+}
+```
+:::
+::::
+
+> 在`ServiceBase`中我们提供了`GetService<TService>()`、`GetRequiredService<TService>()`方法用于从`DI`中获取当前请求的服务 (支持获取生命周期为`Scoped`的服务)
+
+4. 我希望修改路由方法名的规则，则可以重写`ServiceBase`的`GetMethodName`，例如：移除方法前缀为`GetAll`的方法、`GetAllUser` -> `User/List/All`
+
+```csharp
+protected override string GetMethodName(MethodInfo methodInfo, string prefix, ServiceRouteOptions globalOptions)
+{
+    var methodName = methodInfo.Name;
+    //todo: 重写获取自定义方法，通过重新指定规则定义自定义方法名
+    if (methodName.StartsWith("GetAll", StringComparison.OrdinalIgnoreCase))
+    {
+        var list = new List<string>()
+        {
+            (methodName.TrimStart("GetAll", StringComparison.OrdinalIgnoreCase)),
+            "List",
+            "All"
+        };
+        return string.Join('/', list);
+    }
+    return methodName;
+}
+```
 
 ## 相关Issues
 

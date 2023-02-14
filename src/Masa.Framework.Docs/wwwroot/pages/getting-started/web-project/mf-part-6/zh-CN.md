@@ -14,8 +14,6 @@ dotnet add package Masa.Contrib.Service.MinimalAPIs
 
 1. 在`Commands`文件夹中新建`CatalogItemCommand`类并继承`Command`
 
-> 命令类命名格式: XXXCommand
-
 ```csharp
 public record CatalogItemCommand : Command
 {
@@ -37,8 +35,6 @@ public record CatalogItemCommand : Command
 
 我们建议使用[FluentValidation](https://github.com/FluentValidation/FluentValidation)提供的验证功能, 为每个`Command`定义对应的验证类, 排除那些参数不符合规定的请求进入Handler, 如果不需要使用它, 可跳过此步骤
 
-> 命令验证类格式: XXXCommandValidator
-
 自定义验证提供了很多验证方法, 比如`NotNull`、`Length`等, 更多使用技巧查看[文档](https://docs.fluentvalidation.net/en/latest)
 
 ```csharp
@@ -58,8 +54,6 @@ public class CatalogItemCommandValidator : AbstractValidator<CatalogItemCommand>
 
 1. 在`Queries`文件夹中新建`CatalogItemQuery`类并继承`Query`
 
-> 查询类命名格式: XXXQuery
-
 ```csharp
 public record CatalogItemQuery: ItemsQueryBase<List<CatalogItem>>
 {
@@ -76,22 +70,7 @@ public record CatalogItemQuery: ItemsQueryBase<List<CatalogItem>>
 }
 ```
 
-2. 在`Queries`文件夹中新建`CatalogItemsQueryValidator`类并继承`AbstractValidator<CatalogItemsQuery>`
-
-> 查询验证类格式: XXXQueryValidator
-
-```csharp
-public class CatalogItemsQueryValidator : AbstractValidator<CatalogItemsQuery>
-{
-    public CatalogItemsQueryValidator()
-    {
-        RuleFor(command => command.Page).GreaterThan(1).WithMessage("页码错误");
-        RuleFor(command => command.PageSize).GreaterThan(0).WithMessage("页大小错误");
-    }
-}
-```
-
-> 验证类不是必须的, 根据业务情况选择性创建即可, 并没有强制性要求每个事件都必须有对应一个的事件验证类
+> 验证类不是必须的, 根据业务情况选择性创建即可, 并没有强制性要求每个事件都必须有对应一个的事件验证类, 通常情况下查询端可以忽略参数校验
 
 ### 处理程序
 
@@ -138,9 +117,9 @@ public class CatalogItemHandler
 }
 ```
 
-简单的项目可以将读写的程序放到一个类中, 但对于复杂的项目, 建议将事件的读写程序程序分开, 无论选择哪种方式, 目的都是为了让我们的项目看起来更简洁, 查找并维护对应的业务时更加容易
+简单的项目可以将读写的程序放到一个类中, 但对于复杂的项目, 建议将事件的读写程序程序分开, 无论选择哪种方式, 目的都是为了让我们的项目看起来更简洁, 查找并维护对应的业务时更加容易。
 
-> 什么是对象映射, 点击查看[文档](/framework/building-blocks/data-mapping/override) 
+> `CatalogItem`到`CatalogListItemDto`的转换使用了[对象映射](/framework/building-blocks/data-mapping/override) 
 
 ### 其它
 

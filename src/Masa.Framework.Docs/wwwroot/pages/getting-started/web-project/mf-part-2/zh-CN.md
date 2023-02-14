@@ -11,6 +11,7 @@
   * Events: [领域事件](/framework/building-blocks/ddd/domain-event) (建议领域事件以`DomainEvent`结尾)
   * Repositories: [仓储](/framework/building-blocks/ddd/repository) (仅存放仓储的接口)
   * Services: [领域服务](/framework/building-blocks/ddd/domain-service)
+  * EventHandlers: 进程内领域事件处理程序 (建议领域事件以`DomainEventHandler`结尾)
 
 ### 必要条件
 
@@ -61,15 +62,6 @@ public class CatalogItem : FullAggregateRoot<Guid, int>
         Description = description;
         Price = price;
         PictureFileName = pictureFileName;
-        AddCatalogItemDomainEvent();
-    }
-
-    private void AddCatalogItemDomainEvent()
-    {
-        var domainEvent = this.Map<CatalogItemCreatedIntegrationDomainEvent>();
-        domainEvent.CatalogBrandId = _catalogBrandId;
-        domainEvent.CatalogTypeId = _catalogTypeId;
-        AddDomainEvent(domainEvent);
     }
 }
 ```
@@ -78,8 +70,6 @@ public class CatalogItem : FullAggregateRoot<Guid, int>
   * `CatalogItem`继承了`FullAggregateRoot<Guid, int>`使得它获得了[`软删除`](/framework/building-blocks/data/data-filter) (指的是当我们删除数据时, 数据仅被标记为删除, 并非从数据库真的删除)的能力, 同时还具备了审计的特性, 这将使得实体在被新建、修改、删除时会针对应的修改创建时间、创建人、修改时间、修改人
 * 继承`IGenerateDomainEvents`接口的类支持添加或删除领域事件
   * `CatalogItem`继承了`FullAggregateRoot<Guid, int>`使得它获得了添加[领域事件](/framework/building-blocks/ddd/domain-event)的能力
-
-> 在聚合根中添加的领域事件在何时被执行? 查看[文档](/framework/building-blocks/ddd/aggregate-root) 
 
 #### 商品类型
 
@@ -135,9 +125,11 @@ public class CatalogBrand : FullAggregateRoot<Guid, int>
 
 ### 领域事件
 
-我们将创建商品的领域事件, 同时它还是集成事件, 需要被其它服务订阅, 因此我们将其拆分为`CatalogItemCreatedIntegrationDomainEvent`、`CatalogItemCreatedIntegrationEvent`两个类
+我们将创建商品的领域事件, 它将在创建商品成功后被其它服务所订阅
 
-* `CatalogItemCreatedIntegrationDomainEvent`继承`CatalogItemCreatedIntegrationEvent`、`IIntegrationDomainEvent` (位于`领域层`下的`Events`文件夹 (领域事件)中)
+> 创建商品的领域事件属于集成事件, 为保证订阅事件的重用以及订阅事件所属类库的最小依赖, 我们将其拆分为`CatalogItemCreatedIntegrationDomainEvent`、`CatalogItemCreatedIntegrationEvent`两个类
+
+* 选中`领域层`下的领域事件 (Events)文件夹, 新建创建商品集成领域事件`CatalogItemCreatedIntegrationDomainEvent`
 
 ```csharp
 public record CatalogItemCreatedIntegrationDomainEvent : CatalogItemCreatedIntegrationEvent, IIntegrationDomainEvent
@@ -145,9 +137,9 @@ public record CatalogItemCreatedIntegrationDomainEvent : CatalogItemCreatedInteg
 }
 ```
 
-* `CatalogItemCreatedIntegrationEvent`继承`IntegrationEvent` (建议独立一个类库)
+*  选中规约类库下的`IntegrationEvents`文件夹, 新建创建商品集成事件`CatalogItemCreatedIntegrationEvent`
 
-```
+```csharp
 public record CatalogItemCreatedIntegrationEvent : IntegrationEvent
 {
     public Guid Id { get; set; }
@@ -166,7 +158,33 @@ public record CatalogItemCreatedIntegrationEvent : IntegrationEvent
 }
 ```
 
-> 独立一个类库方便被其他服务直接或间接以`nuget`包的方式使用 (`IntegrationEvent`由`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`提供, 请确保已正确安装`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`)
+> 集成事件在规约层存储, 后期可将规约层通过`nuget`方式引用, 以方便其它服务订阅事件使用 (`IntegrationEvent`由`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`提供, 请确保已正确安装`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`)
+
+领域事件可以在聚合根或领域服务中发布, 例如:
+
+```csharp
+public class CatalogItem : FullAggregateRoot<Guid, int>
+{
+    --------------
+
+    public CatalogItem(Guid id, Guid catalogBrandId, int catalogTypeId, string name, string description, decimal price, string pictureFileName) : base(id)
+    {
+        --------------
+        
+        AddCatalogItemDomainEvent();//添加创建商品集成领域事件
+    }
+
+    private void AddCatalogItemDomainEvent()
+    {
+        var domainEvent = this.Map<CatalogItemCreatedIntegrationDomainEvent>();
+        domainEvent.CatalogBrandId = _catalogBrandId;
+        domainEvent.CatalogTypeId = _catalogTypeId;
+        AddDomainEvent(domainEvent);
+    }
+}
+```
+
+> 对象映射功能为`CatalogItem`类转换为`CatalogItemCreatedIntegrationDomainEvent`提供了帮助, 具体可查看[对象映射文档](/framework/building-blocks/data-mapping/overview)
 
 ### 仓储
 
