@@ -79,11 +79,11 @@ public class CustomDaprCaller : DaprCallerBase
 {
     protected override string AppId { get; set; } = "{Replace-Your-BaseAddress}";
     
-    protected override DefaultDaprClientBuilder UseDapr()
+    protected override MasaDaprClientBuilder UseDapr()
     {
-        return base
-            .UseDapr()
-            .AddHttpRequestMessage<LogCallerMiddleware>();
+        var daprClientBuilder = base.UseDapr();
+        daprClientBuilder.AddMiddleware<LogCallerMiddleware>();
+        return daprClientBuilder;
     }
 }
 
