@@ -120,11 +120,11 @@ EventBus的请求管道包含一系列请求委托，依次调用。 它们与 [
 :::: code-group
 ::: code-group-item 1. 创建日志中间件
 ```csharp
-public class LoggingMiddleware<TEvent> : Middleware<TEvent>
+public class LoggingEventMiddleware<TEvent> : EventMiddleware<TEvent>
     where TEvent : IEvent
 {
-    private readonly ILogger<LoggingMiddleware<TEvent>> _logger;
-    public LoggingMiddleware(ILogger<LoggingMiddleware<TEvent>> logger) => _logger = logger;
+    private readonly ILogger<LoggingEventMiddleware<TEvent>> _logger;
+    public LoggingEventMiddleware(ILogger<LoggingEventMiddleware<TEvent>> logger) => _logger = logger;
 
     public override async Task HandleAsync(TEvent @event, EventHandlerDelegate next)
     {
@@ -136,7 +136,7 @@ public class LoggingMiddleware<TEvent> : Middleware<TEvent>
 :::
 ::: code-group-item 2. 注册EventBus时使用验证中间件
 ```csharp
-builder.Services.AddEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingMiddleware<>)));
+builder.Services.AddEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(LoggingEventMiddleware<>)));
 ```
 :::
 ::::
