@@ -80,7 +80,17 @@ app.MapGet("/Test/User/Hello", ([FromServices] CustomCaller caller, string name)
 ```csharp
 public class CustomHttpClientCaller : HttpClientCallerBase
 {
+    /// <summary>
+    /// 域名
+    /// </summary>
     protected override string BaseAddress { get; set; } = "{Replace-Your-BaseAddress}";
+    
+    /*
+    /// <summary>
+    /// 前缀
+    /// </summary>
+    protected override string Prefix { get; set; } = string.Empty;
+    */
     
     protected override void ConfigureHttpClient(System.Net.Http.HttpClient httpClient)
     {
@@ -96,11 +106,11 @@ public class CustomHttpClientCaller : HttpClientCallerBase
 {
     protected override string BaseAddress { get; set; } = "{Replace-Your-BaseAddress}";
     
-    protected override IHttpClientBuilder UseHttpClient()
+    protected override MasaHttpClientBuilder UseHttpClient()
     {
-        return base
-            .UseHttpClient()
-            .AddHttpMessageHandler<LogDelegatingHandler>();
+        var httpClientBuilder = base.UseHttpClient();
+        httpClientBuilder.AddHttpMessageHandler<LogDelegatingHandler>();
+        return httpClientBuilder;
     }
 }
 
