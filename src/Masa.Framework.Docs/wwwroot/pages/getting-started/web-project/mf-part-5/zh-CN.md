@@ -123,7 +123,7 @@ builder.Services
                 integrationEventBus
                     .UseDapr()
                     .UseEventLog<CatalogDbContext>())
-            .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(new[] { typeof(ValidatorMiddleware<>), typeof(LoggingEventMiddleware<>) })) //使用验证中间件、日志中间件
+            .UseEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(new[] { typeof(ValidatorEventMiddleware<>), typeof(LoggingEventMiddleware<>) })) //使用验证中间件、日志中间件
             .UseUoW<CatalogDbContext>() //使用工作单元, 确保原子性
             .UseRepository<CatalogDbContext>();
     });

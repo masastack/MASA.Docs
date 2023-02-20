@@ -7,7 +7,7 @@
 选中应用服务层所在类库并安装`Masa.BuildingBlocks.ReadWriteSplitting.Cqrs`
 
 ```csharp
-dotnet add package Masa.Contrib.Service.MinimalAPIs
+dotnet add package Masa.BuildingBlocks.ReadWriteSplitting.Cqrs
 ```
 
 ### 命令端
