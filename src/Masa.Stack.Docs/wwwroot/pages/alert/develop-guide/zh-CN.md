@@ -7,7 +7,7 @@ date: 2023/01/12 15:26:00
 
 1. 安装包：
 
-```c#
+```csharp 
 Install-Package Masa.Contrib.StackSdks.Tsc
 ```
 
@@ -27,7 +27,7 @@ Install-Package Masa.Contrib.StackSdks.Tsc
 ```
 3. 接入可观测性，会自动采集数据到OpenTelemetry
 
-```c#
+```csharp 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddObservable(builder.Logging, builder.Configuration);

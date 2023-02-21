@@ -2,7 +2,7 @@
 
 ApiScope用于描述Api,比如发送邮件Api。单个ApiScope对应单个Api。
 
-```c#
+```csharp 
 var apiScope = new ApiScope
 {
 	Name = "SendEmail",

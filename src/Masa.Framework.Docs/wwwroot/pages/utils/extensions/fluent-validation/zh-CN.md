@@ -22,11 +22,17 @@ public class RegisterUser
     public string Password { get; set; }
 }
 
-public class RegisterUserValidator : AbstractValidator<RegisterUser>
+public class RegisterUserValidator : MasaAbstractValidator<RegisterUser>
 {
     public RegisterUserValidator()
     {
-        RuleFor(user => user.Account).Letter()
+        RuleFor(user => user.Account).Letter();
+        
+        // WhenNotEmpty 的调用示例
+        //_ = WhenNotEmpty(r => r.Phone, r => r.Phone, new PhoneValidator<RegisterUser>());
+        //_ = WhenNotEmpty(r => r.Phone, new PhoneValidator<RegisterUser>());
+        //_ = WhenNotEmpty(r => r.Phone, r => r.Phone, rule => rule.Phone());
+        //_ = WhenNotEmpty(r => r.Phone, rule => rule.Phone());
     }
 }
 ```
@@ -65,6 +71,7 @@ public class RegisterUserValidator : AbstractValidator<RegisterUser>
 * Url: Url地址验证
 * Port: 端口验证
 * Required: 必填验证 (与`NotEmpty`效果一致)
+* MasaAbstractValidator<T> 基类  提供了 `WhenNotEmpty` 方法，只有当给定的属性值不为 NUll/默认值 的时候才会进入验证
 
 ### 修改默认语言
 

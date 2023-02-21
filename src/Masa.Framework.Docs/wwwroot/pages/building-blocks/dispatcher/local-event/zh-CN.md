@@ -111,7 +111,7 @@ EventBus的请求管道包含一系列请求委托，依次调用。 它们与 [
 
 ![EventBus.png](https://s2.loli.net/2023/01/15/mT916WIDAkcPZFt.png)
 
-每个委托均可在下一个委托前后执行操作，其中[`TransactionMiddleware`](https://github.com/masastack/MASA.Framework/blob/0.6.0/src/Contrib/Dispatcher/Masa.Contrib.Dispatcher.Events/Internal/Middleware/TransactionMiddleware.cs)是EventBus发布后第一个要进入的中间件 (默认提供)，并且它是不支持多次嵌套的。
+每个委托均可在下一个委托前后执行操作，其中[`TransactionEventMiddleware`](https://github.com/masastack/MASA.Framework/blob/0.6.0/src/Contrib/Dispatcher/Masa.Contrib.Dispatcher.Events/Internal/Middleware/TransactionEventMiddleware.cs)是EventBus发布后第一个要进入的中间件 (默认提供)，并且它是不支持多次嵌套的。
 
 > EventBus 支持嵌套发布事件，这意味着我们可以在Handler中重新发布一个新的Event，但对于不支持嵌套的中间件，其仅会在最外层进入时被触发一次
 
@@ -236,7 +236,7 @@ dotnet add package FluentValidation.AspNetCore
 2. 指定进程内事件使用FluentValidation的中间件
 
 ```csharp
-builder.Services.AddEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(ValidatorMiddleware<>)));
+builder.Services.AddEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(ValidatorEventMiddleware<>)));
 ```
 
 3. 创建事件的校验处理, 例如:
@@ -315,7 +315,7 @@ builder.Services.AddEventBus(assemblies);
 
 3. 我使用了Repository以及UnitOfWork等功能，我是否在添加数据库后需要执行DbContext.SaveChange() 操作？
 
-在数据被`增删改`时, 会检测当前是否允许开启事务, 如果未禁止使用事务, 则框架会自动开启事务, 并在[`TransactionMiddleware`](https://github.com/masastack/MASA.Framework/blob/0.6.0/src/Contrib/Dispatcher/Masa.Contrib.Dispatcher.Events/Internal/Middleware/TransactionMiddleware.cs)中执行保存并提交到数据库保存
+在数据被`增删改`时, 会检测当前是否允许开启事务, 如果未禁止使用事务, 则框架会自动开启事务, 并在[`TransactionEventMiddleware`](https://github.com/masastack/MASA.Framework/blob/0.6.0/src/Contrib/Dispatcher/Masa.Contrib.Dispatcher.Events/Internal/Middleware/TransactionEventMiddleware.cs)中执行保存并提交到数据库保存
 
 4. 为什么开启了异常重试却未执行重试？
 
