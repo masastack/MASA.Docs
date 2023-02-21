@@ -55,7 +55,7 @@ github返回的用户数据字段分别为id、email、name、avatar_utl、login
 
 1.创建`GitHubDemoAuthenticationOptions`类,`GitHubDemoAuthenticationOptions`继承`Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions`
 
-```c#
+```csharp 
 using Microsoft.AspNetCore.Authentication.OAuth;
 
 namespace Masa.Auth.Security.OAuth.Providers.GitHub;
@@ -73,7 +73,7 @@ public class GitHubDemoAuthenticationOptions : OAuthOptions
 
 2.创建`GitHubDemoAuthenticationHandler`类，`GitHubDemoAuthenticationHandler`继承`Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler<GitHubDemoAuthenticationOptions>`,由于我们要在获取用户信息的时候加上调用获取邮箱的代码，所以需要重写`CreateTicketAsync`方法。
 
-```c#
+```csharp 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.Extensions.Logging;
@@ -163,7 +163,7 @@ public class GitHubDemoAuthenticationHandler : OAuthHandler<GitHubDemoAuthentica
 
 2.在Masa.Auth.Security.OAuth.Providers项目中添加`GitHubDemoBuilder`类
 
-```c#
+```csharp 
 namespace Masa.Auth.Security.OAuth.Providers.GitHub;
 
 public class GitHubDemoBuilder : IAuthenticationInstanceBuilder, IAuthenticationInject

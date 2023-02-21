@@ -7,7 +7,7 @@ date: 2022/12/28
 
 Stack.Tsc提供了获取TSC系统的Logs和Metrics数据，包含ILogService和IMetricService两个模块：
 
-```C#
+```csharp 
 ITscClient
 ├──ILogService              日志查询服务
 ├──IMetricService           指标查询服务
@@ -16,20 +16,20 @@ ITscClient
 
 1. 安装包
 
-``` C#
+```csharp 
 dotnet add package Masa.Contrib.StackSdks.Tsc
 ```
 
 2. 注册服务
 
-``` C#
+```csharp 
 
 builder.Services.AddTscClient("http://my.tsc-service.com");
 ```
 
 3. 依赖注入ITscClient
 
-```C#
+```csharp 
 var app = builder.Build();
 
 app.MapGet("/log-mapping", ([FromServices] ITscClient tscClient) =>

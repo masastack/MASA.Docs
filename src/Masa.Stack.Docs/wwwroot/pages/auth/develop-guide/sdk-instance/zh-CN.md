@@ -8,7 +8,7 @@ SDK依赖`IMultiEnvironmentUserContext`获取当前用户，所有用到当前�
 
 Auth SDK 包含一下几个大类的服务
 
-```c#
+```csharp 
 IAuthClient
 ├── UserService                     用户服务
 ├── SubjectService                  全局搜索用户、角色、团队、组织架构
@@ -25,13 +25,13 @@ IAuthClient
 
 ### 安装依赖包
 
-```C#
+```csharp 
 Install-Package Masa.Contrib.StackSdks.Auth
 ```
 
 ### 注册相关服务
 
-```C#
+```csharp 
 builder.Services.AddAuthClient("http://authservice.com");
 ```
 
@@ -39,7 +39,7 @@ builder.Services.AddAuthClient("http://authservice.com");
 
 ### 依赖注入IAuthClient
 
-```c#
+```csharp 
 var app = builder.Build();
 
 app.MapGet("/GetTeams", ([FromServices] IAuthClient authClient) =>

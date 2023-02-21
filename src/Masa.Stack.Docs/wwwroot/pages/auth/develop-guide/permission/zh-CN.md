@@ -10,7 +10,7 @@
 
 示例代码：
 
-``` C#
+```csharp 
 public class PermissionValidator : IPermissionValidator
 {
     public bool Validate(string code, ClaimsPrincipal user)
@@ -58,7 +58,7 @@ Api权限可以通过两种方式来控制，MASA Auth中均有提供示例代�
 
 实现接口`IAuthorizationMiddlewareResultHandler`并注入。
 
-```C#
+```csharp 
 .AddScoped<IAuthorizationMiddlewareResultHandler, CodeAuthorizationMiddlewareResultHandler>()
 .AddSingleton<IAuthorizationHandler, DefaultRuleCodeAuthorizationHandler>()
 //.AddSingleton<IAuthorizationPolicyProvider, DefaultRuleCodePolicyProvider>()

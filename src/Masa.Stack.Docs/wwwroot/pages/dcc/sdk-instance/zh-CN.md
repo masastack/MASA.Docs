@@ -105,7 +105,7 @@ app.Map("/GetRedis", ([FromServices] IOptions<RedisOptions> option) =>
 
 1. 手动指定映射关系，优势：无需更改原来类的继承关系
 
-```c#
+```csharp 
 builder.Services.AddMasaConfiguration(configurationBuilder =>
 {
     configurationBuilder.UseDcc();
@@ -120,7 +120,7 @@ builder.Services.AddMasaConfiguration(configurationBuilder =>
 
 除了通过IOptions、IOptionsMonitor、IOptionsSnapshot之外，还支持通过`IMasaConfiguration`获取
 
-```c#
+```csharp 
 IMasaConfiguration masaConfiguration;//从DI获取IMasaConfiguration
 masaConfiguration.ConfigurationApi["<Replace-With-Your-AppId>:Redis:Host"];
 ```
