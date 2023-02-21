@@ -48,7 +48,7 @@ public class CatalogDbContext : MasaDbContext<CatalogDbContext>
 
 4. 注册`MasaDbContext`
 
-``` C#
+```csharp 
 builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder =>
 {
     optionsBuilder.UseFilter();//启用数据过滤，由`Masa.Contrib.Data.Contracts`提供
@@ -70,7 +70,7 @@ Install-Package Masa.Contrib.Data.EFCore.SqlServer
 
 2. 注册`MasaDbContext`
 
-``` C#
+```csharp 
 builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseSqlServer());
 ```
 
@@ -86,7 +86,7 @@ Install-Package Masa.Contrib.Data.EFCore.Pomelo.MySql
 
 2注册`MasaDbContext`
 
-``` C#
+```csharp 
 builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseMySql(new MySqlServerVersion("5.7.26")));
 ```
 
@@ -102,7 +102,7 @@ Install-Package Masa.Contrib.Data.EFCore.MySql
 
 2. 注册`MasaDbContext`
 
-``` C#
+```csharp 
 builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseMySQL());
 ```
 
@@ -116,7 +116,7 @@ Install-Package Masa.Contrib.Data.EFCore.Sqlite
 
 2. 注册`MasaDbContext`
 
-``` C#
+```csharp 
 builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseSqlite());
 ```
 
@@ -130,7 +130,7 @@ Install-Package Masa.Contrib.Data.EFCore.Cosmos
 
 2. 注册`MasaDbContext`
 
-``` C#
+```csharp 
 builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseCosmos());
 ```
 
@@ -144,7 +144,7 @@ Install-Package Masa.Contrib.Data.EFCore.InMemory
 
 2. 注册`MasaDbContext`
 
-``` C#
+```csharp 
 builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase());
 ```
 
@@ -158,7 +158,7 @@ Install-Package Masa.Contrib.Data.EFCore.Oracle
 
 2. 注册`MasaDbContext`
 
-``` C#
+```csharp 
 builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseOracle());
 ```
 
@@ -172,7 +172,7 @@ Install-Package Masa.Contrib.Data.EFCore.PostgreSql
 
 2. 注册`MasaDbContext`
 
-``` C#
+```csharp 
 builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseNpgsql());
 ```
 

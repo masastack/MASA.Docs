@@ -163,7 +163,7 @@ var model = options.Value;
 
 使用MasaConfiguration之后, 配置的结构发生调整
 
-``` c#
+```csharp 
 IConfiguration
 ├── Local                           本地节点（固定）
 │   ├── Redis                       自定义配置
