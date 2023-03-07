@@ -236,6 +236,7 @@ dotnet add package FluentValidation.AspNetCore
 2. 指定进程内事件使用FluentValidation的中间件
 
 ```csharp
+builder.Services.AddValidatorsFromAssembly(Assembly.GetEntryAssembly());
 builder.Services.AddEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(ValidatorEventMiddleware<>)));
 ```
 
