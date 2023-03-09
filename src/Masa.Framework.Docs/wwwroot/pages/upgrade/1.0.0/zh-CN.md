@@ -9,27 +9,27 @@
 由于事件总线提供的中间件与微软提供的中间件名称冲突, 我们在原名名基础上增加Event。其中受影响的接口以及类为：
 
 * `Masa.BuildingBlocks.Dispatcher.Events`
-	- `IMiddleware<in TEvent>` → `IEventMiddleware<in TEvent>`
-	- `Middleware<in TEvent>` → `EventMiddleware<in TEvent>`
+  * `IMiddleware<in TEvent>` → `IEventMiddleware<in TEvent>`
+  * `Middleware<in TEvent>` → `EventMiddleware<in TEvent>`
 * `Masa.Contrib.Dispatcher.Events.FluentValidation`
-	- `ValidatorMiddleware<TEvent> ` → `ValidatorEventMiddleware<TEvent> `
+  * `ValidatorMiddleware<TEvent> ` → `ValidatorEventMiddleware<TEvent> `
 * `Masa.Contrib.Dispatcher.Events`
-	- `TransactionMiddleware<TEvent>` → `TransactionEventMiddleware<TEvent>`
+  * `TransactionMiddleware<TEvent>` → `TransactionEventMiddleware<TEvent>`
 * `Masa.Contrib.Isolation`
-	- `IsolationMiddleware<TEvent>` → `IsolationEventMiddleware<TEvent>`
+  * `IsolationMiddleware<TEvent>` → `IsolationEventMiddleware<TEvent>`
 
-2. `Masa.Utils.Extensions.Validations.FluentValidation`内的所有验证器都修改为Null值不再进行校验，直接返回true。[PR #485](https://github.com/masastack/MASA.Framework/pull/485)
+1. `Masa.Utils.Extensions.Validations.FluentValidation`内的所有验证器都修改为Null值不再进行校验，直接返回true。[PR #485](https://github.com/masastack/MASA.Framework/pull/485)
 
     Masa定义的Validator默认逻辑与FluentValidation官方的内置Validator逻辑不一致，为了保持一致，所有Validator默认情况下都不对Null值进行校验
 
-    受影响的 `PhoneValidator`、`IdCardValidator`.
+    受影响的`PhoneValidator`、`IdCardValidator`。
       
-    在升级1.0.0之后，如果是必填的字段，需要在链式上加入 `NotNull` 校验，以保证对Null值的校验
+    在升级1.0.0之后，如果是必填的字段，需要在链式上加入`NotNull`校验，以保证对Null值的校验
 
-    * 如 `RuleFor(staff => staff.PhoneNumber).Phone();` 需要修改为 `RuleFor(staff => staff.PhoneNumber).NotNull().Phone();`
-    * 如 `RuleFor(staff => staff.IdCard).IdCard();` 需要修改为 `RuleFor(staff => staff.IdCard).NotNull().IdCard();`
+    * 如`RuleFor(staff => staff.PhoneNumber).Phone();`需要修改为 `RuleFor(staff => staff.PhoneNumber).NotNull().Phone();`。
+    * 如`RuleFor(staff => staff.IdCard).IdCard();`需要修改为 `RuleFor(staff => staff.IdCard).NotNull().IdCard();`。
 
-3. `Masa.Utils.Extensions.Validations.FluentValidation`预定义的正则表达式修改，不再允许空字符串通过校验。
+2. `Masa.Utils.Extensions.Validations.FluentValidation`预定义的正则表达式修改，不再允许空字符串通过校验。
 
     受影响的正则表达式(`Masa.Utils.Extensions.Validations.FluentValidation.RegularHelper`)
 
@@ -65,14 +65,14 @@
     * ChineseLetterUnderline
     * Url
     * Email
-    * Password （未传入expression参数的）
+    * Password （默认密码验证器）
     * Port
 
 ### 功能
 
-1. 新增抽象类 `Masa.Utils.Extensions.Validations.FluentValidation.MasaAbstractValidator<T>` ,提供 `WhenNotEmpty` 方法
+1. 新增抽象类`Masa.Utils.Extensions.Validations.FluentValidation.MasaAbstractValidator<T>`，提供`WhenNotEmpty`方法
 
-   为了支持业务系统的可选值的校验，新增了抽象类 `MasaAbstractValidator<T>` ,提供 `WhenNotEmpty` 扩展方法，方便用户对一些可选的验证进行处理。
+   为了支持业务系统的可选值的校验，新增了抽象类`MasaAbstractValidator<T>`，提供`WhenNotEmpty`扩展方法，方便用户对一些可选的验证进行处理。
 
    举例: 如果只在当`Phone`有值的时候进行校验，可以按以下的方式进行调用
 
