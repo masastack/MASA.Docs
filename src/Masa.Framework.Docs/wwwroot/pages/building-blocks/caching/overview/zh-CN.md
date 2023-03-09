@@ -1,5 +1,3 @@
-# 缓存
-
 ## 概念
 
 什么是缓存，在项目中，为了提高数据的读取速度，我们会对不经常变更但访问频繁的数据做缓存处理
@@ -38,7 +36,7 @@ dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 }
 ```
 
-3. 注册分布式缓存，并使用Redis缓存，修改`Program.cs`
+3. 注册分布式缓存，并使用Redis缓存，修改`Program`
 
 ```csharp
 builder.Services.AddDistributedCache(distributedCacheOptions =>

@@ -26,7 +26,7 @@ IPmClient
 Install-Package Masa.Contrib.StackSdks.Pm
 ```
 
-```c#
+```csharp 
 builder.Services.AddPmClient("Pm服务地址");
 
 var app = builder.Build();

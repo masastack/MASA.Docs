@@ -10,7 +10,7 @@
 dotnet add package Masa.Contrib.Authentication.Identity.BlazorWebAssembly
 ```
 
-2. 注册`MasaIdentity`, 修改`Program.cs`
+2. 注册`MasaIdentity`, 修改`Program`
 
 ```csharp
 builder.Services.AddMasaIdentity();

@@ -12,7 +12,7 @@
 
 通用的，高度可配置的，可重用的组件，提供分布式原语作为现成的能力。我们的灵感来自于[Mecha](https://skyao.io/talk/202004-mecha-mesh-through-to-the-end)，我们提炼出来了以下几点：
 
-![mecha.png](https://s2.loli.net/2022/12/30/KPBp7DE16sif2Lv.png)
+![mecha.png](https://s2.loli.net/2023/01/17/6tYPhM2bFJvw3Ek.png)
 
 ## 一站式
 
@@ -28,7 +28,7 @@
 
 ## 可观测性
 
-通过收集日志、指标以及`Dapr`可观测性能力，提供了对应用程序的深入了解，便于.NET 诊断，例如追踪和度量。
+通过收集日志、指标以及`Dapr`可观测性能力，提供了对应用程序的深入了解，便于.NET诊断，例如追踪和度量。
 
 ## 多环境
 

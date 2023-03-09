@@ -8,13 +8,13 @@
 
 1. 安装 `Masa.Contrib.Authentication.OpenIdConnect.EFCore`
 
-``` C#
+```csharp 
 dotnet add package Masa.Contrib.Authentication.OpenIdConnect.EFCore
 ```
 
 2. 注册OidcDbContext, 修改Program.cs
 
-``` C#
+```csharp 
 builder.Services.AddOidcDbContext<BusinessDbContext>();
 ```
 
@@ -22,7 +22,7 @@ builder.Services.AddOidcDbContext<BusinessDbContext>();
 
 如果想在项目启动时自动创建标准规范的OIDC基础数据,使用以下代码
 
-``` C#
+```csharp 
 await builder.Services.AddOidcDbContext<BusinessDbContext>(async option =>
 {
     await option.SeedStandardResourcesAsync();
@@ -32,7 +32,7 @@ await builder.Services.AddOidcDbContext<BusinessDbContext>(async option =>
 
 3.修改`BusinessDbContext`,重写基类`DbContext`的`OnModelCreating`方法
 
-``` C#
+```csharp 
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.ApplyConfigurationsFromAssembly(OpenIdConnectEFCore.Assembly);
@@ -41,7 +41,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 4.读取和存储数据
 
-``` C#
+```csharp 
 IClientRepository clientRepository;//从DI获取
 await _clientRepository.AddAsync(client);//添加客户端数据
 await _clientRepository.GetDetailAsync(clientId);//获取客户端数据
@@ -56,13 +56,13 @@ await identityResourcerepository.AddStandardIdentityResourcesAsync();//批量创
 
 1. 安装 `Masa.Contrib.Authentication.OpenIdConnect.Cache`
 
-``` C#
+```csharp 
 dotnet add package Masa.Contrib.Authentication.OpenIdConnect.Cache
 ```
 
 2. 注册OidcCache, 修改Program.cs
 
-``` C#
+```csharp 
 builder.Services.AddOidcDbContext<BusinessDbContext>();
 builder.Services.AddOidcCache();
 ```
@@ -75,13 +75,13 @@ builder.Services.AddOidcCache();
 
 1. 安装 `Masa.Contrib.Authentication.OpenIdConnect.Cache.Storage`
 
-``` C#
+```csharp 
 dotnet add package Masa.Contrib.Authentication.OpenIdConnect.Cache.Storage
 ```
 
 2. 注册OidcCacheStorage, 修改Program.cs
 
-``` C#
+```csharp 
 builder.Services.AddOidcCacheStorage();
 ```
 
@@ -89,7 +89,7 @@ builder.Services.AddOidcCacheStorage();
 
 3.读取数据
 
-``` C#
+```csharp 
 IMasaOidcClientStore _masaOidcClientStore;//从DI获取
 await _masaOidcClientStore.FindClientByIdAsync(clientId);//获取客户端数据
 await _masaOidcResourceStore.GetAllResourcesAsync();//获取所有资源数据
