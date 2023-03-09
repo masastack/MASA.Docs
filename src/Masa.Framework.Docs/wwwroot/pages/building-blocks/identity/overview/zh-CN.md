@@ -42,6 +42,8 @@ var userId = userContext.GetUserId<Guid>();
 
 默认用户信息以及映射的ClaimType如下:
 
+<div class="custom-table">
+
 |  信息   | ClaimType  |
 | :----| :---- |
 | UserId | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_USER_ID`](https://github.com/masastack/MASA.Framework/tree/0.7.0/src/Contrib/Authentication/Masa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
@@ -49,6 +51,8 @@ var userId = userContext.GetUserId<Guid>();
 | Role | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_USER_ROLE`](https://github.com/masastack/MASA.Framework/tree/0.7.0/src/Contrib/Authentication/Masa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
 | TenantId | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_TENANT_ID`](https://github.com/masastack/MASA.Framework/tree/0.7.0/src/Contrib/Authentication/Masa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
 | Environment | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_ENVIRONMENT`](https://github.com/masastack/MASA.Framework/tree/0.7.0/src/Contrib/Authentication/MMasa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
+
+</div>
 
 ### 更改映射关系
 
@@ -67,7 +71,7 @@ services.AddMasaIdentity(option =>
 1. 新建自定义用户类
 
 ```csharp
-public class CustomerUser: IdentityUser, IIdentityUser
+public class CustomUser: IdentityUser, IIdentityUser
 {
     public string TrueName { get; set; }
 }
@@ -77,7 +81,7 @@ public class CustomerUser: IdentityUser, IIdentityUser
 
 ```csharp
 IUserContext userContext;//从DI获取
-var user = userContext.GetUser<CustomerUser>();
+var user = userContext.GetUser<CustomUser>();
 string trueName = user.TrueName;//获取用户真实姓名
 ```
 
@@ -132,4 +136,3 @@ string trueName = user.TrueName;//获取用户真实姓名
          services.AddYaml();
          services.AddMasaIdentity(DataType.Yml.ToString());
          ```
-

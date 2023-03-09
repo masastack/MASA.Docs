@@ -44,7 +44,7 @@ public class Address : ValueObject
 
 提供了`ValueObject.Equals()`方法用于检查两个值对象是否相等。例如: 检查两个地址是否相等
 
-```c#
+```csharp 
 Address address1 = ...
 Address address2 = ...
 

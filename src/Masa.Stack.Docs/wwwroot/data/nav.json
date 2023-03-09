@@ -1,9 +1,17 @@
 [
   {
+    "title": "stack",
+    "icon": "mdi-bookmark",
+    "items": [
+      "introduce"
+    ]
+  },
+  {
     "title": "auth",
     "icon": "mdi-bookmark",
     "items": [
       "get-started",
+      "introduce",
       {
         "title": "use-guide",
         "items": [
@@ -24,9 +32,8 @@
           "swagger",
           "user",
           "role",
-          "sdk",
-          "sso",
-          "sso-future"
+          "sdk-instance",
+          "sso"
         ]
       },
       {
@@ -86,6 +93,76 @@
       "best-practices",
       "faq",
       "related-agreements"
+    ]
+  },
+  {
+    "title": "alert",
+    "icon": "mdi-bookmark",
+    "items": [
+      "introduce",
+      {
+        "title": "use-guide",
+        "items": [
+          "alarm-rule",
+          "alarm-history",
+          "web-hook"
+        ]
+      },
+      "develop-guide",
+      "sdk-instance",
+      "best-practices",
+      "faq",
+      "related-agreements"
+    ]
+  },
+  {
+    "title": "scheduler",
+    "icon": "mdi-bookmark",
+    "items": [
+      "introduce",
+      {
+        "title": "use-guide",
+        "items": [
+          "scheduler-job",
+          "scheduler-task",
+          "scheduler-resource"
+        ]
+      },
+      "sdk-instance",
+      "best-practices",
+      "faq",
+      "related-agreements"
+    ]
+  },
+  {
+    "title": "tsc",
+    "icon": "mdi-bookmark",
+    "items": [
+      "introduce",
+      "basic-concepts",
+      "use-guide",
+      "sdk-instance",
+      "best-practices",
+      "faq",
+      "related-agreements"
+    ]
+  },
+  {
+    "title": "operations",
+    "icon": "mdi-bookmark",
+    "items": [
+      {
+        "title": "kubernetes",
+        "items": [
+          "kubernetes-deploy"
+        ]
+      },
+      {
+        "title": "tls",
+        "items": [
+          "temporary"
+        ]
+      }
     ]
   }
 ]

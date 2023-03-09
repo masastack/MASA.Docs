@@ -2,7 +2,7 @@
 
 屏蔽业务逻辑和持久化基础设施的差异, 针对不同的存储设施, 会有不同的实现方式, 但这些不会对我们的业务产生影响, 它是领域驱动设计的一部分, 我们仅会提供针对`聚合根`做简单的增删改查操作, 而并非针对`单个表`, 我们可以在构造函数中注入`IRepository<TEntity, TKey>`使用框架提供的对聚合根的基础操作
 
-``` c#
+```csharp 
 public class ProductCommandHandler
 {
     private readonly IRepository<CatalogItem, int> _repository;
@@ -29,7 +29,7 @@ public class ProductCommandHandler
 
 或者新建自定义`ICatalogItemRepository`接口并继承`IRepository<TEntity, TKey>`, 例如:
 
-```c#
+```csharp 
 public interface ICatalogItemRepository: IRepository<CatalogItem, int>
 {
 
@@ -76,28 +76,41 @@ public class CatalogItemRepository: Repository<CatalogDbContext, CatalogItem, Gu
 * RemoveAsync(TKey id, CancellationToken cancellationToken = default): 移除指定主键`id`的实体
 * RemoveRangeAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default): 移除指定`id`集合的实体
 
-> 如果启用了[数据过滤](/framework/building-blocks/data/data-filter)功能, 则除了`FindAsync`方法默认忽略软删除, 其余查询都将使用[数据过滤](/framework/building-blocks/data/data-filter)
+> 如果启用了[数据过滤](/framework/building-blocks/data/data-filter)功能, 查询都将使用默认使用过滤, 如果希望查询到已被删除的数据, 可以临时禁用过滤, 详细可查看[文档](/framework/building-blocks/data/data-filter)
 
 ## 原理剖析
 
 * 为何自定义仓储不需要注册就可以直接使用?
 
-基于`约定大于配置`, 我们约定好继承`IRepository<TEntity, TKey>`的接口属于自定义仓储, 它是针对默认仓储的扩展, 我们会在项目启动时找到自定义仓储接口以及对应的实现进行注册, 如果出现自定义仓储未注册的情况, 则需要检查以下两点:
-
-1. 仓储所使用的类是否属于实体
-
-例如: `ICatalogItemRepository`提示未注册, 则需要检查`CatalogItem`是否继承`IEntity`, 只有实体才可以使用仓储, 后续会调整为只有聚合根才支持仓储
-
-2. 指定实体、自定义仓储所在程序集
-
-框架完成仓储的自动注册是通过查询实体以及自定义仓储的接口以及实现完成的, 而获取自定义仓储接口以及自定义仓储的实现需要通过获取其所在程序集后利用反射获取, 但默认程序集使用的是全局配置中的程序集, 查看全局配置[文档](/framework/building-blocks/data/global-configuration)
-
-因此此类问题可以通过指定自定义仓储的程序集或者修改全局配置中的程序集来修复
-
-* 为当前领域以及仓储指定程序集
+基于`约定大于配置`, 我们约定好继承`IRepository<TEntity>`的接口属于自定义仓储, 它是针对默认仓储的扩展, 我们会在项目启动时会通过反射找到所有实体类以及继承`IRepository<TEntity>`的自定义仓储接口进行注册, 开发者只需要按照约定注册使用即可
 
 ```csharp
-var assemblies = new[] { typeof(CatalogItem).Assembly };
+builder.Services.AddDomainEventBus(options =>
+{
+    options.UseRepository<CatalogDbContext>();
+});
+```
+
+> 默认使用全局配置中设置的程序集, 并查询其中对应实体类进行服务注册
+
+## 常见问题
+
+1. 使用仓储时提示仓储未注册
+
+* 仓储所使用的类必须是实体
+
+例如: `IRepository<CatalogType>`提示未注册, 则需要检查`CatalogType`是否实现了`IEntity` (后续将调整为必须实现`IAggregateRoot`)
+
+> 仓储与数据表并非一对一关系, 它为聚合根提供服务
+
+* 指定实体、自定义仓储所在程序集
+
+自动注册仓储由使用仓储时指定待注册的实体类类型集合以及仓储接口以及仓储实现的程序集共同决定, 默认注册的仓储使用的程序集是[应用全局程序集集合](/framework/building-blocks/data/global-configuration), 注册的仓储实体来自于程序集中继承`IAggregateRoot`的实体, 因此我们可以
+
+方法1: 为当前领域以及仓储指定程序集
+
+```csharp
+var assemblies = AppDomain.CurrentDomain.GetAssemblies().Append(typeof(CatalogItem).Assembly);
 
 builder.Services.AddDomainEventBus(assemblies, options =>
 {
@@ -105,10 +118,13 @@ builder.Services.AddDomainEventBus(assemblies, options =>
 });
 ```
 
-* 更改全局默认程序集
+方法2: 更改全局默认程序集
 
 ```csharp
-var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
-assemblies.Add(typeof(CatalogItem).Assembly);
-MasaApp.SetAssemblies(assemblies);
+MasaApp.SetAssemblies(AppDomain.CurrentDomain.GetAssemblies().Append(typeof(CatalogItem).Assembly));
+
+builder.Services.AddDomainEventBus(options =>
+{
+    options.UseRepository<CatalogDbContext>();
+});
 ```

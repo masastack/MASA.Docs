@@ -1,4 +1,4 @@
-# 单点登录（SSO）--future
+# 单点登录（SSO）-- future
 
 > 本文默认已经在MASA Auth 后台创建好Client
 

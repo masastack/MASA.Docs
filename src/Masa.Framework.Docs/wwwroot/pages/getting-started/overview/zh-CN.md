@@ -1,34 +1,21 @@
-## 快速入门
+## 概述
 
-在本系列教程中, 将创建一个名字`Masa.EShop.Service.Catalog`用于管理产品的服务, 它是使用以下技术开发的:
+`MasaFramework`是一个基于`.Net6.0`的后端框架, 可以被用于开发Web应用程序、WPF项目、控制台项目, 在结构上被分为三个部分:
 
-* `Entity Framework Core`提供获取数据的能力
-* `Redis`: 提供获取数据的能力, 相比直接操作数据库, 它有更高的并发读写性能
-* [`Minimal APIs`](/framework/building-blocks/minimal-apis)对外提供最小依赖项的`HTTP API`
+* BuildingBlocks: 提供接口标准和串接不同构建块能力，降低耦合的同时保证主线逻辑
+* Contrib: 基于构建块的接口标准提供最佳实践的实现，可以被替换
+* Utils: 通用类库, 提供底层通用能力, 可被`BuildingBlocks`和`Contrib`所使用
 
-## 目录
+## 推荐
 
-* [1. 创建最小APIs服务](/framework/getting-started/mf-part-1)
-* [2. 领域层](/framework/getting-started/mf-part-2)
-* [3. 自定义仓储实现](/framework/getting-started/mf-part-3)
-* [4. 保存或获取数据](/framework/getting-started/mf-part-4)
-* [5. 事件总线](/framework/getting-started/mf-part-5)
-* [6. 应用服务层](/framework/getting-started/mf-part-6)
-* [7. 对象映射](/framework/getting-started/mf-part-7)
-* [8. 多级缓存](/framework/getting-started/mf-part-8)
-* [9. 全局异常处理与I18n](/framework/getting-started/mf-part-9)
+我们建议大家优先查看以下文档, 它们可以帮助我们更好的理解后续文档中出现的一些知识
 
-## 下载源码
+* [编码风格与统一配置](/framework/contribution/recommend)
 
-* [Masa.EShop.Demo](https://github.com/zhenlei520/Masa.EShop.Demo)
+## 入门教程
 
-## 创建解决方案
+* [Web应用程序](/framework/getting-started/web-project/overview)
 
-在开发之前, 可以根据[模板](#)创建项目或者自行创建解决方案并按需使用, 下面将使用非模板方式创建
+## 其它
 
-新建`ASP.NET Core`空项目`Masa.EShop.Service.Catalog`
-
-```powershell
-dotnet new web -o Masa.EShop.Service.Catalog
-cd Masa.EShop.Service.Catalog
-```
+当前文档适用于`1.0.0-preview.2`, 请确保`Masa.XXX.XXX`包安装统一版本, 后续文档将不再特殊注明包的版本信息

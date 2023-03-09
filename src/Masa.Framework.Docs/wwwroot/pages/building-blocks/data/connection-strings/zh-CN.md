@@ -9,34 +9,27 @@
   }
 }
 ```
+### 设置链接字符串名称
 
-如果希望更改默认读取的节点, 可通过自定义特性来修改读取的节点
+如果希望更改默认读取的节点, 可通过为上下文增加[ConnectionStringName]特性来修改当前数据上下文读取的节点
 
-## ConnectionStringName
-
-我们通过`ConnectionStringName`可用于修改默认读取的节点, 例如当我们使用多数据上下文时, 可以这样做
+#### 使用
 
 1. 修改`appsettings.json`, 并配置默认数据库地址以及读库地址
 
 ``` appsettings.json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "{Replace-Your-ConnectionString}",
     "ReadDbConnection": "{Replace-Your-Read-DbConnectionString}"
   }
 }
 ```
 
-2. 新建数据库上下文
+2. 新建数据上下文
+
+设置读库上下文所属用的数据库链接字符串名称为`ReadDbConnection`
 
 ```csharp
-public class OrderDbContext: MasaDbContext<OrderDbContext>
-{
-    public OrderReadDbContext(MasaDbContextOptions<OrderDbContext> options) : base(options)
-    {
-    }
-}
-
 [ConnectionStringName("ReadDbConnection")]
 public class OrderReadDbContext: MasaDbContext<OrderReadDbContext>
 {
@@ -45,3 +38,7 @@ public class OrderReadDbContext: MasaDbContext<OrderReadDbContext>
     }
 }
 ```
+
+#### 其它 
+
+当数据上下文未添加[ConnectionStringName]特性或者指定的Name为时, 默认读取节点为`DefaultConnection`, 否则返回指定`Name`
