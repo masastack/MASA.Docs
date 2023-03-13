@@ -22,7 +22,7 @@
 dotnet add package Masa.Contrib.Data.DistributedLock.Local
 ```
 
-2. 注册锁, 修改类`Program.cs`
+2. 注册锁, 修改类`Program`
 
 ```csharp
 builder.Services.AddLocalDistributedLock();

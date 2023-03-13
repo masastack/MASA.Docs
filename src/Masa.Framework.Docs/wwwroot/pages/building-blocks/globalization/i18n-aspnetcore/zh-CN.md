@@ -1,4 +1,4 @@
-##　国际化 - ASP.NET Core
+##　国际化 - `ASP.NET Core`
 
 [`Masa.Contrib.Globalization.I18n.AspNetCore`](https://www.nuget.org/packages/Masa.Contrib.Globalization.I18n.AspNetCore)为`I18n`协助解析设置当前线程的区域性, 对于`ASP.NET Core Web`项目来说, 只需要使用它即可, 它属于微软提供[本地化的中间件](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/localization#localization-middleware)的能力, 它默认支持以下三种方式进行语言切换
 
@@ -68,7 +68,7 @@ dotnet add package Masa.Contrib.Globalization.I18n.AspNetCore
 ]
 ```
 
-3. 注册`I18n`, 并修改`Program.cs`
+3. 注册`I18n`, 并修改`Program`
 
 ```csharp
 builder.Services.AddI18n();

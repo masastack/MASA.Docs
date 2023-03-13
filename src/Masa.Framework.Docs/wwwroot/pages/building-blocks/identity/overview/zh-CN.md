@@ -71,7 +71,7 @@ services.AddMasaIdentity(option =>
 1. 新建自定义用户类
 
 ```csharp
-public class CustomerUser: IdentityUser, IIdentityUser
+public class CustomUser: IdentityUser, IIdentityUser
 {
     public string TrueName { get; set; }
 }
@@ -81,7 +81,7 @@ public class CustomerUser: IdentityUser, IIdentityUser
 
 ```csharp
 IUserContext userContext;//从DI获取
-var user = userContext.GetUser<CustomerUser>();
+var user = userContext.GetUser<CustomUser>();
 string trueName = user.TrueName;//获取用户真实姓名
 ```
 

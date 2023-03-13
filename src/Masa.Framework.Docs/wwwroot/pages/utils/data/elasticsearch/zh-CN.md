@@ -18,7 +18,7 @@
 dotnet add package Masa.Utils.Data.Elasticsearch
 ```
 
-1. 注册`Elasticsearch`, 修改`Program.cs`
+1. 注册`Elasticsearch`, 修改`Program`
 
 ```csharp
 builder.Services.AddElasticsearch("http://localhost:9200"); // 或者builder.Services.AddElasticsearchClient("http://localhost:9200");
