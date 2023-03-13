@@ -7,15 +7,21 @@ date: 2023/03/13 13:22:00
 
 1. 使用HTTP类型的Job
 
-   1.1 在Scheduler管理端或者使用SDK创建Job
+   在Scheduler管理端或者使用SDK创建HTTP类型的Job
 
       - 管理端创建Job，请参考[使用指南-调度Job](stack/scheduler/use-guide/scheduler-job)
       - SDK创建Job，请参考[SDK示例](stack/scheduler/sdk-instance)
 
 2. 使用Job应用类型的Job
 
-   2.1 创建一个NETCore类库，新建自己的业务Job类，需要继承SchedulerJob类
+   - 创建一个NETCore类库
 
+   - 安装依赖包
+   ```
+   Install-Package Masa.Contrib.StackSdks.Scheduler
+   ```
+
+   - 创建自己的业务Job类，需要继承SchedulerJob类
    ```csharp
    public class MyExecuteJob : SchedulerJob
    {
@@ -33,9 +39,9 @@ date: 2023/03/13 13:22:00
        }
    }
    ```
-   2.2 将你的Job类库发布打包，上传到Scheduler源文件管理，源文件上传请参考[使用指南-调度Job](stack/scheduler/use-guide/scheduler-job)
+   - 将你的Job类库发布打包，上传到Scheduler源文件管理，源文件上传请参考[使用指南-调度Job](stack/scheduler/use-guide/scheduler-job)
 
-   2.3 通过Scheduler管理端或者SDK创建一个Job应用类型的Job
+   - 通过Scheduler管理端或者SDK创建一个Job应用类型的Job，并配置好指定的程序集和执行类
 
       - 管理端创建Job，请参考[使用指南-调度Job](stack/scheduler/use-guide/scheduler-job)
       - SDK创建Job，请参考[SDK示例](stack/scheduler/sdk-instance)
