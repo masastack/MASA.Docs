@@ -5,7 +5,7 @@
 ## 功能
 
 * [按照约定注入](#自动注册)
-* [提供`IServiceCollection`的扩展方法](#扩展)
+* [IServiceCollection 的扩展](#扩展)
 
 ## 使用
 

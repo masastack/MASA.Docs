@@ -85,7 +85,7 @@ builder.Services.AddMasaConfiguration(configurationBuilder =>
 
 > 详细情况可[查看](/framework/building-blocks/configuration/dcc)
 
-5. 注册`I18n`, 并修改`Program.cs`
+5. 注册`I18n`, 并修改`Program`
 
 ```csharp
 builder.Services.AddI18n(null, options => options.UseDcc());
