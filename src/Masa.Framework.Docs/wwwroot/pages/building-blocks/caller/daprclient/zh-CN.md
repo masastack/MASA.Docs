@@ -10,7 +10,7 @@
 dotnet add package Masa.Contrib.Service.Caller.DaprClient
 ```
 
-### 基础用法
+### 手动注册
 
 使用`Caller`并使用指定实现的`Caller`
 
@@ -41,7 +41,7 @@ app.MapGet("/Test/User/Hello", ([FromServices] ICallerFactory callerFactory, str
 
 > 若当前项目添加的name为空字符串, 或者仅存在一个`name`的Caller实现时, 可直接使用ICaller, 而不必要通过`ICallerFactory`提供的`Create`方法获得
 
-### 推荐用法
+### 自动注册
 
 使用`Caller`并根据约定自动注册其实现
 
@@ -72,37 +72,43 @@ app.MapGet("/Test/User/Hello", ([FromServices] CustomCaller caller, string name)
 
 ## 高级
 
-如果你希望在发送请求之前可以增加一个发送请求日志的功能, 则可以通过重写`DaprCallerBase`提供的`UseDapr`方法, 例如:
+基于DaprClient的Caller实现不仅仅支持了[中间件](/framework/building-blocks/caller/overview#section-4e2d95f44ef6)、[Xml请求](/framework/building-blocks/caller/overview#xml683c5f0f)、[认证](/framework/building-blocks/caller/overview#section-8ba48bc1), 还支持自定义`DaprClient`的`HttpEndpoint`、`GrpcEndpoint`
 
+### 自定义DaprClient
+
+:::: code-group
+::: code-group-item 手动指定Caller
 ```csharp
-public class CustomDaprCaller : DaprCallerBase
+builder.Services.AddCaller(callerBuilder =>
 {
-    protected override string AppId { get; set; } = "{Replace-Your-BaseAddress}";
-    
-    protected override MasaDaprClientBuilder UseDapr()
+    callerBuilder.UseDapr(client => client.AppId = "{Replace-With-Your-Dapr-AppID}", daprClientBuilder =>
     {
-        var daprClientBuilder = base.UseDapr();
-        daprClientBuilder.AddMiddleware<LogCallerMiddleware>();
-        return daprClientBuilder;
-    }
-}
+        daprClientBuilder.UseHttpEndpoint("http://localhost:3500");
+        daprClientBuilder.UseGrpcEndpoint("http://localhost:50001");
+    });
+});
+```
+:::
+::: code-group-item 自动注册Caller
+```csharp
+public class CustomCaller : DaprCallerBase
+{
 
-public class LogCallerMiddleware : ICallerMiddleware
-{
-    public Task HandleAsync(MasaHttpContext masaHttpContext, CallerHandlerDelegate next, CancellationToken cancellationToken = default)
+    protected override string AppId { get; set; } = "{Replace-With-Your-Dapr-AppID}";
+
+    protected override Action<DaprClientBuilder>? Configure { get; set; } = daprClientBuilder =>
     {
-        //记录请求日志
-        return Task.CompletedTask;
-    }
+        daprClientBuilder.UseHttpEndpoint("http://localhost:3500");
+        daprClientBuilder.UseGrpcEndpoint("http://localhost:50001");
+    };
 }
 ```
-
-> 自定义CallerMiddleware仅支持单例, 如果希望获取当前请求的ServiceProvider, 可通过`IHttpContextAccessor`获取
+:::
+::::
 
 ## 常见问题
 
 * 继承`DaprCallerBase`的实现类支持从DI获取, 如果你需要获取来自DI的服务，可通过构造函数注入所需服务
-* 继承`DaprCallerBase`的自定义Caller默认支持身份认证, 它需要借助`Masa.Contrib.Service.Caller.Authentication.OpenIdConnect`来实现, 如果你需要重写Caller默认的`HttpRequestMessage`信息, 也可重写`DaprCallerBase`父类提供的`ConfigHttpRequestMessage`方法来实现
 * 继承`HttpClientCallerBase`的实现类的生命周期为: `Scoped`
 * 如果`自定义Caller` (继承DaprCallerBase的类)与`AddAutoRegistrationCaller`方法不在一个程序集, 可能会出现自动注册自定义Caller失败的情况, 可通过下面提供的任一方案解决:
 
