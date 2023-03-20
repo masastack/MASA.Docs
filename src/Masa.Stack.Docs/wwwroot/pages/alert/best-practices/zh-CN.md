@@ -3,7 +3,7 @@ title: 最佳实践
 date: 2023/01/12 15:22:00
 ---
 
-### MASA.TSC+MASA.Alert+MASA.Scheduler+MASA.MC实现告警监控
+### 监控服务日志告警
 
 1. 将需要监控的服务接入可观测性，可参考[开发指南-可观测性接入](stack/alert/develop-guide)
 2. 在MC中创建好渠道和消息模板，MC负责管理告警的通知渠道和通知内容，可参考[消息中心](stack/mc/introduce)
