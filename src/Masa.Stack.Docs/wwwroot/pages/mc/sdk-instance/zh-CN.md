@@ -36,7 +36,7 @@ builder.Services.AddMcClient("http://mcservice.com");
 
 > `http://mcservice.com` 需要替换为真实的MC后台服务地址
 
-### 给外部用户发送消息用例
+### 邮箱提醒
 
    给外部用户发送普通消息(邮箱)
 
@@ -70,7 +70,7 @@ builder.Services.AddMcClient("http://mcservice.com");
    app.Run();
    ```
 
-### 给内部用户发送消息用例
+### 短信提醒
    给Auth用户发送模板消息(短信)
 
    ```csharp
@@ -105,7 +105,7 @@ builder.Services.AddMcClient("http://mcservice.com");
    app.Run();
    ```
 
-### 站内信用例
+### 站内信
    发送站内信广播
 
    ```csharp
@@ -155,7 +155,7 @@ builder.Services.AddMcClient("http://mcservice.com");
    });
    ```
 
-### App消息推送用例
+### App消息推送
     用户绑定Cid
    ```csharp
     [RoutePattern(HttpMethod = "Post")]
