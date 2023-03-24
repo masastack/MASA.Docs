@@ -65,7 +65,6 @@ global using System.Linq.Expressions;
 | DbContext        | 数据上下文                          |
 | Event            | 进程内事件                          |
 | EventHandler     | 事件处理程序                         |
-| DomainEvent      | 领域事件                           |
 | DomainEventHandler | 领域事件处理程序                       |
 | Command          | 写命令的进程内事件                      |
 | Query            | 读命令的进程内事件                      |
