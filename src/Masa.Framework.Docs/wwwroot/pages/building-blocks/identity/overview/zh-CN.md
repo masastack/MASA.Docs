@@ -46,11 +46,11 @@ var userId = userContext.GetUserId<Guid>();
 
 |  信息   | ClaimType  |
 | :----| :---- |
-| UserId | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_USER_ID`](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Authentication/Identity/Masa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
-| UserName | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_USER_NAME`](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Authentication/Identity/Masa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
-| Role | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_USER_ROLE`](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Authentication/Identity/Masa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
-| TenantId | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_TENANT_ID`](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Authentication/Identity/Masa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
-| Environment | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_ENVIRONMENT`](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Authentication/Identity/Masa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
+| UserId | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_USER_ID`](https://github.com/masastack/MASA.Framework/tree/0.7.0/src/Contrib/Authentication/Masa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
+| UserName | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_USER_NAME`](https://github.com/masastack/MASA.Framework/tree/0.7.0/src/Contrib/Authentication/Masa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
+| Role | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_USER_ROLE`](https://github.com/masastack/MASA.Framework/tree/0.7.0/src/Contrib/Authentication/Masa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
+| TenantId | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_TENANT_ID`](https://github.com/masastack/MASA.Framework/tree/0.7.0/src/Contrib/Authentication/Masa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
+| Environment | [`Masa.Contrib.Authentication.Identity.ClaimType.DEFAULT_ENVIRONMENT`](https://github.com/masastack/MASA.Framework/tree/0.7.0/src/Contrib/Authentication/MMasa.Contrib.Authentication.Identity.Core/Constants/ClaimType.cs) |
 
 </div>
 
