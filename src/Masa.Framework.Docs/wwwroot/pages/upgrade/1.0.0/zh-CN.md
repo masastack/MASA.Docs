@@ -6,17 +6,17 @@
 
 1. `Middleware` -> `EventMiddleware`
 
-由于事件总线提供的中间件与微软提供的中间件名称冲突, 我们在原名名基础上增加Event。其中受影响的接口以及类为：
+    由于事件总线提供的中间件与微软提供的中间件名称冲突, 我们在原名名基础上增加Event。其中受影响的接口以及类为：
 
-* `Masa.BuildingBlocks.Dispatcher.Events`
-  * `IMiddleware<in TEvent>` → `IEventMiddleware<in TEvent>`
-  * `Middleware<in TEvent>` → `EventMiddleware<in TEvent>`
-* `Masa.Contrib.Dispatcher.Events.FluentValidation`
-  * `ValidatorMiddleware<TEvent> ` → `ValidatorEventMiddleware<TEvent> `
-* `Masa.Contrib.Dispatcher.Events`
-  * `TransactionMiddleware<TEvent>` → `TransactionEventMiddleware<TEvent>`
-* `Masa.Contrib.Isolation`
-  * `IsolationMiddleware<TEvent>` → `IsolationEventMiddleware<TEvent>`
+    * `Masa.BuildingBlocks.Dispatcher.Events`
+      * `IMiddleware<in TEvent>` → `IEventMiddleware<in TEvent>`
+      * `Middleware<in TEvent>` → `EventMiddleware<in TEvent>`
+    * `Masa.Contrib.Dispatcher.Events.FluentValidation`
+      * `ValidatorMiddleware<TEvent> ` → `ValidatorEventMiddleware<TEvent> `
+    * `Masa.Contrib.Dispatcher.Events`
+      * `TransactionMiddleware<TEvent>` → `TransactionEventMiddleware<TEvent>`
+    * `Masa.Contrib.Isolation`
+      * `IsolationMiddleware<TEvent>` → `IsolationEventMiddleware<TEvent>`
 
 1. `Masa.Utils.Extensions.Validations.FluentValidation`内的所有验证器都修改为Null值不再进行校验，直接返回true。[PR #485](https://github.com/masastack/MASA.Framework/pull/485)
 
