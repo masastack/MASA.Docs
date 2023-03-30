@@ -50,7 +50,7 @@
     ```csharp
     public class CustomDbContext : MasaDbContext<CustomDbContext>
     {
-         protected MasaDbContext(MasaDbContextOptions<TDbContext> options) : base(options)
+         protected MasaDbContext(MasaDbContextOptions<CustomDbContext> options) : base(options)
          {
              ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
          }
