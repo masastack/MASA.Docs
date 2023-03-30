@@ -153,8 +153,6 @@ public class DemoService : ServiceBase
 :::
 ::::
 
-
-
 [查看详情](/framework/building-blocks/minimal-apis)
 
 ## `MasaConfiguration`

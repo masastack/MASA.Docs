@@ -48,10 +48,13 @@
 3. MasaDbContext <font color=Red>查询默认不跟踪</font>
 
     ```csharp
-    protected MasaDbContext(MasaDbContextOptions<TDbContext> options) : base(options)
-    {
-        ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-    }
+   public class CustomDbContext : MasaDbContext<CustomDbContext>
+   {
+        protected MasaDbContext(MasaDbContextOptions<TDbContext> options) : base(options)
+        {
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        }
+   }
     ```
 
 4. 隔离性调整
