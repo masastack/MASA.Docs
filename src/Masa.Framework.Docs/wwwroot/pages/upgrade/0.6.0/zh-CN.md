@@ -1,6 +1,6 @@
-## 0.6.0 升级指南
+# 0.6.0 升级指南
 
-### 包重命名
+## 包重命名
 
 在0.6.0中我们对项目目录结构以及类库名统一规范，因此涉及到很多类库的重命名，重命名规则如下：
 
@@ -61,11 +61,11 @@
         * `Masa.Utils.Caching.DistributedMemory` -> `Masa.Contrib.Caching.MultilevelCache` （多级缓存，由内存缓存与分布式缓存联合提供，查看[文档](/framework/building-blocks/caching/multilevel-cache)）
         * `Masa.Utils.Caching.Core`: 已删除，删除包即可
 
-### 命名空间调整
+## 命名空间调整
 
 调整命名空间，删除了很多命名空间，遇到命名空间不存在时可直接删除
 
-### 写法优化
+## 写法优化
 
 1. 集成事件
 
@@ -157,7 +157,7 @@ public class DemoService : ServiceBase
 
 [查看详情](/framework/building-blocks/minimal-apis)
 
-### `MasaConfiguration`
+## `MasaConfiguration`
 
 `MasaConfiguration`支持`IServiceCollection`扩展。
 
@@ -176,7 +176,7 @@ builder.Services.AddMasaConfiguration();
 
 [查看详情](/framework/building-blocks/configuration/override)
 
-### OpenIdConnect
+## OpenIdConnect
 
 模型主键类型变更
 
