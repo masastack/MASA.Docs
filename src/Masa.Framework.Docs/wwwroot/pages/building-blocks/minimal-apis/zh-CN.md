@@ -1,6 +1,6 @@
-## 概念
+# MinimalAPI (最小API)
 
-什么是[Minimal APIs](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-6.0)
+什么是[Minimal APIs](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/minimal-apis)
 
 ## 功能列表
 
@@ -13,41 +13,41 @@
 
 ### 原生写法
 
-```csharp
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
-
-app.MapGet("/api/v1/users/{id}", (Guid id)=>
-{
-    // todo: 查询用户信息
-    var user = new User()
-    {
-        Id = id,
-        Name = "Tony"
-    };
-    return Task.FromResult(Results.Ok(user));
-});
-
-app.MapPost("/api/v1/users", ([FromBody] UserRequest request)=>
-{
-    //todo: 添加用户逻辑
-    return Task.FromResult(Results.Accepted());
-});
-
-app.MapDelete("/api/v1/users/{id}",(Guid id)=>
-{
-    //todo: 删除用户逻辑
-    return Task.FromResult(Results.Accepted());
-});
-
-app.MapPut("/api/v1/users/{id}",(Guid id, [FromBody] EditUserRequest request)=>
-{
-    //todo: 修改用户逻辑
-    return Task.FromResult(Results.Accepted());
-});
-
-app.Run();
-```
+  ```csharp
+  var builder = WebApplication.CreateBuilder(args);
+  var app = builder.Build();
+  
+  app.MapGet("/api/v1/users/{id}", (Guid id)=>
+  {
+      // todo: 查询用户信息
+      var user = new User()
+      {
+          Id = id,
+          Name = "Tony"
+      };
+      return Task.FromResult(Results.Ok(user));
+  });
+  
+  app.MapPost("/api/v1/users", ([FromBody] UserRequest request)=>
+  {
+      //todo: 添加用户逻辑
+      return Task.FromResult(Results.Accepted());
+  });
+  
+  app.MapDelete("/api/v1/users/{id}",(Guid id)=>
+  {
+      //todo: 删除用户逻辑
+      return Task.FromResult(Results.Accepted());
+  });
+  
+  app.MapPut("/api/v1/users/{id}",(Guid id, [FromBody] EditUserRequest request)=>
+  {
+      //todo: 修改用户逻辑
+      return Task.FromResult(Results.Accepted());
+  });
+  
+  app.Run();
+  ```
 
 ### 服务分组
 
@@ -55,184 +55,165 @@ app.Run();
 
 1. 安装 Minimal APIs
 
-``` powershell
-dotnet add package Masa.Contrib.Service.MinimalAPIs
-```
+    ```shell
+    dotnet add package Masa.Contrib.Service.MinimalAPIs
+    ```
 
 2. 注册 Minimal APIs
 
-以下两种方式都可成功注册路由, 任选其一即可:
-
-方案1:
-
-```csharp
-var app = builder.AddServices();//注册并映射路由
-```
-
-方案2: 
-
-```csharp
-var services = builder.AddMasaMinimalAPIs();//注册MinimalAPI
-
-var app = builder.Build();
-
--------省略代码----------
-
-app.MapMasaMinimalAPIs();//映射MinimalAPI路由
-```
+    :::: code-group
+    ::: code-group-item 方案1
+    ```csharp
+    var builder = WebApplication.CreateBuilder(args);
+    
+    var app = builder.AddServices();//注册并映射路由
+    
+    app.Run();
+    ```
+    :::
+    ::: code-group-item 方案2
+    ```csharp
+    var builder = WebApplication.CreateBuilder(args);
+    
+    builder.Services.AddMasaMinimalAPIs();//注册MinimalAPI
+    
+    var app = builder.Build();
+    
+    app.MapMasaMinimalAPIs();//映射MinimalAPI路由
+    
+    app.Run();
+    ```
+    :::
+    ::::
 
 3. 新建用户服务, **并继承`ServiceBase`**（注册路由）
 
-> 两种注册路由方式任选一个即可
-
-其中自动映射路由规则为:
-
-```csharp 
-var 路由 = $"{前缀}/{版本}/{服务名(默认复数)}/{路由方法名}" 
-```
-
-> 详细规则请[查看](#自动映射规则)
-
-:::: code-group
-::: code-group-item 自动注册路由(推荐)
-```csharp
-public class UserService : ServiceBase
-{
-    /// <summary>
-    /// Get: /api/v1/users/{id}
-    /// </summary>
-    public Task<IResult> GetAsync(Guid id)
+    :::: code-group
+    ::: code-group-item 自动注册路由(推荐)
+    ```csharp
+    public class UserService : ServiceBase
     {
-        // todo: 查询用户信息
-        var user = new User()
+        /// <summary>
+        /// Get: /api/v1/users/{id}
+        /// </summary>
+        public Task<IResult> GetAsync(Guid id)
         {
-            Id = id,
-            Name = "Tony"
-        };
-        return Task.FromResult(Results.Ok(user));
-    }
-
-    /// <summary>
-    /// Post: /api/v1/users
-    /// </summary>
-    public Task<IResult> AddAsync([FromBody] UserRequest request)
-    {
-        //todo: 添加用户逻辑
-        return Task.FromResult(Results.Accepted());
-    }
-
-    /// <summary>
-    /// Delete: /api/v1/users/{id}
-    /// </summary>
-    public Task<IResult> DeleteAsync(Guid id)
-    {
-        //todo: 删除用户逻辑
-        return Task.FromResult(Results.Accepted());
-    }
-
-    /// <summary>
-    /// Put: /api/v1/users/{id}
-    /// </summary>
-    public Task<IResult> UpdateAsync(Guid id, [FromBody] EditUserRequest request)
-    {
-        //todo: 修改用户逻辑
-        return Task.FromResult(Results.Accepted());
-    }
-}
-```
-:::
-::: code-group-item 手动映射路由
-```csharp
-public class UserService : ServiceBase
-{
-    public UserService()
-    {
-        RouteOptions.DisableAutoMapRoute = true;//仅当前服务禁用自动注册路由
-
-        App.MapGet("/api/v1/users/{id}", GetAsync);
-        App.MapPost("/api/v1/users", AddAsync);
-        App.MapDelete("/api/v1/users/{id}", DeleteAsync);
-        App.MapPut("/api/v1/users/{id}", UpdateAsync);
-    }
-
-    public Task<IResult> GetAsync(Guid id)
-    {
-        // todo: 查询用户信息
-        var user = new User()
+            // todo: 查询用户信息
+            var user = new User()
+            {
+                Id = id,
+                Name = "Tony"
+            };
+            return Task.FromResult(Results.Ok(user));
+        }
+    
+        /// <summary>
+        /// Post: /api/v1/users
+        /// </summary>
+        public Task<IResult> AddAsync([FromBody] UserRequest request)
         {
-            Id = id,
-            Name = "Tony"
-        };
-        return Task.FromResult(Results.Ok(user));
+            //todo: 添加用户逻辑
+            return Task.FromResult(Results.Accepted());
+        }
+    
+        /// <summary>
+        /// Delete: /api/v1/users/{id}
+        /// </summary>
+        public Task<IResult> DeleteAsync(Guid id)
+        {
+            //todo: 删除用户逻辑
+            return Task.FromResult(Results.Accepted());
+        }
+    
+        /// <summary>
+        /// Put: /api/v1/users/{id}
+        /// </summary>
+        public Task<IResult> UpdateAsync(Guid id, [FromBody] EditUserRequest request)
+        {
+            //todo: 修改用户逻辑
+            return Task.FromResult(Results.Accepted());
+        }
     }
-
-    public Task<IResult> AddAsync([FromBody] UserRequest request)
+    ```
+    :::
+    ::: code-group-item 手动映射路由
+    ```csharp
+    public class UserService : ServiceBase
     {
-        //todo: 添加用户逻辑
-        return Task.FromResult(Results.Accepted());
+        public UserService()
+        {
+            RouteOptions.DisableAutoMapRoute = true;//当前服务禁用自动注册路由
+    
+            App.MapGet("/api/v1/users/{id}", GetAsync);
+            App.MapPost("/api/v1/users", AddAsync);
+            App.MapDelete("/api/v1/users/{id}", DeleteAsync);
+            App.MapPut("/api/v1/users/{id}", UpdateAsync);
+        }
+    
+        public Task<IResult> GetAsync(Guid id)
+        {
+            // todo: 查询用户信息
+            var user = new User()
+            {
+                Id = id,
+                Name = "Tony"
+            };
+            return Task.FromResult(Results.Ok(user));
+        }
+    
+        public Task<IResult> AddAsync([FromBody] UserRequest request)
+        {
+            //todo: 添加用户逻辑
+            return Task.FromResult(Results.Accepted());
+        }
+    
+        public Task<IResult> DeleteAsync(Guid id)
+        {
+            //todo: 删除用户逻辑
+            return Task.FromResult(Results.Accepted());
+        }
+    
+        public Task<IResult> UpdateAsync(Guid id, [FromBody] EditUserRequest request)
+        {
+            //todo: 修改用户逻辑
+            return Task.FromResult(Results.Accepted());
+        }
     }
-
-    public Task<IResult> DeleteAsync(Guid id)
-    {
-        //todo: 删除用户逻辑
-        return Task.FromResult(Results.Accepted());
-    }
-
-    public Task<IResult> UpdateAsync(Guid id, [FromBody] EditUserRequest request)
-    {
-        //todo: 修改用户逻辑
-        return Task.FromResult(Results.Accepted());
-    }
-}
-```
-:::
-::::
+    ```
+    :::
+    ::::
+    
+    > 默认开启自动映射, 如果不需要则可通过全局配置或局部配置关闭自动映射
 
 ## 高阶用法
 
-提供默认支持[`RESTful`](https://docs.microsoft.com/zh-cn/azure/architecture/best-practices/api-design)标准，开发人员可以通过`builder.AddServices()`或`builder.Services.AddServices(builder)`来使用`Masa`版的`Minimal APIs`，下面就让我们来看一下它都支持了哪些功能
-
-### 自动映射规则
-
-#### 优先级
-
-**[自定义路由](#自定义路由) > [规则生成路由](#生成规则)**
-
-#### 生成规则
-
-```csharp
-var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
-```
-
-> [BaseUri](#根地址): 根地址
-> 
-> [RouteMethodName](#自定义路由方法名): 路由方法名
+提供默认支持[`RESTful`](https://docs.microsoft.com/zh-cn/azure/architecture/best-practices/api-design)标准
 
 ### 路由配置
 
 提供了全局配置以及服务内配置
 
-> 服务内配置 > 全局配置 (当服务内配置为`null`时，使用全局配置的值)
+> 优先级: 服务内(局部)配置 > 全局配置 (当服务内配置为`null`时，使用全局配置的值)
 
 #### 全局配置
 
 <div class="custom-table">
 
-|  参数名   | 参数描述  | 默认值  |
-|  ----  | ----  | ----  |
-| DisableAutoMapRoute  | 是否禁用自动映射路由，如果为true (禁用)，则框架不会自动映射路由 | `false` |
-| Prefix  | 前缀 | `api` |
-| Version  | 版本 | `v1` |
-| AutoAppendId  | 路由中是否包含{Id}, 例如: /api/v1/user/{id} | `true` |
-| PluralizeServiceName  | 服务名称是否启用复数 | `true` |
-| GetPrefixes  | 用于识别当前方法类型为`Get`请求 | `new List<string> { "Get", "Select", "Find" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
-| PostPrefixes | 用于识别当前方法类型为`Post`请求 | `new List<string> { "Post", "Add", "Upsert", "Create", "Insert" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
-| PutPrefixes | 用于识别当前方法类型为`Put`请求 | `new List<string> { "Put", "Update", "Modify" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
-| DeletePrefixes | 用于识别当前方法类型为`Delete`请求 | `new List<string> { "Delete", "Remove" }`[来源](https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Service/Masa.Contrib.Service.MinimalAPIs/ServiceGlobalRouteOptions.cs) |
-| DisableTrimMethodPrefix | 禁用移除方法前缀(上方`Get`、`Post`、`Put`、`Delete`请求的前缀) | false |
-| MapHttpMethodsForUnmatched | 通过方法名前缀匹配请求方式失败后，路由将使用指定的HttpMethod发起请求 | 支持`Post`、`Get`、`Delete`、`Put` |
-| Assemblies | 用于扫描服务所在的程序集 | `MasaApp.GetAssemblies()`（全局Assembly集合，默认为当前域程序集集合） |
-| RouteHandlerBuilder | 基于`RouteHandlerBuilder`的委托，可用于权限认证、[CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)等 | `null` |
+|  参数名   | 参数描述                                                                                               | 默认值                                                                           |
+|  ----  |----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| DisableAutoMapRoute  | <font color=Red>禁用自动映射路由</font>                                                                    | `false`                                                                       |
+| Prefix  | 前缀                                                                                                 | `api`                                                                         |
+| Version  | 版本                                                                                                 | `v1`                                                                          |
+| AutoAppendId  | <font color=Red>路由中是否包含{Id}</font>, 例如: /api/v1/user/{id}                                          | `true`                                                                        |
+| PluralizeServiceName  | <font color=Red>服务名称是否启用复数</font>                                                                  | `true`                                                                        |
+| GetPrefixes  | 用于识别当前方法类型为`Get`请求                                                                                 | `new List<string> { "Get", "Select", "Find" }`                                |
+| PostPrefixes | 用于识别当前方法类型为`Post`请求                                                                                | `new List<string> { "Post", "Add", "Upsert", "Create", "Insert" }`            |
+| PutPrefixes | 用于识别当前方法类型为`Put`请求                                                                                 | `new List<string> { "Put", "Update", "Modify" }`                              |
+| DeletePrefixes | 用于识别当前方法类型为`Delete`请求                                                                              | `new List<string> { "Delete", "Remove" }`                                     |
+| DisableTrimMethodPrefix | 禁用移除方法前缀(上方`Get`、`Post`、`Put`、`Delete`请求的前缀)                                                       | false                                                                         |
+| MapHttpMethodsForUnmatched | 通过方法名前缀匹配请求方式失败后，路由将使用指定的HttpMethod发起请求                                                            | 支持`Post`、`Get`、`Delete`、`Put` 此方式<font color=Red>Swagger不支持, 无法正常显示API</font> |
+| Assemblies | 用于扫描服务所在的程序集                                                                                       | `MasaApp.GetAssemblies()`（全局Assembly集合，默认为当前域程序集集合）                           |
+| RouteHandlerBuilder | 基于`RouteHandlerBuilder`的委托，可用于权限认证、[CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)等 | `null`                                                                        |
 
 </div>
 
@@ -269,7 +250,7 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
    <tr>
     <td rowspan=12></td>
     <td colspan=2>DisableAutoMapRoute</td>
-    <td colspan=2>是否禁用自动映射路由，如果为true (禁用)，则框架不会自动映射路由</td>
+    <td colspan=2><font color=Red>禁用自动映射路由</font></td>
     <td></td>
    </tr>
    <tr>
@@ -283,13 +264,13 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
     <td></td>
    </tr>
    <tr>
-    <td colspan=2><a id ="AutoAppendId">AutoAppendId></a></td>
-    <td colspan=2>路由中是否包含{Id}, 例如: /api/v1/user/{id}</td>
+    <td colspan=2><a id ="AutoAppendId">AutoAppendId</a></td>
+    <td colspan=2><font color=Red>路由中是否包含{Id}</font>font>, 例如: /api/v1/user/{id}</td>
     <td></td>
    </tr>
    <tr>
     <td colspan=2><a id = "PluralizeServiceName">PluralizeServiceName</a></td>
-    <td colspan=2>服务名称是否启用复数</td>
+    <td colspan=2><font color=Red>服务名称是否启用复数</font></td>
     <td></td>
    </tr>
    <tr>
@@ -319,125 +300,126 @@ var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";
    </tr>
    <tr>
     <td colspan=2><a id ="MapHttpMethodsForUnmatched">MapHttpMethodsForUnmatched</a></td>
-    <td colspan=2>通过方法名前缀匹配请求方式失败后，路由将使用指定的HttpMethod发起请求</td>
+    <td colspan=2>通过方法名前缀匹配请求方式失败后，路由将使用指定的HttpMethod发起请求 此方式<font color=Red>Swagger不支持, 无法正常显示API</font></td>
     <td></td>
    </tr>
   </table>
 </div>
 
-### 如何使用
+#### 如何使用？
 
-:::: code-group
-::: code-group-item 全局配置
-```csharp
-builder.AddServices(options =>
-{
-    options.Prefix = "api";//自定义前缀
-    options.DisableAutoMapRoute = true;//可通过配置true禁用全局自动路由映射或者删除此配置以启用全局自动路由映射
-})
-```
-:::
-::: code-group-item 服务内配置
-```csharp
-public class UserService: ServiceBase
-{
-    public UserService()
-    {
-        RouteOptions.Prefix = "v2";//自定义前缀
-        RouteOptions.DisableAutoMapRoute = true;//可通过配置true禁用当前服务使用自动路由映射或者配置false以启用当前服务的自动路由映射
-        ServiceName = "account";// 自定义服务名
-    }
-}
-```
-:::
-::::
+  :::: code-group
+  ::: code-group-item 全局配置
+  ```csharp
+  builder.AddServices(options =>
+  {
+      options.Prefix = "api";//自定义前缀
+      options.DisableAutoMapRoute = true;//可通过配置true禁用全局自动路由映射或者删除此配置以启用全局自动路由映射
+  })
+  ```
+  :::
+  ::: code-group-item 服务内配置
+  ```csharp
+  public class ProjectService : ServiceBase
+  {
+      public ProjectService()
+      {
+          RouteOptions.Prefix = "v2";//自定义前缀
+          RouteOptions.DisableAutoMapRoute = true;//可通过配置true禁用当前服务使用自动路由映射或者配置false以启用当前服务的自动路由映射
+          ServiceName = "project";// 自定义服务名
+      }
+  }
+  ```
+  :::
+  ::::
 
-针对早期已经使用`Minimal APIs`的开发者，可以通过服务内配置或者通过全局配置来禁用或启动自动映射路由
-
+  > 针对早期已经使用`Minimal APIs`的开发者, 不希望破坏原有的命名规则, 则可以通过配置禁用自动映射或者重写路由规则以满足需要
 
 ### 特性
 
-#### 自定义路由
+#### RoutePattern (路由)
 
-被用于`自定义完整路由`或自定义`RouteMethodName（路由方法名）`或自定义`请求类型`
+用于`自定义完整路由`或自定义`路由方法名`或自定义`请求方式`
 
-:::: code-group
-::: code-group-item 自定义完整路由
-```csharp
-public class UserService: ServiceBase
-{
-    /// <summary>
-    /// Post：/user/add
-    /// </summary>
-    [RoutePattern(pattern: "user/add")]
-    public Task<IResult> Add([FromBody] AddUserRequest request)
+* 自定义路由
+
+    ```csharp
+    public class ProjectService : ServiceBase
     {
-        //todo: 添加用户
-        return Task.FromResult(Results.Accepted());
+        [RoutePattern(pattern: "project/list")]
+        public Task<List<string>> GetProjectListAsync()
+        {
+            var list = new List<string>()
+            {
+                "Auth",
+                "DCC",
+                "PM"
+            };
+            return Task.FromResult(list);
+        }
     }
-}
-```
-:::
-::: code-group-item 自定义路由方法名
-```csharp
-public class UserService: ServiceBase
-{
-    /// <summary>
-    /// Post：/api/v1/users/add
-    /// var Pattern(路由) = $"{BaseUri}/{RouteMethodName}"; 此处pattern为RouteMethodName的值
-    /// </summary>
-    [RoutePattern(pattern: "add", startWithBaseUri: true)]
-    public Task<IResult> Add([FromBody] AddUserRequest request)
-    {
-        //todo: 添加用户
-        return Task.FromResult(Results.Accepted());
-    }
-}
-```
-:::
-::: code-group-item 自定义请求类型
-```csharp
-public class UserService: ServiceBase
-{
-    /// <summary>
-    /// Post：/api/v1/users/audit
-    /// </summary>
-    [RoutePattern(HttpMethod = "Post")]
-    public IResult Audit(Guid id, [FromBody] AuditUserRequest request)
-    {
-        //todo: 审核用户信息
-        return Results.Ok();
-    }
+    ```
 
-    /// <summary>
-    /// Post：/api/v1/users
-    /// </summary>
-    [RoutePattern(HttpMethod = "Post")]
-    public IResult GetAsync([FromBody] UserQuery query)
+* 自定义方法名
+
+    ```csharp
+    public class ProjectService : ServiceBase
     {
-        //todo: 获取用户详情
-        return Results.Ok();
+        [RoutePattern(pattern: "list", true)]
+        public Task<List<string>> GetProjectListAsync()
+        {
+            var list = new List<string>()
+            {
+                "Auth",
+                "DCC",
+                "PM"
+            };
+            return Task.FromResult(list);
+        }
     }
-}
-```
-:::
-::::
+    ```
 
-#### 忽略路由自动映射
+* 自定义请求方式 
 
-使用`IgnoreRoute`标记的方法不再自动映射路由，方法将不能通过API被访问
-
-```csharp
-public class UserService: ServiceBase
-{
-    [IgnoreRoute]
-    public bool ExistUser(string name)
+    ```csharp
+    public class ProjectService : ServiceBase
     {
-        //检查用户是否存在
-        return false;
+        [RoutePattern(HttpMethod = "Post")]
+        public Task<List<string>> GetProjectListAsync()
+        {
+            var list = new List<string>()
+            {
+                "Auth",
+                "DCC",
+                "PM"
+            };
+            return Task.FromResult(list);
+        }
     }
-}
-```
+    ```
+
+#### IgnoreRoute (忽略映射)
+
+  被标记的方法不能被自动映射为API服务
+
+  ```csharp
+  public class ProjectService : ServiceBase
+  {
+      public Task<List<string>> GetProjectListAsync()
+      {
+          var list = GetList();
+          return Task.FromResult(list);
+      }
+  
+      [IgnoreRoute]
+      public List<string> GetList() => new List<string>()
+      {
+          "Auth",
+          "DCC",
+          "PM"
+      };
+  }
+  ```
 
 ## 原理解剖
 
@@ -448,96 +430,153 @@ public class UserService: ServiceBase
 1. 方法的访问级别为`Public`
 2. 服务必须是非抽象类，抽象类将不被支持自动映射
 
-### 根地址
+### 自动映射规则
 
-优先级：`自定义根地址` > `规则生成根地址`
+优先级: [自定义路由](#routepattern-8def7531) > 规则生成路由
 
-#### 自定义根地址
+自动映射路由生成规则: => <font color=Red>var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";</font>
 
-我们可以在`自定义服务`中通过配置[BaseUri](#CustomBaseUri)来自定义根地址，例如：
-
-```csharp
-public class UserService: ServiceBase
-{
-    public UserService()
+#### BaseUri (根地址)
+    
+* 根据规则<font Color=Red>自动生成根地址</font> (<font Color=Red>默认</font>)
+  ```csharp
+  根地址 = $"{前缀}/{版本}/{服务名(默认复数)}"
+  ```
+  * <font Color=Red>自定义根地址</font>
+    ```csharp
+    public class ProjectService : ServiceBase
     {
-        BaseUri = "自定义根地址";
+        public ProjectService() : base("/api/project")
+        {
+    
+        }
+    
+        public Task<List<string>> GetProjectListAsync()
+        {
+            var list = new List<string>()
+            {
+                "Auth",
+                "DCC",
+                "PM"
+            };
+            return Task.FromResult(list);
+        }
     }
-}
-```
+    ```
+  * 重写根地址规则 (<font Color=Red>个性化</font>)
+    ```csharp
+    public class ProjectService : ServiceBase
+    {
+        public Task<List<string>> GetProjectListAsync()
+        {
+            var list = new List<string>()
+            {
+                "Auth",
+                "DCC",
+                "PM"
+            };
+            return Task.FromResult(list);
+        }
+  
+        /// <summary>
+        /// 重写根地址规则
+        /// </summary>
+        protected override string GetBaseUri(ServiceRouteOptions globalOptions, PluralizationService pluralizationService)
+        {
+            if (!string.IsNullOrWhiteSpace(BaseUri))
+                return BaseUri;
+    
+            return GetType().Name.TrimEnd("Service", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+    ```
 
-#### 规则生成根地址
-
-当`BaseUri`为`null`或者空时，根地址则会根据规则自动生成
-
-```csharp
-var BaseUri = $"{前缀}/{版本}/{服务名(默认复数)}"
-```
-
-1. 服务名默认使用复数，如果希望禁用复数，则可通过配置[`PluralizeServiceName`](#PluralizeServiceName)进行更改
-2. 当前缀、版本为null或空字符串时，忽略其属性的值，当服务名为空字符串时，`BaseUri`将不再包含服务名
-
-例如：
-
-* 当版本为`null`或者空字符串时，此时 `var BaseUri = $"{前缀}/{服务名(默认复数)}"` 
-* 当服务名为空字符串时，此时 `var BaseUri = $"{前缀}/{版本}"` 
-
-
-### RouteMethodName (路由方法名)
+#### RouteMethodName (自定义路由方法名)
 
 优先级: `自定义路由方法名` > `规则生成路由方法名`
 
-#### 自定义路由方法名
+  * 规则生成路由方法名 (<font Color=Red>默认</font>)
 
-通过`RoutePattern`特性可自定义路由方法名
+    ```csharp
+    var methodName = 原方法名.TrimStart("智能匹配到的请求方式前缀", "").TrimEnd("Async", "") + "{id}";
+    ```
+    
+    * 可通过[`DisableTrimMethodPrefix`](#DisableTrimMethodPrefix)<font Color=Red>禁用移除前缀</font>
+    * 根据参数名称匹配是否等于`id`，且未增加`[FromBodyAttribute]`、`[FromFormAttribute]`、`[FromHeaderAttribute]`、`[FromQueryAttribute]`、`[FromServicesAttribute]`特性, 可通过[`AutoAppendId`](#AutoAppendId) <font Color=Red>禁用自动追加{id}</font>
 
-```csharp
-public class UserService: ServiceBase
-{
-    /// <summary>
-    /// Post：/api/v1/users/add
-    /// </summary>
-    [RoutePattern(pattern: "add", startWithBaseUri: true)]
-    public Task<IResult> Add([FromBody] AddUserRequest request)
+  * <a href="#routepattern-8def7531" style="color: red;">自定义路由方法名</a>
+      
+    ```csharp
+    public class ProjectService : ServiceBase
     {
-        //todo: 添加用户
-        return Task.FromResult(Results.Accepted());
+        [RoutePattern(pattern: "list", true)]
+        public Task<List<string>> GetProjectListAsync()
+        {
+            var list = new List<string>()
+            {
+                "Auth",
+                "DCC",
+                "PM"
+            };
+            return Task.FromResult(list);
+        }
     }
-}
-```
+    ```
 
-#### 规则生成路由方法名
+  * 重写方法名规则 (<font Color=Red>个性化</font>)
+    
+    ```csharp
+    public class ProjectService : ServiceBase
+    {
+        public Task<List<string>> GetProjectListAsync()
+        {
+            var list = new List<string>()
+            {
+                "Auth",
+                "DCC",
+                "PM"
+            };
+            return Task.FromResult(list);
+        }
+    
+        /// <summary>
+        /// 重写并返回方法名
+        /// </summary>
+        /// <param name="methodInfo">方法信息</param>
+        /// <param name="prefix">智能匹配请求方式前缀</param>
+        /// <param name="globalOptions">全局配置</param>
+        /// <returns></returns>
+        protected override string GetMethodName(MethodInfo methodInfo, string prefix, ServiceRouteOptions globalOptions)
+        {
+            return methodInfo.Name;
+        }
+    }
+    ```
 
-当未自定义路由且未指定自定义方法名时，它需要
+### 请求方式
 
-* 得到当前方法的方法名
-* TrimStart: 移除匹配到的请求方式前缀
-  * 可通过[`DisableTrimMethodPrefix`](#DisableTrimMethodPrefix)禁用或启用移除前缀
-* TrimEnd: 移除Async结尾
-* 追加/{id}: 根据参数名称匹配是否等于`id`，且未增加[FromBodyAttribute]、[FromFormAttribute]、[FromHeaderAttribute]、[FromQueryAttribute]、[FromServicesAttribute]特性
-  * 可通过[`AutoAppendId`](#AutoAppendId)禁用或启用自动追加{id}
+优先级：`自定义请求方式` > `根据方法名前缀智能匹配` > `智能匹配失败后默认配置`
 
-> 如果希望更改路由方法名的生成规则，可根据需要重写`ServiceBase`提供的`GetMethodName`方法
-
-### 请求类型
-
-优先级：`自定义请求类型` > `根据方法名前缀智能匹配` > `智能匹配失败后默认配置`
-
-#### 自定义请求类型
+#### 自定义请求方式
 
 通过`RoutePattern`特性可自定义请求类型
 
 ```csharp
-public class UserService: ServiceBase
+public class ProjectService : ServiceBase
 {
     /// <summary>
-    /// Post：/api/v1/users
+    /// Post：/api/v1/Projects/ProjectList
     /// </summary>
     [RoutePattern(HttpMethod = "Post")]
-    public IResult GetAsync([FromBody] UserQuery query)
+    public Task<List<string>> ProjectListAsync()
     {
-        //todo: 获取用户详情
-        return Results.Ok();
+        var list = new List<string>()
+        {
+            "Auth",
+            "DCC",
+            "PM"
+        };
+        return Task.FromResult(list);
     }
 }
 ```
@@ -547,15 +586,20 @@ public class UserService: ServiceBase
 当方法未自定义请求类型时，我们将根据方法名前缀只能匹配请求类型，例如：
 
 ```csharp
-public class UserService: ServiceBase
+public class ProjectService : ServiceBase
 {
     /// <summary>
-    /// Get: /api/v1/users
+    /// Get: /api/v1/Projects/ProjectList
     /// </summary>
-    public IResult GetAsync([FromBody] UserQuery query)
+    public Task<List<string>> GetProjectListAsync()
     {
-        //todo: 获取用户详情
-        return Results.Ok();
+        var list = new List<string>()
+        {
+            "Auth",
+            "DCC",
+            "PM"
+        };
+        return Task.FromResult(list);
     }
 }
 ```
@@ -579,9 +623,9 @@ builder.AddServices(options =>
 :::
 ::: code-group-item 服务内配置
 ```csharp
-public class UserService: ServiceBase
+public class ProjectService : ServiceBase
 {
-    public UserService()
+    public ProjectService()
     {
         RouteOptions.MapHttpMethodsForUnmatched = new[] { "Post" };//当请求类型匹配失败后，默认映射为Post请求 (当前服务范围内)
     }
@@ -592,118 +636,171 @@ public class UserService: ServiceBase
 
 ## 常见问题
 
-1. 按照文档操作后, 接口并没有在`Swagger`上看到, 这是什么原因？
+### 在Swagger上不显示接口
 
-根据以下文档检查当前的问题属于哪种:
+  * 当前服务不映射为接口, 无法被使用
+    * 当前类<font color=Red>是抽象类</font>
+    * 当前<font color=Red>方法访问级别不是Public</font>
+    * 方法上增加了特性 <font color=Red>IgnoreRoute</font>
+  * 智能<font color=Red>匹配请求方式失败</font>
+    * 通过[自定义路由](#自定义路由)特性设置请求方式
+        ```csharp
+        public class ProjectService : ServiceBase
+        {
+            [RoutePattern(HttpMethod = "Get")]
+            public Task<List<string>> ProjectListAsync()
+            {
+                var list = new List<string>()
+                {
+                    "Auth",
+                    "DCC",
+                    "PM"
+                };
+                return Task.FromResult(list);
+            }
+        }
+        ```
+    * 修改匹配失败后默认使用[XXX方式](#MapHttpMethodsForUnmatched)请求
 
-* 检查当前服务是否满足自动映射条件？
-  * 当前类不属于抽象类
-  * 当前类未增加特性[IgnoreRoute]
-  * `MinimalAPIs`服务没有全局禁用自动映射路由或当前服务并没有禁用自动映射路由
+        :::: code-group
+        ::: code-group-item 方案1: 全局配置匹配失败后使用Get请求
+        ```csharp
+        var builder = WebApplication.CreateBuilder(args);
+        builder.AddServices(globalRouteOptions =>
+        {
+            globalRouteOptions.MapHttpMethodsForUnmatched = new[] { "Get" };
+        });
+        ```
+        :::
+        ::: code-group-item 方案2: 局部配置匹配失败后使用Get请求
+        ```csharp
+        public class ProjectService : ServiceBase
+        {
+            public ProjectService()
+            {
+                RouteOptions.MapHttpMethodsForUnmatched = new[] { "Get" };
+            }
+            
+            public Task<List<string>> ProjectListAsync()
+            {
+                var list = new List<string>()
+                {
+                    "Auth",
+                    "DCC",
+                    "PM"
+                };
+                return Task.FromResult(list);
+            }
+        }
+        ```
+        :::
+        ::::
+    * 修改方法名或修改[XXXPrefixes规则](#GetPrefixes)使得方法被智能识别
+
+        :::: code-group
+        ::: code-group-item 方案1: 修改方法名
+        ```csharp
+        public class ProjectService : ServiceBase
+        {
+            public Task<List<string>> GetProjectListAsync()
+            {
+                var list = new List<string>()
+                {
+                    "Auth",
+                    "DCC",
+                    "PM"
+                };
+                return Task.FromResult(list);
+            }
+        }
+        ```
+        :::
+        ::: code-group-item 方案2: 修改XXXPrefixes规则被识别为Get请求
+        ```csharp
+        public class ProjectService : ServiceBase
+        {
+            public ProjectService()
+            {
+        	    //或者通过全局配置使得对全局生效
+                RouteOptions.GetPrefixes=new List<string>()
+                {
+                    "Project"
+                };
+            }
+        
+            public Task<List<string>> GetProjectListAsync()
+            {
+                var list = new List<string>()
+                {
+                    "Auth",
+                    "DCC",
+                    "PM"
+                };
+                return Task.FromResult(list);
+            }
+        }
+        ```
+        :::
+        ::::
+
+        > 针对匹配请求方式失败的方法，路由将指定为Map，它支持通过`Post`、`Get`、`Delete`、`Put`访问, 但Swagger不能识别它
+
+2. API服务中通过构造函数被注册的服务, 新的请求不会被重新获取, 应该如何修改?
+
+继承`ServiceBase`服务不支持通过构造函数注入服务, 如果你需要从DI获取, 可通过<font color=Red>GetService<TService>()</font>、<font color=Red>GetRequiredService<TService>()</font>来使用, 例如:
+
+  ```csharp
+  public class CatalogItemService : ServiceBase
+  {
+      private CatalogDbContext _dbContext => GetRequiredService<CatalogDbContext>();
+      
+      public async Task<IResult> GetListAsync()
+          => Results.Ok(await _dbContext.Set<CatalogItem>().ToListAsync());
+  }
+  ```
+
+在`builder.AddServices()`执行后，框架会自动扫描继承`ServiceBase`服务的类会获取其示例注册到路由上，无论它是动态注册路由还是手动注册路由，它仅会被注册一次，它的生命周期与项目的生命周期一致，是单例的
+
+> 继承ServiceBase类的构造函数支持单例服务, 但由于构建服务的RootServiceProvider与项目的RootServiceProvider不一致, 部分服务对此会有影响, 不推荐使用
+
+3. 在`Minimal APIs`中如何从DI中获取服务实例
 
     :::: code-group
-    ::: code-group-item 全局禁用自动映射
-    ```csharp
-    builder.AddServices(globalRouteOptions =>
-    {
-        globalRouteOptions.DisableAutoMapRoute = true;
-    });
-    ```
-    :::
-    ::: code-group-item 局部禁用自动映射
+    ::: code-group-item 方法1
     ```csharp
     public class UserService: ServiceBase
     {
-        public UserService()
+        /// <summary>
+        /// Post：/api/v1/users/audit
+        /// </summary>
+        [RoutePattern(HttpMethod = "Post")]
+        public IResult Audit(Guid id, [FromBody] AuditUserRequest request, [FromServices]IUserRepository userRepository)
         {
-            RouteOptions.DisableAutoMapRoute = true;
+            //todo: 审核用户信息
+            return Results.Ok();
+        }
+    }
+    ```
+    :::
+    ::: code-group-item 方法2
+    ```csharp
+    public class UserService: ServiceBase
+    {
+        private IUserRepository UserRepository => GetRequiredService<IUserRepository>();
+        /// <summary>
+        /// Post：/api/v1/users/audit
+        /// </summary>
+        [RoutePattern(HttpMethod = "Post")]
+        public IResult Audit(Guid id, [FromBody] AuditUserRequest request)
+        {
+            //todo: 审核用户信息
+            return Results.Ok();
         }
     }
     ```
     :::
     ::::
-* 当前`API`方法名的前缀不满足`Get`、`Post`、`Put`、`Delete`规则中任何一种, 并且未通过[自定义路由](#自定义路由)特性设置请求方式、未修改匹配前缀请求方式失败后使用什么样的请求方式 (满足此情况的服务支持`Post`、`Get`、`Put`、`Delete`请求, 但`Swagger`暂不支持, 因此界面上无法看到)
-  * 修改方法名前缀满足所需请求方式中的规则或修改识别方法类型前缀规则  (根据需要修改 全局配置/局部配置中属性`XXXPrefixes`的值)
-  * 通过[自定义路由](#自定义路由)特性设置请求方式
-  * 修改根据前缀匹配请求方式失败后将以指定的请求方式发起请求 (根据需要修改 全局配置/局部配置中属性`MapHttpMethodsForUnmatched`的值)
-
-2. API服务中通过构造函数被注册的服务, 新的请求不会被重新获取, 应该如何修改?
-
-继承`ServiceBase`服务的生命周期为单例, 并且它是不支持更改的, 如果希望使用生命周期为`Scoped`、`Transient`的服务, 可通过`GetRequiredService<CatalogDbContext>()`来使用:
-
-```csharp
-public class CatalogItemService : ServiceBase
-{
-    private CatalogDbContext _dbContext => GetRequiredService<CatalogDbContext>();
-    
-    public async Task<IResult> GetListAsync()
-        => Results.Ok(await _dbContext.Set<CatalogItem>().ToListAsync());
-}
-```
-
-在`builder.AddServices()`执行后，框架会自动扫描继承`ServiceBase`服务的类会获取其示例注册到路由上，无论它是动态注册路由还是手动注册路由，它仅会被注册一次，它的生命周期与项目的生命周期一致，是单例的
-
-3. 在`Minimal APIs`中如何使用服务
-
-:::: code-group
-::: code-group-item 方法1
-```csharp
-public class UserService: ServiceBase
-{
-    /// <summary>
-    /// Post：/api/v1/users/audit
-    /// </summary>
-    [RoutePattern(HttpMethod = "Post")]
-    public IResult Audit(Guid id, [FromBody] AuditUserRequest request, [FromServices]IUserRepository userRepository)
-    {
-        //todo: 审核用户信息
-        return Results.Ok();
-    }
-}
-```
-:::
-::: code-group-item 方法2
-```csharp
-public class UserService: ServiceBase
-{
-    /// <summary>
-    /// Post：/api/v1/users/audit
-    /// </summary>
-    [RoutePattern(HttpMethod = "Post")]
-    public IResult Audit(Guid id, [FromBody] AuditUserRequest request)
-    {
-        IUserRepository userRepository = GetRequiredService<IUserRepository>();
-        //todo: 审核用户信息
-        return Results.Ok();
-    }
-}
-```
-:::
-::::
-
-> 在`ServiceBase`中我们提供了`GetService<TService>()`、`GetRequiredService<TService>()`方法用于从`DI`中获取当前请求的服务 (支持获取生命周期为`Scoped`的服务)
-
-4. 我希望修改路由方法名的规则，则可以重写`ServiceBase`的`GetMethodName`，例如：移除方法前缀为`GetAll`的方法、`GetAllUser` -> `User/List/All`
-
-```csharp
-protected override string GetMethodName(MethodInfo methodInfo, string prefix, ServiceRouteOptions globalOptions)
-{
-    var methodName = methodInfo.Name;
-    //todo: 重写获取自定义方法，通过重新指定规则定义自定义方法名
-    if (methodName.StartsWith("GetAll", StringComparison.OrdinalIgnoreCase))
-    {
-        var list = new List<string>()
-        {
-            (methodName.TrimStart("GetAll", StringComparison.OrdinalIgnoreCase)),
-            "List",
-            "All"
-        };
-        return string.Join('/', list);
-    }
-    return methodName;
-}
-```
 
 ## 相关Issues
 
-[#2](https://github.com/masastack/MASA.Framework/issues/2)、[#241](https://github.com/masastack/MASA.Framework/issues/241)
+[#2](https://github.com/masastack/MASA.Framework/issues/2)、[#241](https://github.com/masastack/MASA.Framework/issues/241)、[#428](https://github.com/masastack/MASA.Framework/issues/428)
