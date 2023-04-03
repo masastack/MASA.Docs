@@ -636,7 +636,7 @@ public class ProjectService : ServiceBase
 
 ## 常见问题
 
-### 在Swagger上不显示接口
+### 1. 在Swagger上不显示接口
 
   * 当前服务不映射为接口, 无法被使用
     * 当前类<font color=Red>是抽象类</font>
@@ -745,61 +745,152 @@ public class ProjectService : ServiceBase
 
         > 针对匹配请求方式失败的方法，路由将指定为Map，它支持通过`Post`、`Get`、`Delete`、`Put`访问, 但Swagger不能识别它
 
-2. API服务中通过构造函数被注册的服务, 新的请求不会被重新获取, 应该如何修改?
+### 2. 继承ServiceBase的派生类构造函数中获取获取到服务无法正常使用
 
-继承`ServiceBase`服务不支持通过构造函数注入服务, 如果你需要从DI获取, 可通过<font color=Red>GetService<TService>()</font>、<font color=Red>GetRequiredService<TService>()</font>来使用, 例如:
+继承`ServiceBase`服务不支持通过构造函数注入服务, 如果你需要从DI获取指定服务, 可通过<font color=Red>在方法上增加对应服务的参数类型</font>来使用、或者通过其父类`ServiceBase`提供的<font color=Red>GetService<TService>()</font>、<font color=Red>GetRequiredService<TService>()</font>来使用, 例如:
 
   ```csharp
-  public class CatalogItemService : ServiceBase
-  {
-      private CatalogDbContext _dbContext => GetRequiredService<CatalogDbContext>();
-      
-      public async Task<IResult> GetListAsync()
-          => Results.Ok(await _dbContext.Set<CatalogItem>().ToListAsync());
-  }
+public class CatalogItemService : ServiceBase
+{
+    private CatalogDbContext _dbContext => GetRequiredService<CatalogDbContext>();
+    
+    public async Task<IResult> GetListAsync()
+        => Results.Ok(await _dbContext.Set<CatalogItem>().ToListAsync());
+}
   ```
 
-在`builder.AddServices()`执行后，框架会自动扫描继承`ServiceBase`服务的类会获取其示例注册到路由上，无论它是动态注册路由还是手动注册路由，它仅会被注册一次，它的生命周期与项目的生命周期一致，是单例的
-
-> 继承ServiceBase类的构造函数支持单例服务, 但由于构建服务的RootServiceProvider与项目的RootServiceProvider不一致, 部分服务对此会有影响, 不推荐使用
-
-3. 在`Minimal APIs`中如何从DI中获取服务实例
-
-    :::: code-group
-    ::: code-group-item 方法1
-    ```csharp
-    public class UserService: ServiceBase
+:::: code-group
+::: code-group-item 方案1
+```csharp
+public class ProjectService : ServiceBase
+{
+    public Task<List<string>> GetProjectListAsync(ILogger<ProjectService> logger)
     {
-        /// <summary>
-        /// Post：/api/v1/users/audit
-        /// </summary>
-        [RoutePattern(HttpMethod = "Post")]
-        public IResult Audit(Guid id, [FromBody] AuditUserRequest request, [FromServices]IUserRepository userRepository)
+        logger.LogDebug("------write log------");
+        var list = new List<string>()
         {
-            //todo: 审核用户信息
-            return Results.Ok();
-        }
+            "Auth",
+            "DCC",
+            "PM"
+        };
+        return Task.FromResult(list);
     }
-    ```
-    :::
-    ::: code-group-item 方法2
-    ```csharp
-    public class UserService: ServiceBase
+}
+```
+:::
+::: code-group-item 方案2
+```csharp
+public class ProjectService : ServiceBase
+{
+    private ILogger<ProjectService> Logger => GetRequiredService<ILogger<ProjectService>>();
+
+    public Task<List<string>> GetProjectListAsync()
     {
-        private IUserRepository UserRepository => GetRequiredService<IUserRepository>();
-        /// <summary>
-        /// Post：/api/v1/users/audit
-        /// </summary>
-        [RoutePattern(HttpMethod = "Post")]
-        public IResult Audit(Guid id, [FromBody] AuditUserRequest request)
+        Logger.LogDebug("------write log------");
+        var list = new List<string>()
         {
-            //todo: 审核用户信息
-            return Results.Ok();
-        }
+            "Auth",
+            "DCC",
+            "PM"
+        };
+        return Task.FromResult(list);
     }
-    ```
-    :::
-    ::::
+}
+```
+:::
+::::
+
+<app-alert type="warning" content="继承ServiceBase的派生类不建议从构造函数中注入服务, 无论服务的生命周期是**单例**、**请求**还是**瞬态**"></app-alert>
+
+> 继承ServiceBase类的派生类仅会在项目启动时被初始化一次, 后续将不会被初始化, 并且构建服务使用的RootServiceProvider与项目的RootServiceProvider不一致, 部分服务对此会有影响, 不推荐使用
+
+### 3. 服务启动时出错: Body was inferred but the method does not allow inferred body parameters.
+
+完整错误内容:
+
+```csharp
+System.InvalidOperationException: Body was inferred but the method does not allow inferred body parameters.
+Below is the list of parameters that we found:
+
+Parameter           | Source
+---------------------------------------------------------------------------------
+query               | Body (Inferred)
+
+
+Did you mean to register the "Body (Inferred)" parameter(s) as a Service or apply the [FromService] or [FromBody] attribute?
+```
+
+<app-alert type="warning" content="检查**ServiceBase**的**派生类**中是否符合**Get请求使用对象来接收参数**, 到目前为止, 仅发现这一种情况会出现这类错误, 它可能是因为手动映射路由、自动映射路由或者是在ServiceBase的派生类中不规范的创建方法导致"></app-alert>
+
+我们可通过将<font color=Red>参数信息平铺</font>到方法上来或者<font color=Red>增加[FromBody]</font>等特性来标记参数来源, 例如:
+
+:::: code-group
+::: code-group-item 错误用法
+```csharp
+public class ProjectService : ServiceBase
+{
+    public Task<List<string>> GetProjectListAsync(ProjectItemQuery query)
+    {
+        var list = new List<string>()
+        {
+            "Auth",
+            "DCC",
+            "PM"
+        };
+        return Task.FromResult(list);
+    }
+}
+
+public class ProjectItemQuery
+{
+    public string Name { get; set; }
+}
+```
+:::
+::: code-group-item 正确用法 (方案1)
+```csharp
+public class ProjectService : ServiceBase
+{
+    public Task<List<string>> GetProjectListAsync(string name)
+    {
+        var list = new List<string>()
+        {
+            "Auth",
+            "DCC",
+            "PM"
+        };
+        return Task.FromResult(list);
+    }
+}
+```
+:::
+::: code-group-item 正确用法 (方案2)
+```csharp
+public class ProjectService : ServiceBase
+{
+    public Task<List<string>> GetProjectListAsync([FromBody]ProjectItemQuery query)
+    {
+        var list = new List<string>()
+        {
+            "Auth",
+            "DCC",
+            "PM"
+        };
+        return Task.FromResult(list);
+    }
+}
+
+public class ProjectItemQuery
+{
+    public string Name { get; set; }
+}
+```
+:::
+::::
+
+<app-alert type="warning" content="方案2与方案1的参数来源是不一致的, 使用此方案时确保参数信息是通过Body进行传输"></app-alert>
+
+> 除了以上方案之外, 我们也可以通过[自定义参数绑定](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/minimal-apis#custom-binding)来处理 
 
 ## 相关Issues
 
