@@ -430,6 +430,8 @@
 1. 方法的访问级别为`Public`
 2. 服务必须是非抽象类，抽象类将不被支持自动映射
 
+<app-alert type="warning" content="在ServiceBase的派生类中, 如果方法不需要对外提供API服务, 则对应的访问级别建议使用**private**、**protected**或者**internal**来代替**public**, 从而避免被自动映射为API服务"></app-alert>
+
 ### 自动映射规则
 
 优先级: [自定义路由](#routepattern-8def7531) > 规则生成路由
