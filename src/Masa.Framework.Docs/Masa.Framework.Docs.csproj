@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\pages\contribution\criterion" />
-    <Folder Include="wwwroot\pages\tutorial\mf-part-1\" />
   </ItemGroup>
 
 
