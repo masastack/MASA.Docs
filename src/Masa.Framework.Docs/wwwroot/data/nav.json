@@ -34,6 +34,13 @@
     ]
   },
   {
+    "title": "tutorial",
+    "items": [
+      "overview",
+      "mf-part-1"
+    ]
+  },
+  {
     "title": "building-blocks",
     "items": [
       {
@@ -133,6 +140,7 @@
           "blazor-wasm"
         ]
       },
+      "isolation",
       {
         "title": "openId-connect",
         "items": [

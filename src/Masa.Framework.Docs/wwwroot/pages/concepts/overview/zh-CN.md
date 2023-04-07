@@ -1,4 +1,4 @@
-## 简介
+# 概念
 
 全新的.NET现代应用开发，提供分布式应用运行时--基于Dapr云原生最佳实践，能够快速实现分布式、微服务、DDD，SaaS等现代应用开发
 
@@ -37,3 +37,7 @@
 ## 编排协调能力
 
 业务流程可以被动态的编排和协调（Plan）
+
+## MASA Framework术语和定义
+
+MASA Framework文档中[常见术语](/framework/concepts/terminology)的定义
