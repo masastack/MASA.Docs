@@ -1,48 +1,34 @@
-## 教程概述
+# 实战教程 - 概述
 
-在本系列教程中, 将创建一个名字`Masa.EShop.Service.Catalog`用于管理产品的服务, 它是使用以下技术开发的:
+## 概述
 
-1. **MASA Framework**提供后端通用能力
+在本系列教程中，我们会通过预设一个场景，帮助大家去了解 `MASA Framework`
 
-    技术栈：MinimalAPIs (最小API) + CQRS (读写分离) + DDD，对外提供对产品的增删改查服务
+* 场景：提供一个后端服务，支持**产品的进行增删改查**
+* 要求：
+  * 支持查询已删除的产品
+  * 删除产品后需要通知产品创建人
+* 目的：
+  * 为了让大家了解更多`MASA Framework`的能力
+* 技术栈：
+  * MinimalAPIs (最小API)：提供API服务
+  * MasaDbContext (数据上下文)：提供数据增删改查
+  * MasaConfiguration (配置)：提供强类型的配置，支持监听配置更新
+  * DDD：领域驱动设计
+  * CQRS：读写分离
+  * EventBus：事件总线
 
-2. **MASA Blazor**作为前端组件库
-
-希望通过学习此项目对大家了解和使用`MASA Framework`有一定的帮助
+> 实际工作中，按需使用[`Building Block`](/framework/concepts/building-blocks)的能力即可
 
 ## 目录
 
-* [1. 创建服务端](/framework/tutorial/mf-part-1)
+1. [创建服务端](/framework/tutorial/mf-part-1)
+2. [创建数据上下文](/framework/tutorial/mf-part-2)
+3. [使用事件总线](/framework/tutorial/mf-part-3)
 
 ## 下载源码
 
 * [MASA.Framework.Tutorial](https://github.com/masalabs/MASA.Framework.Tutorial)
-
-## 创建解决方案
-
-可通过以下两种方式创建项目:
-
-### 通过模版创建
-
-1. 安装模版
-
-```csharp
-dotnet new --install Masa.Template
-```
-
-2. 使用模版创建一个`EShop`项目实例
-
-以下命令将创建一个使用**MASA Blazor**的前端项目和一个使用**MASA Framework**的后端API服务
-
-```csharp
-dotnet new masafx -n Masa.EShop
-```
-
-> 更多模版命令可通过 **dotnet new masafx -h**了解，或者通过Visual Studio图形化界面进行创建
-
-### 手动创建
-
-我们将从零开始，不借助模版创建一个使用**MASA Blazor**的前端项目和一个使用**MASA Framework**的后台API服务
 
 ## 必要条件
 
@@ -52,22 +38,46 @@ dotnet new masafx -n Masa.EShop
 dotnet --list-sdks
 ```
 
-> 通过以上命令验证确保已安装符合条件版本的`.NET SDK`
+> 通过以上命令验证确保已安装符合条件版本的`.NET SDK`, `MASA Framewokr`最低版本：`.NET6.0`
 
-2. 确保已安装支持[`.NET 6.0`](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)或更高版本的开发工具，例如：
+2. 确保已安装支持[`.NET 6.0`](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)或支持更高`.NET SDK`版本的开发工具，例如：
 
-* [Visual Studio](https://visualstudio.microsoft.com/zh-hans/vs/)
+* [Visual Studio](https://visualstudio.microsoft.com/zh-hans/downloads/): Visual Studio 2022及更高版本
 * [Rider](https://www.jetbrains.com/rider/)
 * [Visual Studio Code](https://code.visualstudio.com/download)
 
+## 创建解决方案
+
+可通过以下两种方式创建项目:
+
+### 通过模版创建
+
+1. 通过终端安装模版
+
+```csharp
+dotnet new install Masa.Template
+```
+
+2. 通过终端使用模版创建
+
+```csharp
+dotnet new masafx -n Masa.EShop --web None
+```
+
+> 更多模版命令可通过 **dotnet new masafx -h** ，或者通过Visual Studio图形化界面进行创建
+
+### 手动创建
+
+从零开始，不使用模版
+
 ## 其它
 
-在本系列教程中，我们将采用手动从零开始，通过使用**MASA Blazor**、**MASA Framework**创建一个用于管理产品的项目示例
+在本系列教程中，我们将采用手动方式创建一个解决方案，以完成对产品的增删改查
 
-> 示例项目将尽可能使用更多**Building Block**的能力，会把常用的功能以及写法在示例中进行讲解，但不会太过深入的去讲解，想更深入的了解需要大家去查看对应**Building Block**的文档
+> 示例项目会把常用的功能以及写法在示例中进行讲解，更完整的使用可查看对应的 [**Building Block**](/framework/concepts/building-blocks) 文档
 
 ## 常见问题
 
 1. 按照文档操作, 并没有发现对应的方法、属性或类 
    
-   目前文档与最新版本的**MASA Framework**包对应, 可通过尝试安装最新的预览版再进行重试，如果仍未找到对应的方法、属性或者类，可以尝试在[这里](https://github.com/masastack/MASA.Templates/issues?q=)进行搜索查询，如果仍然未找到答案可以给我们提[Issues](https://github.com/masastack/MASA.Templates/issues/new/choose)
+   目前文档与最新版本的 **MASA Framework** 包对应, 可通过尝试安装最新的预览版再进行重试，如果仍未找到对应的方法、属性或者类，可以尝试在[这里](https://github.com/masastack/MASA.Templates/issues?q=)进行搜索查询，如果仍然未找到答案可以给我们提[Issues](https://github.com/masastack/MASA.Templates/issues/new/choose)

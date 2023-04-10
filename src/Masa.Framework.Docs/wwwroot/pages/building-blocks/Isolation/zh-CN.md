@@ -116,7 +116,7 @@ app.Run();
 ### 设置当前租户/环境
 
 :::: code-group
-::: code-group-item 获取当前租户
+::: code-group-item `设置`当前租户
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddIsolation(isolationBuilder =>
@@ -141,7 +141,7 @@ app.MapGet("/", (IMultiTenantSetter multiTenantSetter, IMultiTenantContext multi
 app.Run();
 ```
 :::
-::: code-group-item 获取当前环境
+::: code-group-item 设置当前环境
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddIsolation(isolationBuilder =>
