@@ -68,8 +68,8 @@ builder.Services
 
 #### 中间件
 
-方案一. 手动指定异常处理`ExceptionHandler`
-
+:::: code-group
+::: code-group-item 方案1
 ```csharp
 app.UseMasaExceptionHandler(options =>
 {
@@ -81,9 +81,8 @@ app.UseMasaExceptionHandler(options =>
     };
 });
 ```
-
-方案二. 实现IExceptionHandler接口，并注册到服务中
-
+:::
+::: code-group-item 方案2
 ```csharp
 public class ExceptionHandler : IMasaExceptionHandler
 {
@@ -104,20 +103,21 @@ public class ExceptionHandler : IMasaExceptionHandler
 builder.Services.AddSingleton<ExceptionHandler>();
 app.UseMasaExceptionHandler();
 ```
-
-方案三. 实现`IExceptionHandler`接口，并指定ExceptionHanlder
-
+:::
+::: code-group-item 方案3
 ```csharp
 app.UseMasaExceptionHandler(option =>
 {
     option.UseExceptionHanlder<ExceptionHandler>();
 });
 ```
+:::
+::::
 
 #### 异常过滤器
 
-方案一. 手动指定`ExceptionHandler`
-
+:::: code-group
+::: code-group-item 方案1
 ```csharp
 builder.Services
     .AddMvc()
@@ -130,19 +130,17 @@ builder.Services
         };
     });
 ```
-
-方案二. 实现IExceptionHandler接口，并注册到服务中
-
+:::
+::: code-group-item 方案2
 ```csharp
 builder.Services.AddSingleton<ExceptionHandler>();
 
 builder.Services
   .AddMvc()
   .AddMasaExceptionHandler();
-``` 
-
-方案三. 实现`IExceptionHandler`接口，并指定ExceptionHanlder
-
+```
+:::
+::: code-group-item 方案3
 ```csharp
 builder.Services
   .AddMvc()
@@ -151,6 +149,8 @@ builder.Services
       options.UseExceptionHanlder<ExceptionHandler>();
   });
 ```
+:::
+::::
 
 ### 异常与Http状态码
 

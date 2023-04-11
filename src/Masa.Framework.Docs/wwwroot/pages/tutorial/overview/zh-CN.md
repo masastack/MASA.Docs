@@ -24,7 +24,9 @@
 
 1. [创建服务端](/framework/tutorial/mf-part-1)
 2. [创建数据上下文](/framework/tutorial/mf-part-2)
-3. [使用事件总线](/framework/tutorial/mf-part-3)
+3. [使用事件总线和读写分离](/framework/tutorial/mf-part-3)
+4. [使用全局异常](/framework/tutorial/mf-part-4)
+5. [使用缓存](/framework/tutorial/mf-part-5)
 
 ## 下载源码
 
@@ -43,7 +45,7 @@ dotnet --list-sdks
 2. 确保已安装支持[`.NET 6.0`](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)或支持更高`.NET SDK`版本的开发工具，例如：
 
 * [Visual Studio](https://visualstudio.microsoft.com/zh-hans/downloads/): Visual Studio 2022及更高版本
-* [Rider](https://www.jetbrains.com/rider/)
+* [Rider](https://www.jetbrains.com/rider/): Rider 2022.2及更高版本
 * [Visual Studio Code](https://code.visualstudio.com/download)
 
 ## 创建解决方案

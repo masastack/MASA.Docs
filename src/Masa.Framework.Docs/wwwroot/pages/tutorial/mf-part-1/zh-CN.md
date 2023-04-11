@@ -4,7 +4,9 @@
 
 本章将通过 **MASA Framework** 提供的[**MinimalAPIs (最小API)**](/framework/building-blocks/minimal-apis)提供对外的增删改查服务
 
-> 暂时使用内存数据作为数据源，后续将更换为`Sqlite`数据库
+### 补充
+
+* 暂时使用内存数据作为数据源，后续将更换为`Sqlite`数据库
 
 ## 开始
 
@@ -87,17 +89,17 @@ public class CatalogItemService : ServiceBase
     public Task<IResult> GetAsync(int id)
     {
         if (id <= 0)
-            throw new UserFriendlyException("商品id必须大于0");
+            throw new UserFriendlyException("Please enter the ProductId");
 
-        var productInfo = _data.FirstOrDefault(item => item.Id == id);
-        if (productInfo == null)
-            throw new UserFriendlyException("不存在的产品");
+        var catalogItem = _data.FirstOrDefault(item => item.Id == id);
+        if (catalogItem == null)
+            throw new UserFriendlyException("Product doesn't exist");
 
-        return Task.FromResult(Results.Ok(productInfo));
+        return Task.FromResult(Results.Ok(catalogItem));
     }
 
     /// <summary>
-    /// `PaginatedListBase`由**Masa.Utils.Models.Config**提供, 如需使用，请安装`Masa.Utils.Models.Config`
+    /// `PaginatedListBase` is provided by **Masa.Utils.Models.Config**, if you want to use it, please install `Masa.Utils.Models.Config`
     /// </summary>
     /// <param name="name"></param>
     /// <param name="page"></param>
@@ -105,14 +107,14 @@ public class CatalogItemService : ServiceBase
     /// <returns></returns>
     public Task<IResult> GetItemsAsync(
         string name,
-        int page = 0,
+        int page = 1,
         int pageSize = 10)
     {
         if (page <= 0)
-            throw new UserFriendlyException("页码必须大于0");
+            throw new UserFriendlyException("Page must be greater than 0");
         
         if (pageSize <= 0)
-            throw new UserFriendlyException("页大小必须大于0");
+            throw new UserFriendlyException("PageSize must be greater than 0");
 
         Expression<Func<CatalogListItemDto, bool>> condition = item => true;
         condition = condition.And(!name.IsNullOrWhiteSpace(), item => item.Name.Contains(name));
@@ -132,7 +134,7 @@ public class CatalogItemService : ServiceBase
     public Task<IResult> CreateProductAsync(CreateProductCommand command)
     {
         if (command.Name.IsNullOrWhiteSpace())
-            throw new UserFriendlyException("产品名不能为空");
+            throw new UserFriendlyException("Product name cannot be empty");
 
         _data.Add(new CatalogListItemDto()
         {
@@ -150,13 +152,13 @@ public class CatalogItemService : ServiceBase
     public Task<IResult> DeleteProductAsync(int id)
     {
         if (id <= 0)
-            throw new UserFriendlyException("商品id必须大于0");
+            throw new UserFriendlyException("Please enter the ProductId");
 
-        var productInfo = _data.FirstOrDefault(item => item.Id == id);
-        if (productInfo == null)
-            throw new UserFriendlyException("不存在的产品");
+        var catalogItem = _data.FirstOrDefault(item => item.Id == id);
+        if (catalogItem == null)
+            throw new UserFriendlyException("Product doesn't exist");
 
-        _data.Remove(productInfo);
+        _data.Remove(catalogItem);
         return Task.FromResult(Results.Accepted());
     }
 }
@@ -243,7 +245,7 @@ dotnet add package Swashbuckle.AspNetCore
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 
-#region 注册Swagger
+#region Register Swagger
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -252,7 +254,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.AddServices();
 
-#region 使用Swaager
+#region Use Swagger
 
 if (app.Environment.IsDevelopment())
 {
@@ -288,6 +290,29 @@ app.Run();
 </div>
 
 我们可以通过Swagger的UI更方便的测试API
+
+> 为方便后续使用Swagger调试更方便，我们可以修改`launchSettings.json`配置，增加配置: `"launchUrl": "swagger"`
+
+```json
+{
+  "profiles": {
+    "Masa.EShop.Service.Catalog": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7170;http://localhost:5193",
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
+```
+
+<div>
+  <img alt="launchSettings" src="https://s2.loli.net/2023/04/11/STbqKL2lew9u8t5.png"/>
+</div>
 
 ## 其它
 

@@ -2,7 +2,12 @@
 
 ## 概述
 
-本章将新增数据上下文，这里我们使用的是EFCore作为ORM提供程序，用于提供数据的增删改查支持，并更换`CatalogItemService`中内存数据源为`Sqlite`数据库
+本章将新增数据上下文，这里我们使用的是EFCore作为ORM提供程序，用于提供数据的增删改查支持
+
+### 补充
+
+* 更换`CatalogItemService`中内存数据源为`Sqlite`数据库，
+* 新增支持对已删除产品进行查询
 
 ## 开始
 
@@ -27,7 +32,7 @@ dotnet add package Masa.Contrib.Data.Contracts
   <ItemGroup>
     <PackageReference Include="Masa.Contrib.Data.Contracts" Version="$(MasaFrameworkPackageVersion)" />
     <PackageReference Include="Masa.Contrib.Data.EFCore.Sqlite" Version="$(MasaFrameworkPackageVersion)" />
-    <!-- 省略其它已安装的nuget包 -->
+    <!-- Omit other installed nuget packages -->
   </ItemGroup>
 
 </Project>
@@ -264,11 +269,11 @@ builder.Services.AddMasaDbContext<CatalogDbContext>(contextBuilder =>
         .UseFilter();
 });
 
------省略其余服务注册-----
+-----Ignore the rest of the service registration-----
 
-var app = builder.AddServices();//未使用MinimalAPis的项目时，为`var app = builder.Build();`
+var app = builder.AddServices();//`var app = builder.Build();` for projects not using MinimalAPis
 
------省略使用中间件、Swagger等-----
+-----Ignore the use of middleware, Swagger, etc.-----
 
 app.Run();
 ```
@@ -393,11 +398,11 @@ app.Run();
             .UseFilter();
     });
     
-    -----省略其余服务注册-----
+    -----Ignore the rest of the service registration-----
     
-    var app = builder.AddServices();//未使用MinimalAPis的项目时，为`var app = builder.Build();`
+    var app = builder.AddServices();//`var app = builder.Build();` for projects not using MinimalAPis
     
-    -----省略使用中间件、Swagger等-----
+    -----Ignore the use of middleware, Swagger, etc.-----
     
     await app.MigrateDbContextAsync<CatalogDbContext>(async (context, services) =>
     {
@@ -430,9 +435,9 @@ public class CatalogItemService : ServiceBase
     public async Task<IResult> GetAsync(int id)
     {
         if (id <= 0)
-            throw new UserFriendlyException("商品id必须大于0");
+            throw new UserFriendlyException("Please enter the ProductId");
 
-        var productInfo = await DbContext.CatalogItems.Where(item => item.Id == id).Select(item => new CatalogItemDto()
+        var catalogItem = await DbContext.CatalogItems.Where(item => item.Id == id).Select(item => new CatalogItemDto()
         {
             Id = item.Id,
             Name = item.Name,
@@ -441,26 +446,26 @@ public class CatalogItemService : ServiceBase
             CatalogTypeId = item.CatalogTypeId,
             CatalogBrandId = item.CatalogBrandId
         }).FirstOrDefaultAsync();
-        if (productInfo == null)
-            throw new UserFriendlyException("不存在的产品");
+        if (catalogItem == null)
+            throw new UserFriendlyException("Product doesn't exist");
 
-        return Results.Ok(productInfo);
+        return Results.Ok(catalogItem);
     }
 
     /// <summary>
-    /// `PaginatedListBase`由**Masa.Utils.Models.Config**提供, 如需使用，请安装`Masa.Utils.Models.Config`
+    /// `PaginatedListBase` is provided by **Masa.Utils.Models.Config**, if you want to use it, please install `Masa.Utils.Models.Config`
     /// </summary>
     /// <returns></returns>
     public async Task<IResult> GetItemsAsync(
         string? name,
-        int page = 0,
+        int page = 1,
         int pageSize = 10)
     {
         if (page <= 0)
-            throw new UserFriendlyException("页码必须大于0");
+            throw new UserFriendlyException("Page must be greater than 0");
 
         if (pageSize <= 0)
-            throw new UserFriendlyException("页大小必须大于0");
+            throw new UserFriendlyException("PageSize must be greater than 0");
 
         Expression<Func<CatalogItem, bool>> condition = item => true;
         condition = condition.And(!name.IsNullOrWhiteSpace(), item => item.Name.Contains(name));
@@ -492,7 +497,7 @@ public class CatalogItemService : ServiceBase
     public async Task<IResult> GetRecycleItemsAsync(
         string? name,
         IDataFilter dataFilter,
-        int page = 0,
+        int page = 1,
         int pageSize = 10)
     {
         if (page <= 0)
@@ -551,13 +556,13 @@ public class CatalogItemService : ServiceBase
     public async Task<IResult> DeleteProductAsync(int id)
     {
         if (id <= 0)
-            throw new UserFriendlyException("商品id必须大于0");
+            throw new UserFriendlyException("Please enter the ProductId");
 
-        var productInfo = await DbContext.CatalogItems.FirstOrDefaultAsync(item => item.Id == id);
-        if (productInfo == null)
-            throw new UserFriendlyException("不存在的产品");
+        var catalogItem = await DbContext.CatalogItems.FirstOrDefaultAsync(item => item.Id == id);
+        if (catalogItem == null)
+            throw new UserFriendlyException("Product doesn't exist");
 
-        DbContext.CatalogItems.Remove(productInfo);
+        DbContext.CatalogItems.Remove(catalogItem);
         await DbContext.SaveChangesAsync();
 
         return Results.Accepted();
