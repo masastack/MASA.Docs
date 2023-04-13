@@ -57,15 +57,11 @@ public class RegisterUserValidator : MasaAbstractValidator<RegisterUser>
 
 > 不同国家的手机号码有着不同的规则，并不是简单通过输入内容是否数字以及数字的长度来验证手机号码
 
-<div class="custom-table">
-
 |  国家  | 文化 | 验证规则  |
 |  ----  | ----  | ----  |
 | 中国 | `zh-CN` | `^(\+?0?86\-?)?1[345789]\d{9}$` |
 | 美国 | `en-US` | `^(\+?1)?[2-9]\d{2}[2-9](?!11)\d{6}$` |
 | 英国 | `en-GB` | `^(\+?44\|0)7\d{9}$` |
-
-</div>
 
 * IdCard: 身份证验证 (支持`zh-CN`)
 * Url: Url地址验证

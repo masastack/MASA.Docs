@@ -200,7 +200,8 @@
     "title": "contribution",
     "items": [
       "issues",
-      "pr"
+      "pr",
+      "recommend"
     ]
   }
 ]

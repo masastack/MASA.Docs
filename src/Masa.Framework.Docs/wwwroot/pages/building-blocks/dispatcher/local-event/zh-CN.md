@@ -273,14 +273,10 @@ BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19043.1023 (21H1/May2021Update)
 
 Runtime=.NET 6.0  IterationCount=100  RunStrategy=ColdStart
 
-<div class="custom-table">
-
 |                         Method |      Mean |     Error |      StdDev |   Median |      Min |         Max |
 |------------------------------- |----------:|----------:|------------:|---------:|---------:|------------:|
 | AddShoppingCartByEventBusAsync | 124.80 us | 346.93 us | 1,022.94 us | 8.650 us | 6.500 us | 10,202.4 us |
 |  AddShoppingCartByMediatRAsync | 110.57 us | 306.47 us |   903.64 us | 7.500 us | 5.300 us |  9,000.1 us |
-
-</div>
 
 根据性能测试我们发现，EventBus与MediatR性能差距很小，但EventBus提供的功能却要强大的多
 
