@@ -140,7 +140,14 @@
     "items": [
       "introduce",
       "basic-concepts",
-      "use-guide",
+      {
+        "title": "use-guide",
+        "items": [
+          "started",
+          "log",
+          "metric"
+        ]
+      },
       "sdk-instance",
       "best-practices",
       "faq",
