@@ -2,7 +2,7 @@
 
 ## Log结构
 
-当前版本`Log`存储采用[`Elasticsearch`](https://www.elastic.co)，日志存储基本结构：
+当前版本`Log`存储采用[Elasticsearch](https://www.elastic.co)，日志存储基本结构：
 
 |  名称  |  数据类型  |  说明  |
 |  -------  |  -----------  |  -------  |
