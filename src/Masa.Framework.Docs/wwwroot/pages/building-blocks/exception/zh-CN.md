@@ -156,16 +156,12 @@ builder.Services
 
 MasaFramework提供的了几种常用的异常类型, 当API服务对外抛出以下异常类型时, 服务端将响应与之对应的Http状态码:  
 
-<div class="custom-table">
-
 |  异常类型   | 描述  |  HttpStatusCode  |
 |  ----  | ----  | ----  |
 | UserFriendlyException  | 用户友好异常 | 299 |
 | MasaValidatorException  | 验证异常 | 298 |
 | MasaArgumentException  | 参数异常 | 500 |
 | MasaException  | 内部服务错误 | 500 |
-
-</div>
 
 其中HttpStatusCode为298是验证异常，存在固定格式的响应信息
 
