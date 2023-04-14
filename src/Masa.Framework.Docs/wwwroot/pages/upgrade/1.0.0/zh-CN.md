@@ -47,7 +47,7 @@
 
 3. MasaDbContext <font color=Red>查询默认不跟踪</font>
 
-    ```csharp
+    ```csharp Infrastructure/CustomDbContext.cs
     public class CustomDbContext : MasaDbContext<CustomDbContext>
     {
          protected MasaDbContext(MasaDbContextOptions<CustomDbContext> options) : base(options)
@@ -63,7 +63,7 @@
 
   :::: code-group
   ::: code-group-item 调整前
-  ```csharp
+  ```csharp Program.cs
   builder.Services.AddMasaDbContext<CustomDbContext, int>(options =>
   {
       options.UseSqlServer("更换SqlServer数据库地址");
@@ -71,7 +71,7 @@
   ```
   :::
   ::: code-group-item 调整后
-  ```csharp
+  ```csharp Program.cs
   builder.Services.Configure<AuditEntityOptions>(options => options.UserIdType = typeof(int));
   
   builder.Services.AddMasaDbContext<CustomDbContext>(options =>
@@ -90,7 +90,7 @@
 
   :::: code-group
   ::: code-group-item 调整前
-  ```csharp
+  ```csharp Program.cs
   builder.Services
       .AddDomainEventBus(options =>
       {
@@ -102,7 +102,7 @@
   ```
   :::
   ::: code-group-item 调整后
-  ```csharp
+  ```csharp Program.cs
   builder.Services.Configure<AuditEntityOptions>(options => options.UserIdType = typeof(int));
   
   builder.Services
@@ -124,7 +124,7 @@
 
         :::: code-group
         ::: code-group-item 调整前
-        ```csharp
+        ```csharp Program.cs
         var builder = WebApplication.CreateBuilder(args);
         builder.Services
             .AddDomainEventBus(dispatcherOptions =>
@@ -149,7 +149,7 @@
         ```
         :::
         ::: code-group-item 调整后
-        ```csharp
+        ```csharp Program.cs
         var builder = WebApplication.CreateBuilder(args);
         builder.Services
             .AddMasaDbContext<CustomDbContext>(dbContext =>
@@ -208,7 +208,7 @@
 
     :::: code-group
     ::: code-group-item 创建数据上下文
-    ```csharp
+    ```csharp Infrastructure/CustomDbContext.cs
     public class CustomDbContext : MasaDbContext<CustomDbContext>
     {
         public CustomDbContext(MasaDbContextOptions<CustomDbContext> options) : base(options)
@@ -218,7 +218,7 @@
     ```
     :::
     ::: code-group-item 注册自定义上下文
-    ```csharp
+    ```csharp Program.cs
     var services = new ServiceCollection();
     services.AddMasaDbContext<CustomDbContext>(builder => builder.UseSqlite("data source=customDbContext"));
     ```
@@ -229,7 +229,7 @@
 
     :::: code-group
     ::: code-group-item 创建数据上下文
-    ```csharp
+    ```csharp Infrastructure/CustomDbContext.cs
       public class CustomDbContext : MasaDbContext<CustomDbContext>
       {
           protected override void OnConfiguring(MasaDbContextOptionsBuilder optionsBuilder)
@@ -240,7 +240,7 @@
     ```
     :::
     ::: code-group-item 注册自定义上下文
-    ```csharp
+    ```csharp Program.cs
     var services = new ServiceCollection();
     services.AddMasaDbContext<CustomDbContext>();
     ```
@@ -255,12 +255,12 @@
 
         :::: code-group
         ::: code-group-item 安装包
-        ```shell
+        ```shell 终端
         dotnet add package Masa.Contrib.Extensions.BackgroundJobs.Memory
         ```
         :::
         ::: code-group-item 注册后台任务并使用内存数据库
-        ```csharp
+        ```csharp Program.cs
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddBackgroundJob(jobBuilder =>
         {
@@ -291,7 +291,7 @@
         ```
         :::
         ::: code-group-item 添加后台任务
-        ```csharp
+        ```csharp Program.cs
         app.MapGet("register", () =>
         {
             Console.WriteLine("任务执行: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
