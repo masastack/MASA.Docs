@@ -56,8 +56,68 @@
          }
     }
     ```
+   
+4. MasaDbContext注册时**不再支持传入用户id类型**
 
-4. 隔离性调整
+* 以用户id为int为例：
+
+  :::: code-group
+  ::: code-group-item 调整前
+  ```csharp
+  builder.Services.AddMasaDbContext<CustomDbContext, int>(options =>
+  {
+      options.UseSqlServer("更换SqlServer数据库地址");
+  });
+  ```
+  :::
+  ::: code-group-item 调整后
+  ```csharp
+  builder.Services.Configure<AuditEntityOptions>(options => options.UserIdType = typeof(int));
+  
+  builder.Services.AddMasaDbContext<CustomDbContext>(options =>
+  {
+      options.UseSqlServer("更换SqlServer数据库地址");
+  });
+  ```
+  :::
+  ::::
+  
+  > 在一个系统中，用户id不可能出现多种用户类型的情况，**未配置用户id类型，默认: Guid**
+
+5. 工作单元注册时**不再支持传入用户id类型**
+
+* 以用户id为int为例：
+
+  :::: code-group
+  ::: code-group-item 调整前
+  ```csharp
+  builder.Services
+      .AddDomainEventBus(options =>
+      {
+          options.UseIntegrationEventBus(dispatcherOptions => dispatcherOptions.UseDapr().UseEventLog<CustomDbContext>())
+              .UseEventBus(eventBuilder => eventBuilder.UseMiddleware(typeof(ValidatorMiddleware<>)))
+              .UseUoW<CustomDbContext, int>(dbOptions => dbOptions.UseSqlServer("更换SqlServer数据库地址"))
+              .UseRepository<CustomDbContext>();
+      });
+  ```
+  :::
+  ::: code-group-item 调整后
+  ```csharp
+  builder.Services.Configure<AuditEntityOptions>(options => options.UserIdType = typeof(int));
+  
+  builder.Services
+      .AddDomainEventBus(options =>
+      {
+          options.UseIntegrationEventBus(dispatcherOptions => dispatcherOptions.UseDapr().UseEventLog<CustomDbContext>())
+              .UseEventBus(eventBuilder => eventBuilder.UseMiddleware(typeof(ValidatorMiddleware<>)))
+              .UseUoW<CustomDbContext>(dbOptions => dbOptions.UseSqlServer("更换SqlServer数据库地址"))
+              .UseRepository<CustomDbContext>();
+      });
+  ```
+  :::
+  ::::
+
+6. 隔离性调整
 
     * <font color=Red>删除 **Masa.Contrib.Isolation.UoW.EFCore** </font>
     * 用法调整
