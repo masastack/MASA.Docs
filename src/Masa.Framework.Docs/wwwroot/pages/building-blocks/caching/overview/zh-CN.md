@@ -15,13 +15,13 @@
 
 1. 安装`Masa.Contrib.Caching.Distributed.StackExchangeRedis`
 
-``` powershell
+```shell 终端
 dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 ```
 
 2. 配置`Redis`信息, 修改`appsettings.json`
 
-``` appsettings.json
+```json appsettings.json
 {
     "RedisConfig":{
         "Servers":[
@@ -36,9 +36,9 @@ dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 }
 ```
 
-3. 注册分布式缓存，并使用Redis缓存，修改`Program`
+3. 注册分布式缓存，并使用Redis缓存
 
-```csharp
+```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache();//使用分布式Redis缓存, 默认使用本地`RedisConfig`节点的配置
@@ -56,22 +56,23 @@ public class User
 }
 ```
 
-5. 如何使用IDistributedCacheClient，修改Program.cs
+5. 如何使用IDistributedCacheClient
 
 仅当`name`为`string.Empty`或者当前项目仅存在一个分布式缓存客户端时, 可直接由DI获取，否则需要通过`IDistributedCacheClientFactory` (分布式缓存工厂) 根据`name`获取
 
 * 设置缓存
 
-```csharp
+```csharp Program.cs
 app.MapPost("/set/{id}", async (IDistributedCacheClient distributedCacheClient, [FromRoute] string id, [FromBody] User user) =>
 {
     await distributedCacheClient.SetAsync(id, user);
     return Results.Accepted();
 });
+```
 
 * 获取缓存
 
-```csharp
+```csharp Program.cs
 app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, [FromRoute] string id) =>
 {
     var value = await distributedCacheClient.GetAsync<User>(id);
@@ -97,7 +98,7 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, [
 
 注册分布式缓存指定的`CacheKeyType`为全局缓存Key规则, 设置使用当前分布式缓存客户端时, 默认传入的缓存key即为最终的缓存Key
 
-```csharp
+```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache(options =>
@@ -118,10 +119,14 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 
 2. 为当前调用使用指定缓存Key规则
  
-```csharp
-var value = await distributedCacheClient.GetAsync<User>(id, options =>
+```csharp Program.cs
+app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, string id) =>
 {
-    options.CacheKeyType = CacheKeyType.TypeName;
+    var value = await distributedCacheClient.GetAsync<User>(id, options =>
+    {
+        options.CacheKeyType = CacheKeyType.TypeName;
+    });
+    return Results.Ok(value);
 });
 ```
 

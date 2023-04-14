@@ -3,11 +3,11 @@
 值对象有两个重要的特征
 
 * 它们没有任何标识
-* 它们是可变的
+* 它们是不可变的
 
 任何属性的变化都将视为一个新的值对象
 
-在`MasaFramework`中,  提供了值对象基类`ValueObject`, 例如:
+在`MasaFramework`中, 提供了值对象基类`ValueObject`, 例如:
 
 ```csharp
 public class Address : ValueObject

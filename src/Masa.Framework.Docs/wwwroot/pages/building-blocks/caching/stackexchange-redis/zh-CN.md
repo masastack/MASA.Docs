@@ -1,4 +1,4 @@
-## 分布式Redis缓存
+# 分布式Redis缓存
 
 什么是[`分布式缓存`](https://learn.microsoft.com/zh-cn/aspnet/core/performance/caching/distributed)
 
@@ -6,13 +6,13 @@
 
 1. 安装`Masa.Contrib.Caching.Distributed.StackExchangeRedis`
 
-``` powershell
+```shell 终端
 dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 ```
 
-2. 配置`Redis`信息, 修改`appsettings.json`
+2. 配置`Redis`信息
 
-``` appsettings.json
+```json appsettings.json
 {
     "RedisConfig":{
         "Servers":[
@@ -26,9 +26,9 @@ dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 }
 ```
 
-3. 注册分布式缓存，并使用Redis缓存，修改`Program`
+3. 注册分布式缓存，并使用Redis缓存
 
-```csharp
+```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache();//使用分布式Redis缓存, 默认使用本地`RedisConfig`节点的配置
@@ -46,22 +46,23 @@ public class User
 }
 ```
 
-5. 如何使用IDistributedCacheClient，修改Program.cs
+5. 如何使用IDistributedCacheClient
 
 仅当`name`为`string.Empty`或者当前项目仅存在一个分布式缓存客户端时, 可直接由DI获取，否则需要通过`IDistributedCacheClientFactory` (分布式缓存工厂) 根据`name`获取
 
 * 设置缓存
 
-```csharp
+```csharp Program.cs
 app.MapPost("/set/{id}", async (IDistributedCacheClient distributedCacheClient, [FromRoute] string id, [FromBody] User user) =>
 {
     await distributedCacheClient.SetAsync(id, user);
     return Results.Accepted();
 });
+```
 
 * 获取缓存
 
-```csharp
+```csharp Program.cs
 app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, [FromRoute] string id) =>
 {
     var value = await distributedCacheClient.GetAsync<User>(id);
@@ -203,8 +204,8 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, [
 在指定的本地配置文件中的指定节点配置Redis信息, 完成注册
 
 :::: code-group
-::: code-group-item 1. 修改`appsettings.json`文件
-``` appsettings.json
+::: code-group-item 1. 修改本地配置文件
+```json appsettings.json
 {
     "RedisConfig":{
         "Servers":[
@@ -219,7 +220,7 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, [
 ```
 :::
 ::: code-group-item 2. 注册分布式Redis缓存
-```csharp
+```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache();
@@ -232,9 +233,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 
 #### 指定Redis配置注册
 
-:::: code-group
-::: code-group-item 注册分布式Redis缓存
-```csharp
+```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache(options =>
@@ -251,14 +250,12 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
     });
 });
 ```
-:::
-::::
 
-#### 通过指定`Configuration`注册
+#### 通过指定 Configuration 注册
 
 :::: code-group
 ::: code-group-item 1. 修改`appsettings.json`
-``` appsettings.json
+```json appsettings.json
 {
     "RedisConfig":{
         "Servers":[
@@ -273,7 +270,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 ```
 :::
 ::: code-group-item 2. 指定`Configuration`注册分布式Redis缓存
-```csharp
+```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache(builder.Configuration.GetSection("RedisConfig"));
@@ -286,7 +283,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 
 :::: code-group
 ::: code-group-item 1. 支持选项模式
-```csharp
+```csharp Program.cs
 builder.Services.Configure<RedisConfigurationOptions>(redisConfigurationOptions =>
 {
     redisConfigurationOptions.Servers = new List<RedisServerOptions>()
@@ -302,7 +299,7 @@ builder.Services.Configure<RedisConfigurationOptions>(redisConfigurationOptions 
 ```
 :::
 ::: code-group-item 2. 注册分布式Redis缓存
-```csharp
+```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache();
