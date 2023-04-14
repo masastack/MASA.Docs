@@ -2,7 +2,7 @@
 
 ## 概述
 
-本章将使用[多级缓存](/framework/building-blocks/caching/multilevel-cache)技术，相比[分布式缓存](https://learn.microsoft.com/zh-cn/aspnet/core/performance/caching/distributed)，它可以提供更高的提取能力
+本章将使用[多级缓存](/framework/building-blocks/caching/multilevel-cache)技术，相比[分布式缓存](https://learn.microsoft.com/zh-cn/aspnet/core/performance/caching/distributed)，它有着更好的数据读取能力
 
 > 教程中分布式缓存使用的是[Redis缓存](/framework/building-blocks/caching/stackexchange-redis)，请确保有可用的Redis服务器以供使用
 
@@ -182,7 +182,7 @@ public class ProductQueryHandler
 :::
 ::::
 
-> 获取详情：当数据库不存在当前产品时，多级缓存的有效期为`5s`，但当数据库存在当前产品时，多级缓存的有效期为`60s` （在缓存未失效期间，请求将不会触达Redis及数据库）
+> 获取详情：当数据库不存在当前产品时，内存缓存的有效期为`5s`，但当数据库存在当前产品时，内存缓存的有效期为`60s` （在内存缓存未失效期间，请求将不会触达分布式缓存（Redis）及数据库。在分布式缓存（Reids）缓存未失效期间，请求将不会触达数据库）
 
 ## 其它
 

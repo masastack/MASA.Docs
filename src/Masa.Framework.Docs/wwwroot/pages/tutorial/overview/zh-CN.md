@@ -9,7 +9,7 @@
   * 支持查询已删除的产品
   * 删除产品后需要通知产品创建人
 * 目的：
-  * 为了让大家了解更多`MASA Framework`的能力
+  * 为了让大家了解更多`MASA Framework`的能力 （教程将从简单→复杂，一步步重构到最终的结构）
 * 技术栈：
   * MinimalAPIs (最小API)：提供API服务
   * MasaDbContext (数据上下文)：提供数据增删改查
@@ -18,7 +18,7 @@
   * CQRS：读写分离
   * EventBus：事件总线
 
-> 实际工作中，按需使用[`Building Block`](/framework/concepts/building-blocks)的能力即可
+> 友情提示：按需使用[`Building Block`](/framework/concepts/building-blocks)有助于更高效的完成工作
 
 ## 目录
 
@@ -76,7 +76,7 @@ dotnet new masafx -n Masa.EShop --web None
 
 在本系列教程中，我们将采用手动方式创建一个解决方案，以完成对产品的增删改查
 
-> 示例项目会把常用的功能以及写法在示例中进行讲解，更完整的使用可查看对应的 [**Building Block**](/framework/concepts/building-blocks) 文档
+> 示例项目会把常用的功能以及写法在示例中进行讲解，更多的用法可查看对应的 [**Building Block**](/framework/concepts/building-blocks) 文档
 
 ## 常见问题
 
