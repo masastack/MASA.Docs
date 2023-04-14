@@ -288,12 +288,12 @@ app.Run();
   
     :::: code-group
     ::: code-group-item .NET Core CLI
-    ```csharp
+    ```csharp 终端
     dotnet ef migrations add InitialCreate
     ```
     :::
     ::: code-group-item Visual Studio
-    ```csharp
+    ```csharp Visual Studio
     Add-Migration InitialCreate
     ```
     :::
@@ -303,20 +303,22 @@ app.Run();
   
     :::: code-group
     ::: code-group-item .NET Core CLI
-    ```csharp
+    ```csharp 终端
     dotnet ef database update
     ```
     :::
     ::: code-group-item Visual Studio
-    ```csharp
+    ```csharp Visual Studio
     Update-Database
     ```
     :::
     ::::
 
-> 模型迁移需要安装`Microsoft.EntityFrameworkCore.Tools`，请确保已正确安装
+    > 模型迁移需要安装`Microsoft.EntityFrameworkCore.Tools`，请确保已正确安装
+    > 
+    > 多数据上下文时请在命令行尾部增加 ` --context CatalogDbContext`
 
-5. 种子数据迁移 （非必须）
+6. 种子数据迁移 （非必须）
 
     1. 新建**HostExtensions**类，得到数据上下文用于后续生成种子数据
   
