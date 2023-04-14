@@ -56,8 +56,6 @@ global using System.Linq.Expressions;
 
 在文档中会发现很多地方有推荐命名要求, 它们都不是强制性的, 但我们仍然建议大家能按照推荐进行命名
 
-<div class="custom-table">
-
 | 后缀               | 描述                             |
 |------------------|--------------------------------|
 | Service          | API服务                          |
@@ -74,8 +72,6 @@ global using System.Linq.Expressions;
 | DomainQuery      | 读命令的领域事件                       |
 | IntegrationDomainEvent | 集成领域事件 (服务的发布与订阅不在同一个进程中)      |
 | EntityTypeConfiguration | 数据库表与实体映射关系, [相关文档](https://learn.microsoft.com/zh-cn/dotnet/api/system.data.entity.modelconfiguration.entitytypeconfiguration-1) (EFCore) |
-
-</div>
 
 ## 命名规范
 
