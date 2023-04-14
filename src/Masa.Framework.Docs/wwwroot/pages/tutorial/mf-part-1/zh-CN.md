@@ -23,9 +23,9 @@ cd Masa.EShop.Service.Catalog
 dotnet add package Masa.Contrib.Service.MinimalAPIs
 ```
 
-或者直接修改**Masa.EShop.Service.Catalog.csproj**文件为:
+或者直接修改**XXX.csproj**文件为:
 
-```xml
+```xml Masa.EShop.Service.Catalog.csproj
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
