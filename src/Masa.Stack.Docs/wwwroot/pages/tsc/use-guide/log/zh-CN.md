@@ -27,28 +27,28 @@
 查询所有日志界别为`Error`的记录：
 
 ```json
-  {
-    "term": 
-      {
-        "SeverityText.keyword": "Error"
-      }
-  }
-   ```
+{
+  "term": 
+    {
+      "SeverityText.keyword": "Error"
+    }
+}
+```
 
 2. 多个条件查询
 
 ```json
-  {
-    "term": 
-      {
-        "Resource.service.name.keyword": "scheduler-service-worker-staging"
-      }
-  },
-  {
-    "term": 
-      {
-       "SeverityText.keyword": "Error"
-      }
-  }
- ```
+{
+  "term": 
+    {
+      "Resource.service.name.keyword": "scheduler-service-worker-staging"
+    }
+},
+{
+  "term": 
+    {
+      "SeverityText.keyword": "Error"
+    }
+}
+```
 多个条件中间用英文逗号隔开，时间条件会使用时间组件的值，其它条件都可以自定义查询，如果对`Elasticsearch`查询表达式语法不清楚的，[可参考](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
