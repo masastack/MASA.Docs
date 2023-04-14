@@ -1,4 +1,4 @@
-## 分布式Redis缓存
+# 分布式Redis缓存
 
 什么是[`分布式缓存`](https://learn.microsoft.com/zh-cn/aspnet/core/performance/caching/distributed)
 
@@ -254,7 +254,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 :::
 ::::
 
-#### 通过指定`Configuration`注册
+#### 通过指定 Configuration 注册
 
 :::: code-group
 ::: code-group-item 1. 修改`appsettings.json`
