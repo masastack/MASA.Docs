@@ -82,7 +82,7 @@ namespace Masa.EShop.Service.Catalog.Domain.Entities;
 
 public class CatalogBrand : ISoftDelete
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Brand { get; set; }
     
@@ -117,7 +117,7 @@ namespace Masa.EShop.Service.Catalog.Domain.Entities;
 
 public class CatalogItem : ISoftDelete
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Name { get; set; } = null!;
 
@@ -125,11 +125,11 @@ public class CatalogItem : ISoftDelete
 
     public string PictureFileName { get; set; } = "";
 
-    public int CatalogTypeId { get; set; }
+    public Guid CatalogTypeId { get; set; }
 
     public CatalogType CatalogType { get; private set; } = null!;
 
-    public int CatalogBrandId { get; set; }
+    public Guid CatalogBrandId { get; set; }
 
     public CatalogBrand CatalogBrand { get; private set; } = null!;
 
@@ -432,7 +432,7 @@ public class CatalogItemService : ServiceBase
 {
     private CatalogDbContext DbContext => GetRequiredService<CatalogDbContext>();
 
-    public async Task<IResult> GetAsync(int id)
+    public async Task<IResult> GetAsync(Guid id)
     {
         if (id <= 0)
             throw new UserFriendlyException("Please enter the ProductId");
@@ -553,7 +553,7 @@ public class CatalogItemService : ServiceBase
         return Results.Accepted();
     }
 
-    public async Task<IResult> DeleteProductAsync(int id)
+    public async Task<IResult> DeleteProductAsync(Guid id)
     {
         if (id <= 0)
             throw new UserFriendlyException("Please enter the ProductId");

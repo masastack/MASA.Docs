@@ -136,7 +136,7 @@ public record CreateProductCommand : Command
 {
     public string Name { get; set; } = default!;
 
-    public int CatalogBrandId { get; set; }
+    public Guid CatalogBrandId { get; set; }
 
     public int CatalogTypeId { get; set; } 
 
@@ -156,7 +156,7 @@ namespace Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
 
 public record DeleteProductCommand : Command
 {
-    public int ProductId { get; set; }
+    public Guid ProductId { get; set; }
 }
 ```
 :::
@@ -169,7 +169,8 @@ namespace Masa.EShop.Service.Catalog.Application.Catalogs.Queries;
 
 public record ProductQuery : Query<CatalogItemDto>
 {
-    public int ProductId { get; set; } = default!;
+    public Guid ProductId { get; set; } = default!;
+    
     public override CatalogItemDto Result { get; set; } = default!;
 }
 ```
@@ -433,7 +434,7 @@ public class CatalogItemService : ServiceBase
 {
     private IEventBus EventBus => GetRequiredService<IEventBus>();
 
-    public async Task<IResult> GetAsync(int id)
+    public async Task<IResult> GetAsync(Guid id)
     {
         var query = new ProductQuery() { ProductId = id };
         await EventBus.PublishAsync(query);
@@ -484,7 +485,7 @@ public class CatalogItemService : ServiceBase
         return Results.Accepted();
     }
 
-    public async Task<IResult> DeleteProductAsync(int id)
+    public async Task<IResult> DeleteProductAsync(Guid id)
     {
         await EventBus.PublishAsync(new DeleteProductCommand() { ProductId = id });
 

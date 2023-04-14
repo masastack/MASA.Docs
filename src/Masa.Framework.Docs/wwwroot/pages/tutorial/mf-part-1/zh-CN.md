@@ -86,7 +86,7 @@ public class CatalogItemService : ServiceBase
 {
     private readonly List<CatalogListItemDto> _data = new();
 
-    public Task<IResult> GetAsync(int id)
+    public Task<IResult> GetAsync(Guid id)
     {
         if (id <= 0)
             throw new UserFriendlyException("Please enter the ProductId");
@@ -149,7 +149,7 @@ public class CatalogItemService : ServiceBase
         return Task.FromResult(Results.Accepted());
     }
 
-    public Task<IResult> DeleteProductAsync(int id)
+    public Task<IResult> DeleteProductAsync(Guid id)
     {
         if (id <= 0)
             throw new UserFriendlyException("Please enter the ProductId");
@@ -177,7 +177,7 @@ public record CreateProductCommand
 {
     public string Name { get; set; } = default!;
 
-    public int CatalogBrandId { get; set; }
+    public Guid CatalogBrandId { get; set; }
 
     public int CatalogTypeId { get; set; }
 
@@ -195,11 +195,11 @@ namespace Masa.EShop.Contracts.Catalog.Dto;
 
 public class CatalogItemDto
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Name { get; set; } = string.Empty;
 
-    public int CatalogBrandId { get; set; }
+    public Guid CatalogBrandId { get; set; }
 
     public int CatalogTypeId { get; set; }
 
@@ -215,7 +215,7 @@ namespace Masa.EShop.Contracts.Catalog.Dto;
 
 public class CatalogListItemDto
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Name { get; set; } = null!;
 
@@ -225,7 +225,7 @@ public class CatalogListItemDto
 
     public int CatalogTypeId { get; set; }
 
-    public int CatalogBrandId { get; set; }
+    public Guid CatalogBrandId { get; set; }
 
     public int Stock { get; set; }
 }
