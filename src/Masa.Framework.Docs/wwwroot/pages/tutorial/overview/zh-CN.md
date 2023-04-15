@@ -36,7 +36,7 @@
 
 1. 确保已安装[`.NET 6.0`](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)以上版本
 
-```shell
+```shell 终端
 dotnet --list-sdks
 ```
 
@@ -54,15 +54,15 @@ dotnet --list-sdks
 
 ### 通过模版创建
 
-1. 通过终端安装模版
+1. 安装模版
 
-```csharp
+```csharp 终端
 dotnet new install Masa.Template
 ```
 
-2. 通过终端使用模版创建
+2. 使用模版创建
 
-```csharp
+```csharp 终端
 dotnet new masafx -n Masa.EShop --web None
 ```
 

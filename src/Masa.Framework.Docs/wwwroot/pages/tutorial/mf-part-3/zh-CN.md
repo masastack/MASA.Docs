@@ -17,15 +17,15 @@
 
 1. 选中 `Masa.EShop.Service.Catalog`项目并安装 `Masa.Contrib.Dispatcher.Events`、 `Masa.Contrib.Dispatcher.Events.FluentValidation`、 `FluentValidation.AspNetCore`
 
-```shell
+```shell 终端
 dotnet add package Masa.Contrib.Dispatcher.Events
 dotnet add package Masa.Contrib.Dispatcher.Events.FluentValidation
 dotnet add package FluentValidation.AspNetCore
 ```
 
-或者直接修改 **Masa.EShop.Service.Catalog.csproj** 文件为:
+或者直接修改项目文件为:
 
-```xml
+```xml Masa.EShop.Service.Catalog.csproj
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
@@ -46,9 +46,9 @@ dotnet add package FluentValidation.AspNetCore
 
 > `FluentValidation.AspNetCore`、`Masa.Contrib.Dispatcher.Events.FluentValidation`提供了基于`FluentValidation`的验证中间件，用于事件总线在发布事件后完成参数验证操作
 
-2. 注册[事件总线](/framework/building-blocks/dispatcher/local-event)，并使用 `FluentValidation` 进行参数验证，修改`Program.cs`
+2. 注册[事件总线](/framework/building-blocks/dispatcher/local-event)，并使用 `FluentValidation` 进行参数验证`
 
-```csharp
+```csharp Program.cs
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
@@ -66,11 +66,11 @@ app.Run();
 
 > 注册事件总线在**AddServices**之前即可
 
-3. 新建读库上下文`CatalogQueryDbContext`，并在`Program.cs`中进行注册
+3. 新建读库上下文`CatalogQueryDbContext`
 
 :::: code-group
 ::: code-group-item CatalogQueryDbContext（读模型）
-```csharp
+```csharp Program.cs
 public class CatalogQueryDbContext : MasaDbContext<CatalogQueryDbContext>
 {
     public DbSet<CatalogItem> CatalogItems { get; set; } = null!;
@@ -92,7 +92,7 @@ public class CatalogQueryDbContext : MasaDbContext<CatalogQueryDbContext>
 ```
 :::
 ::: code-group-item 注册 CatalogQueryDbContext
-```csharp
+```csharp Program.cs
 var builder = WebApplication.CreateBuilder(args);
 
 -----Ignore the rest of the service registration-----
@@ -127,7 +127,7 @@ app.Run();
 
 :::: code-group
 ::: code-group-item CreateProductCommand
-```csharp
+```csharp Application/Catalogs/Commands/CreateProductCommand.cs
 using Masa.BuildingBlocks.ReadWriteSplitting.Cqrs.Commands;
 
 namespace Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
@@ -149,7 +149,7 @@ public record CreateProductCommand : Command
 ```
 :::
 ::: code-group-item DeleteProductCommand
-```csharp
+```csharp Application/Catalogs/Commands/DeleteProductCommand.cs
 using Masa.BuildingBlocks.ReadWriteSplitting.Cqrs.Commands;
 
 namespace Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
@@ -161,7 +161,7 @@ public record DeleteProductCommand : Command
 ```
 :::
 ::: code-group-item ProductQuery
-```csharp
+```csharp Application/Catalogs/Queries/ProductQuery.cs
 using Masa.BuildingBlocks.ReadWriteSplitting.Cqrs.Queries;
 using Masa.EShop.Contracts.Catalog.Dto;
 
@@ -176,7 +176,7 @@ public record ProductQuery : Query<CatalogItemDto>
 ```
 :::
 ::: code-group-item ProductsQuery
-```csharp
+```csharp Application/Catalogs/Queries/ProductsQuery.cs
 using Masa.BuildingBlocks.ReadWriteSplitting.Cqrs.Queries;
 using Masa.EShop.Contracts.Catalog.Dto;
 using Masa.Utils.Models;
@@ -203,7 +203,7 @@ public record ProductsQuery : Query<PaginatedListBase<CatalogListItemDto>>
 
 :::: code-group
 ::: code-group-item CreateProductCommandValidator
-```csharp
+```csharp Application/Catalogs/Commands/CreateProductCommandValidator.cs
 using FluentValidation;
 
 namespace Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
@@ -222,7 +222,7 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
 ```
 :::
 ::: code-group-item DeleteProductCommandValidator
-```csharp
+```csharp Application/Catalogs/Commands/DeleteProductCommandValidator.cs
 using FluentValidation;
 
 namespace Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
@@ -237,7 +237,7 @@ public class DeleteProductCommandValidator : AbstractValidator<DeleteProductComm
 ```
 :::
 ::: code-group-item ProductQueryValidator
-```csharp
+```csharp Application/Catalogs/Queries/ProductQueryValidator.cs
 using FluentValidation;
 
 namespace Masa.EShop.Service.Catalog.Application.Catalogs.Queries;
@@ -252,7 +252,7 @@ public class ProductQueryValidator : AbstractValidator<ProductQuery>
 ```
 :::
 ::: code-group-item ProductsQueryValidator
-```csharp
+```csharp Application/Catalogs/Queries/ProductsQueryValidator.cs
 using FluentValidation;
 
 namespace Masa.EShop.Service.Catalog.Application.Catalogs.Queries;
@@ -278,7 +278,7 @@ public class ProductsQueryValidator : AbstractValidator<ProductsQuery>
 
 :::: code-group
 ::: code-group-item ProductCommandHandler
-```csharp
+```csharp Application/Catalogs/ProductCommandHandler.cs
 using Masa.EShop.Service.Catalog.Infrastructure;
 using Masa.Contrib.Dispatcher.Events;
 using Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
@@ -324,7 +324,7 @@ public class ProductCommandHandler
 ```
 :::
 ::: code-group-item ProductQueryHandler
-```csharp
+```csharp Application/Catalogs/ProductQueryHandler.cs
 using System.Linq.Expressions;
 using Masa.BuildingBlocks.Data;
 using Masa.Contrib.Dispatcher.Events;
@@ -422,7 +422,7 @@ public class ProductQueryHandler
 
 6. 修改`CatalogItemService.cs`
 
-```csharp
+```csharp Services/CatalogItemService.cs
 using Masa.BuildingBlocks.Data;
 using Masa.BuildingBlocks.Dispatcher.Events;
 using Masa.EShop.Service.Catalog.Application.Catalogs.Commands;

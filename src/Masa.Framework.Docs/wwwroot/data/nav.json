@@ -211,8 +211,7 @@
   {
     "title": "contribution",
     "items": [
-      "issues",
-      "pr",
+      "overview",
       "recommend"
     ]
   }

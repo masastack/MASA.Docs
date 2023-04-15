@@ -10,14 +10,14 @@
 
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Caching.Distributed.StackExchangeRedis`、`Masa.Contrib.Caching.MultilevelCache`
 
-```shell
+```shell 终端
 dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 dotnet add package Masa.Contrib.Caching.MultilevelCache
 ```
 
-或者直接修改 **Masa.EShop.Service.Catalog.csproj** 文件为:
+或者直接修改项目文件为:
 
-```xml
+```xml Masa.EShop.Service.Catalog.csproj
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
@@ -37,7 +37,7 @@ dotnet add package Masa.Contrib.Caching.MultilevelCache
 
 2. 配置内存缓存的有效期及分布式Redis缓存
 
-```json
+```json appsettings.json
 {
   "RedisConfig": {
     "Servers": [
@@ -61,7 +61,7 @@ dotnet add package Masa.Contrib.Caching.MultilevelCache
 
 3. 注册多级缓存
 
-```csharp
+```csharp Program.cs
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
@@ -80,7 +80,7 @@ app.Run();
 
 :::: code-group
 ::: code-group-item ProductCommandHandler (创建、删除产品)
-```csharp
+```csharp Application/Catalogs/ProductCommandHandler.cs
 public class ProductCommandHandler
 {
     private readonly CatalogDbContext _dbContext;
@@ -124,7 +124,7 @@ public class ProductCommandHandler
 ```
 :::
 ::: code-group-item ProductQueryHandler (查询产品详情)
-```csharp
+```csharp Application/Catalogs/ProductQueryHandler.cs
 using System.Linq.Expressions;
 using Masa.BuildingBlocks.Caching;
 using Masa.BuildingBlocks.Data;

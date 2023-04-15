@@ -6,11 +6,9 @@
 
 对同一系列的包使用同一版本有助于避免因为版本不一致而出现各种各样的奇怪bug, 我们建议增加全局配置, 通过全局配置来解决此问题
 
-1. 在解决方案根目录增加名字为`Directory.Build`、扩展名为`.props`的文件
+1. 在解决方案根目录增加配置文件，使用特定版本的nuget包, 这里我们以`1.0.0-preview.1`版本为例
 
-并指定`MasaFramework`使用的是特定版本的nuget包, 这里我们以`1.0.0-preview.1`版本为例
-
-```xml
+```xml Directory.Build.props
 <Project>
   <PropertyGroup>
     <MasaFrameworkPackageVersion>1.0.0-preview.1</MasaFrameworkPackageVersion>
@@ -22,11 +20,9 @@
 
 后续升级版本时修改`MasaFrameworkPackageVersion`的值为对应版本即可
 
-2. 打开名为`Masa.XXX.XXX.csproj`的文件, 并使用全局配置文件的版本
+2. 修改项目配置文件，使用全局配置文件中指定包的版本，以`Masa.Contrib.Service.MinimalAPIs`为例
 
-以`Masa.Contrib.Service.MinimalAPIs`为例, 我们修改其`Version`的值为`$(MasaFrameworkPackageVersion)`
-
-```xml
+```xml XXX.csproj
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -46,7 +42,7 @@
 
 在类库根目录新增名子为`_Imports`的类, 其中引入当前类库使用的命名空间, 例如:
 
-```csharp
+```csharp Imports.cs
 global using System.Linq.Expressions;
 ```
 
@@ -84,7 +80,7 @@ global using System.Linq.Expressions;
 
 非位标志的枚举类型使用单数, 例如：
 
-```csharp
+```csharp Season.cs
 enum Season
 {
     Spring,
@@ -96,7 +92,7 @@ enum Season
 
 位标志的枚举类型使用复数，例如：
 
-```csharp
+```csharp Days.cs
 [Flags]
 public enum Days
 {

@@ -8,13 +8,13 @@
 
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Exceptions`
 
-```shell
+```shell 终端
 dotnet add package Masa.Contrib.Exceptions
 ```
 
-或者直接修改 **Masa.EShop.Service.Catalog.csproj** 文件为:
+或者直接修改项目文件为:
 
-```xml
+```xml Masa.EShop.Service.Catalog.csproj
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
@@ -33,7 +33,7 @@ dotnet add package Masa.Contrib.Exceptions
 
 2. 使用[全局异常](/framework/building-blocks/exception)，修改`Program.cs`
 
-```csharp
+```csharp Program.cs
 var builder = WebApplication.CreateBuilder(args);
 
 -----Ignore the rest of the service registration-----
@@ -57,7 +57,7 @@ app.Run();
 
 例如：当出现`ArgumentNullException`异常时，对外输出具体错误信息，Http状态码为：298
 
-```csharp
+```csharp Program.cs
 app.UseMasaExceptionHandler(options =>
 {
     options.ExceptionHandler = exceptionContext =>

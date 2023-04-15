@@ -13,14 +13,14 @@
 
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Data.EFCore.Sqlite` 、`Masa.Contrib.Data.Contracts`
 
-```shell
+```shell 终端
 dotnet add package Masa.Contrib.Data.EFCore.Sqlite
 dotnet add package Masa.Contrib.Data.Contracts
 ```
 
-或者直接修改 **Masa.EShop.Service.Catalog.csproj** 文件为:
+或者直接修改项目文件为:
 
-```xml
+```xml Masa.EShop.Service.Catalog.csproj
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
@@ -42,7 +42,7 @@ dotnet add package Masa.Contrib.Data.Contracts
 
 2. 创建数据上下文 `CatalogDbContext`, 并继承 `MasaDbContext<CatalogDbContext>`
 
-```csharp
+```csharp Infrastructure/CatalogDbContext.cs
 using Masa.EShop.Service.Catalog.Domain.Entities;
 using Masa.EShop.Service.Catalog.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
@@ -75,7 +75,7 @@ public class CatalogDbContext : MasaDbContext<CatalogDbContext>
 
 :::: code-group
 ::: code-group-item CatalogBrand
-```csharp
+```csharp Domain/Entities/CatalogBrand.cs
 using Masa.BuildingBlocks.Data;
 
 namespace Masa.EShop.Service.Catalog.Domain.Entities;
@@ -91,7 +91,7 @@ public class CatalogBrand : ISoftDelete
 ```
 :::
 ::: code-group-item CatalogType
-```csharp
+```csharp Domain/Entities/CatalogType.cs
 namespace Masa.EShop.Service.Catalog.Domain.Entities;
 
 public class CatalogType
@@ -110,7 +110,7 @@ public class CatalogType
 ```
 :::
 ::: code-group-item CatalogItem
-```csharp
+```csharp Domain/Entities/CatalogItem.cs
 using Masa.BuildingBlocks.Data;
 
 namespace Masa.EShop.Service.Catalog.Domain.Entities;
@@ -145,7 +145,7 @@ public class CatalogItem : ISoftDelete
 
 :::: code-group
 ::: code-group-item CatalogBrandEntityTypeConfiguration
-```csharp
+```csharp Infrastructure/EntityConfigurations/CatalogBrandEntityTypeConfiguration.cs
 using Masa.EShop.Service.Catalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -172,7 +172,7 @@ class CatalogBrandEntityTypeConfiguration
 ```
 :::
 ::: code-group-item CatalogTypeEntityTypeConfiguration
-```csharp
+```csharp Infrastructure/EntityConfigurations/CatalogTypeEntityTypeConfiguration.cs
 using Masa.EShop.Service.Catalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -199,7 +199,7 @@ class CatalogTypeEntityTypeConfiguration
 ```
 :::
 ::: code-group-item CatalogItemEntityTypeConfiguration
-```csharp
+```csharp Infrastructure/EntityConfigurations/CatalogItemEntityTypeConfiguration.cs
 using Masa.EShop.Service.Catalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -241,7 +241,7 @@ class CatalogItemEntityTypeConfiguration
 
 3. 配置数据库连接字符串
 
-```json
+```json appsettings.json
 {
   "Logging": {
     "LogLevel": {
@@ -259,7 +259,7 @@ class CatalogItemEntityTypeConfiguration
 
 4. 注册数据上下文 `CatalogDbContext` ，修改 `Program.cs`
 
-```csharp
+```csharp Program.cs
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMasaDbContext<CatalogDbContext>(contextBuilder =>
@@ -322,7 +322,7 @@ app.Run();
 
     1. 新建**HostExtensions**类，得到数据上下文用于后续生成种子数据
   
-    ```csharp
+    ```csharp Infrastructure/Extensions/HostExtensions.cs
     using Microsoft.EntityFrameworkCore;
     
     namespace Masa.EShop.Service.Catalog.Infrastructure.Extensions;
@@ -342,7 +342,7 @@ app.Run();
      
     2. 新建`CatalogContextSeed`，用于种子数据迁移
    
-    ```csharp
+    ```csharp Infrastructure/Extensions/CatalogContextSeed.cs
     using Masa.EShop.Service.Catalog.Domain.Entities;
     
     namespace Masa.EShop.Service.Catalog.Infrastructure.Extensions;
@@ -390,7 +390,7 @@ app.Run();
    
     3. 使用迁移并完成种子数据初始化, 修改 `Program.cs`
    
-    ```csharp
+    ```csharp Program.cs
     var builder = WebApplication.CreateBuilder(args);
     
     builder.Services.AddMasaDbContext<CatalogDbContext>(contextBuilder =>
@@ -418,7 +418,7 @@ app.Run();
    
 7. 修改`CatalogItemService`的数据源为`Sqlite`数据库
 
-```csharp
+```csharp Services/CatalogItemService.cs
 using System.Linq.Expressions;
 using Masa.BuildingBlocks.Data;
 using Masa.EShop.Contracts.Catalog.Dto;

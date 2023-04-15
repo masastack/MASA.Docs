@@ -12,18 +12,18 @@
 
 1. 新建<font color=Red>ASP.NET Core 空项目</font>`Masa.EShop.Service.Catalog`用于<font color=Red>提供API服务</font>
 
-```powershell
+```powershell 终端
 dotnet new web -o Masa.EShop.Service.Catalog
 cd Masa.EShop.Service.Catalog
 ```
 
 2. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Service.MinimalAPIs`
 
-```shell
+```shell 终端
 dotnet add package Masa.Contrib.Service.MinimalAPIs
 ```
 
-或者直接修改**XXX.csproj**文件为:
+或者直接修改项目文件为:
 
 ```xml Masa.EShop.Service.Catalog.csproj
 <Project Sdk="Microsoft.NET.Sdk.Web">
@@ -49,7 +49,7 @@ dotnet add package Masa.Contrib.Service.MinimalAPIs
 
 :::: code-group
 ::: code-group-item 注册 MinimalAPIs 后
-```csharp
+```csharp Program.cs
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.AddServices();
 
@@ -59,7 +59,7 @@ app.Run();
 ```
 :::
 ::: code-group-item 注册 MinimalAPIs 前
-```csharp
+```csharp Program.cs
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -74,7 +74,7 @@ app.Run();
 
 `CatalogItemService`服务<font Color=Red>提供</font>产品的<font Color=Red>增删改查</font>
 
-```csharp
+```csharp Services/CatalogItemService.cs
 using System.Linq.Expressions;
 using Masa.EShop.Contracts.Catalog.Dto;
 using Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
@@ -164,13 +164,11 @@ public class CatalogItemService : ServiceBase
 }
 ```
 
-> 在`Masa.EShop.Service.Catalog`项目下创建`Services`文件夹用以存放各种API服务
-
 CreateProductCommand（创建商品）、CatalogItemDto（商品详情）、CatalogListItemDto（商品列表）:
 
 :::: code-group
 ::: code-group-item CreateProductCommand
-```csharp
+```csharp Masa.EShop.Service.Catalog/Application/Catalogs/Commands/CreateProductCommand.cs
 namespace Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
 
 public record CreateProductCommand
@@ -190,7 +188,7 @@ public record CreateProductCommand
 ```
 :::
 ::: code-group-item CatalogItemDto
-```csharp
+```csharp Masa.EShop.Contracts.Catalog/Dto/CatalogItemDto.cs
 namespace Masa.EShop.Contracts.Catalog.Dto;
 
 public class CatalogItemDto
@@ -210,7 +208,7 @@ public class CatalogItemDto
 ```
 :::
 ::: code-group-item CatalogListItemDto
-```csharp
+```csharp Masa.EShop.Contracts.Catalog/Dto/CatalogListItemDto.cs
 namespace Masa.EShop.Contracts.Catalog.Dto;
 
 public class CatalogListItemDto
@@ -237,12 +235,12 @@ public class CatalogListItemDto
 
 :::: code-group
 ::: code-group-item 安装Swagger包
-```shell
+```shell 终端
 dotnet add package Swashbuckle.AspNetCore
 ```
 :::
 ::: code-group-item 修改 Program.cs，注册并使用Swagger
-```csharp
+```csharp Program.cs
 var builder = WebApplication.CreateBuilder(args);
 
 #region Register Swagger
@@ -291,9 +289,9 @@ app.Run();
 
 我们可以通过Swagger的UI更方便的测试API
 
-> 为方便后续使用Swagger调试更方便，我们可以修改`launchSettings.json`配置，增加配置: `"launchUrl": "swagger"`
+> 修改启动配置，增加配置: `"launchUrl": "swagger"`
 
-```json
+```json Properties/launchSettings.json
 {
   "profiles": {
     "Masa.EShop.Service.Catalog": {
