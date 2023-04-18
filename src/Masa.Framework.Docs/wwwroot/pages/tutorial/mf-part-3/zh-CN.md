@@ -1,4 +1,4 @@
-# 实战教程 - 第三章: 使用事件总线和读写分离
+# 实战教程 - 第三章: 事件总线和读写分离
 
 ## 概述
 
@@ -136,8 +136,14 @@ public record CreateProductCommand : Command
 {
     public string Name { get; set; } = default!;
 
+    /// <summary>
+    /// seed data：31b1c60b-e9c3-4646-ac70-09354bdb1522
+    /// </summary>
     public Guid CatalogBrandId { get; set; }
 
+    /// <summary>
+    /// seed data：1
+    /// </summary>
     public int CatalogTypeId { get; set; } 
 
     public decimal Price { get; set; }
@@ -494,7 +500,7 @@ public class CatalogItemService : ServiceBase
 }
 ```
 
-## 其它
+## 总结
 
 通过事件总线、读写分离，它将使我们更专注
 

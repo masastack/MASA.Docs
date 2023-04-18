@@ -1,8 +1,8 @@
-# 实战教程 - 第四章: 使用全局异常
+# 实战教程 - 第四章: 全局异常
 
 ## 概念
 
-本章将使用[全局异常](/framework/building-blocks/exception)，通过它我们可以对外输出更加友好的错误信息
+本章将使用[全局异常](/framework/building-blocks/exception)，通过它我们可以对外输出格式统一且更加友好的错误信息
 
 ## 开始
 
@@ -70,6 +70,6 @@ app.UseMasaExceptionHandler(options =>
 
 > 查看[文档](/framework/building-blocks/exception#section-4e2d95f44ef6)了解更多自定义异常处理的写法
 
-## 其它
+## 总结
 
 通过全局异常功能，我们可以在项目任何地方中断操作，减少了很多繁琐的工作，除此之外通过定制异常并输出格式一致的响应信息，它将极大的方便与前端工程师协作开发，除此之外，全局异常支持与[I18n](/framework/building-blocks/globalization/i18n)协作，输出更友好的错误信息

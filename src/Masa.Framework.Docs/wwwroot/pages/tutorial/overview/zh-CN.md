@@ -22,11 +22,14 @@
 
 ## 目录
 
-1. [创建服务端](/framework/tutorial/mf-part-1)
-2. [创建数据上下文](/framework/tutorial/mf-part-2)
-3. [使用事件总线和读写分离](/framework/tutorial/mf-part-3)
-4. [使用全局异常](/framework/tutorial/mf-part-4)
-5. [使用缓存](/framework/tutorial/mf-part-5)
+1. [服务端](/framework/tutorial/mf-part-1)
+2. [数据上下文](/framework/tutorial/mf-part-2)
+3. [事件总线和读写分离](/framework/tutorial/mf-part-3)
+4. [全局异常](/framework/tutorial/mf-part-4)
+5. [缓存](/framework/tutorial/mf-part-5)
+6. [领域驱动设计](/framework/tutorial/mf-part-6)
+
+> 持续完善中……
 
 ## 下载源码
 
@@ -72,7 +75,7 @@ dotnet new masafx -n Masa.EShop --web None
 
 从零开始，不使用模版
 
-## 其它
+## 选择解决方案
 
 在本系列教程中，我们将采用手动方式创建一个解决方案，以完成对产品的增删改查
 
@@ -82,4 +85,4 @@ dotnet new masafx -n Masa.EShop --web None
 
 1. 按照文档操作, 并没有发现对应的方法、属性或类 
    
-   目前文档与最新版本的 **MASA Framework** 包对应, 可通过尝试安装最新的预览版再进行重试，如果仍未找到对应的方法、属性或者类，可以尝试在[这里](https://github.com/masastack/MASA.Templates/issues?q=)进行搜索查询，如果仍然未找到答案可以给我们提[Issues](https://github.com/masastack/MASA.Templates/issues/new/choose)
+   目前文档与版本`1.0.0-preview.29`的 **MASA Framework** 包对应, 可通过尝试安装与[示例](https://github.com/masalabs/MASA.Framework.Tutorial)一致的`MASA Framework`版本的预览版再进行重试，如果仍未找到对应的方法、属性或者类，可以尝试在[这里](https://github.com/masastack/MASA.Templates/issues?q=)进行搜索查询，如果仍然未找到答案可以给我们提[Issues](https://github.com/masastack/MASA.Templates/issues/new/choose)

@@ -1,4 +1,4 @@
-# 实战教程 - 第一章: 创建服务端
+# 实战教程 - 第一章: 服务端
 
 ## 概述
 
@@ -312,6 +312,6 @@ app.Run();
   <img alt="launchSettings" src="https://s2.loli.net/2023/04/11/STbqKL2lew9u8t5.png"/>
 </div>
 
-## 其它
+## 总结
 
 通过[**MinimalAPIs**](/framework/building-blocks/minimal-apis)快速创建一个API服务，它不仅使用方便，并且比**MVC**有着更高的性能

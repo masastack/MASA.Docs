@@ -14,26 +14,6 @@
     ]
   },
   {
-    "title": "getting-started",
-    "items": [
-      "overview",
-      {
-        "title": "web-project",
-        "items": [
-          "overview",
-          "mf-part-1",
-          "mf-part-2",
-          "mf-part-3",
-          "mf-part-4",
-          "mf-part-5",
-          "mf-part-6",
-          "mf-part-7",
-          "mf-part-8"
-        ]
-      }
-    ]
-  },
-  {
     "title": "tutorial",
     "items": [
       "overview",
@@ -41,7 +21,8 @@
       "mf-part-2",
       "mf-part-3",
       "mf-part-4",
-      "mf-part-5"
+      "mf-part-5",
+      "mf-part-6"
     ]
   },
   {

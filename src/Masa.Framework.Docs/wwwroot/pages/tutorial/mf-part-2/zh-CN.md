@@ -1,4 +1,4 @@
-# 实战教程 - 第二章: 创建数据上下文
+# 实战教程 - 第二章: 数据上下文
 
 ## 概述
 
@@ -86,7 +86,21 @@ public class CatalogBrand : ISoftDelete
 
     public string Brand { get; set; }
     
+    public int Creator { get; set; }
+    
+    public DateTime CreationTime { get; set; }
+
+    public TUserId Modifier { get; set; } = default!;
+
+    public DateTime ModificationTime { get; set; }
+    
     public bool IsDeleted { get; private set; }
+    
+    public CatalogBrand(Guid? id, string brand)
+    {
+        Brand = brand;
+        Id = id ?? Guid.NewGuid();
+    }
 }
 ```
 :::
@@ -98,13 +112,14 @@ public class CatalogType
 {
     public int Id { get; set; }
 
-    public string Type { get; set; } = null!;
+    public string Name { get; set; } = null!;
 
     public CatalogType() { }
 
-    public CatalogType(string type)
+    public CatalogType(int id, string name)
     {
-        Type = type;
+        Id = id;
+        Name = name;
     }
 }
 ```
@@ -134,6 +149,16 @@ public class CatalogItem : ISoftDelete
     public CatalogBrand CatalogBrand { get; private set; } = null!;
 
     public int Stock { get; set; }
+    
+    public int Creator { get; set; }
+    
+    public DateTime CreationTime { get; set; }
+
+    public TUserId Modifier { get; set; } = default!;
+
+    public DateTime ModificationTime { get; set; }
+    
+    public bool IsDeleted { get; private set; }
 
     public bool IsDeleted { get; private set; }
 }
@@ -191,7 +216,7 @@ class CatalogTypeEntityTypeConfiguration
         builder.Property(ct => ct.Id)
            .IsRequired();
 
-        builder.Property(ct => ct.Type)
+        builder.Property(ct => ct.Name)
             .IsRequired()
             .HasMaxLength(100);
     }
@@ -360,11 +385,7 @@ app.Run();
             {
                 var catalogBrands = new List<CatalogBrand>()
                 {
-                    new()
-                    {
-                        Id = 1,
-                        Brand = "LONSID"
-                    }
+                    new(Guid.Parse("31b1c60b-e9c3-4646-ac70-09354bdb1522"), "LONSID")
                 };
                 await context.CatalogBrands.AddRangeAsync(catalogBrands);
     
@@ -375,11 +396,7 @@ app.Run();
             {
                 var catalogTypes = new List<CatalogType>()
                 {
-                    new()
-                    {
-                        Id = 1,
-                        Type = "Water Dispenser"
-                    }
+                    new(1, "Water Dispenser")
                 };
                 await context.CatalogTypes.AddRangeAsync(catalogTypes);
                 await context.SaveChangesAsync();
@@ -580,6 +597,6 @@ public class CatalogItemService : ServiceBase
   <img alt="Directory Structure" src="https://s2.loli.net/2023/04/10/7idENInSXFutvQa.png"/>
 </div>
 
-## 其它
+## 总结
 
 通过`MasaDbContext`我们做到了数据的持久化，也支持查询已删除的产品
