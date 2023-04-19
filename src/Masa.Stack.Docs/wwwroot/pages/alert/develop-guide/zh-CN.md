@@ -1,9 +1,9 @@
 ---
 title: 开发指南
-date: 2023/01/12 15:26:00
+date: 2023/04/19
 ---
 
-## 可观测性接入
+### 可观测性接入
 
 1. 安装包：
 
@@ -31,4 +31,34 @@ Install-Package Masa.Contrib.StackSdks.Tsc
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddObservable(builder.Logging, builder.Configuration);
+```
+
+### 告警处理第三方接入
+
+1. 添加Webhook
+
+请参考[使用指南-WebHook](stack/alert/use-guide/web-hook#创建/编辑)
+
+2. 告警处理转派第三方
+
+请参考[使用指南-告警历史-处理告警](stack/alert/use-guide/alarm-history#处理告警)
+
+3. Webhook接入
+
+```csharp 
+public class WebHookTestDto
+{
+    //告警Id
+    public Guid AlarmHistoryId { get; set; }
+    //处理人
+    public Guid Handler { get; set; }
+    //密钥
+    public string SecretKey { get; set; }
+}
+
+[RoutePattern("{id}/test", StartWithBaseUri = true, HttpMethod = "Post")]
+public async Task TestAsync(IEventBus eventBus, Guid id, [FromBody] WebHookTestDto inputDto)
+{
+    
+}
 ```
