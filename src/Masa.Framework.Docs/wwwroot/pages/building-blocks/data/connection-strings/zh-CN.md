@@ -41,4 +41,4 @@ public class OrderReadDbContext: MasaDbContext<OrderReadDbContext>
 
 #### 其它 
 
-当数据上下文未添加[ConnectionStringName]特性或者指定的Name为时, 默认读取节点为`DefaultConnection`, 否则返回指定`Name`
+当数据上下文<font color=Red> 未添加[ConnectionStringName]特性</font>或者<font color=Red>指定的Name</font>为<font color=Red>空</font>或者<font color=Red>null</font>时, <font color=Red>默认读取节点为 DefaultConnection</font>, 否则使用的节点名为指定的`Name`

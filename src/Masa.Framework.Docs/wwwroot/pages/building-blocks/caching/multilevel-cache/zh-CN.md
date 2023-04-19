@@ -1,4 +1,4 @@
-## 多级缓存
+# 多级缓存
 
 基于内存缓存与分布式缓存实现的, 通过使用多级缓存, 可以降低请求穿透到分布式缓存, 减少网络消耗以及序列化带来的性能影响, 使用它可以大大缩减响应时间
 
@@ -10,14 +10,14 @@
 
 1. 安装`Masa.Contrib.Caching.MultilevelCache`、`Masa.Contrib.Caching.Distributed.StackExchangeRedis`
 
-``` powershell
+```shell 终端
 dotnet add package Masa.Contrib.Caching.MultilevelCache
 dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 ```
 
-2. 注册多级缓存，并使用[`分布式Redis缓存`](./stackexchange-redis.md)，修改`Program`
+2. 注册多级缓存，并使用[`分布式Redis缓存`](./stackexchange-redis.md)
 
-```csharp
+```csharp Program.cs
 //注册多级缓存
 builder.Services.AddMultilevelCache(distributedCacheOptions =>
 {
@@ -36,9 +36,9 @@ public class User
 }
 ```
 
-4. 如何使用`IMultilevelCacheClient`，修改`Program`
+4. 如何使用`IMultilevelCacheClient`
 
-```csharp
+```csharp Program.cs
 // 设置缓存
 app.MapPost("/set/{id}", async (IMultilevelCacheClient multilevelCacheClient, [FromRoute] string id, [FromBody] User user) =>
 {
@@ -115,8 +115,8 @@ app.MapGet("/get/{id}", async (IMultilevelCacheClient multilevelCacheClient, [Fr
 #### 通过本地配置文件注册
 
 :::: code-group
-::: code-group-item 1. 修改`appsettings.json`文件
-``` appsettings.json
+::: code-group-item 1. 修改本地配置文件
+```json appsettings.json
 {
   // 多级缓存全局配置，非必填
   "MultilevelCache": {
@@ -142,7 +142,7 @@ app.MapGet("/get/{id}", async (IMultilevelCacheClient multilevelCacheClient, [Fr
 ```
 :::
 ::: code-group-item 2. 添加多级缓存并使用分布式Redis缓存
-```csharp
+```csharp Program.cs
 builder.Services.AddMultilevelCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache();
@@ -157,7 +157,7 @@ builder.Services.AddMultilevelCache(distributedCacheOptions =>
 
 :::: code-group
 ::: code-group-item 1. 添加多级缓存并使用分布式Redis缓存
-```csharp
+```csharp Program.cs
 builder.Services.AddMultilevelCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache(RedisConfigurationOptions);
@@ -170,7 +170,7 @@ builder.Services.AddMultilevelCache(distributedCacheOptions =>
 
 :::: code-group
 ::: code-group-item 1. 支持选项模式
-```csharp
+```csharp Program.cs
 builder.Services.Configure<MultilevelCacheOptions>(options =>
 {
     options.SubscribeKeyType = SubscribeKeyType.ValueTypeFullNameAndKey;
@@ -178,7 +178,7 @@ builder.Services.Configure<MultilevelCacheOptions>(options =>
 ```
 :::
 ::: code-group-item 2. 添加多级缓存并使用分布式Redis缓存
-```csharp
+```csharp Program.cs
 builder.Services.AddMultilevelCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache(RedisConfigurationOptions);
