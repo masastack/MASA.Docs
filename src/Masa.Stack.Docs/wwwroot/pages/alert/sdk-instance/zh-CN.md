@@ -8,30 +8,30 @@
 
 Alert SDK 包含以下服务
 
-   ```csharp
+```csharp
 IAlertClient
    ├── AlarmRuleService                    告警规则服务
-   ```
+```
 
 ## 使用介绍
 
 ### 安装依赖包
 
-   ``` shell 终端
+``` shell 终端
 dotnet add package Masa.Contrib.StackSdks.Alert
-   ```
+```
 
 ### 注册相关服务
 
-   ```csharp
+```csharp
 builder.Services.AddAlertClient("http://alertservice.com");
-   ```
+```
 
-   > `http://alertservice.com` 需要替换为真实的Alert后台服务地址
+> `http://alertservice.com` 需要替换为真实的Alert后台服务地址
 
 ### 依赖注入IAlertClient
 
-   ```csharp 
+```csharp 
 var app = builder.Build();
    
 app.MapGet("/GetAlarmRule", ([FromServices] IAlertClient alertClient, Guid id) =>
@@ -40,7 +40,7 @@ app.MapGet("/GetAlarmRule", ([FromServices] IAlertClient alertClient, Guid id) =
 });
    
 app.Run();
-   ```
+```
 
 ## 场景
 
@@ -48,7 +48,7 @@ MASA.Scheduler Job需要告警时通过调用MASA.Alert的SDK自动创建告警�
 
 ### 创建告警规则
 示例只介绍部分参数用法
-   ```csharp
+```csharp
 var whereExpression = $@"{{""bool"":{{""must"":[{{""term"":{{""Attributes.JobId.keyword"":""{jobId}""}}}},{{""term"":{{""SeverityText.keyword"":""Error""}}}}]}}}}";
 var ruleExpression = @"{""Rules"":[{""RuleName"":""CheckWorkerErrorJob"",""ErrorMessage"":""Log with error level."",""ErrorType"":""Error"",""RuleExpressionType"":""LambdaExpression"",""Expression"":""JobId > 0""}]}";
 var alarmRule = new AlarmRuleUpsertModel
@@ -93,14 +93,14 @@ var alarmRule = new AlarmRuleUpsertModel
 };
 
 var alarmRuleId = await AlertClient.AlarmRuleService.CreateAsync(alarmRule);
-   ```
+```
 
 ### 更新告警规则
-   ```csharp
+```csharp
 await AlertClient.AlarmRuleService.UpdateAsync(alarmRule);
-   ```
+```
 
 ### 启用/禁用告警规则
-   ```csharp
+```csharp
 await AlertClient.AlarmRuleService.SetIsEnabledAsync(alarmRuleId, isEnabled);
-   ```
+```
