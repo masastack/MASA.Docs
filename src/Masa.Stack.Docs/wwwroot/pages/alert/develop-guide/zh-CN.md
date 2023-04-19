@@ -1,19 +1,16 @@
----
-title: 开发指南
-date: 2023/04/19
----
+# 开发指南
 
-### 可观测性接入
+## 可观测性接入
 
-1. 安装包：
+1. 安装包
 
-```csharp 
+```csharp 终端
 Install-Package Masa.Contrib.StackSdks.Tsc
 ```
 
 2. 修改`appsettings.json`，配置所需参数
 
-```json
+```json appsettings.json
 {
   "Masa": {
     "Observable": {
@@ -27,21 +24,21 @@ Install-Package Masa.Contrib.StackSdks.Tsc
 ```
 3. 接入可观测性，会自动采集数据到OpenTelemetry
 
-```csharp 
+```csharp Program.cs
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddObservable(builder.Logging, builder.Configuration);
 ```
 
-### 告警处理第三方接入
+## 告警处理第三方接入
 
 1. 添加Webhook
 
-请参考[使用指南-WebHook](stack/alert/use-guide/web-hook#创建/编辑)
+请参考[WebHook](stack/alert/use-guide/web-hook#创建/编辑)
 
 2. 告警处理转派第三方
 
-请参考[使用指南-告警历史-处理告警](stack/alert/use-guide/alarm-history#处理告警)
+请参考[处理告警](stack/alert/use-guide/alarm-history#处理告警)
 
 3. Webhook接入
 
