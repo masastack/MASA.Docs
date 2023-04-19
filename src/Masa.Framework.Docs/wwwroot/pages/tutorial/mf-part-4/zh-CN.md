@@ -8,67 +8,49 @@
 
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Exceptions`
 
-```shell 终端
-dotnet add package Masa.Contrib.Exceptions
-```
-
-或者直接修改项目文件为:
-
-```xml Masa.EShop.Service.Catalog.csproj
-<Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Masa.Contrib.Exceptions" Version="$(MasaFrameworkPackageVersion)" />
-    <!-- Omit other installed nuget packages -->
-  </ItemGroup>
-
-</Project>
-```
+   ```shell 终端
+   dotnet add package Masa.Contrib.Exceptions --prerelease
+   ```
 
 2. 使用[全局异常](/framework/building-blocks/exception)，修改`Program.cs`
 
-```csharp Program.cs
-var builder = WebApplication.CreateBuilder(args);
-
------Ignore the rest of the service registration-----
-
-var app = builder.AddServices();//`var app = builder.Build();` for projects not using MinimalAPis
-
-app.UseMasaExceptionHandler();
-
------Ignore the use of middleware, Swagger, etc.-----
-
-app.Run();
-```
+   ```csharp Program.cs
+   var builder = WebApplication.CreateBuilder(args);
+   
+   -----Ignore the rest of the service registration-----
+   
+   var app = builder.AddServices();//`var app = builder.Build();` for projects not using MinimalAPis
+   
+   app.UseMasaExceptionHandler();
+   
+   -----Ignore the use of middleware, Swagger, etc.-----
+   
+   app.Run();
+   ```
 
 3. 通过Swagger测试，以创建商品为例
 
-<div>
-  <img alt="Create Product" src="https://s2.loli.net/2023/04/11/S18vjEtYpFJXPzd.png"/>
-</div>
+   <div>
+     <img alt="Create Product" src="https://s2.loli.net/2023/04/11/S18vjEtYpFJXPzd.png"/>
+   </div>
+
 
 4. 自定义异常处理
 
-例如：当出现`ArgumentNullException`异常时，对外输出具体错误信息，Http状态码为：298
+   例如：当出现`ArgumentNullException`异常时，对外输出具体错误信息，Http状态码为：298
 
-```csharp Program.cs
-app.UseMasaExceptionHandler(options =>
-{
-    options.ExceptionHandler = exceptionContext =>
-    {
-        if (exceptionContext.Exception is ArgumentNullException ex)
-            exceptionContext.ToResult(ex.Message, 298);
-    };
-});
-```
+   ```csharp Program.cs
+   app.UseMasaExceptionHandler(options =>
+   {
+       options.ExceptionHandler = exceptionContext =>
+       {
+           if (exceptionContext.Exception is ArgumentNullException ex)
+               exceptionContext.ToResult(ex.Message, 298);
+       };
+   });
+   ```
 
-> 查看[文档](/framework/building-blocks/exception#section-4e2d95f44ef6)了解更多自定义异常处理的写法
+   > 查看[文档](/framework/building-blocks/exception#section-4e2d95f44ef6)了解更多自定义异常处理的写法
 
 ## 总结
 

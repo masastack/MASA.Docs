@@ -2,601 +2,602 @@
 
 ## 概述
 
-本章将新增数据上下文，这里我们使用的是EFCore作为ORM提供程序，用于提供数据的增删改查支持
-
-### 补充
-
-* 更换`CatalogItemService`中内存数据源为`Sqlite`数据库，
-* 新增支持对已删除产品进行查询
+本章将新增数据上下文，这里我们使用的是[`EFCore`](/framework/building-blocks/data/orm-efcore)作为ORM提供程序（使用`Sqlite`数据库代替`内存数据源`）
 
 ## 开始
 
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Data.EFCore.Sqlite` 、`Masa.Contrib.Data.Contracts`
 
-```shell 终端
-dotnet add package Masa.Contrib.Data.EFCore.Sqlite
-dotnet add package Masa.Contrib.Data.Contracts
-```
-
-或者直接修改项目文件为:
-
-```xml Masa.EShop.Service.Catalog.csproj
-<Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Masa.Contrib.Data.Contracts" Version="$(MasaFrameworkPackageVersion)" />
-    <PackageReference Include="Masa.Contrib.Data.EFCore.Sqlite" Version="$(MasaFrameworkPackageVersion)" />
-    <!-- Omit other installed nuget packages -->
-  </ItemGroup>
-
-</Project>
-```
-
-> 推荐安装使用**Masa.Contrib.Data.Contracts**，目前它提供了软删除、数据过滤的功能
-
-2. 创建数据上下文 `CatalogDbContext`, 并继承 `MasaDbContext<CatalogDbContext>`
-
-```csharp Infrastructure/CatalogDbContext.cs
-using Masa.EShop.Service.Catalog.Domain.Entities;
-using Masa.EShop.Service.Catalog.Infrastructure.EntityConfigurations;
-using Microsoft.EntityFrameworkCore;
-
-namespace Masa.EShop.Service.Catalog.Infrastructure;
-
-public class CatalogDbContext : MasaDbContext<CatalogDbContext>
-{
-    public DbSet<CatalogItem> CatalogItems { get; set; } = null!;
-
-    public DbSet<CatalogBrand> CatalogBrands { get; set; } = null!;
-
-    public DbSet<CatalogType> CatalogTypes { get; set; } = null!;
-
-    public CatalogDbContext(MasaDbContextOptions<CatalogDbContext> dbContextOptions) : base(dbContextOptions)
-    {
-    }
-
-    protected override void OnModelCreatingExecuting(ModelBuilder builder)
-    {
-        builder.ApplyConfigurationsFromAssembly(typeof(CatalogBrandEntityTypeConfiguration).Assembly);
-        base.OnModelCreatingExecuting(builder);
-    }
-}
-```
-
-> [MasaDbContext](/framework/building-blocks/data/orm-efcore)的更多用法
-
-* 商品品牌、商品类型、商品信息模型:
-
-:::: code-group
-::: code-group-item CatalogBrand
-```csharp Domain/Entities/CatalogBrand.cs
-using Masa.BuildingBlocks.Data;
-
-namespace Masa.EShop.Service.Catalog.Domain.Entities;
-
-public class CatalogBrand : ISoftDelete
-{
-    public Guid Id { get; set; }
-
-    public string Brand { get; set; }
-    
-    public int Creator { get; set; }
-    
-    public DateTime CreationTime { get; set; }
-
-    public TUserId Modifier { get; set; } = default!;
-
-    public DateTime ModificationTime { get; set; }
-    
-    public bool IsDeleted { get; private set; }
-    
-    public CatalogBrand(Guid? id, string brand)
-    {
-        Brand = brand;
-        Id = id ?? Guid.NewGuid();
-    }
-}
-```
-:::
-::: code-group-item CatalogType
-```csharp Domain/Entities/CatalogType.cs
-namespace Masa.EShop.Service.Catalog.Domain.Entities;
-
-public class CatalogType
-{
-    public int Id { get; set; }
-
-    public string Name { get; set; } = null!;
-
-    public CatalogType() { }
-
-    public CatalogType(int id, string name)
-    {
-        Id = id;
-        Name = name;
-    }
-}
-```
-:::
-::: code-group-item CatalogItem
-```csharp Domain/Entities/CatalogItem.cs
-using Masa.BuildingBlocks.Data;
-
-namespace Masa.EShop.Service.Catalog.Domain.Entities;
-
-public class CatalogItem : ISoftDelete
-{
-    public Guid Id { get; set; }
-
-    public string Name { get; set; } = null!;
-
-    public decimal Price { get; set; }
-
-    public string PictureFileName { get; set; } = "";
-
-    public Guid CatalogTypeId { get; set; }
-
-    public CatalogType CatalogType { get; private set; } = null!;
-
-    public Guid CatalogBrandId { get; set; }
-
-    public CatalogBrand CatalogBrand { get; private set; } = null!;
-
-    public int Stock { get; set; }
-    
-    public int Creator { get; set; }
-    
-    public DateTime CreationTime { get; set; }
-
-    public TUserId Modifier { get; set; } = default!;
-
-    public DateTime ModificationTime { get; set; }
-    
-    public bool IsDeleted { get; private set; }
-
-    public bool IsDeleted { get; private set; }
-}
-```
-:::
-::::
-
-* 为商品品牌、商品分类、商品信息配置数据库映射关系
-
-:::: code-group
-::: code-group-item CatalogBrandEntityTypeConfiguration
-```csharp Infrastructure/EntityConfigurations/CatalogBrandEntityTypeConfiguration.cs
-using Masa.EShop.Service.Catalog.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Masa.EShop.Service.Catalog.Infrastructure.EntityConfigurations;
-
-class CatalogBrandEntityTypeConfiguration
-    : IEntityTypeConfiguration<CatalogBrand>
-{
-    public void Configure(EntityTypeBuilder<CatalogBrand> builder)
-    {
-        builder.ToTable(nameof(CatalogBrand));
-
-        builder.HasKey(cb => cb.Id);
-
-        builder.Property(cb => cb.Id)
-           .IsRequired();
-
-        builder.Property(cb => cb.Brand)
-            .IsRequired()
-            .HasMaxLength(100);
-    }
-}
-```
-:::
-::: code-group-item CatalogTypeEntityTypeConfiguration
-```csharp Infrastructure/EntityConfigurations/CatalogTypeEntityTypeConfiguration.cs
-using Masa.EShop.Service.Catalog.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Masa.EShop.Service.Catalog.Infrastructure.EntityConfigurations;
-
-class CatalogTypeEntityTypeConfiguration
-    : IEntityTypeConfiguration<CatalogType>
-{
-    public void Configure(EntityTypeBuilder<CatalogType> builder)
-    {
-        builder.ToTable(nameof(CatalogType));
-        
-        builder.HasKey(ct => ct.Id);
-
-        builder.Property(ct => ct.Id)
-           .IsRequired();
-
-        builder.Property(ct => ct.Name)
-            .IsRequired()
-            .HasMaxLength(100);
-    }
-}
-```
-:::
-::: code-group-item CatalogItemEntityTypeConfiguration
-```csharp Infrastructure/EntityConfigurations/CatalogItemEntityTypeConfiguration.cs
-using Masa.EShop.Service.Catalog.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Masa.EShop.Service.Catalog.Infrastructure.EntityConfigurations;
-
-class CatalogItemEntityTypeConfiguration
-    : IEntityTypeConfiguration<CatalogItem>
-{
-    public void Configure(EntityTypeBuilder<CatalogItem> builder)
-    {
-        builder.ToTable("Catalog");
-
-        builder.Property(ci => ci.Id)
-            .IsRequired();
-
-        builder.Property(ci => ci.Name)
-            .IsRequired(true)
-            .HasMaxLength(50);
-
-        builder.Property(ci => ci.Price)
-            .IsRequired(true);
-
-        builder.Property(ci => ci.PictureFileName)
-            .IsRequired(false);
-
-        builder.HasOne(ci => ci.CatalogBrand)
-            .WithMany()
-            .HasForeignKey(ci => ci.CatalogBrandId);
-
-        builder.HasOne(ci => ci.CatalogType)
-            .WithMany()
-            .HasForeignKey(ci => ci.CatalogTypeId);
-    }
-}
-```
-:::
-::::
-
-3. 配置数据库连接字符串
-
-```json appsettings.json
-{
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
-    }
-  },
-  "ConnectionStrings": {
-    "DefaultConnection": "Data Source=Catalog.db;"
-  }
-}
-```
-
-<app-alert type="warning" content="推荐在appsettings.{环境变量}.json配置数据库连接字符串"></app-alert>
-
-4. 注册数据上下文 `CatalogDbContext` ，修改 `Program.cs`
-
-```csharp Program.cs
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddMasaDbContext<CatalogDbContext>(contextBuilder =>
-{
-    contextBuilder
-        .UseSqlite()
-        .UseFilter();
-});
-
------Ignore the rest of the service registration-----
-
-var app = builder.AddServices();//`var app = builder.Build();` for projects not using MinimalAPis
-
------Ignore the use of middleware, Swagger, etc.-----
-
-app.Run();
-```
-
-> **UseFilter**方法由**Masa.Contrib.Data.Contracts**提供, 如需使用，请确保执行步骤2
-> 
-> 注册数据上下文在**AddServices**之前即可
-
-5. 数据库迁移，确保已安装 [EF Core 命令行工具](https://learn.microsoft.com/zh-cn/ef/core/cli/dotnet)
-
-    1. 模型迁移
-  
-    :::: code-group
-    ::: code-group-item .NET Core CLI
-    ```csharp 终端
-    dotnet ef migrations add InitialCreate
-    ```
-    :::
-    ::: code-group-item Visual Studio
-    ```csharp Visual Studio
-    Add-Migration InitialCreate
-    ```
-    :::
-    ::::
-  
-    2. 更新数据库
-  
-    :::: code-group
-    ::: code-group-item .NET Core CLI
-    ```csharp 终端
-    dotnet ef database update
-    ```
-    :::
-    ::: code-group-item Visual Studio
-    ```csharp Visual Studio
-    Update-Database
-    ```
-    :::
-    ::::
-
-    > 模型迁移需要安装`Microsoft.EntityFrameworkCore.Tools`，请确保已正确安装
-    > 
-    > 多数据上下文时请在命令行尾部增加 ` --context CatalogDbContext`
-
-6. 种子数据迁移 （非必须）
-
-    1. 新建**HostExtensions**类，得到数据上下文用于后续生成种子数据
-  
-    ```csharp Infrastructure/Extensions/HostExtensions.cs
-    using Microsoft.EntityFrameworkCore;
-    
-    namespace Masa.EShop.Service.Catalog.Infrastructure.Extensions;
-    
-    public static class HostExtensions
-    {
-        public static Task MigrateDbContextAsync<TContext>(this IHost host, Func<TContext, IServiceProvider, Task> seeder)
-            where TContext : DbContext
-        {
-            using var scope = host.Services.CreateScope();
-            var services = scope.ServiceProvider;
-            var context = services.GetRequiredService<TContext>();
-            return seeder(context, services);
-        }
-    }
-    ```
+   ```shell 终端
+   dotnet add package Masa.Contrib.Data.EFCore.Sqlite --prerelease
+   dotnet add package Masa.Contrib.Data.Contracts --prerelease
+   ```
+
+   > **Masa.Contrib.Data.Contracts**提供了软删除、数据过滤的功能
+
+2. 新增**商品品牌**、**商品类型**、**商品信息**模型:
+
+   :::: code-group
+     ::: code-group-item CatalogBrand
+   
+     ```csharp Domain/Entities/CatalogBrand.cs
+     using Masa.BuildingBlocks.Data;
      
-    2. 新建`CatalogContextSeed`，用于种子数据迁移
+     namespace Masa.EShop.Service.Catalog.Domain.Entities;
+     
+     public class CatalogBrand : ISoftDelete
+     {
+         public Guid Id { get; set; }
+     
+         public string Brand { get; set; }
+     
+         public int Creator { get; set; }
+     
+         public DateTime CreationTime { get; set; }
+     
+         public int Modifier { get; set; } = default!;
+     
+         public DateTime ModificationTime { get; set; }
+     
+         public bool IsDeleted { get; private set; }
+     
+         private CatalogBrand()
+         {
+         }
+     
+         public CatalogBrand(Guid? id, string brand) : this()
+         {
+             Brand = brand;
+             Id = id ?? Guid.NewGuid();
+         }
+     }
+     ```
    
-    ```csharp Infrastructure/Extensions/CatalogContextSeed.cs
-    using Masa.EShop.Service.Catalog.Domain.Entities;
-    
-    namespace Masa.EShop.Service.Catalog.Infrastructure.Extensions;
-    
-    public class CatalogContextSeed
-    {
-        public static async Task SeedAsync(
-            CatalogDbContext context,
-            IWebHostEnvironment env)
-        {
-            if (!env.IsDevelopment())
-                return;
-            
-            if (!context.CatalogBrands.Any())
-            {
-                var catalogBrands = new List<CatalogBrand>()
-                {
-                    new(Guid.Parse("31b1c60b-e9c3-4646-ac70-09354bdb1522"), "LONSID")
-                };
-                await context.CatalogBrands.AddRangeAsync(catalogBrands);
-    
-                await context.SaveChangesAsync();
-            }
-    
-            if (!context.CatalogTypes.Any())
-            {
-                var catalogTypes = new List<CatalogType>()
-                {
-                    new(1, "Water Dispenser")
-                };
-                await context.CatalogTypes.AddRangeAsync(catalogTypes);
-                await context.SaveChangesAsync();
-            }
-        }
-    }
-    ```
+     :::
+      ::: code-group-item CatalogType
    
-    3. 使用迁移并完成种子数据初始化, 修改 `Program.cs`
+     ```csharp Domain/Entities/CatalogType.cs
+     namespace Masa.EShop.Service.Catalog.Domain.Entities;
+     
+     public class CatalogType
+     {
+         public int Id { get; set; }
+     
+         public string Name { get; set; } = null!;
+     
+         private CatalogType()
+         {
+         }
+     
+         public CatalogType(int id, string name) : this()
+         {
+             Id = id;
+             Name = name;
+         }
+     }
+     ```
+     :::
+     ::: code-group-item CatalogItem
    
-    ```csharp Program.cs
-    var builder = WebApplication.CreateBuilder(args);
-    
-    builder.Services.AddMasaDbContext<CatalogDbContext>(contextBuilder =>
-    {
-        contextBuilder
-            .UseSqlite()
-            .UseFilter();
-    });
-    
-    -----Ignore the rest of the service registration-----
-    
-    var app = builder.AddServices();//`var app = builder.Build();` for projects not using MinimalAPis
-    
-    -----Ignore the use of middleware, Swagger, etc.-----
-    
-    await app.MigrateDbContextAsync<CatalogDbContext>(async (context, services) =>
-    {
-        var env = services.GetRequiredService<IWebHostEnvironment>();
-    
-        await CatalogContextSeed.SeedAsync(context, env);
-    });
-    
-    app.Run();
-    ``` 
+     ```csharp Domain/Entities/CatalogItem.cs
+     using Masa.BuildingBlocks.Data;
+     
+     namespace Masa.EShop.Service.Catalog.Domain.Entities;
+     
+     public class CatalogItem : ISoftDelete
+     {
+         public Guid Id { get; set; }
+     
+         public string Name { get; set; } = null!;
+     
+         public decimal Price { get; set; }
+     
+         public string PictureFileName { get; set; } = "";
+     
+         public int CatalogTypeId { get; set; }
+     
+         public CatalogType CatalogType { get; private set; } = null!;
+     
+         public Guid CatalogBrandId { get; set; }
+     
+         public CatalogBrand CatalogBrand { get; private set; } = null!;
+     
+         public int Stock { get; set; }
+         
+         public int Creator { get; set; }
+         
+         public DateTime CreationTime { get; set; }
+     
+         public int Modifier { get; set; } = default!;
+     
+         public DateTime ModificationTime { get; set; }
+         
+         public bool IsDeleted { get; private set; }
+     }
+     ```
+     :::
+     ::::
    
-7. 修改`CatalogItemService`的数据源为`Sqlite`数据库
+   > 确保实体需要有一个[无参构造函数](https://learn.microsoft.com/zh-cn/ef/core/modeling/constructors) （哪怕它是的私有构造函数）
+   
+3. 为商品品牌、商品分类、商品信息配置数据库映射关系
 
-```csharp Services/CatalogItemService.cs
-using System.Linq.Expressions;
-using Masa.BuildingBlocks.Data;
-using Masa.EShop.Contracts.Catalog.Dto;
-using Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
-using Masa.EShop.Service.Catalog.Domain.Entities;
-using Masa.EShop.Service.Catalog.Infrastructure;
-using Masa.Utils.Models;
-using Microsoft.EntityFrameworkCore;
+   :::: code-group
+     ::: code-group-item CatalogBrandEntityTypeConfiguration
+   
+     ```csharp Infrastructure/EntityConfigurations/CatalogBrandEntityTypeConfiguration.cs
+     using Masa.EShop.Service.Catalog.Domain.Entities;
+     using Microsoft.EntityFrameworkCore;
+     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+     
+     namespace Masa.EShop.Service.Catalog.Infrastructure.EntityConfigurations;
+     
+     class CatalogBrandEntityTypeConfiguration
+         : IEntityTypeConfiguration<CatalogBrand>
+     {
+         public void Configure(EntityTypeBuilder<CatalogBrand> builder)
+         {
+             builder.ToTable(nameof(CatalogBrand));
+     
+             builder.HasKey(cb => cb.Id);
+     
+             builder.Property(cb => cb.Id)
+                .IsRequired();
+     
+             builder.Property(cb => cb.Brand)
+                 .IsRequired()
+                 .HasMaxLength(100);
+         }
+     }
+     ```
+   
+     :::
+     ::: code-group-item CatalogTypeEntityTypeConfiguration
+   
+     ```csharp Infrastructure/EntityConfigurations/CatalogTypeEntityTypeConfiguration.cs
+     using Masa.EShop.Service.Catalog.Domain.Entities;
+     using Microsoft.EntityFrameworkCore;
+     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+     
+     namespace Masa.EShop.Service.Catalog.Infrastructure.EntityConfigurations;
+     
+     class CatalogTypeEntityTypeConfiguration
+         : IEntityTypeConfiguration<CatalogType>
+     {
+         public void Configure(EntityTypeBuilder<CatalogType> builder)
+         {
+             builder.ToTable(nameof(CatalogType));
+             
+             builder.HasKey(ct => ct.Id);
+     
+             builder.Property(ct => ct.Id)
+                .IsRequired();
+     
+             builder.Property(ct => ct.Name)
+                 .IsRequired()
+                 .HasMaxLength(100);
+         }
+     }
+     ```
+   
+     :::
+     ::: code-group-item CatalogItemEntityTypeConfiguration
+   
+     ```csharp Infrastructure/EntityConfigurations/CatalogItemEntityTypeConfiguration.cs
+     using Masa.EShop.Service.Catalog.Domain.Entities;
+     using Microsoft.EntityFrameworkCore;
+     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+     
+     namespace Masa.EShop.Service.Catalog.Infrastructure.EntityConfigurations;
+     
+     class CatalogItemEntityTypeConfiguration
+         : IEntityTypeConfiguration<CatalogItem>
+     {
+         public void Configure(EntityTypeBuilder<CatalogItem> builder)
+         {
+             builder.ToTable("Catalog");
+     
+             builder.Property(ci => ci.Id)
+                 .IsRequired();
+     
+             builder.Property(ci => ci.Name)
+                 .IsRequired(true)
+                 .HasMaxLength(50);
+     
+             builder.Property(ci => ci.Price)
+                 .IsRequired(true);
+     
+             builder.Property(ci => ci.PictureFileName)
+                 .IsRequired(false);
+     
+             builder.HasOne(ci => ci.CatalogBrand)
+                 .WithMany()
+                 .HasForeignKey(ci => ci.CatalogBrandId);
+     
+             builder.HasOne(ci => ci.CatalogType)
+                 .WithMany()
+                 .HasForeignKey(ci => ci.CatalogTypeId);
+         }
+     }
+     ```
+   
+     :::
+     ::::
+   
+4. 创建数据上下文 `CatalogDbContext`, 并继承 `MasaDbContext<CatalogDbContext>`
 
-namespace Masa.EShop.Service.Catalog.Services;
+   ```csharp Infrastructure/CatalogDbContext.cs
+   using Masa.EShop.Service.Catalog.Infrastructure.EntityConfigurations;
+   using Microsoft.EntityFrameworkCore;
+   
+   namespace Masa.EShop.Service.Catalog.Infrastructure;
+   
+   public class CatalogDbContext : MasaDbContext<CatalogDbContext>
+   {
+       public CatalogDbContext(MasaDbContextOptions<CatalogDbContext> dbContextOptions) : base(dbContextOptions)
+       {
+       }
+   
+       protected override void OnModelCreatingExecuting(ModelBuilder builder)
+       {
+           builder.ApplyConfigurationsFromAssembly(typeof(CatalogBrandEntityTypeConfiguration).Assembly);
+           base.OnModelCreatingExecuting(builder);
+       }
+   }
+   ```
+   
+   > [MasaDbContext](/framework/building-blocks/data/orm-efcore)的更多用法
+   
+5. 配置数据库连接字符串
 
-public class CatalogItemService : ServiceBase
-{
-    private CatalogDbContext DbContext => GetRequiredService<CatalogDbContext>();
+   ```json appsettings.Development.json
+   {
+     "Logging": {
+       "LogLevel": {
+         "Default": "Information",
+         "Microsoft.AspNetCore": "Warning"
+       }
+     },
+     "ConnectionStrings": {
+       "DefaultConnection": "Data Source=Catalog.db;"
+     }
+   }
+   ```
 
-    public async Task<IResult> GetAsync(Guid id)
-    {
-        if (id <= 0)
-            throw new UserFriendlyException("Please enter the ProductId");
+   <app-alert type="warning" content="推荐在appsettings.{环境变量}.json配置数据库连接字符串"></app-alert>
 
-        var catalogItem = await DbContext.CatalogItems.Where(item => item.Id == id).Select(item => new CatalogItemDto()
-        {
-            Id = item.Id,
-            Name = item.Name,
-            Price = item.Price,
-            PictureFileName = item.PictureFileName,
-            CatalogTypeId = item.CatalogTypeId,
-            CatalogBrandId = item.CatalogBrandId
-        }).FirstOrDefaultAsync();
-        if (catalogItem == null)
-            throw new UserFriendlyException("Product doesn't exist");
+6. 注册数据上下文 `CatalogDbContext`
 
-        return Results.Ok(catalogItem);
-    }
+   ```csharp Program.cs
+   using Masa.EShop.Service.Catalog.Infrastructure;
+   using Microsoft.EntityFrameworkCore;
+   
+   var builder = WebApplication.CreateBuilder(args);
+   
+   builder.Services.AddMasaDbContext<CatalogDbContext>(contextBuilder =>
+   {
+       contextBuilder
+           .UseSqlite()
+           .UseFilter();
+   });
+   
+   -----Ignore the rest of the service registration-----
+   
+   var app = builder.AddServices();//`var app = builder.Build();` for projects not using MinimalAPis
+   
+   -----Ignore the use of middleware, Swagger, etc.-----
+   
+   app.Run();
+   ```
 
-    /// <summary>
-    /// `PaginatedListBase` is provided by **Masa.Utils.Models.Config**, if you want to use it, please install `Masa.Utils.Models.Config`
-    /// </summary>
-    /// <returns></returns>
-    public async Task<IResult> GetItemsAsync(
-        string? name,
-        int page = 1,
-        int pageSize = 10)
-    {
-        if (page <= 0)
-            throw new UserFriendlyException("Page must be greater than 0");
+   > **UseFilter**方法由**Masa.Contrib.Data.Contracts**提供
+   >
+   > 注册数据上下文在**AddServices**之前即可
 
-        if (pageSize <= 0)
-            throw new UserFriendlyException("PageSize must be greater than 0");
+7. 数据库迁移，确保已安装 [EF Core 命令行工具](https://learn.microsoft.com/zh-cn/ef/core/cli/dotnet)
 
-        Expression<Func<CatalogItem, bool>> condition = item => true;
-        condition = condition.And(!name.IsNullOrWhiteSpace(), item => item.Name.Contains(name));
-        var queryable = DbContext.CatalogItems.Where(condition);
-        var total = await queryable.LongCountAsync();
-        var list = await queryable.Where(condition).Select(item => new CatalogListItemDto()
-        {
-            Id = item.Id,
-            Name = item.Name,
-            Price = item.Price,
-            PictureFileName = item.PictureFileName,
-            CatalogTypeId = item.CatalogTypeId,
-            CatalogBrandId = item.CatalogBrandId,
-            Stock = item.Stock,
-        }).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+   1. 选中 `Masa.EShop.Service.Catalog` 项目并安装`Microsoft.EntityFrameworkCore.Tools`
 
-        var pageData = new PaginatedListBase<CatalogListItemDto>()
-        {
-            Total = total,
-            TotalPages = (int)Math.Ceiling((double)total / pageSize),
-            Result = list
-        };
-        return Results.Ok(pageData);
-    }
-    
-    /// <summary>
-    /// Show only deleted listings
-    /// </summary>
-    public async Task<IResult> GetRecycleItemsAsync(
-        string? name,
-        IDataFilter dataFilter,
-        int page = 1,
-        int pageSize = 10)
-    {
-        if (page <= 0)
-            throw new UserFriendlyException("页码必须大于0");
+      ```shell 终端
+      dotnet add package Microsoft.EntityFrameworkCore.Tools --version 6.0.0
+      ```
+      
+      > 若安装其它版本的`EntityFrameworkCore.Tools`，则需要再安装相同版本的`Microsoft.EntityFrameworkCore`、`Microsoft.EntityFrameworkCore.Sqlite`，否则会导致模型迁移失败
+      
+   2. 模型迁移
 
-        if (pageSize <= 0)
-            throw new UserFriendlyException("页大小必须大于0");
+      :::: code-group
+      ::: code-group-item .NET Core CLI
+      ```shell 终端
+      dotnet ef migrations add InitialCreate
+      ```
+      :::
+      ::: code-group-item Visual Studio
 
-        Expression<Func<CatalogItem, bool>> condition = item => item.IsDeleted;
-        condition = condition.And(!name.IsNullOrWhiteSpace(), item => item.Name.Contains(name));
+      ```shell Visual Studio
+      Add-Migration InitialCreate
+      ```
+      :::
+      ::::
 
-        using (dataFilter.Disable<ISoftDelete>())
-        {
-            var queryable = DbContext.CatalogItems.Where(condition);
-            var total = await queryable.LongCountAsync();
-            var list = await queryable.Where(condition).Select(item => new CatalogListItemDto()
-            {
-                Id = item.Id,
-                Name = item.Name,
-                Price = item.Price,
-                PictureFileName = item.PictureFileName,
-                CatalogTypeId = item.CatalogTypeId,
-                CatalogBrandId = item.CatalogBrandId,
-                Stock = item.Stock,
-            }).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+      > 需在`Masa.EShop.Service.Catalog`文件夹下执行迁移命令
 
-            var pageData = new PaginatedListBase<CatalogListItemDto>()
-            {
-                Total = total,
-                TotalPages = (int)Math.Ceiling((double)total / pageSize),
-                Result = list
-            };
-            return Results.Ok(pageData);
-        }
-    }
+   3. 更新数据库
 
-    public async Task<IResult> CreateProductAsync(CreateProductCommand command)
-    {
-        if (command.Name.IsNullOrWhiteSpace())
-            throw new UserFriendlyException("产品名不能为空");
+      :::: code-group
+      ::: code-group-item .NET Core CLI
+      
+      ```shell 终端
+      dotnet ef database update
+      ```
+      :::
+      ::: code-group-item Visual Studio
+      ```shell Visual Studio
+      Update-Database
+      ```
+      :::
+      ::::
+      
+      > 模型迁移需要安装`Microsoft.EntityFrameworkCore.Tools`，请确保已正确安装
+      >
+      > 多数据上下文时请在命令行尾部增加 ` --context CatalogDbContext`
 
-        var catalogItem = new CatalogItem()
-        {
-            CatalogBrandId = command.CatalogBrandId,
-            CatalogTypeId = command.CatalogTypeId,
-            Name = command.Name,
-            PictureFileName = command.PictureFileName ?? "default.png",
-            Price = command.Price
-        };
+8. 种子数据迁移 （非必须）
 
-        await DbContext.CatalogItems.AddAsync(catalogItem);
-        await DbContext.SaveChangesAsync();
-        return Results.Accepted();
-    }
+   :::: code-group
+   ::: code-group-item HostExtensions（迁移数据）
 
-    public async Task<IResult> DeleteProductAsync(Guid id)
-    {
-        if (id <= 0)
-            throw new UserFriendlyException("Please enter the ProductId");
+   ```csharp Infrastructure/Extensions/HostExtensions.cs
+   using Microsoft.EntityFrameworkCore;
+   
+   namespace Masa.EShop.Service.Catalog.Infrastructure.Extensions;
+   
+   public static class HostExtensions
+   {
+       public static Task MigrateDbContextAsync<TContext>(this IHost host, Func<TContext, IServiceProvider, Task> seeder)
+           where TContext : DbContext
+       {
+           using var scope = host.Services.CreateScope();
+           var services = scope.ServiceProvider;
+           
+           var env = services.GetRequiredService<IWebHostEnvironment>();
+           if (!env.IsDevelopment())
+               return Task.CompletedTask;
+           
+           var context = services.GetRequiredService<TContext>();
+           return seeder(context, services);
+       }
+   }
+   ```
 
-        var catalogItem = await DbContext.CatalogItems.FirstOrDefaultAsync(item => item.Id == id);
-        if (catalogItem == null)
-            throw new UserFriendlyException("Product doesn't exist");
+   :::
+   ::: code-group-item CatalogContextSeed（初始化种子数据）
 
-        DbContext.CatalogItems.Remove(catalogItem);
-        await DbContext.SaveChangesAsync();
+   ```csharp Infrastructure/Extensions/CatalogContextSeed.cs
+   using Masa.EShop.Service.Catalog.Domain.Entities;
+   
+   namespace Masa.EShop.Service.Catalog.Infrastructure.Extensions;
+   
+   public class CatalogContextSeed
+   {
+       public static async Task SeedAsync(CatalogDbContext context)
+       {
+           if (!context.Set<CatalogBrand>().Any())
+           {
+               var catalogBrands = new List<CatalogBrand>()
+               {
+                   new(Guid.Parse("31b1c60b-e9c3-4646-ac70-09354bdb1522"), "LONSID")
+               };
+               await context.Set<CatalogBrand>().AddRangeAsync(catalogBrands);
+   
+               await context.SaveChangesAsync();
+           }
+   
+           if (!context.Set<CatalogType>().Any())
+           {
+               var catalogTypes = new List<CatalogType>()
+               {
+                   new(1, "Water Dispenser")
+               };
+               await context.Set<CatalogType>().AddRangeAsync(catalogTypes);
+               await context.SaveChangesAsync();
+           }
+       }
+   }
+   ```
+   
+   :::
+   ::: code-group-item 使用迁移并完成种子数据初始化
 
-        return Results.Accepted();
-    }
-}
-```
+   ```csharp Program.cs
+   using Masa.EShop.Service.Catalog.Infrastructure.Extensions;
+   
+   -----Ignore other namespaces-----
+   
+   var builder = WebApplication.CreateBuilder(args);
+   
+   builder.Services.AddMasaDbContext<CatalogDbContext>(contextBuilder =>
+   {
+       contextBuilder
+           .UseSqlite()
+           .UseFilter();
+   });
+   
+   -----Ignore the rest of the service registration-----
+   
+   var app = builder.AddServices();//`var app = builder.Build();` for projects not using MinimalAPis
+   
+   -----Ignore the use of middleware, Swagger, etc.-----
+   
+   await app.MigrateDbContextAsync<CatalogDbContext>(async (context, services) =>
+   {
+       await CatalogContextSeed.SeedAsync(context);
+   });
+   
+   app.Run();
+   ```
+   
+   :::
+   ::::
+   
+9. 修改`CatalogItemService`的数据源
 
-> [IDataFilter](/framework/building-blocks/data/data-filter)由`Masa.Contrib.Data.Contracts`提供
+   ```csharp Services/CatalogItemService.cs
+   using System.Linq.Expressions;
+   using Masa.EShop.Contracts.Catalog.Dto;
+   using Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
+   using Masa.EShop.Service.Catalog.Domain.Entities;
+   using Masa.EShop.Service.Catalog.Infrastructure;
+   using Masa.Utils.Models;
+   using Microsoft.EntityFrameworkCore;
+   
+   namespace Masa.EShop.Service.Catalog.Services;
+   
+   public class CatalogItemService : ServiceBase
+   {
+       private CatalogDbContext DbContext => GetRequiredService<CatalogDbContext>();
+   
+       public async Task<IResult> GetAsync(Guid id)
+       {
+           if (id == Guid.Empty)
+               throw new UserFriendlyException("Please enter the ProductId");
+   
+           var catalogItem = await DbContext.Set<CatalogItem>().Where(item => item.Id == id).Select(item => new CatalogItemDto()
+           {
+               Id = item.Id,
+               Name = item.Name,
+               Price = item.Price,
+               PictureFileName = item.PictureFileName,
+               CatalogTypeId = item.CatalogTypeId,
+               CatalogBrandId = item.CatalogBrandId
+           }).FirstOrDefaultAsync();
+           if (catalogItem == null)
+               throw new UserFriendlyException("Product doesn't exist");
+   
+           return Results.Ok(catalogItem);
+       }
+       
+       public Task<IResult> GetItemsAsync(
+           string? name = null,
+           int page = 1,
+           int pageSize = 10)
+           => GetItemsAsync(name, page, pageSize, false);
+   
+       public Task<IResult> GetRecycleItemsAsync(
+           string? name = null,
+           int page = 1,
+           int pageSize = 10)
+           => GetItemsAsync(name, page, pageSize, true);
+   
+       private async Task<IResult> GetItemsAsync(
+           string name,
+           int page,
+           int pageSize,
+           bool isDelete)
+       {
+           if (page <= 0)
+               throw new UserFriendlyException("Page must be greater than 0");
+   
+           if (pageSize <= 0)
+               throw new UserFriendlyException("PageSize must be greater than 0");
+   
+           Expression<Func<CatalogItem, bool>> condition = item => item.IsDeleted == isDelete;
+           condition = condition.And(!name.IsNullOrWhiteSpace(), item => item.Name.Contains(name));
+           var queryable = DbContext.Set<CatalogItem>().Where(condition);
+           var total = await queryable.LongCountAsync();
+           var list = await queryable.Where(condition).Select(item => new CatalogListItemDto()
+           {
+               Id = item.Id,
+               Name = item.Name,
+               Price = item.Price,
+               PictureFileName = item.PictureFileName,
+               CatalogTypeId = item.CatalogTypeId,
+               CatalogBrandId = item.CatalogBrandId,
+               Stock = item.Stock,
+           }).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+   
+           var pageData = new PaginatedListBase<CatalogListItemDto>()
+           {
+               Total = total,
+               TotalPages = (int)Math.Ceiling((double)total / pageSize),
+               Result = list
+           };
+           return Results.Ok(pageData);
+       }
+   
+       public async Task<IResult> CreateProductAsync(CreateProductCommand command)
+       {
+           if (command.Name.IsNullOrWhiteSpace())
+               throw new UserFriendlyException("Product name cannot be empty");
+   
+           if (command.CatalogBrandId == Guid.Empty)
+               throw new UserFriendlyException("Please select a product brand");
+           if (command.CatalogTypeId == 0)
+               throw new UserFriendlyException("Please select a product category");
+           if (command.CatalogTypeId < 0)
+               throw new UserFriendlyException("Product doesn't exist");
+           if (command.Price == 0)
+               throw new UserFriendlyException("Please enter product price");
+           if (command.Price < 0)
+               throw new UserFriendlyException("Price input error");
+           if (command.Stock == 0)
+               throw new UserFriendlyException("Please enter product inventory");
+           if (command.Stock < 0)
+               throw new UserFriendlyException("Inventory input error");
+   
+           var catalogItem = new CatalogItem()
+           {
+               CatalogBrandId = command.CatalogBrandId,
+               CatalogTypeId = command.CatalogTypeId,
+               Name = command.Name,
+               PictureFileName = command.PictureFileName ?? "default.png",
+               Price = command.Price
+           };
+   
+           await DbContext.Set<CatalogItem>().AddAsync(catalogItem);
+           await DbContext.SaveChangesAsync();
+           
+           //todo: Notify warehouse clerks of new products
+           
+           return Results.Accepted();
+       }
+   
+       public async Task<IResult> DeleteProductAsync(Guid id)
+       {
+           if (id == Guid.Empty)
+               throw new UserFriendlyException("Please enter the ProductId");
+   
+           var catalogItem = await DbContext.Set<CatalogItem>().FirstOrDefaultAsync(item => item.Id == id);
+           if (catalogItem == null)
+               throw new UserFriendlyException("Product doesn't exist");
+   
+           DbContext.Set<CatalogItem>().Remove(catalogItem);
+           await DbContext.SaveChangesAsync();
+   
+           return Results.Accepted();
+       }
+   }
+   ```
+   
 
-最终的文件夹/文件结构应该如下所示:
+## 问题
 
-<div>
-  <img alt="Directory Structure" src="https://s2.loli.net/2023/04/10/7idENInSXFutvQa.png"/>
-</div>
+1. 模型更新时出错，错误信息：`Unable to create an object of type 'CatalogDbContext'. For the different patterns supported at design time, see https://go.microsoft.com/fwlink/?linkid=851728`
+
+   检查并更改使用同一版本的`Microsoft.EntityFrameworkCore.XXX` 
+
+2. 通过`Swagger`界面调用接口出错，错误信息：`System.UserFriendlyException: Please select a product category at Masa.EShop.Service.Catalog.Services.CatalogItemService.CreateProductAsync(CCreateProductCommand command) in E:\Temp\EShop\Masa.EShop.Service.Catalog\Services\CatalogItemService.cs:line`
+
+   检查传参是否正确，默认提供参数是无法通过参数验证的
+
+3. 所有参数都非空后仍然出错，错误信息：` Error: response status is 500Response bodyDownload Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details. ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Catalog'.` 
+
+   外键约束出错，输入错误的`CatalogBrandId`或`CatalogTypeId` （`CatalogBrandId`: `31b1c60b-e9c3-4646-ac70-09354bdb1522`，`CatalogTypeId`: 1）
+
+4. 运行时出错，错误信息：`SQLite Error 1: no such table: CatalogBrand. at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db) at Microsoft.Data.Sqlite.SqliteCommand`
+
+   未进行数据库迁移并更新数据库，请参考文档执行数据库迁移即可
 
 ## 总结
 
-通过`MasaDbContext`我们做到了数据的持久化，也支持查询已删除的产品
+通过`MasaDbContext`我们做到了数据的持久化，也支持查询已删除的产品，已经完成了基本要求，后续教程所使用的技术可以帮助我们的项目有更好的读性能、维护更方便、关注点分离，聚焦核心领域等

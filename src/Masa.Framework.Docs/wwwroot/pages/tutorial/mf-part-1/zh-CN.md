@@ -2,280 +2,333 @@
 
 ## 概述
 
-本章将通过 **MASA Framework** 提供的[**MinimalAPIs (最小API)**](/framework/building-blocks/minimal-apis)提供对外的增删改查服务
-
-### 补充
-
-* 暂时使用内存数据作为数据源，后续将更换为`Sqlite`数据库
+本章将通过 **MASA Framework** 提供的[**MinimalAPIs（最小API）**](/framework/building-blocks/minimal-apis)对外提供产品的增删改查服务（基于内存数据源）
 
 ## 开始
 
 1. 新建<font color=Red>ASP.NET Core 空项目</font>`Masa.EShop.Service.Catalog`用于<font color=Red>提供API服务</font>
 
-```powershell 终端
-dotnet new web -o Masa.EShop.Service.Catalog
-cd Masa.EShop.Service.Catalog
-```
+   ```shell 终端
+   dotnet new web -o Masa.EShop.Service.Catalog
+   dotnet new classlib -o Masa.EShop.Contracts.Catalog
+   dotnet sln EShop-MinimalAPIs-Blazor.sln add Masa.EShop.Service.Catalog/Masa.EShop.Service.Catalog.csproj
+   dotnet sln EShop-MinimalAPIs-Blazor.sln add Masa.EShop.Contracts.Catalog/Masa.EShop.Contracts.Catalog.csproj
+   ```
 
 2. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Service.MinimalAPIs`
 
-```shell 终端
-dotnet add package Masa.Contrib.Service.MinimalAPIs
-```
+   ```shell 终端
+   cd Masa.EShop.Service.Catalog
+   dotnet add package Masa.Contrib.Service.MinimalAPIs --prerelease
+   ```
 
-或者直接修改项目文件为:
+   或者直接修改项目文件为:
 
-```xml Masa.EShop.Service.Catalog.csproj
-<Project Sdk="Microsoft.NET.Sdk.Web">
+   ```xml Masa.EShop.Service.Catalog.csproj
+   <Project Sdk="Microsoft.NET.Sdk.Web">
+   
+     <PropertyGroup>
+       <TargetFramework>net6.0</TargetFramework>
+       <Nullable>enable</Nullable>
+       <ImplicitUsings>enable</ImplicitUsings>
+     </PropertyGroup>
+   
+     <ItemGroup>
+       <PackageReference Include="Masa.Contrib.Service.MinimalAPIs" Version="$(MasaFrameworkPackageVersion)" />
+     </ItemGroup>
+   
+   </Project>
+   ```
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+   > 后续教程中如果不特殊标记类库名称，均指的是`Masa.EShop.Service.Catalog`
 
-  <ItemGroup>
-    <PackageReference Include="Masa.Contrib.Service.MinimalAPIs" Version="$(MasaFrameworkPackageVersion)" />
-  </ItemGroup>
+3. 注册 [MinimalAPIs (最小API)](/framework/building-blocks/minimal-apis)
 
-</Project>
-```
+   :::: code-group
+   ::: code-group-item 注册 MinimalAPIs 后
 
-> **MasaFrameworkPackageVersion**: MASA Framework包的版本，在[全局配置文件](/framework/contribution/recommend)中配置
+   ```csharp Program.cs
+   var builder = WebApplication.CreateBuilder(args);
+   
+   //注册MinimalAPIs
+   var app = builder.AddServices();
+   
+   app.MapGet("/", () => "Hello World!");
+   
+   app.Run();
+   ```
 
-<app-alert type="warning" content="推荐使用全局配置文件中的版本代替单独指定包版本，避免没有统一升级造成项目出错"></app-alert>
+   :::
+   ::: code-group-item 注册 MinimalAPIs 前
 
-3. 注册 [MinimalAPIs (最小API)](/framework/building-blocks/minimal-apis), 修改`Program.cs`
+   ```csharp Program.cs
+   var builder = WebApplication.CreateBuilder(args);
+   var app = builder.Build();
+   
+   app.MapGet("/", () => "Hello World!");
+   
+   app.Run();
+   ```
 
-:::: code-group
-::: code-group-item 注册 MinimalAPIs 后
-```csharp Program.cs
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.AddServices();
-
-app.MapGet("/", () => "Hello World!");
-
-app.Run();
-```
-:::
-::: code-group-item 注册 MinimalAPIs 前
-```csharp Program.cs
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
-
-app.MapGet("/", () => "Hello World!");
-
-app.Run();
-```
-:::
-::::
+   :::
+   ::::
 
 4. 创建`CatalogItemService` (产品服务), 并需 <font Color=Red>继承</font> `ServiceBase`
 
-`CatalogItemService`服务<font Color=Red>提供</font>产品的<font Color=Red>增删改查</font>
-
-```csharp Services/CatalogItemService.cs
-using System.Linq.Expressions;
-using Masa.EShop.Contracts.Catalog.Dto;
-using Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
-using Masa.Utils.Models;
-
-namespace Masa.EShop.Service.Catalog.Services;
-
-public class CatalogItemService : ServiceBase
-{
-    private readonly List<CatalogListItemDto> _data = new();
-
-    public Task<IResult> GetAsync(Guid id)
-    {
-        if (id <= 0)
-            throw new UserFriendlyException("Please enter the ProductId");
-
-        var catalogItem = _data.FirstOrDefault(item => item.Id == id);
-        if (catalogItem == null)
-            throw new UserFriendlyException("Product doesn't exist");
-
-        return Task.FromResult(Results.Ok(catalogItem));
-    }
-
-    /// <summary>
-    /// `PaginatedListBase` is provided by **Masa.Utils.Models.Config**, if you want to use it, please install `Masa.Utils.Models.Config`
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="page"></param>
-    /// <param name="pageSize"></param>
-    /// <returns></returns>
-    public Task<IResult> GetItemsAsync(
-        string name,
-        int page = 1,
-        int pageSize = 10)
-    {
-        if (page <= 0)
-            throw new UserFriendlyException("Page must be greater than 0");
-        
-        if (pageSize <= 0)
-            throw new UserFriendlyException("PageSize must be greater than 0");
-
-        Expression<Func<CatalogListItemDto, bool>> condition = item => true;
-        condition = condition.And(!name.IsNullOrWhiteSpace(), item => item.Name.Contains(name));
-
-        var total = _data.Where(condition.Compile()).LongCount();
-        var list = _data.Where(condition.Compile()).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
-        var pageData = new PaginatedListBase<CatalogListItemDto>()
-        {
-            Total = total,
-            TotalPages = (int)Math.Ceiling((double)total/ pageSize),
-            Result = list
-        };
-        return Task.FromResult(Results.Ok(pageData));
-    }
-
-    public Task<IResult> CreateProductAsync(CreateProductCommand command)
-    {
-        if (command.Name.IsNullOrWhiteSpace())
-            throw new UserFriendlyException("Product name cannot be empty");
-
-        _data.Add(new CatalogListItemDto()
-        {
-            Id = _data.Select(item => item.Id).Max() + 1,
-            Name = command.Name,
-            Price = command.Price,
-            PictureFileName = command.PictureFileName ?? "default.png",
-            CatalogBrandId = command.CatalogBrandId,
-            CatalogTypeId = command.CatalogTypeId,
-            Stock = command.Stock
-        });
-        return Task.FromResult(Results.Accepted());
-    }
-
-    public Task<IResult> DeleteProductAsync(Guid id)
-    {
-        if (id <= 0)
-            throw new UserFriendlyException("Please enter the ProductId");
-
-        var catalogItem = _data.FirstOrDefault(item => item.Id == id);
-        if (catalogItem == null)
-            throw new UserFriendlyException("Product doesn't exist");
-
-        _data.Remove(catalogItem);
-        return Task.FromResult(Results.Accepted());
-    }
-}
-```
-
-CreateProductCommand（创建商品）、CatalogItemDto（商品详情）、CatalogListItemDto（商品列表）:
-
-:::: code-group
-::: code-group-item CreateProductCommand
-```csharp Masa.EShop.Service.Catalog/Application/Catalogs/Commands/CreateProductCommand.cs
-namespace Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
-
-public record CreateProductCommand
-{
-    public string Name { get; set; } = default!;
-
-    public Guid CatalogBrandId { get; set; }
-
-    public int CatalogTypeId { get; set; }
-
-    public decimal Price { get; set; }
-
-    public string? PictureFileName { get; set; }
-
-    public int Stock { get; set; }
-}
-```
-:::
-::: code-group-item CatalogItemDto
-```csharp Masa.EShop.Contracts.Catalog/Dto/CatalogItemDto.cs
-namespace Masa.EShop.Contracts.Catalog.Dto;
-
-public class CatalogItemDto
-{
-    public Guid Id { get; set; }
-
-    public string Name { get; set; } = string.Empty;
-
-    public Guid CatalogBrandId { get; set; }
-
-    public int CatalogTypeId { get; set; }
-
-    public decimal Price { get; set; }
-
-    public string PictureFileName { get; set; } = "default.png";
-}
-```
-:::
-::: code-group-item CatalogListItemDto
-```csharp Masa.EShop.Contracts.Catalog/Dto/CatalogListItemDto.cs
-namespace Masa.EShop.Contracts.Catalog.Dto;
-
-public class CatalogListItemDto
-{
-    public Guid Id { get; set; }
-
-    public string Name { get; set; } = null!;
-
-    public decimal Price { get; set; }
-
-    public string PictureFileName { get; set; } = "";
-
-    public int CatalogTypeId { get; set; }
-
-    public Guid CatalogBrandId { get; set; }
-
-    public int Stock { get; set; }
-}
-```
-:::
-::::
-
+   > 提供产品的增删改查
+   
+   ```csharp Services/CatalogItemService.cs
+   using System.Linq.Expressions;
+   using Masa.EShop.Contracts.Catalog.Dto;
+   using Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
+   using Masa.Utils.Models;
+   
+   namespace Masa.EShop.Service.Catalog.Services;
+   
+   public class CatalogItemService : ServiceBase
+   {
+       private readonly List<CatalogListItemDto> _data = new();
+   
+       public Task<IResult> GetAsync(Guid id)
+       {
+           if (id == Guid.Empty)
+               throw new UserFriendlyException("Please enter the ProductId");
+   
+           var catalogItem = _data.FirstOrDefault(item => item.Id == id && !item.IsDeleted);
+           if (catalogItem == null)
+               throw new UserFriendlyException("Product doesn't exist");
+   
+           return Task.FromResult(Results.Ok(catalogItem));
+       }
+   
+       /// <summary>
+       /// `PaginatedListBase` is provided by **Masa.Utils.Models.Config**, if you want to use it, please install `Masa.Utils.Models.Config`
+       /// </summary>
+       /// <param name="name"></param>
+       /// <param name="page"></param>
+       /// <param name="pageSize"></param>
+       /// <returns></returns>
+       public Task<IResult> GetItemsAsync(
+           string? name = null,
+           int page = 1,
+           int pageSize = 10)
+           => GetItemsAsync(name, page, pageSize, false);
+   
+       /// <summary>
+       /// `PaginatedListBase` is provided by **Masa.Utils.Models.Config**, if you want to use it, please install `Masa.Utils.Models.Config`
+       /// </summary>
+       /// <param name="name"></param>
+       /// <param name="page"></param>
+       /// <param name="pageSize"></param>
+       /// <returns></returns>
+       public Task<IResult> GetRecycleItemsAsync(
+           string? name = null,
+           int page = 1,
+           int pageSize = 10)
+           => GetItemsAsync(name, page, pageSize, true);
+   
+       private Task<IResult> GetItemsAsync(
+           string? name,
+           int page,
+           int pageSize,
+           bool isDeleted)
+       {
+           if (page <= 0)
+               throw new UserFriendlyException("Page must be greater than 0");
+   
+           if (pageSize <= 0)
+               throw new UserFriendlyException("PageSize must be greater than 0");
+   
+           Expression<Func<CatalogListItemDto, bool>> condition = item => item.IsDeleted == isDeleted;
+           condition = condition.And(!name.IsNullOrWhiteSpace(), item => item.Name.Contains(name!));
+   
+           var total = _data.Where(condition.Compile()).LongCount();
+           var list = _data.Where(condition.Compile()).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+   
+           var pageData = new PaginatedListBase<CatalogListItemDto>()
+           {
+               Total = total,
+               TotalPages = (int)Math.Ceiling((double)total / pageSize),
+               Result = list
+           };
+           return Task.FromResult(Results.Ok(pageData));
+       }
+   
+       public Task<IResult> CreateProductAsync(CreateProductCommand command)
+       {
+           if (command.Name.IsNullOrWhiteSpace())
+               throw new UserFriendlyException("Product name cannot be empty");
+   
+           if (command.CatalogBrandId == Guid.Empty)
+               throw new UserFriendlyException("Please select a product brand");
+           if (command.CatalogTypeId == 0)
+               throw new UserFriendlyException("Please select a product category");
+           if (command.CatalogTypeId < 0)
+               throw new UserFriendlyException("Product doesn't exist");
+           if (command.Price == 0)
+               throw new UserFriendlyException("Please enter product price");
+           if (command.Price < 0)
+               throw new UserFriendlyException("Price input error");
+           if (command.Stock == 0)
+               throw new UserFriendlyException("Please enter product inventory");
+           if (command.Stock < 0)
+               throw new UserFriendlyException("Inventory input error");
+   
+           _data.Add(new CatalogListItemDto()
+           {
+               Id = Guid.NewGuid(),
+               Name = command.Name,
+               Price = command.Price,
+               PictureFileName = command.PictureFileName ?? "default.png",
+               CatalogBrandId = command.CatalogBrandId,
+               CatalogTypeId = command.CatalogTypeId,
+               Stock = command.Stock
+           });
+           
+           //todo: Notify warehouse clerks of new products
+           
+           return Task.FromResult(Results.Accepted());
+       }
+   
+       public Task<IResult> DeleteProductAsync(Guid id)
+       {
+           if (id == Guid.Empty)
+               throw new UserFriendlyException("Please enter the ProductId");
+   
+           var catalogItem = _data.FirstOrDefault(item => item.Id == id && !item.IsDeleted);
+           if (catalogItem == null)
+               throw new UserFriendlyException("Product doesn't exist");
+   
+           catalogItem.IsDeleted = true;
+           return Task.FromResult(Results.Accepted());
+       }
+   }
+   ```
+   
+   > `Masa.EShop.Service.Catalog`需引用类库`Masa.EShop.Contracts.Catalog`
+   >
+   > `Masa.EShop.Service.Catalog`需安装`Masa.Utils.Extensions.Expressions`
+   
+   CreateProductCommand（创建商品）、CatalogItemDto（商品详情）、CatalogListItemDto（商品列表）:
+   
+   :::: code-group
+   ::: code-group-item CreateProductCommand
+   
+   ```csharp Application/Catalogs/Commands/CreateProductCommand.cs
+   namespace Masa.EShop.Service.Catalog.Application.Catalogs.Commands;
+   
+   public record CreateProductCommand
+   {
+       public string Name { get; set; } = default!;
+   
+       public Guid CatalogBrandId { get; set; }
+   
+       public int CatalogTypeId { get; set; }
+   
+       public decimal Price { get; set; }
+   
+       public string? PictureFileName { get; set; }
+   
+       public int Stock { get; set; }
+   }
+   ```
+   :::
+   ::: code-group-item CatalogItemDto
+   ```csharp Masa.EShop.Contracts.Catalog/Dto/CatalogItemDto.cs
+   namespace Masa.EShop.Contracts.Catalog.Dto;
+   
+   public class CatalogItemDto
+   {
+       public Guid Id { get; set; }
+   
+       public string Name { get; set; } = string.Empty;
+   
+       public Guid CatalogBrandId { get; set; }
+   
+       public int CatalogTypeId { get; set; }
+   
+       public decimal Price { get; set; }
+   
+       public string PictureFileName { get; set; } = "default.png";
+   }
+   ```
+   :::
+   ::: code-group-item CatalogListItemDto
+   ```csharp Masa.EShop.Contracts.Catalog/Dto/CatalogListItemDto.cs
+   namespace Masa.EShop.Contracts.Catalog.Dto;
+   
+   public class CatalogListItemDto
+   {
+       public Guid Id { get; set; }
+   
+       public string Name { get; set; } = null!;
+   
+       public decimal Price { get; set; }
+   
+       public string PictureFileName { get; set; } = "";
+   
+       public int CatalogTypeId { get; set; }
+   
+       public Guid CatalogBrandId { get; set; }
+   
+       public int Stock { get; set; }
+   
+       public bool IsDeleted { get; set; }
+   }
+   ```
+   :::
+   ::::
+   
 5. 注册Swagger、并使用SwaggerUI
 
-:::: code-group
-::: code-group-item 安装Swagger包
-```shell 终端
-dotnet add package Swashbuckle.AspNetCore
-```
-:::
-::: code-group-item 修改 Program.cs，注册并使用Swagger
-```csharp Program.cs
-var builder = WebApplication.CreateBuilder(args);
+   :::: code-group
+   ::: code-group-item 安装Swagger包
 
-#region Register Swagger
+   ```shell 终端
+   dotnet add package Swashbuckle.AspNetCore
+   ```
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+   :::
+   ::: code-group-item 修改 Program.cs，注册并使用Swagger
 
-#endregion
+   ```csharp Program.cs
+   var builder = WebApplication.CreateBuilder(args);
+   
+   #region Register Swagger
+   
+   builder.Services.AddEndpointsApiExplorer();
+   builder.Services.AddSwaggerGen();
+   
+   #endregion
+   
+   var app = builder.AddServices();
+   
+   #region Use Swagger
+   
+   if (app.Environment.IsDevelopment())
+   {
+       app.UseSwagger();
+       app.UseSwaggerUI();
+   }
+   
+   #endregion
+   
+   app.MapGet("/", () => "Hello World!");
+   
+   app.Run();
+   ```
+   :::
+   ::::
 
-var app = builder.AddServices();
+   最终的文件夹/文件结构应该如下所示：
 
-#region Use Swagger
+   <div>
+     <img alt="MinimalAPIs" src="https://s2.loli.net/2023/04/07/YHAqzxgsymR1pKr.png"/>
+   </div>
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-#endregion
-
-app.MapGet("/", () => "Hello World!");
-
-app.Run();
-```
-:::
-::::
-
-最终的文件夹/文件结构应该如下所示:
-
-<div>
-  <img alt="MinimalAPIs" src="https://s2.loli.net/2023/04/07/YHAqzxgsymR1pKr.png"/>
-</div>
-
-> **Masa.EShop.Contracts.Catalog**类库是产品的规约，用于存放产品服务与其它项目共享的文件
+   > **Masa.EShop.Contracts.Catalog**类库是产品的规约，用于存放产品服务与其它项目共享的文件
+   >
+   > 解决方案文件夹架构可以通过Visual Studio调整得到（通过终端命令创建相对繁琐，不再赘述，因此命令行创建出的项目是并行排列）
 
 ## Swagger UI
 
@@ -307,10 +360,6 @@ app.Run();
   }
 }
 ```
-
-<div>
-  <img alt="launchSettings" src="https://s2.loli.net/2023/04/11/STbqKL2lew9u8t5.png"/>
-</div>
 
 ## 总结
 
