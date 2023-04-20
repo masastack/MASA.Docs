@@ -1,14 +1,14 @@
-# 使用指南
+# 开始使用
 
-1. 初始化
+## 初始化
 
-   1. 在使用 PM 时，第一步需要您初始化系统，默认会为您创建三个环境（Development、Staging、Production）一个集群（Default）并会初始化MASA.Stack的一些项目和应用。
+   在使用 `PM` 时，系统默认会创建三个环境（Development、Staging、Production），一个集群（Default），并初始化 `MASA.Stack` 的一些项目和应用。
 
-2. 创建环境
+## 新建环境
 
-   1. 点击左侧“新增环境“
+   1. 点击左侧“新建环境”
 
-      ![](http://cdn.masastack.com/stack/doc/pm/overview.jpg)
+      ![全景](https://cdn.masastack.com/stack/doc/pm/overview.png)
 
    2. 输入环境信息
 
@@ -16,11 +16,11 @@
       - 关联集群（多选）
       - 环境描述
 
-      ![](http://cdn.masastack.com/stack/doc/pm/environment.jpg)
+      ![环境](https://cdn.masastack.com/stack/doc/pm/environment.png)
 
-3. 创建集群
+## 新建集群
 
-   1. 点击右上角的”新增集群“
+   1. 点击右上角的“新建集群”
 
    2. 输入集群信息
 
@@ -28,29 +28,29 @@
       - 关联环境（多选）
       - 集群描述
 
-      ![](http://cdn.masastack.com/stack/doc/pm/cluster.jpg)
+      ![集群](https://cdn.masastack.com/stack/doc/pm/cluster.png)
 
-4. 创建项目
+## 新建项目
 
-   1. 点击底部”新增项目“
+   1. 点击底部“新建项目”
 
    2. 输入项目信息
 
       - 项目名称
       - 所属项目团队（为项目分配团队，只有该团队的成员才能看到）
-      - ID标识（唯一）
+      - ID 标识（唯一）
       - 项目类型
       - 环境/集群（多选）
       - 项目描述
 
-      ![](http://cdn.masastack.com/stack/doc/pm/project.jpg)
+      ![项目](https://cdn.masastack.com/stack/doc/pm/project.png)
 
-5. 创建应用
+## 新建应用
 
-   1. 站看某个项目点击”新增应用“
+   1. 点击具体项目，展开详情，点击“新建应用”
    2. 输入应用信息
       - 应用名称
-      - 应用类型（Service、UI、Job）
-      - 环境/集群（项目的中的环境/集群），多选
-      
-      ![](http://cdn.masastack.com/stack/doc/pm/app.jpg)
+      - 应用类型（`Service`、`UI`、`Job`）
+      - 环境/集群（对应项目中关联的环境/集群），多选
+
+      ![应用](https://cdn.masastack.com/stack/doc/pm/app.png)

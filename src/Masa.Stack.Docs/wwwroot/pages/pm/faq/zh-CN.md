@@ -1,12 +1,12 @@
 # 常见问题
 
-### Q：MASA.PM是什么？
+## 问：MASA.PM是什么？
 
-A：[MASA.PM产品介绍](stack/pm/introduce)
+答：[MASA.PM 产品介绍](stack/pm/introduce)
 
-### Q：团队页面为什么没有项目数据？
+## 问：团队页面为什么没有项目数据？
 
-A：
+答：
 
 1. 确保登录的账号有团队
 2. 确保该项目已经分配给该团队
