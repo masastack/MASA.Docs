@@ -1,15 +1,12 @@
----
-title: 使用指南-渠道管理
-date: 2022/12/09 11:46
----
+# 使用指南 - 渠道管理
 
 渠道用于消息推送通道的账号配置,支持短信、邮箱、站内信、app等渠道类型。目前短信使用阿里云，app推送使用个推。
 
-### 列表
+## 列表
 渠道列表以卡片形式展现，支持糊搜索、分页等功能
 ![channels](http://cdn.masastack.com/stack/doc/mc/channels.png)
 
-### 新增渠道
+## 新增渠道
 
 1. 选择渠道类型
    
@@ -24,7 +21,7 @@ date: 2022/12/09 11:46
 
       ![channel-add-sms](http://cdn.masastack.com/stack/doc/mc/channel-add-sms.png)
 
-   1. 邮箱渠道配置
+   2. 邮箱渠道配置
 
       ![channel-add-email](http://cdn.masastack.com/stack/doc/mc/channel-add-email.png)
 

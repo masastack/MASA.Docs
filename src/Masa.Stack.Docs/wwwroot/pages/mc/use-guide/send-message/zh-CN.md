@@ -1,26 +1,23 @@
----
-title: 使用指南-发送消息
-date: 2022/12/09 14:22
----
+# 使用指南 - 发送消息
 
-### 选择消息类型
+## 选择消息类型
 普通消息：发送消息时填写消息内容；模板消息：发送消息时选择预设的消息模板
 
 ![messageTask-type](http://cdn.masastack.com/stack/doc/mc/messageTask-type.png)
 
-### 发送普通消息
+## 发送普通消息
 
 选择渠道，填写消息内容
 
 ![send-ordinary-message](http://cdn.masastack.com/stack/doc/mc/send-ordinary-message.png)
 
-### 发送模板消息
+## 发送模板消息
 
 选择预设的消息模板，填写模板变量
 
 ![send-template-message](http://cdn.masastack.com/stack/doc/mc/send-template-message.png)
 
-### 收件人
+## 收件人
 
 1. 手动选择，支持收件人组、角色、团队、部门、用户的组合，还可以添加外部用户
 
@@ -33,7 +30,7 @@ date: 2022/12/09 14:22
    
 ![send-message-receivers-import](http://cdn.masastack.com/stack/doc/mc/send-message-receivers-import.png)
 
-### 发送规则
+## 发送规则
 支持定时发送和分批次发送
 - 定时发送：通过cron组件配置时间即可
 - 分批次发送：通过cron组件配置周期，填写每个批次要发送的条数
@@ -41,7 +38,7 @@ date: 2022/12/09 14:22
 ![send-message-rule](http://cdn.masastack.com/stack/doc/mc/send-message-rule.png)
 
 
-### 消息任务
+## 消息任务
 1. 列表，以卡片形式展现，支持高级筛选、模糊搜索、分页等功能。
 ![messageTasks](http://cdn.masastack.com/stack/doc/mc/messageTasks.png)
 
