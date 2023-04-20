@@ -5,7 +5,7 @@
 1. 安装包
 
    ```shell 终端
-   Install-Package Masa.Contrib.StackSdks.Tsc
+   dotnet add package Masa.Contrib.StackSdks.Tsc
    ```
 
 2. 修改`appsettings.json`，配置所需参数
