@@ -37,37 +37,13 @@
     "title": "building-blocks",
     "items": [
       {
-        "title": "identity",
+        "title": "caching",
         "items": [
           "overview",
-          "web",
-          "blazor-server",
-          "blazor-wasm"
+          "stackexchange-redis",
+          "multilevel-cache"
         ]
       },
-      {
-        "title": "openId-connect",
-        "items": [
-          "overview"
-        ]
-      },
-      {
-        "title": "distributed-lock",
-        "items": [
-          "overview",
-          "lock-local",
-          "medallion"
-        ]
-      },
-      {
-        "title": "dispatcher",
-        "items": [
-          "overview",
-          "local-event",
-          "integration-event"
-        ]
-      },
-      "minimal-apis",
       {
         "title": "caller",
         "items": [
@@ -77,10 +53,11 @@
         ]
       },
       {
-        "title": "development",
+        "title": "configuration",
         "items": [
           "overview",
-          "dapr-starter"
+          "configuration-local",
+          "dcc"
         ]
       },
       "cqrs",
@@ -101,11 +78,10 @@
         ]
       },
       {
-        "title": "configuration",
+        "title": "development",
         "items": [
           "overview",
-          "configuration-local",
-          "dcc"
+          "dapr-starter"
         ]
       },
       {
@@ -123,20 +99,22 @@
         ]
       },
       {
-        "title": "caching",
+        "title": "dispatcher",
         "items": [
           "overview",
-          "stackexchange-redis",
-          "multilevel-cache"
+          "local-event",
+          "integration-event"
         ]
       },
       {
-        "title": "storage",
+        "title": "distributed-lock",
         "items": [
           "overview",
-          "oss"
+          "lock-local",
+          "medallion"
         ]
       },
+      "exception",
       {
         "title": "globalization",
         "items": [
@@ -146,8 +124,30 @@
           "i18n-dcc"
         ]
       },
-      "exception",
-      "stack-sdks"
+      {
+        "title": "identity",
+        "items": [
+          "overview",
+          "web",
+          "blazor-server",
+          "blazor-wasm"
+        ]
+      },
+      {
+        "title": "openId-connect",
+        "items": [
+          "overview"
+        ]
+      },
+      "minimal-apis",
+      "stack-sdks",
+      {
+        "title": "storage",
+        "items": [
+          "overview",
+          "oss"
+        ]
+      }
     ]
   },
   {
@@ -200,7 +200,8 @@
     "title": "contribution",
     "items": [
       "issues",
-      "pr"
+      "pr",
+      "recommend"
     ]
   }
 ]

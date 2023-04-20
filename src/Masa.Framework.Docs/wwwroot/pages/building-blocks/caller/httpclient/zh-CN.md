@@ -10,7 +10,7 @@
 dotnet add package Masa.Contrib.Service.Caller.HttpClient
 ```
 
-### 基础用法
+### 手动注册
 
 使用`Caller`并使用指定实现的`Caller`
 
@@ -22,27 +22,27 @@ builder.Services.AddCaller("{Replace-With-Your-Name}", options =>
     //name可以是任意字符串, 但不可重复添加两个相同 name 的Caller实现
     options.UseHttpClient(clientBuilder =>
     {
-        clientBuilder.BaseAddress = "http://localhost:5000" ;
-        clientBuilder.Prefix = "{Replace-With-Your-Prefix}"; //服务前缀
+        clientBuilder.BaseAddress = "https://api.github.com" ;
+        clientBuilder.Prefix = "repos/masastack/MASA.Framework"; //服务前缀
     });
 });
 ```
 
 2. 获取指定 name 的Caller, 并发送`Get`请求, 修改`Program`
 
-例如: 服务端的接口请求地址为: $"http://localhost:5000/{Replace-With-Your-Prefix}/Hello?Name={name}", 则
+例如: 服务端的接口请求地址为: $"https://api.github.com/repos/masastack/MASA.Framework/issues?state=open", 则
 
 ```csharp
-app.MapGet("/Test/User/Hello", ([FromServices] ICallerFactory callerFactory, string name)
+app.MapGet("/Test/User/Hello", ([FromServices] ICallerFactory callerFactory, string state)
 {
     var caller = callerFactory.Create($"{Replace-With-Your-Name}");
-    return caller.GetAsync<string>($"/Hello", new { Name = name }));
+    return caller.GetAsync<string>("issues", new { state = state }));
 }
 ```
 
 > 若当前项目添加的name为空字符串, 或者仅存在一个`name`的Caller实现时, 可直接使用ICaller, 而不必要通过`ICallerFactory`提供的`Create`方法获得
 
-### 推荐用法
+### 自动注册
 
 使用`Caller`并根据约定自动注册其实现
 
@@ -52,82 +52,83 @@ app.MapGet("/Test/User/Hello", ([FromServices] ICallerFactory callerFactory, str
 builder.Services.AddAutoRegistrationCaller();
 ```
 
-2. 新建类`CustomCaller`，并继承**HttpClientCallerBase**
+2. 新建类`GithubCaller`，并继承**HttpClientCallerBase**
 
 ```csharp
-public class CustomCaller : HttpClientCallerBase
+public class GithubCaller : HttpClientCallerBase
 {
-    protected override string BaseAddress { get; set; } = "http://localhost:5000";
+    protected override string Prefix { get; set; } = "repos/masastack/MASA.Framework";
 
-    protected virtual string Prefix { get; set; } = $"{Replace-With-Your-Name}";
+    protected override string BaseAddress { get; set; } = "https://api.github.com";
 
-    public Task<string?> HelloAsync(string name)
-        => Caller.GetAsync<string>($"/Hello", new { Name = name }));
+    public Task<string> GetIssuesByOpenAsync(string state)
+    {
+        return Caller.GetStringAsync("issues", new
+        {
+            state = state
+        });
+    }
 }
 ```
 
 3. 使用自定义`Caller`, 并调用`HelloAsync`方法, 修改`Program`
 
 ```csharp
-app.MapGet("/Test/User/Hello", ([FromServices] CustomCaller caller, string name)
-    => caller.HelloAsync(name);
+app.MapGet("issues", ([FromServices] GithubCaller caller, string state)
+    => caller.GetIssuesByOpenAsync(state);
 ```
 
 ## 高级
 
+基于HttpClient的Caller实现不仅仅支持了[中间件](/framework/building-blocks/caller/overview#section-4e2d95f44ef6)、[Xml请求](/framework/building-blocks/caller/overview#xml683c5f0f)、[认证](/framework/building-blocks/caller/overview#section-8ba48bc1), 还支持[自定义HttpClient](#自定义HttpClient) 
+
+### 自定义HttpClient
+
 如果你希望设置超时时间, 默认请求头等信息, 则可通过重写`HttpClientCallerBase`提供的`ConfigureHttpClient`方法, 例如:
 
+:::: code-group
+::: code-group-item 手动指定Caller
 ```csharp
-public class CustomHttpClientCaller : HttpClientCallerBase
+builder.Services.AddCaller(clientBuilder =>
 {
-    /// <summary>
-    /// 域名
-    /// </summary>
-    protected override string BaseAddress { get; set; } = "{Replace-Your-BaseAddress}";
+    clientBuilder.UseHttpClient(httpClient =>
+    {
+        httpClient.BaseAddress = "https://api.github.com"; //指定API服务域名地址
+        httpClient.Prefix = "repos/masastack/MASA.Framework"; //指定API服务前缀
+
+        //自定义HttpClient
+        httpClient.Configure = httpClient =>
+        {
+            httpClient.Timeout = TimeSpan.FromSeconds(30);//30s超时
+        };
+    });
+});
+```
+:::
+::: code-group-item 自动注册Caller
+```csharp
+public class GithubCaller : HttpClientCallerBase
+{
+    protected override string Prefix { get; set; } = "repos/masastack/MASA.Framework";
+
+    protected override string BaseAddress { get; set; } = "https://api.github.com";
     
-    /*
     /// <summary>
-    /// 前缀
+    /// 自定义HttpClient
     /// </summary>
-    protected override string Prefix { get; set; } = string.Empty;
-    */
-    
+    /// <param name="httpClient"></param>
     protected override void ConfigureHttpClient(System.Net.Http.HttpClient httpClient)
     {
         httpClient.Timeout = TimeSpan.FromSeconds(30);//30s超时
     }
 }
 ```
-
-如果你希望在发送请求之前可以增加一个发送请求日志的功能, 则可以通过重写`HttpClientCallerBase`提供的`UseHttpClient`方法, 例如:
-
-```csharp
-public class CustomHttpClientCaller : HttpClientCallerBase
-{
-    protected override string BaseAddress { get; set; } = "{Replace-Your-BaseAddress}";
-    
-    protected override MasaHttpClientBuilder UseHttpClient()
-    {
-        var httpClientBuilder = base.UseHttpClient();
-        httpClientBuilder.AddHttpMessageHandler<LogDelegatingHandler>();
-        return httpClientBuilder;
-    }
-}
-
-public class LogDelegatingHandler : DelegatingHandler
-{
-    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-    {
-        //记录请求日志
-        return base.SendAsync(request, cancellationToken);
-    }
-}
-```
+:::
+::::
 
 ## 常见问题
 
 * 继承`HttpClientCallerBase`的实现类支持从DI获取, 如果你需要获取来自DI的服务，可通过构造函数注入所需服务
-* 继承`HttpClientCallerBase`的自定义Caller默认支持身份认证, 它需要借助`Masa.Contrib.Service.Caller.Authentication.OpenIdConnect`来实现, 如果你需要重写Caller默认的`HttpRequestMessage`信息, 也可重写`HttpClientCallerBase`父类提供的`ConfigHttpRequestMessage`方法来实现
 * 继承`HttpClientCallerBase`的实现类的生命周期为: `Scoped`
 * 如果`自定义Caller` (继承HttpClientCallerBase的类)与`AddAutoRegistrationCaller`方法不在一个程序集, 可能会出现自动注册自定义Caller失败的情况, 可通过下面提供的任一方案解决:
 

@@ -39,12 +39,12 @@ Job 为用户设置/定义好的一个作业的配置。
 	- 自动：会根据配置的重试次数和重试间隔， 进行重试。 达到次数后， 还是失败， 则会判定为任务失败。
 	- 手动：会直接判定为任务失败。
 
-	![job-edit-baseInfo](http://cdn.masastack.com/stack/doc/job-edit-baseInfo.png)
+	![job-edit-baseInfo](http://cdn.masastack.com/stack/doc/scheduler/job-edit-baseInfo.png)
 3. Job配置信息
 	除了配置的参数外，还会传递taskId和excuteTime参数。excuteTime用于服务挂掉恢复后自动补偿任务时的补偿时间，业务方可按需使用excuteTime代替当前时间。
 	1. Job应用配置
-	![job-edit-jobConfig](http://cdn.masastack.com/stack/doc/job-edit-jobConfig.png)
+	![job-edit-jobConfig](http://cdn.masastack.com/stack/doc/scheduler/job-edit-jobConfig.png)
 	2. Http配置
-	![job-edit-httpConfig](http://cdn.masastack.com/stack/doc/job-edit-httpConfig.png)
+	![job-edit-httpConfig](http://cdn.masastack.com/stack/doc/scheduler/job-edit-httpConfig.png)
 	3. Dapr Service Invocation配置
-	![job-edit-daprConfig](http://cdn.masastack.com/stack/doc/job-edit-daprConfig.png)
+	![job-edit-daprConfig](http://cdn.masastack.com/stack/doc/scheduler/job-edit-daprConfig.png)
