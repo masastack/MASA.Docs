@@ -47,7 +47,9 @@ app.Run();
 MASA.Scheduler Job需要告警时通过调用MASA.Alert的SDK自动创建告警规则并进行管理。
 
 ### 创建告警规则
+
 示例只介绍部分参数用法
+
 ```csharp
 var whereExpression = $@"{{""bool"":{{""must"":[{{""term"":{{""Attributes.JobId.keyword"":""{jobId}""}}}},{{""term"":{{""SeverityText.keyword"":""Error""}}}}]}}}}";
 var ruleExpression = @"{""Rules"":[{""RuleName"":""CheckWorkerErrorJob"",""ErrorMessage"":""Log with error level."",""ErrorType"":""Error"",""RuleExpressionType"":""LambdaExpression"",""Expression"":""JobId > 0""}]}";
@@ -96,11 +98,13 @@ var alarmRuleId = await AlertClient.AlarmRuleService.CreateAsync(alarmRule);
 ```
 
 ### 更新告警规则
+
 ```csharp
 await AlertClient.AlarmRuleService.UpdateAsync(alarmRule);
 ```
 
 ### 启用/禁用告警规则
+
 ```csharp
 await AlertClient.AlarmRuleService.SetIsEnabledAsync(alarmRuleId, isEnabled);
 ```
