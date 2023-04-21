@@ -1,7 +1,4 @@
----
-title: 相关协议
-date: 2023/01/10
----
+# 相关协议
 
                                  Apache License
                            Version 2.0, January 2004
