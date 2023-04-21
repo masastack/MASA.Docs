@@ -8,9 +8,11 @@
 
 1. 安装`Masa.Contrib.Data.IdGenerator.SequentialGuid`
 
-  ```shell 终端
-  dotnet add package Masa.Contrib.Data.IdGenerator.SequentialGuid --prerelease
-  ```
+   ```shell 终端
+   dotnet add package Masa.Contrib.Data.IdGenerator.SequentialGuid --prerelease
+   ```
+
+   
 
 2. 注册`GUID`生成器
 
@@ -42,7 +44,7 @@
    }
    ```
    :::
-   ::: code-group-item 通过`DI`获取
+   ::: code-group-item 通过 DI 获取
 
    ```csharp Program.cs
    app.MapGet("/getid", (ISequentialGuidGenerator generator) => { return generator.NewId(); });
@@ -50,5 +52,18 @@
    :::
    ::::
 
-## Options
+## 其它
+
+在使用有序`GUID`生成器时，根据使用不同的数据库选择传入不同的策略配置（**SequentialGuidType**）:
+
+* SequentialAsString: MySQL、PostgreSql
+* SequentialAsBinary: Oracle
+* SequentialAtEnd: SqlServer (默认)
+
+以`MySQL`数据库为例：
+
+```csharp Program.cs
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSequentialGuidGenerator(SequentialGuidType.SequentialAsString);
+```
 
