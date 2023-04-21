@@ -1,7 +1,4 @@
----
-title: SDK示例
-date: 2023/01/10 16:30
----
+# SDK示例
 
 ## 简介
 
@@ -38,164 +35,164 @@ builder.Services.AddMcClient("http://mcservice.com");
 
 ### 邮箱提醒
 
-   给外部用户发送普通消息(邮箱)
+给外部用户发送普通消息(邮箱)
 
-   ```csharp
-   var app = builder.Build();
+```csharp
+var app = builder.Build();
 
-   app.MapGet("/SendEmail", async ([FromServices] IMcClient mcClient) =>
-   {
-       var request = new SendOrdinaryMessageByExternalModel
-       {
-           ChannelCode = "Your channel code",
-           ChannelType = ChannelTypes.Email,
-           ReceiverType = SendTargets.Assign,
-           MessageInfo = new MessageInfoUpsertModel
-           {
-               Title = "Title",
-               Content = "Content"
-           },
-           Receivers = new List<ExternalReceiverModel>
-           {
-               new ExternalReceiverModel
-               {
-                   ChannelUserIdentity = "zhansan@163.com"
-               }
-           }
-       };
+app.MapGet("/SendEmail", async ([FromServices] IMcClient mcClient) =>
+{
+    var request = new SendOrdinaryMessageByExternalModel
+    {
+        ChannelCode = "Your channel code",
+        ChannelType = ChannelTypes.Email,
+        ReceiverType = SendTargets.Assign,
+        MessageInfo = new MessageInfoUpsertModel
+        {
+            Title = "Title",
+            Content = "Content"
+        },
+        Receivers = new List<ExternalReceiverModel>
+        {
+            new ExternalReceiverModel
+            {
+                ChannelUserIdentity = "zhansan@163.com"
+            }
+        }
+    };
 
-       await mcClient.MessageTaskService.SendOrdinaryMessageByExternalAsync(request);
-   });
+    await mcClient.MessageTaskService.SendOrdinaryMessageByExternalAsync(request);
+});
 
-   app.Run();
-   ```
+app.Run();
+```
 
 ### 短信提醒
-   给Auth用户发送模板消息(短信)
+给Auth用户发送模板消息(短信)
 
-   ```csharp
-   var app = builder.Build();
+```csharp
+var app = builder.Build();
 
-   app.MapGet("/SendSms", async ([FromServices] IMcClient mcClient) =>
-   {
-       var request = new SendTemplateMessageByInternalModel
-       {
-           ChannelCode = "Your channel code",
-           ChannelType = ChannelTypes.Sms,
-           ReceiverType = SendTargets.Assign,
-           TemplateCode = "Your template code",
-           Receivers = new List<InternalReceiverModel>
-           {
-               new InternalReceiverModel
-               {
-                   SubjectId = Guid.NewGuid(),
-                   Type = MessageTaskReceiverTypes.User
-               },
-               new InternalReceiverModel
-               {
-                   SubjectId = Guid.NewGuid(),
-                   Type = MessageTaskReceiverTypes.Team
-               }
-           }
-       };
+app.MapGet("/SendSms", async ([FromServices] IMcClient mcClient) =>
+{
+    var request = new SendTemplateMessageByInternalModel
+    {
+        ChannelCode = "Your channel code",
+        ChannelType = ChannelTypes.Sms,
+        ReceiverType = SendTargets.Assign,
+        TemplateCode = "Your template code",
+        Receivers = new List<InternalReceiverModel>
+        {
+            new InternalReceiverModel
+            {
+                SubjectId = Guid.NewGuid(),
+                Type = MessageTaskReceiverTypes.User
+            },
+            new InternalReceiverModel
+            {
+                SubjectId = Guid.NewGuid(),
+                Type = MessageTaskReceiverTypes.Team
+            }
+        }
+    };
 
-       await mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
-   });
+    await mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
+});
 
-   app.Run();
-   ```
+app.Run();
+```
 
 ### 站内信
-   发送站内信广播
+发送站内信广播
 
-   ```csharp
-   var app = builder.Build();
+```csharp
+var app = builder.Build();
 
-   app.MapGet("/SendWebsiteMessage", async ([FromServices] IMcClient mcClient) =>
-   {
-       var request = new SendTemplateMessageByInternalModel
-       {
-           ChannelCode = "Your channel code",
-           ChannelType = ChannelTypes.WebsiteMessage,
-           ReceiverType = SendTargets.Broadcast,
-           TemplateCode = "Your template code",
-       };
+app.MapGet("/SendWebsiteMessage", async ([FromServices] IMcClient mcClient) =>
+{
+    var request = new SendTemplateMessageByInternalModel
+    {
+        ChannelCode = "Your channel code",
+        ChannelType = ChannelTypes.WebsiteMessage,
+        ReceiverType = SendTargets.Broadcast,
+        TemplateCode = "Your template code",
+    };
 
-       await mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
-   });
+    await mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
+});
 
-   app.Run();
-   ```
+app.Run();
+```
 
-   广播模式下通过SignalR发送检查通知，客户端接收后需要主动调用sdk的检查方法才会生成当前用户的站内信数据
+广播模式下通过SignalR发送检查通知，客户端接收后需要主动调用SDK的检查方法才会生成当前用户的站内信数据
 
-   ```csharp
-    HubConnection = new HubConnectionBuilder()
-       .WithUrl(NavigationManager.ToAbsoluteUri($"{McApiOptions.BaseAddress}/signalr-hubs/notifications"), options =>
-       {
-           options.AccessTokenProvider = async () =>
-           {
-               string? accessToken = string.Empty;
-               if (httpContextAccessor.HttpContext != null)
-               {
-                   accessToken = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-               }
-               return accessToken;
-           };
-       })
-   .Build();
+```csharp
+ HubConnection = new HubConnectionBuilder()
+    .WithUrl(NavigationManager.ToAbsoluteUri($"{McApiOptions.BaseAddress}/signalr-hubs/notifications"), options=>
+    {
+        options.AccessTokenProvider = async () =>
+        {
+            string? accessToken = string.Empty;
+            if (httpContextAccessor.HttpContext != null)
+            {
+                accessToken = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+            }
+            return accessToken;
+        };
+    })
+.Build();
 
-   await HubConnection.StartAsync();
+await HubConnection.StartAsync();
 
-   //订阅检查通知
-   HubConnection?.On(SignalRMethodConsts.CHECK_NOTIFICATION, async () =>
-   {
-       //广播下检查生成当前用户的站内信数据
-       await McClient.WebsiteMessageService.CheckAsync();
-   });
-   ```
+//订阅检查通知
+HubConnection?.On(SignalRMethodConsts.CHECK_NOTIFICATION, async () =>
+{
+    //广播下检查生成当前用户的站内信数据
+    await McClient.WebsiteMessageService.CheckAsync();
+});
+```
 
 ### App消息推送
-    用户绑定Cid
-   ```csharp
-    [RoutePattern(HttpMethod = "Post")]
-    public async Task BindClientIdAsync([FromServices] IMasaConfiguration configuration, [FromServices] IMcClient mcClient, string clientId)
+ 用户绑定Cid
+```csharp
+ [RoutePattern(HttpMethod = "Post")]
+ public async Task BindClientIdAsync([FromServices] IMasaConfiguration configuration, [FromServicesIMcClientmcClient, string clientId)
+ {
+     var channelOptions = configuration.ConfigurationApi.GetDefault().GetSect("Channel").Get<MessageChannelOptions>();
+     var options = new BindClientIdModel
+     {
+         ChannelCode = channelOptions.AppChannelCode,//你的渠道code
+         ClientId = clientId,//个推cid
+     };
+     await mcClient.MessageTaskService.BindClientIdAsync(options);
+ }
+```
+向用户推送app消息
+
+```csharp
+app.MapGet("/SendAppMessage", async ([FromServices] IMcClient mcClient) =>
+{
+    var request = new SendOrdinaryMessageByInternalModel
     {
-        var channelOptions = configuration.ConfigurationApi.GetDefault().GetSection("Channel").Get<MessageChannelOptions>();
-        var options = new BindClientIdModel
+        ChannelCode = "Your channel code",
+        ChannelType = ChannelTypes.App,
+        ReceiverType = SendTargets.Assign,
+        Receivers = new List<InternalReceiverModel>
         {
-            ChannelCode = channelOptions.AppChannelCode,//你的渠道code
-            ClientId = clientId,//个推cid
-        };
-        await mcClient.MessageTaskService.BindClientIdAsync(options);
-    }
-   ```
-   向用户推送app消息
+            new InternalReceiverModel
+            {
+                SubjectId = Guid.NewGuid(),//用户ID
+                Type = MessageTaskReceiverTypes.User
+            }
+        },
+        MessageInfo = new MessageInfoUpsertModel
+        {
+            Title = "Title",
+            Content = "Content",
+            ExtraProperties = new ExtraPropertyDictionary()//透传内容
+        }
+    };
 
-   ```csharp
-   app.MapGet("/SendAppMessage", async ([FromServices] IMcClient mcClient) =>
-   {
-       var request = new SendOrdinaryMessageByInternalModel
-       {
-           ChannelCode = "Your channel code",
-           ChannelType = ChannelTypes.App,
-           ReceiverType = SendTargets.Assign,
-           Receivers = new List<InternalReceiverModel>
-           {
-               new InternalReceiverModel
-               {
-                   SubjectId = Guid.NewGuid(),//用户ID
-                   Type = MessageTaskReceiverTypes.User
-               }
-           },
-           MessageInfo = new MessageInfoUpsertModel
-           {
-               Title = "Title",
-               Content = "Content",
-               ExtraProperties = new ExtraPropertyDictionary()//透传内容
-           }
-       };
-
-       await mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
-   });
-   ```
+    await mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
+});
+```

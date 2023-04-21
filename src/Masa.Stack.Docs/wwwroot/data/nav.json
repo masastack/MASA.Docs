@@ -15,13 +15,13 @@
       {
         "title": "use-guide",
         "items": [
-          "identity-provider",
-          "operation-log",
-          "org",
-          "position",
+          "user",
           "permission",
           "team",
-          "user"
+          "org",
+          "identity-provider",
+          "position",
+          "operation-log"
         ]
       },
       {

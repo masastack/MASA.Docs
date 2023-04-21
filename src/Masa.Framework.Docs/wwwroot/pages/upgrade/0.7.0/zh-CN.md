@@ -9,12 +9,12 @@
 
         :::: code-group
         ::: code-group-item 安装包
-        ```shell
+        ```shell 终端
         dotnet add package Masa.Contrib.Exceptions
         ```
         :::
         ::: code-group-item 使用全局异常 + I18n 
-        ```csharp
+        ```csharp Program.cs
         var builder = WebApplication.CreateBuilder(args);
      
         var app = builder.Build();
@@ -23,7 +23,7 @@
         ```
         :::
         ::: code-group-item 自定义处理异常
-        ```csharp
+        ```csharp Program.cs
         var builder = WebApplication.CreateBuilder(args);
    
         var app = builder.Build();
@@ -48,7 +48,7 @@
 
           :::: code-group
           ::: code-group-item 文件夹结构
-          ```shell
+          ```shell 
           - Resources
               - I18n
                   - en-US.json
@@ -57,7 +57,7 @@
           ```
           :::
           ::: code-group-item en-US.json
-          ```json
+          ```json Resources/I18n/en-US.json
           {
               "Home":"Home",
               "Exception":{
@@ -67,7 +67,7 @@
           ```
           :::
           ::: code-group-item zh-CN.json
-          ```json
+          ```json Resources/I18n/zh-CN.json
           {
               "Home":"首页",
               "Exception":{
@@ -77,7 +77,7 @@
           ```
           :::
           ::: code-group-item supportedCultures.json
-          ```json
+          ```json Resources/I18n/supportedCultures.json
           [
               {
                   "Culture":"zh-CN",
@@ -96,7 +96,7 @@
       
       3. 注册并使用I18n
       
-          ```csharp
+          ```csharp Program.cs
           var builder = WebApplication.CreateBuilder(args);
           builder.Services.AddI18n();
 
@@ -107,7 +107,7 @@
 
       4. 使用I18n
          
-         ```csharp
+         ```csharp Program.cs
          app.MapGet("exception", () =>
          {
              throw new UserFriendlyException(errorCode: "Exception.NotFound", "用户");

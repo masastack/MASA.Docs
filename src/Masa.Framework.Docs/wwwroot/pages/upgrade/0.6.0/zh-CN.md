@@ -71,7 +71,7 @@
 
 :::: code-group
 ::: code-group-item 0.6.0之前
-```csharp
+```csharp Program.cs
 builder.Services.AddDaprEventBus<IntegrationEventLogService>(options =>
 {
     options.UseEventLog<CatalogDbContext>()
@@ -81,7 +81,7 @@ builder.Services.AddDaprEventBus<IntegrationEventLogService>(options =>
 ```
 :::
 ::: code-group-item 0.6.0
-```csharp
+```csharp Program.cs
 builder.Services.AddIntegrationEventBus(options =>
 {
     options.UseDapr().UseEventLog<CatalogDbContext>()
@@ -96,7 +96,7 @@ builder.Services.AddIntegrationEventBus(options =>
 
 :::: code-group
 ::: code-group-item 0.6.0之前
-```csharp
+```csharp Program.cs
 builder.Services.AddDomainEventBus(options =>
 {
     options.UseDaprEventBus<IntegrationEventLogService>(options => options.UseEventLog<PaymentDbContext>())
@@ -107,7 +107,7 @@ builder.Services.AddDomainEventBus(options =>
 ```
 :::
 ::: code-group-item 0.6.0
-```csharp
+```csharp Program.cs
 builder.Services.AddDomainEventBus(options =>
 {
     options.UseIntegrationEventBus(dispatcherOptions => dispatcherOptions.UseDapr().UseEventLog<PaymentDbContext>())
@@ -125,7 +125,7 @@ builder.Services.AddDomainEventBus(options =>
 
 :::: code-group
 ::: code-group-item 0.6.0之前
-```csharp
+```csharp Services/DemoService.cs
 public class DemoService : ServiceBase
 {
     public DemoService(IServiceCollection services) : base(services)
@@ -141,7 +141,7 @@ public class DemoService : ServiceBase
 ```
 :::
 ::: code-group-item 0.6.0
-```csharp
+```csharp Services/DemoService.cs
 public class DemoService : ServiceBase
 {
     public string GetUserName()
@@ -161,12 +161,12 @@ public class DemoService : ServiceBase
 
 :::: code-group
 ::: code-group-item 0.6.0之前
-```csharp
+```csharp Program.cs
 builder.AddMasaConfiguration();
 ```
 :::
 ::: code-group-item 0.6.0
-```csharp
+```csharp Program.cs
 builder.Services.AddMasaConfiguration();
 ```
 :::
