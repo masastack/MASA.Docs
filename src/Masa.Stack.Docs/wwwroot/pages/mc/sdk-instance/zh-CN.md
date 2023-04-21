@@ -124,7 +124,7 @@ app.MapGet("/SendWebsiteMessage", async ([FromServices] IMcClient mcClient) =>
 app.Run();
 ```
 
-广播模式下通过SignalR发送检查通知，客户端接收后需要主动调用sdk的检查方法才会生成当前用户的站内信数据
+广播模式下通过SignalR发送检查通知，客户端接收后需要主动调用SDK的检查方法才会生成当前用户的站内信数据
 
 ```csharp
  HubConnection = new HubConnectionBuilder()
