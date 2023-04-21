@@ -43,5 +43,5 @@ date: 2023/03/13 13:22:00
 
    - 通过Scheduler管理端或者SDK创建一个Job应用类型的Job，并配置好指定的程序集和执行类
 
-      - 管理端创建Job，请参考[使用指南-调度Job](stack/scheduler/use-guide/scheduler-job)
+      - 管理端创建Job，请参考[使用指南-调度Job](stack/scheduler/use-guide/get-started)
       - SDK创建Job，请参考[SDK示例](stack/scheduler/sdk-instance)
