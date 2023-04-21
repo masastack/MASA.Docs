@@ -1,47 +1,11 @@
 # Caching (缓存)
 
-缓存是一种性能优化的技术，使用它可以显著提高应用性能，减少数据的读取速度。
-
-## 什么场景适合使用缓存
-
-缓存适用于读大于写的场景，针对不经常修改的数据，可通过使用缓存技术提高系统的性能
-
-> 缓存的本质是通过空间换时间
-
-## 缓存类型
-
-我们将缓存分为以下两类:
-
-* 内存缓存: Web服务器内存中的缓存, 重启项目会导致内存缓存丢失 [文档](https://learn.microsoft.com/zh-cn/aspnet/core/performance/caching/memory)
-
-> 内存缓存虽然可以大幅度提升系统的性能, 但内存是很昂贵的, 因此存储到内存缓存的数据、时间也都需要仔细斟酌, 而并非越多越好
-
-* 分布式缓存: 由多个应用服务器共享的缓存 [文档](https://learn.microsoft.com/zh-cn/aspnet/core/performance/caching/distributed)
-  * 可伸缩性: 支持扩展
-  * 高可用性: 跨多个区域使用缓存有助于提高缓存的可用性
-  * 一致性: 数据在多个服务器的请求之间是一致的
-  * 互不印象: 应用服务器重启不会造成缓存数据的丢失
-
-## 缓存技术
-
-`MASA Framework`提供了两种缓存方案:
-
-* 分布式缓存: 定义了分布式缓存的抽象`IDistributedCacheClient`, 并提供了常用分布式缓存的实现
-  * [Redis 缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.Distributed.StackExchangeRedis): 基于[StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)实现的分布式缓存 [查看详细](/framework/building-blocks/caching/stackexchange-redis)
-
-* 多级缓存: 定义了多级缓存的抽象`IMultilevelCacheClient`, 并提供了基于内存缓存与分布式缓存的实现:
-  * [多级缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.MultilevelCache): 基于内存缓存与分布式缓存实现的多级缓存, 相比分布式缓存而言, 它减少了一次网络传入与反序列化的消耗, 具有更好的性能优势 [查看详细](/framework/building-blocks/caching/multilevel-cache)
-
-> 多级缓存方案除了性能更高之外, 还实现了当缓存更新时, 其余复本的缓存也会同步更新, 不需要开发者介入完成缓存刷新
-
------------------等待修改------------------
-
 什么是缓存，在项目中，为了提高数据的读取速度，我们会对不经常变更但访问频繁的数据做缓存处理
 
 ## 功能列表
 
 * 分布式缓存:
-    * [Redis 缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.Distributed.StackExchangeRedis): 基于[StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)实现的分布式缓存 [查看详细](/framework/building-blocks/cache/stackexchange-redis)
+  * [Redis 缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.Distributed.StackExchangeRedis): 基于[StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)实现的分布式缓存 [查看详细](/framework/building-blocks/cache/stackexchange-redis)
 * [多级缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.MultilevelCache): 基于内存缓存与分布式缓存实现的多级缓存, 相比分布式缓存而言, 它减少了一次网络传入与反序列化的消耗, 具有更好的性能优势 [查看详细](/framework/building-blocks/cache/multilevel-cache)
 * [内存缓存](https://www.nuget.org/packages/Masa.Utils.Caching.Memory): 提供了线程安全的字典集合 [查看详细](/framework/utils/caching/memory)
 
@@ -122,9 +86,9 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, [
 
 * None: 1 (不处理)
 * TypeName: 2 (由缓存值的类型与传入缓存Key组合而成 **默认**)
-    * 实际的缓存Key = $"{GetTypeName(T)}.{传入缓存Key}"
+  * 实际的缓存Key = $"{GetTypeName(T)}.{传入缓存Key}"
 * TypeAlias: 3 (TypeName的升级版, 为每个TypeName指定`别名`, 缩减最后形成的`缓存Key`长度)
-    * 实际的缓存Key = ${TypeAliasName}{:}{key}
+  * 实际的缓存Key = ${TypeAliasName}{:}{key}
 
 ### 缓存Key规则优先级
 
@@ -154,7 +118,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 ```
 
 2. 为当前调用使用指定缓存Key规则
- 
+
 ```csharp Program.cs
 app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, string id) =>
 {
@@ -172,7 +136,7 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, s
 
 ### 分布式缓存客户端
 
-`IDistributedCacheClient`被用来管理分布式缓存, 它提供了以下方法: 
+`IDistributedCacheClient`被用来管理分布式缓存, 它提供了以下方法:
 
 > 分布式缓存中实际执行的缓存Key与传入的缓存Key不一定是相同的, 它受到全局配置的`CacheKeyType`以及当前方法传入`CacheKeyType`以及缓存Key三者共同决定 [查看规则](#缓存Key规则优先级)
 
@@ -206,7 +170,7 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, s
 
 ### 多级缓存客户端
 
-`IMultilevelCacheClient`被用来管理多级缓存, 它提供了以下方法: 
+`IMultilevelCacheClient`被用来管理多级缓存, 它提供了以下方法:
 
 多级缓存客户端, 基于分布式缓存以及内存缓存组合而成, 当触发`Set`、`Remove`方法后
 
@@ -223,12 +187,12 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, s
 
 ### 分布式缓存工厂
 
-`IDistributedCacheClientFactory`被用来创建指定`name`的分布式缓存客户端, 它提供了以下方法: 
+`IDistributedCacheClientFactory`被用来创建指定`name`的分布式缓存客户端, 它提供了以下方法:
 
 * Create： 创建指定`name`的`分布式缓存客户端`
 
 ### 多级缓存工厂
 
-`IMultilevelCacheClientFactory`被用来创建指定`name`的多级缓存缓存客户端, 它提供了以下方法: 
+`IMultilevelCacheClientFactory`被用来创建指定`name`的多级缓存缓存客户端, 它提供了以下方法:
 
 * Create: 返回指定`name`的`多级缓存客户端`
