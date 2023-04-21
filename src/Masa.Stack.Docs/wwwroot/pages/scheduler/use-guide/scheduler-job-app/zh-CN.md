@@ -22,52 +22,32 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
 
    ![新建源文件](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert.png)
 
-   1. 编写源文件代码注册相关服务，修改`Program.cs`
-
-   ```csharp
-   builder.Services.AddSchedulerClient("schedulers服务地址");
-   ```
-
-   2. 注册Hosting（控制台中需要）
-
-   ```powershelll
-   Install-Package Microsoft.Extensions.Hosting
-   ```
-
-   3. 编写代码
+   1. 编写代码
 
    ```csharp
    using Masa.BuildingBlocks.StackSdks.Scheduler.Model;
    using Masa.Contrib.StackSdks.Scheduler;
-   using Microsoft.Extensions.DependencyInjection;
-   using Microsoft.Extensions.Hosting;
-   
+
    internal class Program
    {
        static async Task Main(string[] args)
        {
-           var host = new HostBuilder()
-               .ConfigureServices((hostContext, services) =>
-               {
-                   services.AddSchedulerClient("schedulers服务地址");
-               })
-               .Build();
-           await host.RunAsync();
+           Console.WriteLine("Hello World!");
        }
    }
-   
+
    public class MyExecuteJob : SchedulerJob
    {
        public override async Task<object?> ExcuteAsync(JobContext context)
        {
-           var myParameter = context.ExcuteParameters[0];//注册job时配置的传递参数
+           var myParameter = context.ExcuteParameters;//注册job时配置的传递参数
            var jobId = context.JobId;//调度中心的JobId
            var taskId = context.TaskId;//调度中心的TaskId
            var executionTime = context.ExecutionTime;//补偿时间
            //你的业务
            await Task.CompletedTask;
            //这个返回任意对象都行，如果想标记此任务失败可以通过throw new Exception();
-           return "Success";
+           return "success";
        }
    }
    ```
@@ -89,7 +69,7 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
 | **应用名称** | Job 应用                                                    |
 | **程序集**   | 控制台打包后的 DLL（仅包含项目的 DLL 文件）                  |
 | **执行类**   | 命名空间中的 Job 类                                         |
-| **参数**     | 入参参数（可选）                                           |
+| **参数**     | 入参参数（可选，以逗号分隔，**目前最少需要填一个参数**）                                           |
 | **源文件版本** | 指定特定版本或最新版本（可选）                              |
 
 ## API创建
