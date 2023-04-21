@@ -336,9 +336,7 @@
 
 你会看到当前项目所有的API服务,它们都是[RESTful](https://learn.microsoft.com/zh-cn/azure/architecture/best-practices/api-design)风格的API:
 
-<div>
-  <img alt="Swagger UI" src="https://s2.loli.net/2023/04/07/5AhWBZeTY72cagz.png"/>
-</div>
+![Swagger UI](https://s2.loli.net/2023/04/07/5AhWBZeTY72cagz.png)
 
 我们可以通过Swagger的UI更方便的测试API
 

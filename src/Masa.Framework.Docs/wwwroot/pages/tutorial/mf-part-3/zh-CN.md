@@ -71,7 +71,7 @@
 
    > 注册事件总线在**AddServices**之前即可，集成事件总线由`dapr`提供，确保开发环境已经成功配置[dapr](https://docs.dapr.io/zh-hans/getting-started/)环境
 
-3. 安装`DaprStarter`并注册 （提供`dapr sidecar`管理）
+3. 安装`Dapr Starter`并注册 （提供`dapr sidecar`管理）
 
    :::: code-group
    ::: code-group-item 安装 nuget 包
@@ -81,7 +81,7 @@
    ```
 
    :::
-   ::: code-group-item 注册Dapr Starter
+   ::: code-group-item 注册DaprStarter
 
    ```csharp Program.cs
    var builder = WebApplication.CreateBuilder(args);
@@ -105,7 +105,7 @@
    :::
    ::::
 
-   > 线上环境不需要使用[dapr starter](/framework/building-blocks/development/dapr-starter)，它仅在开发环境下使用
+   > 线上环境不需要使用[DaprStarter](/framework/building-blocks/development/dapr-starter)，它仅在开发环境下使用
 
 4. 新建读库上下文`CatalogQueryDbContext`并注册
 
@@ -626,10 +626,10 @@
    }
    ```
 
+## 相关文档
+
+* [手把手教你学Dapr](https://www.cnblogs.com/doddgu/p/dapr-learning-1.html)
+
 ## 总结
 
 通过事件总线、读写分离，它将使我们更聚焦业务。将关注点分离，使得我们在读场景时关注性能，写场景时关注业务逻辑，而在需要验证参数时在`XXXValidator`完成，避免过多不相关的操作影响到核心业务
-
-* 相关文档
-
-  [手把手教你学Dapr](https://www.cnblogs.com/doddgu/p/dapr-learning-1.html)
