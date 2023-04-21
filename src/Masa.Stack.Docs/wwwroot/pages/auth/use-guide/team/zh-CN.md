@@ -7,11 +7,15 @@
 团队列表已卡片的形式展现，目前没有做分页处理。卡片包含的团队信息分别为：团队头像、成员人数、团队名称、团队管理员以及编辑时间。
 左上角搜索框可根据团队名称搜索团队，回车触发搜索动作。
 
-![teams](http://cdn.masastack.com/stack/doc/auth/teams.png)
+![项目团队图](https://cdn.masastack.com/stack/doc/auth/use-guide/team/teams.png)
 
-## 新增团队
+## 新建团队
 
-新增团队为Step方式分别为团队基础信息、团队管理员、团队成员。
+点击卡片列表右上角的`新建`按钮，弹出新建团队窗口。
+
+![新建团队入口图](https://cdn.masastack.com/stack/doc/auth/use-guide/team/team-add-icon.png)
+
+新建团队为Step方式分别为团队基础信息、团队管理员、团队成员。
 
 > 只有员工才能加入团队
 
@@ -19,7 +23,7 @@
 
 输入团队名称，激活下一步按钮，默认会根据团队名称首个字符以及选择的颜色生成团队头像。
 
-![team-add-basic](http://cdn.masastack.com/stack/doc/auth/team-add-basic.png)
+![新建团队步骤一基础信息图](https://cdn.masastack.com/stack/doc/auth/use-guide/team/team-add-basic.png)
 
 ### 团队管理员
 
@@ -29,12 +33,40 @@
 
 底部为应用权限树，应用数据从PM中获取。通过权限树可以禁用从角色继承的权限或补充权限。
 
-![team-add-admin](http://cdn.masastack.com/stack/doc/auth/team-add-admin.png)
+![新建团队步骤二设置管理员图](https://cdn.masastack.com/stack/doc/auth/use-guide/team/team-add-admin.png)
 
 ### 团队成员
 
-同团队管理员
+同`团队管理员`
 
 > 选择团队成员时，已自动过滤设置为该团队管理员的员工
 
-![team-add-member](http://cdn.masastack.com/stack/doc/auth/team-add-member.png)
+![新建团队步骤三设置团队成员图](https://cdn.masastack.com/stack/doc/auth/use-guide/team/team-add-member.png)
+
+## 编辑团队
+
+点击要编辑的团队卡片右上角的`编辑图标`，弹出编辑团队窗口，编辑团队信息、删除团队
+
+![编辑团队入口图](https://cdn.masastack.com/stack/doc/auth/use-guide/team/team-edit-icon.png)
+
+### 团队基础信息
+
+![编辑团队基础信息图](https://cdn.masastack.com/stack/doc/auth/use-guide/team/team-edit-basic.png)
+
+### 团队管理员
+
+点击设置管理员
+
+![编辑团队设置管理员图](https://cdn.masastack.com/stack/doc/auth/use-guide/team/team-edit-admin.png)
+
+### 团队成员
+
+点击设置团队成员
+
+![编辑团队设置团队成员图](https://cdn.masastack.com/stack/doc/auth/use-guide/team/team-edit-member.png)
+
+### 删除成员
+
+点击编辑团队窗口左下角的`删除`按钮，弹出删除团队确认信息框，点击`确定`删除团队。
+
+![删除团队图](https://cdn.masastack.com/stack/doc/auth/use-guide/team/team-delete.png)
