@@ -6,7 +6,7 @@
 
 > 使用多级缓存的时候需要注意：当内存中的缓存数据很多也很大的时候，可能会导致内存超负荷，这个时候我们推荐使用缓存[滑动过期](#滑动过期)
 
-![多级缓存结构图](https://masa-cdn-dev.oss-cn-hangzhou.aliyuncs.com/multilevel_design.png)
+![多级缓存结构图](https://masa-cdn.oss-cn-hangzhou.aliyuncs.com/framework/building-blocks/cache/multilevel_design.png)
 
 ## 使用
 
@@ -154,7 +154,14 @@ builder.Services.AddMultilevelCache(distributedCacheOptions =>
 ```csharp Program.cs
 builder.Services.AddMultilevelCache(distributedCacheOptions =>
 {
-    distributedCacheOptions.UseStackExchangeRedisCache(RedisConfigurationOptions);
+    distributedCacheOptions.UseStackExchangeRedisCache(redisConfigurationOptions =>
+    {
+        redisConfigurationOptions.Servers = new List<RedisServerOptions>()
+        {
+            new("localhost", 6379)
+        };
+        redisConfigurationOptions.DefaultDatabase = 3;
+    });
 });
 ```
 :::
@@ -280,4 +287,4 @@ public class HomeController : ControllerBase
    
    多级缓存中使用了分布式缓存提供的[Pub/Sub](/framework/building-blocks/caching/stackexchange-redis#使用PubSub)能力
    
-   ![多级缓存原理流程图](https://masa-cdn-dev.oss-cn-hangzhou.aliyuncs.com/multilevel_cache.png)
+   ![多级缓存原理流程图](https://masa-cdn.oss-cn-hangzhou.aliyuncs.com/framework/building-blocks/cache/multilevel_cache.png)

@@ -153,7 +153,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 #### 4. 通过指定 Configuration 注册
 
 :::: code-group
-::: code-group-item 1. 修改`appsettings.json`
+::: code-group-item 1. 修改appsettings.json
 ```json appsettings.json
 {
     "RedisConfig":{
@@ -168,7 +168,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 }
 ```
 :::
-::: code-group-item 2. 指定`Configuration`注册分布式 Redis 缓存
+::: code-group-item 2. 指定Configuration注册分布式 Redis 缓存
 ```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
