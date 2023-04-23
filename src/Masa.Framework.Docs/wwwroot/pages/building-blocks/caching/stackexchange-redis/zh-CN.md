@@ -12,7 +12,7 @@
 dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 ```
 
-2. 添加`Redis`的配置信息
+2. 添加 `Redis` 的配置信息
 
 ```json appsettings.json
 {
@@ -28,7 +28,7 @@ dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
 }
 ```
 
-3. 注册分布式缓存，并使用Redis缓存
+3. 注册分布式缓存，并使用 Redis 缓存
 
 ```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
@@ -41,7 +41,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 
  ```csharp
  [ApiController]
- [Route("[controller]")]
+[Route("[controller]/[action]")]
  public class HomeController : ControllerBase
  {
      private readonly IDistributedCacheClient _distributedCacheClient;
@@ -63,9 +63,9 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 
 ## 高阶用法
 
-### 分布式缓存Redis注册方式
+### 分布式缓存 Redis注册方式
 
-我们提供了多种方法来初始化Redis的配置。我们推荐采用**选项模式**使用`Configure<RedisConfigurationOptions>`来设置Redis的配置信息。
+我们提供了多种方法来初始化 Redis 的配置。我们推荐采用**选项模式**使用`Configure<RedisConfigurationOptions>`来设置 Redis 的配置信息。
 
 #### 1. 通过选项模式注册
 
@@ -88,7 +88,7 @@ builder.Services.Configure<RedisConfigurationOptions>(redisConfigurationOptions 
 });
 ```
 :::
-::: code-group-item 2. 注册分布式Redis缓存
+::: code-group-item 2. 注册分布式 Redis 缓存
 ```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
@@ -100,9 +100,9 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 
 #### 2. 通过本地配置文件注册
 
-在指定的本地配置文件中的指定节点配置Redis信息, 完成注册
+在指定的本地配置文件中的指定节点配置 Redis 信息, 完成注册
 
-> 如果本地配置的指定节点下不存在Redis配置, 则仍然尝试从`IOptionsMonitor<RedisConfigurationOptions>`获取, 如果获取失败则使用`localhost:6379`
+> 如果本地配置的指定节点下不存在 Redis 配置, 则仍然尝试从`IOptionsMonitor<RedisConfigurationOptions>`获取, 如果获取失败则使用`localhost:6379`
 
 :::: code-group
 ::: code-group-item 1. 修改本地配置文件
@@ -120,7 +120,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 }
 ```
 :::
-::: code-group-item 2. 注册分布式Redis缓存
+::: code-group-item 2. 注册分布式 Redis 缓存
 ```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
@@ -130,7 +130,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 :::
 ::::
 
-#### 3. 通过委托指定Redis配置注册
+#### 3. 通过委托指定 Redis 配置注册
 
 ```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
@@ -168,7 +168,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 }
 ```
 :::
-::: code-group-item 2. 指定`Configuration`注册分布式Redis缓存
+::: code-group-item 2. 指定`Configuration`注册分布式 Redis 缓存
 ```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
 {
@@ -178,7 +178,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 :::
 ::::
 
-### Redis配置参数说明
+### Redis 配置参数说明
 
 * `RedisConfigurationOptions`类
 
@@ -399,7 +399,7 @@ builder.Services.AddDistributedCache(opt =>
 
 ```csharp
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/[action]")]
 public class HomeController : ControllerBase
 {
     private readonly IDistributedCacheClient _distributedCacheClient;
@@ -431,7 +431,7 @@ public class HomeController : ControllerBase
 
 ### 滑动过期原理
 
-MASA Framework的分布式缓存是支持滑动过期的，但是Redis缓存仅支持绝对过期。那么这个滑动过期是怎么实现的呢？主要是通过以下三个步骤：
+MASA Framework的分布式缓存是支持滑动过期的，但是 Redis 缓存仅支持绝对过期。那么这个滑动过期是怎么实现的呢？主要是通过以下三个步骤：
 
 1. 数据类型改为`Hash`类型
 2. 将绝对过期时间与滑动过期时间存储

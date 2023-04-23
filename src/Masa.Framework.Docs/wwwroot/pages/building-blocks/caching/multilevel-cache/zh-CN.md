@@ -28,7 +28,7 @@
    });
    ```
 
-3. 修改appsettings.json文件，添加分布式缓存`Redis`的配置信息
+3. 修改appsettings.json文件，添加分布式缓存 `Redis` 的配置信息
 
    ```json appsettings.json
    {
@@ -48,7 +48,7 @@
 
    ```csharp
    [ApiController]
-   [Route("[controller]")]
+   [Route("[controller]/[action]")]
    public class HomeController : ControllerBase
    {
        private readonly IMultilevelCacheClient _multilevelCacheClient;
@@ -76,89 +76,89 @@
 
 我们提供了多种方法来初始化多级缓存的配置。我们推荐采用**选项模式**使用`Configure<MultilevelCacheOptions>`来设置多级缓存的配置信息。
 
-   #### 1. 选项模式
+#### 1. 选项模式
 
-   > 我们还可以借助 [`MasaConfiguration`](../../building-blocks/configuration/index.md) 完成选项模式支持
+> 我们还可以借助 [`MasaConfiguration`](../../building-blocks/configuration/index.md) 完成选项模式支持
 
-   :::: code-group
-   ::: code-group-item 1. 支持选项模式
-   ```csharp Program.cs
-   builder.Services.Configure<MultilevelCacheOptions>(options =>
-   {
-       options.SubscribeKeyType = SubscribeKeyType.ValueTypeFullNameAndKey;
-   });
-   ```
-   :::
-   ::: code-group-item 2. 添加多级缓存并使用分布式Redis缓存
-   ```csharp Program.cs
-   builder.Services.AddMultilevelCache(distributedCacheOptions =>
-   {
-       distributedCacheOptions.UseStackExchangeRedisCache(redisConfigurationOptions =>
-       {
-           redisConfigurationOptions.Servers = new List<RedisServerOptions>()
-           {
-               new("localhost", 6379)
-           };
-           redisConfigurationOptions.DefaultDatabase = 3;
-       });
-   });
-   ```
-   :::
-   ::::
+:::: code-group
+::: code-group-item 1. 支持选项模式
+```csharp Program.cs
+builder.Services.Configure<MultilevelCacheOptions>(options =>
+{
+    options.SubscribeKeyType = SubscribeKeyType.ValueTypeFullNameAndKey;
+});
+```
+:::
+::: code-group-item 2. 添加多级缓存并使用分布式 Redis 缓存
+```csharp Program.cs
+builder.Services.AddMultilevelCache(distributedCacheOptions =>
+{
+    distributedCacheOptions.UseStackExchangeRedisCache(redisConfigurationOptions =>
+    {
+        redisConfigurationOptions.Servers = new List<RedisServerOptions>()
+        {
+            new("localhost", 6379)
+        };
+        redisConfigurationOptions.DefaultDatabase = 3;
+    });
+});
+```
+:::
+::::
 
-   #### 2. 通过本地配置文件注册
+#### 2. 通过本地配置文件注册
 
-   :::: code-group
-   ::: code-group-item 1. 修改本地配置文件
-   ```json appsettings.json
-   {
-     // 多级缓存全局配置，非必填
-     "MultilevelCache": {
-       "SubscribeKeyPrefix": "masa",//默认订阅方key前缀，用于拼接channel
-       "SubscribeKeyType": 3, //默认订阅方key的类型，默认ValueTypeFullNameAndKey，用于拼接channel
-       "CacheEntryOptions": {
-         "AbsoluteExpirationRelativeToNow": "00:00:30",//绝对过期时长（距当前时间）
-         "SlidingExpiration": "00:00:50"//滑动过期时长（距当前时间）
-       }
-     },
+:::: code-group
+::: code-group-item 1. 修改本地配置文件
+```json appsettings.json
+{
+  // 多级缓存全局配置，非必填
+  "MultilevelCache": {
+    "SubscribeKeyPrefix": "masa",//默认订阅方key前缀，用于拼接channel
+    "SubscribeKeyType": 3, //默认订阅方key的类型，默认ValueTypeFullNameAndKey，用于拼接channel
+    "CacheEntryOptions": {
+      "AbsoluteExpirationRelativeToNow": "00:00:30",//绝对过期时长（距当前时间）
+      "SlidingExpiration": "00:00:50"//滑动过期时长（距当前时间）
+    }
+  },
 
-     // Redis分布式缓存配置
-     "RedisConfig": {
-       "Servers": [
-         {
-           "Host": "localhost",
-           "Port": 6379
-         }
-       ],
-       "DefaultDatabase": 3
-     }
-   }
-   ```
-   :::
-   ::: code-group-item 2. 添加多级缓存并使用分布式Redis缓存
-   ```csharp Program.cs
-   builder.Services.AddMultilevelCache(distributedCacheOptions =>
-   {
-       distributedCacheOptions.UseStackExchangeRedisCache();
-   });
-   ```
-   :::
-   ::::
+  // Redis分布式缓存配置
+  "RedisConfig": {
+    "Servers": [
+      {
+        "Host": "localhost",
+        "Port": 6379
+      }
+    ],
+    "DefaultDatabase": 3
+  }
+}
+```
+:::
+::: code-group-item 2. 添加多级缓存并使用分布式 Redis 缓存
+```csharp Program.cs
+builder.Services.AddMultilevelCache(distributedCacheOptions =>
+{
+    distributedCacheOptions.UseStackExchangeRedisCache();
+});
+```
+:::
+::::
 
-   #### 3. 手动指定配置
-   
-   使用默认配置, 并指定Redis配置信息
-   
-   :::: code-group
-   ::: code-group-item 1. 添加多级缓存并使用分布式Redis缓存
-   ```csharp Program.cs
-   builder.Services.AddMultilevelCache(distributedCacheOptions =>
-   {
-       distributedCacheOptions.UseStackExchangeRedisCache(RedisConfigurationOptions);
-   });
-   ```
-   :::
-   ::::
+#### 3. 手动指定配置
+
+使用默认配置, 并指定 Redis 配置信息
+
+:::: code-group
+::: code-group-item 1. 添加多级缓存并使用分布式 Redis 缓存
+```csharp Program.cs
+builder.Services.AddMultilevelCache(distributedCacheOptions =>
+{
+    distributedCacheOptions.UseStackExchangeRedisCache(RedisConfigurationOptions);
+});
+```
+:::
+::::
    
    
 ### 多级缓存配置参数说明
@@ -242,7 +242,7 @@ builder.Services.AddMultilevelCache(opt =>
 
 ```csharp
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/[action]")]
 public class HomeController : ControllerBase
 {
     private readonly IMultilevelCacheClient _multilevelCacheClient;
