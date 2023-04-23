@@ -28,7 +28,7 @@
    app.Run();
    ```
 
-3. 通过Swagger测试，以创建商品为例
+3. 通过 Swagger 测试，以创建商品为例
 
    <div>
      <img alt="Create Product" src="https://s2.loli.net/2023/04/11/S18vjEtYpFJXPzd.png"/>
@@ -37,7 +37,7 @@
 
 4. 自定义异常处理
 
-   例如：当出现`ArgumentNullException`异常时，对外输出具体错误信息，Http状态码为：298
+   例如：当出现 `ArgumentNullException` 异常时，对外输出具体错误信息，Http 状态码为：298
 
    ```csharp Program.cs
    app.UseMasaExceptionHandler(options =>
@@ -54,4 +54,4 @@
 
 ## 总结
 
-通过全局异常功能，我们可以在项目任何地方中断操作，减少了很多繁琐的工作，除此之外通过定制异常并输出格式一致的响应信息，它将极大的方便与前端工程师协作开发，除此之外，全局异常支持与[I18n](/framework/building-blocks/globalization/i18n)协作，输出更友好的错误信息
+通过全局异常功能，我们可以在项目任何地方中断操作，减少了很多繁琐的工作，除此之外通过定制异常并输出格式一致的响应信息，它将极大的方便与前端工程师协作开发，除此之外，全局异常支持与 [I18n](/framework/building-blocks/globalization/i18n) 协作，输出更友好的错误信息

@@ -13,7 +13,7 @@
    dotnet add package Masa.Contrib.Data.Contracts --prerelease
    ```
 
-   > **Masa.Contrib.Data.Contracts**提供了软删除、数据过滤的功能
+   > **Masa.Contrib.Data.Contracts** 提供了软删除、数据过滤的功能
 
 2. 新增**商品品牌**、**商品类型**、**商品信息**模型:
 
@@ -246,7 +246,7 @@
    }
    ```
    
-   > [MasaDbContext](/framework/building-blocks/data/orm-efcore)的更多用法
+   > [MasaDbContext](/framework/building-blocks/data/orm-efcore) 的更多用法
    
 5. 配置数据库连接字符串
 
@@ -290,9 +290,9 @@
    app.Run();
    ```
 
-   > **UseFilter**方法由**Masa.Contrib.Data.Contracts**提供
+   > **UseFilter** 方法由 **Masa.Contrib.Data.Contracts** 提供
    >
-   > 注册数据上下文在**AddServices**之前即可
+   > 注册数据上下文在 **AddServices** 之前即可
 
 7. 数据库迁移，确保已安装 [EF Core 命令行工具](https://learn.microsoft.com/zh-cn/ef/core/cli/dotnet)
 
@@ -302,7 +302,7 @@
       dotnet add package Microsoft.EntityFrameworkCore.Tools --version 6.0.0
       ```
       
-      > 若安装其它版本的`EntityFrameworkCore.Tools`，则需要再安装相同版本的`Microsoft.EntityFrameworkCore`、`Microsoft.EntityFrameworkCore.Sqlite`，否则会导致模型迁移失败
+      > 若安装其它版本的 `EntityFrameworkCore.Tools` ，则需要再安装相同版本的 `Microsoft.EntityFrameworkCore` 、 `Microsoft.EntityFrameworkCore.Sqlite` ，否则会导致模型迁移失败
       
    2. 模型迁移
 
@@ -320,7 +320,7 @@
       :::
       ::::
 
-      > 需在`Masa.EShop.Service.Catalog`文件夹下执行迁移命令
+      > 需在 `Masa.EShop.Service.Catalog` 文件夹下执行迁移命令
 
    3. 更新数据库
 
@@ -338,7 +338,7 @@
       :::
       ::::
       
-      > 模型迁移需要安装`Microsoft.EntityFrameworkCore.Tools`，请确保已正确安装
+      > 模型迁移需要安装 `Microsoft.EntityFrameworkCore.Tools` ，请确保已正确安装
       >
       > 多数据上下文时请在命令行尾部增加 ` --context CatalogDbContext`
 
@@ -584,9 +584,9 @@
 
 1. 模型更新时出错，错误信息：`Unable to create an object of type 'CatalogDbContext'. For the different patterns supported at design time, see https://go.microsoft.com/fwlink/?linkid=851728`
 
-   检查并更改使用同一版本的`Microsoft.EntityFrameworkCore.XXX` 
+   检查并更改使用同一版本的 `Microsoft.EntityFrameworkCore.XXX` 
 
-2. 通过`Swagger`界面调用接口出错，错误信息：`System.UserFriendlyException: Please select a product category at Masa.EShop.Service.Catalog.Services.CatalogItemService.CreateProductAsync(CCreateProductCommand command) in E:\Temp\EShop\Masa.EShop.Service.Catalog\Services\CatalogItemService.cs:line`
+2. 通过 `Swagger` 界面调用接口出错，错误信息：`System.UserFriendlyException: Please select a product category at Masa.EShop.Service.Catalog.Services.CatalogItemService.CreateProductAsync(CCreateProductCommand command) in E:\Temp\EShop\Masa.EShop.Service.Catalog\Services\CatalogItemService.cs:line`
 
    检查传参是否正确，默认提供参数是无法通过参数验证的
 
@@ -600,4 +600,4 @@
 
 ## 总结
 
-通过`MasaDbContext`我们做到了数据的持久化，也支持查询已删除的产品，已经完成了基本要求，后续教程所使用的技术可以帮助我们的项目有更好的读性能、维护更方便、关注点分离，聚焦核心领域等
+通过 `MasaDbContext` 我们做到了数据的持久化，也支持查询已删除的产品，已经完成了基本要求，后续教程所使用的技术可以帮助我们的项目有更好的读性能、维护更方便、关注点分离，聚焦核心领域等

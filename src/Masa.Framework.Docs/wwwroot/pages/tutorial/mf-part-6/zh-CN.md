@@ -187,7 +187,7 @@
    :::
    ::::
 
-   > `IdGeneratorFactory.SequentialGuidGenerator.NewId();`需安装并注册[有序Guid生成器](/framework/building-blocks/data/sequential-guid)
+   > `IdGeneratorFactory.SequentialGuidGenerator.NewId();`需安装并注册 [有序Guid生成器](/framework/building-blocks/data/sequential-guid)
 
 4. 新增集成领域事件并继承商品创建集成事件 `CatalogCreatedIntegrationEvent`
 
@@ -321,7 +321,7 @@
 
 1. 创建商品提示`System.InvalidOperationException: No service for type 'Masa.BuildingBlocks.Data.ISequentialGuidGenerator' has been registered.`
 
-   未安装并注册[有序Guid生成器](/framework/building-blocks/data/sequential-guid)
+   未安装并注册 [有序Guid生成器](/framework/building-blocks/data/sequential-guid)
 
 ## 总结
 
