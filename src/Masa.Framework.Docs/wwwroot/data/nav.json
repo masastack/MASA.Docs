@@ -14,6 +14,13 @@
     ]
   },
   {
+    "title": "getting-started",
+    "items": [
+      "overview",
+      "mf-part-1"
+    ]
+  },
+  {
     "title": "tutorial",
     "items": [
       "overview",
@@ -28,6 +35,13 @@
   {
     "title": "building-blocks",
     "items": [
+      {
+        "title": "auto-complete",
+        "items": [
+          "overview",
+          "elasticsearch"
+        ]
+      },
       {
         "title": "caching",
         "items": [
