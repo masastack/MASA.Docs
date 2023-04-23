@@ -66,6 +66,8 @@ public class CatalogDbContext : MasaDbContext<CatalogDbContext>
 }
 ```
 
+> 默认查询不跟踪，可以提高查询性能
+
 ### 注册DbContext
 
 注册数据上下文通常使用以下两种方式:

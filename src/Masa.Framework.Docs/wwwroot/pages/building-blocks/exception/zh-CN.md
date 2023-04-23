@@ -69,7 +69,7 @@ builder.Services
 #### 中间件
 
 :::: code-group
-::: code-group-item 方案1
+::: code-group-item 手动指定异常处理
 ```csharp
 app.UseMasaExceptionHandler(options =>
 {
@@ -82,7 +82,7 @@ app.UseMasaExceptionHandler(options =>
 });
 ```
 :::
-::: code-group-item 方案2
+::: code-group-item 注册自定义异常处理程序
 ```csharp
 public class ExceptionHandler : IMasaExceptionHandler
 {
@@ -91,6 +91,7 @@ public class ExceptionHandler : IMasaExceptionHandler
     {
         _logger = logger;
     }
+    
     public void OnException(MasaExceptionContext context)
     {
         if (context.Exception is ArgumentNullException)
@@ -104,8 +105,19 @@ builder.Services.AddSingleton<ExceptionHandler>();
 app.UseMasaExceptionHandler();
 ```
 :::
-::: code-group-item 方案3
+::: code-group-item 使用自定义异常处理程序
 ```csharp
+public class ExceptionHandler : IMasaExceptionHandler
+{
+    public void OnException(MasaExceptionContext context)
+    {
+        if (context.Exception is ArgumentNullException)
+        {
+            context.ToResult(context.Exception.Message, 299);
+        }
+    }
+}
+
 app.UseMasaExceptionHandler(option =>
 {
     option.UseExceptionHanlder<ExceptionHandler>();
@@ -114,10 +126,14 @@ app.UseMasaExceptionHandler(option =>
 :::
 ::::
 
+> 方案2：（注册自定义异常处理程序）支持通过`DI`获取
+> 
+> 方案3：（使用自定义异常处理程序）需确保有无参构造函数，且不支持从`DI`获取服务
+
 #### 异常过滤器
 
 :::: code-group
-::: code-group-item 方案1
+::: code-group-item 手动指定异常处理
 ```csharp
 builder.Services
     .AddMvc()
@@ -131,8 +147,26 @@ builder.Services
     });
 ```
 :::
-::: code-group-item 方案2
+::: code-group-item 注册自定义异常处理程序
 ```csharp
+public class ExceptionHandler : IMasaExceptionHandler
+{
+    private readonly ILogger<ExceptionHandler> _logger;
+    public ExceptionHandler(ILogger<ExceptionHandler> logger)
+    {
+        _logger = logger;
+    }
+    
+    public void OnException(MasaExceptionContext context)
+    {
+        if (context.Exception is ArgumentNullException)
+        {
+            _logger.LogWarning(context.Message);
+            context.ToResult(context.Exception.Message, 299);
+        }
+    }
+}
+
 builder.Services.AddSingleton<ExceptionHandler>();
 
 builder.Services
@@ -140,8 +174,19 @@ builder.Services
   .AddMasaExceptionHandler();
 ```
 :::
-::: code-group-item 方案3
+::: code-group-item 使用自定义异常处理程序
 ```csharp
+public class ExceptionHandler : IMasaExceptionHandler
+{
+    public void OnException(MasaExceptionContext context)
+    {
+        if (context.Exception is ArgumentNullException)
+        {
+            context.ToResult(context.Exception.Message, 299);
+        }
+    }
+}
+
 builder.Services
   .AddMvc()
   .AddMasaExceptionHandler(options =>
@@ -151,6 +196,10 @@ builder.Services
 ```
 :::
 ::::
+
+> 方案2：（注册自定义异常处理程序）支持通过`DI`获取
+>
+> 方案3：（使用自定义异常处理程序）需确保有无参构造函数，且不支持从`DI`获取服务
 
 ### 异常与Http状态码
 

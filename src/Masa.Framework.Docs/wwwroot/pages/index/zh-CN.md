@@ -2,7 +2,7 @@
 
 ![Logo.png](https://s2.loli.net/2023/04/06/KRd2hoybOurWN3J.png)
 
-欢迎来到MASA Framework文档站点
+欢迎来到 **MASA Framework** 文档站点
 
 ## 概念
 
