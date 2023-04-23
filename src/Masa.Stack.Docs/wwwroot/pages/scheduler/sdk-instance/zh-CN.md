@@ -30,9 +30,9 @@ builder.Services.AddSchedulerClient("http://schedulerservice.com");
 
 ### 用例
 
-   - [`注册Job 应用`](stack/scheduler/use-guide/scheduler-job-app/#api_create)
+   - [`注册Job 应用`](stack/scheduler/use-guide/scheduler-job-app/#API创建)
 
-   - [`注册Http`](stack/scheduler/use-guide/scheduler-http/#api_create)
+   - [`注册Http`](stack/scheduler/use-guide/scheduler-http/#API创建)
 
-   - [`注册Dapr`](stack/scheduler/use-guide/scheduler-dapr/#api_create)
+   - [`注册Dapr`](stack/scheduler/use-guide/scheduler-dapr/#API创建)
 

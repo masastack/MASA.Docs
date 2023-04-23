@@ -24,8 +24,6 @@
 
 ## API创建
 
-<a id="api_create"></a>
-
 ### 2. 编写一个API创建代码
 
    1. 注册相关服务，修改`Program.cs`

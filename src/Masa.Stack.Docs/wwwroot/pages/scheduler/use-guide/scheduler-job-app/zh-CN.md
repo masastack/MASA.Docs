@@ -12,8 +12,6 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
 
 ### 1. 上传资源文件
 
-<a id="upload_file"></a>
-
    ![上传资源文件](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles.png)
 
 ### 2. 新建源文件
@@ -58,7 +56,11 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
 
    ![上传](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_upload.png)
 
-### 3. 设置资源文件执行类
+### 3. 填写调度信息
+
+   ![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail.png)
+
+### 4. 设置资源文件执行类
 
 ![设置资源文件执行类](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail_2.png)
 
@@ -70,13 +72,7 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
 |**参数**     | 入参参数（可选，以逗号分隔，**目前最少需要填一个参数**）    |
 |**源文件版本** | 指定特定版本或最新版本（可选）                              |
 
-### 4. 填写调度信息
-
-   ![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail.png)
-
 ## API创建
-
-<a id="api_create"></a>
 
 ### 1. API创建也需要先上传资源文件
 
@@ -144,7 +140,7 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
    | **JobType**              | Job 的类型（`JobTypes.JobApp` 为 Job 应用） |
    | **CronExpression**       | Cron 表达式（Job 执行的周期）          |
    | **OperatorId**           | 操作人/创建人                         |
-   | **JobAppIdentity**       | 上传的[资源文件](#upload_file) ID                      |
+   | **JobAppIdentity**       | 上传的[资源文件](#1.上传资源文件) ID                      |
    | **JobEntryAssembly**     | 程序集（仅包含项目的 DLL 文件）        |
    | **JobEntryClassName**    | 执行类（命名空间中的 Job 类）          |
    | **Version**              | 指定特定版本（可选）                   |
