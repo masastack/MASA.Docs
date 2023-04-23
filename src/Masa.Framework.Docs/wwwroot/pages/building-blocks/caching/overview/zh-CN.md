@@ -5,7 +5,7 @@
 ## 功能列表
 
 * 分布式缓存:
-    * [Redis 缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.Distributed.StackExchangeRedis): 基于[StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)实现的分布式缓存 [查看详细](/framework/building-blocks/cache/stackexchange-redis)
+  * [Redis 缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.Distributed.StackExchangeRedis): 基于[StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)实现的分布式缓存 [查看详细](/framework/building-blocks/cache/stackexchange-redis)
 * [多级缓存](https://www.nuget.org/packages/Masa.Contrib.Caching.MultilevelCache): 基于内存缓存与分布式缓存实现的多级缓存, 相比分布式缓存而言, 它减少了一次网络传入与反序列化的消耗, 具有更好的性能优势 [查看详细](/framework/building-blocks/cache/multilevel-cache)
 * [内存缓存](https://www.nuget.org/packages/Masa.Utils.Caching.Memory): 提供了线程安全的字典集合 [查看详细](/framework/utils/caching/memory)
 
@@ -86,9 +86,9 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, [
 
 * None: 1 (不处理)
 * TypeName: 2 (由缓存值的类型与传入缓存Key组合而成 **默认**)
-    * 实际的缓存Key = $"{GetTypeName(T)}.{传入缓存Key}"
+  * 实际的缓存Key = $"{GetTypeName(T)}.{传入缓存Key}"
 * TypeAlias: 3 (TypeName的升级版, 为每个TypeName指定`别名`, 缩减最后形成的`缓存Key`长度)
-    * 实际的缓存Key = ${TypeAliasName}{:}{key}
+  * 实际的缓存Key = ${TypeAliasName}{:}{key}
 
 ### 缓存Key规则优先级
 
@@ -118,7 +118,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 ```
 
 2. 为当前调用使用指定缓存Key规则
- 
+
 ```csharp Program.cs
 app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, string id) =>
 {
@@ -136,7 +136,7 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, s
 
 ### 分布式缓存客户端
 
-`IDistributedCacheClient`被用来管理分布式缓存, 它提供了以下方法: 
+`IDistributedCacheClient`被用来管理分布式缓存, 它提供了以下方法:
 
 > 分布式缓存中实际执行的缓存Key与传入的缓存Key不一定是相同的, 它受到全局配置的`CacheKeyType`以及当前方法传入`CacheKeyType`以及缓存Key三者共同决定 [查看规则](#缓存Key规则优先级)
 
@@ -170,7 +170,7 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, s
 
 ### 多级缓存客户端
 
-`IMultilevelCacheClient`被用来管理多级缓存, 它提供了以下方法: 
+`IMultilevelCacheClient`被用来管理多级缓存, 它提供了以下方法:
 
 多级缓存客户端, 基于分布式缓存以及内存缓存组合而成, 当触发`Set`、`Remove`方法后
 
@@ -187,12 +187,12 @@ app.MapGet("/get/{id}", async (IDistributedCacheClient distributedCacheClient, s
 
 ### 分布式缓存工厂
 
-`IDistributedCacheClientFactory`被用来创建指定`name`的分布式缓存客户端, 它提供了以下方法: 
+`IDistributedCacheClientFactory`被用来创建指定`name`的分布式缓存客户端, 它提供了以下方法:
 
 * Create： 创建指定`name`的`分布式缓存客户端`
 
 ### 多级缓存工厂
 
-`IMultilevelCacheClientFactory`被用来创建指定`name`的多级缓存缓存客户端, 它提供了以下方法: 
+`IMultilevelCacheClientFactory`被用来创建指定`name`的多级缓存缓存客户端, 它提供了以下方法:
 
 * Create: 返回指定`name`的`多级缓存客户端`

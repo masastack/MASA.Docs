@@ -68,8 +68,8 @@ builder.Services
 
 #### 中间件
 
-方案一. 手动指定异常处理`ExceptionHandler`
-
+:::: code-group
+::: code-group-item 手动指定异常处理
 ```csharp
 app.UseMasaExceptionHandler(options =>
 {
@@ -81,9 +81,8 @@ app.UseMasaExceptionHandler(options =>
     };
 });
 ```
-
-方案二. 实现IExceptionHandler接口，并注册到服务中
-
+:::
+::: code-group-item 注册自定义异常处理程序
 ```csharp
 public class ExceptionHandler : IMasaExceptionHandler
 {
@@ -92,6 +91,7 @@ public class ExceptionHandler : IMasaExceptionHandler
     {
         _logger = logger;
     }
+    
     public void OnException(MasaExceptionContext context)
     {
         if (context.Exception is ArgumentNullException)
@@ -104,20 +104,36 @@ public class ExceptionHandler : IMasaExceptionHandler
 builder.Services.AddSingleton<ExceptionHandler>();
 app.UseMasaExceptionHandler();
 ```
-
-方案三. 实现`IExceptionHandler`接口，并指定ExceptionHanlder
-
+:::
+::: code-group-item 使用自定义异常处理程序
 ```csharp
+public class ExceptionHandler : IMasaExceptionHandler
+{
+    public void OnException(MasaExceptionContext context)
+    {
+        if (context.Exception is ArgumentNullException)
+        {
+            context.ToResult(context.Exception.Message, 299);
+        }
+    }
+}
+
 app.UseMasaExceptionHandler(option =>
 {
     option.UseExceptionHanlder<ExceptionHandler>();
 });
 ```
+:::
+::::
+
+> 方案2：（注册自定义异常处理程序）支持通过`DI`获取
+> 
+> 方案3：（使用自定义异常处理程序）需确保有无参构造函数，且不支持从`DI`获取服务
 
 #### 异常过滤器
 
-方案一. 手动指定`ExceptionHandler`
-
+:::: code-group
+::: code-group-item 手动指定异常处理
 ```csharp
 builder.Services
     .AddMvc()
@@ -130,20 +146,47 @@ builder.Services
         };
     });
 ```
-
-方案二. 实现IExceptionHandler接口，并注册到服务中
-
+:::
+::: code-group-item 注册自定义异常处理程序
 ```csharp
+public class ExceptionHandler : IMasaExceptionHandler
+{
+    private readonly ILogger<ExceptionHandler> _logger;
+    public ExceptionHandler(ILogger<ExceptionHandler> logger)
+    {
+        _logger = logger;
+    }
+    
+    public void OnException(MasaExceptionContext context)
+    {
+        if (context.Exception is ArgumentNullException)
+        {
+            _logger.LogWarning(context.Message);
+            context.ToResult(context.Exception.Message, 299);
+        }
+    }
+}
+
 builder.Services.AddSingleton<ExceptionHandler>();
 
 builder.Services
   .AddMvc()
   .AddMasaExceptionHandler();
-``` 
-
-方案三. 实现`IExceptionHandler`接口，并指定ExceptionHanlder
-
+```
+:::
+::: code-group-item 使用自定义异常处理程序
 ```csharp
+public class ExceptionHandler : IMasaExceptionHandler
+{
+    public void OnException(MasaExceptionContext context)
+    {
+        if (context.Exception is ArgumentNullException)
+        {
+            context.ToResult(context.Exception.Message, 299);
+        }
+    }
+}
+
 builder.Services
   .AddMvc()
   .AddMasaExceptionHandler(options =>
@@ -151,6 +194,12 @@ builder.Services
       options.UseExceptionHanlder<ExceptionHandler>();
   });
 ```
+:::
+::::
+
+> 方案2：（注册自定义异常处理程序）支持通过`DI`获取
+>
+> 方案3：（使用自定义异常处理程序）需确保有无参构造函数，且不支持从`DI`获取服务
 
 ### 异常与Http状态码
 

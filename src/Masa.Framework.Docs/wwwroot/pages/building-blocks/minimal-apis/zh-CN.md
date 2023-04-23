@@ -197,6 +197,8 @@
 
 #### 全局配置
 
+<div class="custom-table">
+
 |  参数名   | 参数描述                                                                                               | 默认值                                                                           |
 |  ----  |----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
 | DisableAutoMapRoute  | <font color=Red>禁用自动映射路由</font>                                                                    | `false`                                                                       |
@@ -212,6 +214,8 @@
 | MapHttpMethodsForUnmatched | 通过方法名前缀匹配请求方式失败后，路由将使用指定的HttpMethod发起请求                                                            | 支持`Post`、`Get`、`Delete`、`Put` 此方式<font color=Red>Swagger不支持, 无法正常显示API</font> |
 | Assemblies | 用于扫描服务所在的程序集                                                                                       | `MasaApp.GetAssemblies()`（全局Assembly集合，默认为当前域程序集集合）                           |
 | RouteHandlerBuilder | 基于`RouteHandlerBuilder`的委托，可用于权限认证、[CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)等 | `null`                                                                        |
+
+</div>
 
 #### 服务内配置
 
@@ -339,64 +343,64 @@
 
 * 自定义路由
 
-    ```csharp
-    public class ProjectService : ServiceBase
-    {
-        [RoutePattern(pattern: "project/list")]
-        public Task<List<string>> GetProjectListAsync()
-        {
-            var list = new List<string>()
-            {
-                "Auth",
-                "DCC",
-                "PM"
-            };
-            return Task.FromResult(list);
-        }
-    }
-    ```
+  ```csharp
+  public class ProjectService : ServiceBase
+  {
+      [RoutePattern(pattern: "project/list")]
+      public Task<List<string>> GetProjectListAsync()
+      {
+          var list = new List<string>()
+          {
+              "Auth",
+              "DCC",
+              "PM"
+          };
+          return Task.FromResult(list);
+      }
+  }
+  ```
 
 * 自定义方法名
 
-    ```csharp
-    public class ProjectService : ServiceBase
-    {
-        [RoutePattern(pattern: "list", true)]
-        public Task<List<string>> GetProjectListAsync()
-        {
-            var list = new List<string>()
-            {
-                "Auth",
-                "DCC",
-                "PM"
-            };
-            return Task.FromResult(list);
-        }
-    }
-    ```
+  ```csharp
+  public class ProjectService : ServiceBase
+  {
+      [RoutePattern(pattern: "list", true)]
+      public Task<List<string>> GetProjectListAsync()
+      {
+          var list = new List<string>()
+          {
+              "Auth",
+              "DCC",
+              "PM"
+          };
+          return Task.FromResult(list);
+      }
+  }
+  ```
 
 * 自定义请求方式 
 
-    ```csharp
-    public class ProjectService : ServiceBase
-    {
-        [RoutePattern(HttpMethod = "Post")]
-        public Task<List<string>> GetProjectListAsync()
-        {
-            var list = new List<string>()
-            {
-                "Auth",
-                "DCC",
-                "PM"
-            };
-            return Task.FromResult(list);
-        }
-    }
-    ```
+  ```csharp
+  public class ProjectService : ServiceBase
+  {
+      [RoutePattern(HttpMethod = "Post")]
+      public Task<List<string>> GetProjectListAsync()
+      {
+          var list = new List<string>()
+          {
+              "Auth",
+              "DCC",
+              "PM"
+          };
+          return Task.FromResult(list);
+      }
+  }
+  ```
 
 #### IgnoreRoute (忽略映射)
 
-  被标记的方法不能被自动映射为API服务
+被标记的方法不能被自动映射为API服务
 
   ```csharp
   public class ProjectService : ServiceBase

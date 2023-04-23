@@ -54,11 +54,25 @@ dotnet add package Masa.Contrib.Data.EFCore.SqlServer
 
 <app-alert type="warning" content="在最新版本中, MasaDbContext支持使用无参构造函数, 但必须要重载OnConfiguring"></app-alert>
 
+<font Color=Red>继承MasaDbContext的数据上下文查询默认不跟踪</font>, 如需修改为全局跟踪, 需自行配置
+
+```csharp
+public class CatalogDbContext : MasaDbContext<CatalogDbContext>
+{
+    public CatalogDbContext(MasaDbContextOptions<CatalogDbContext> options) : base(options)
+    {
+        ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
+    }
+}
+```
+
+> 默认查询不跟踪，可以提高查询性能
+
 ### 注册DbContext
 
 注册数据上下文通常使用以下两种方式:
 
-* UseXXX时不指定数据库连接字符串地址
+* 不指定数据库连接字符串地址
 
   :::: code-group
   ::: code-group-item 1. 配置 appsettings.json
@@ -86,7 +100,7 @@ dotnet add package Masa.Contrib.Data.EFCore.SqlServer
   :::
   ::::
 
-* UseXXX时指定数据库连接字符串地址
+* 指定数据库连接字符串地址
 
   ```csharp
   var builder = WebApplication.CreateBuilder(args);
