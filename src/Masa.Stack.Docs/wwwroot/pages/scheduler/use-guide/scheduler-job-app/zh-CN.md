@@ -10,17 +10,13 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
 
 ## 手动创建
 
-### 1. 填写调度信息
-
-   ![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail.png)
-
-### 2. 上传资源文件
+### 1. 上传资源文件
 
 <a id="upload_file"></a>
 
    ![上传资源文件](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles.png)
 
-### 3. 新建源文件
+### 2. 新建源文件
 
    ![新建源文件](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert.png)
 
@@ -62,7 +58,7 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
 
    ![上传](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_upload.png)
 
-### 4. 设置资源文件执行类
+### 3. 设置资源文件执行类
 
 ![设置资源文件执行类](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail_2.png)
 
@@ -73,6 +69,10 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
 |**执行类**   | 命名空间中的 Job 类                                         |
 |**参数**     | 入参参数（可选，以逗号分隔，**目前最少需要填一个参数**）    |
 |**源文件版本** | 指定特定版本或最新版本（可选）                              |
+
+### 4. 填写调度信息
+
+   ![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail.png)
 
 ## API创建
 
