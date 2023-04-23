@@ -10,7 +10,7 @@
 
 * [阿里云](/framework/building-blocks/storage/oss): 数据存储在[阿里云Oss](https://www.aliyun.com/product/oss)
 
-后续将逐步提供更多的云存储平台支持，如果您有喜欢的其它云存储平台，欢迎提[建议](/framework/contribution/issues)，或者自己实现它并为Masa框架做出[贡献](/framework/contribution/pr)
+后续将逐步提供更多的云存储平台支持，如果您有喜欢的其它云存储平台，欢迎提[建议](/framework/contribution/overview#section-95ee9898)，或者自己实现它并为Masa框架做出[贡献](/framework/contribution/overview)
 
 ## 能力介绍
 
