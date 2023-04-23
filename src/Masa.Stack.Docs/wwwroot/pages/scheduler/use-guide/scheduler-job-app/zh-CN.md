@@ -16,6 +16,8 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
 
 ### 2. 上传资源文件
 
+<a id="upload_file"></a>
+
    ![上传资源文件](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles.png)
 
 ### 3. 新建源文件
@@ -137,12 +139,12 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
    
    | **属性**             | **描述**                               |
    |----------------------|--------------------------------------|
-   | **ProjectIdentity**      | 项目（项目 ID）                      |
+   | **ProjectIdentity**      | [项目](stack/pm/introduce) ID                      |
    | **Name**                 | Job 的名称                            |
    | **JobType**              | Job 的类型（`JobTypes.JobApp` 为 Job 应用） |
    | **CronExpression**       | Cron 表达式（Job 执行的周期）          |
    | **OperatorId**           | 操作人/创建人                         |
-   | **JobAppIdentity**       | 上传的资源文件 ID                      |
+   | **JobAppIdentity**       | 上传的[资源文件](#upload_file) ID                      |
    | **JobEntryAssembly**     | 程序集（仅包含项目的 DLL 文件）        |
    | **JobEntryClassName**    | 执行类（命名空间中的 Job 类）          |
    | **Version**              | 指定特定版本（可选）                   |

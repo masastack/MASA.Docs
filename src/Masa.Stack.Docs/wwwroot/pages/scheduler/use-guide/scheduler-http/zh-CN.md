@@ -85,7 +85,7 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
 
    | **属性**             | **描述**                               |
    |----------------------|--------------------------------------|
-   | **ProjectIdentity**  | 项目（项目 ID）                      |
+   | **ProjectIdentity**  | [项目](stack/pm/introduce) ID                      |
    | **Name**             | Job 的名称                            |
    | **JobType**          | Job 的类型（`JobTypes.JobApp` 为 Job 应用） |
    | **CronExpression**   | Cron 表达式（Job 执行的周期）          |
