@@ -1,118 +1,112 @@
-# 多级缓存
+# 缓存 - 多级缓存
 
-基于内存缓存与分布式缓存实现的, 通过使用多级缓存, 可以降低请求穿透到分布式缓存, 减少网络消耗以及序列化带来的性能影响, 使用它可以大大缩减响应时间
+## 概述
 
-它支持分布式部署, 当配置发生更新或者删除后, 其它副本也会随之更新或者删除, [查看原因](#同步更新)
+多级缓存是指在一个系统的不同架构层级进行数据缓存，以提升访问效率。 MASA Framework 的多级缓存是在分布式缓存的基础上，再加了一层内存缓存。使用多级缓存, 可以降低请求穿透到分布式缓存, 减少网络消耗以及序列化带来的性能影响, 使用它可以大大缩减响应时间。并且 MASA Framework 的多级缓存是支持分布式部署的，当缓存数据在集群的某个节点被更新或删除时，其它集群节点也会同步更新或删除缓存数据。[查看原因](#同步更新)
+
+> 使用多级缓存的时候需要注意：当内存中的缓存数据很多也很大的时候，可能会导致内存超负荷，这个时候我们推荐使用缓存[滑动过期](#滑动过期)
+
+![多级缓存结构图](https://cdn.masastack.com/framework/building-blocks/cache/multilevel_design.png)
 
 ## 使用
 
-使用多级缓存需要安装`Masa.Contrib.Caching.MultilevelCache`和任意一个分布式缓存提供者 (例: [Masa.Contrib.Caching.Distributed.StackExchangeRedis](./stackexchange-redis.md))才可以
+因为多级缓存基于分布式缓存的，所以我们需要安装 `Masa.Contrib.Caching.MultilevelCache` 和任意一个分布式缓存提供者 (例: [Masa.Contrib.Caching.Distributed.StackExchangeRedis](./stackexchange-redis.md))
 
-1. 安装`Masa.Contrib.Caching.MultilevelCache`、`Masa.Contrib.Caching.Distributed.StackExchangeRedis`
+1. 安装 `Masa.Contrib.Caching.MultilevelCache`、`Masa.Contrib.Caching.Distributed.StackExchangeRedis`
 
-```shell 终端
-dotnet add package Masa.Contrib.Caching.MultilevelCache
-dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
-```
+   ```shell 终端
+   dotnet add package Masa.Contrib.Caching.MultilevelCache
+   dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
+   ```
 
-2. 注册多级缓存，并使用[`分布式Redis缓存`](./stackexchange-redis.md)
+2. 注册多级缓存，并使用[`分布式Redis缓存`](./stackexchange-redis.md) 
 
-```csharp Program.cs
-//注册多级缓存
-builder.Services.AddMultilevelCache(distributedCacheOptions =>
-{
-    distributedCacheOptions.UseStackExchangeRedisCache();//使用分布式Redis缓存, 默认localhost:6379
-});
-```
+   ```csharp Program.cs
+   builder.Services.AddMultilevelCache(distributedCacheOptions =>
+   {
+       distributedCacheOptions.UseStackExchangeRedisCache();//使用分布式 Redis 缓存, 默认 localhost:6379
+   });
+   ```
 
-3. 新建`User`类，用于接收、存储用户信息使用
+3. 修改 appsettings.json 文件，添加分布式缓存 `Redis` 的配置信息
 
-```csharp
-public class User
-{
-    public string Name { get; set; }
+   ```json appsettings.json
+   {
+       "RedisConfig":{
+           "Servers":[
+               {
+                   "Host":"localhost",
+                   "Port":6379
+               }
+           ],
+           "DefaultDatabase":3
+       }
+   }
+   ```
 
-    public int Age { get; set; }
-}
-```
+4. 使用多级缓存，在构造函数中注入 `IMultilevelCacheClient` 对象
 
-4. 如何使用`IMultilevelCacheClient`
-
-```csharp Program.cs
-// 设置缓存
-app.MapPost("/set/{id}", async (IMultilevelCacheClient multilevelCacheClient, [FromRoute] string id, [FromBody] User user) =>
-{
-    await multilevelCacheClient.SetAsync(id, user);
-    return Results.Accepted();
-});
-
-// 获取缓存
-app.MapGet("/get/{id}", async (IMultilevelCacheClient multilevelCacheClient, [FromRoute] string id) =>
-{
-    var value = await multilevelCacheClient.GetAsync<User>(id);
-    return Results.Ok(value);
-});
-```
-
-> 当项目中仅存在一个多级缓存客户端或者注册多级缓存时未指定`name`时可直接使用`IMultilevelCacheClient`, 否则需要通过`IMultilevelCacheClientFactory`的`Create`方法创建指定`name`的`IMultilevelCacheClient`
-
-## 配置
-
-<div class="custom-table">
-  <table style='border-collapse: collapse;table-layout:fixed;width:100%'>
-   <col span=6>
-   <tr style="background-color:#f3f4f5; font-weight: bold">
-    <td colspan=3>参数名</td>
-    <td colspan=2>参数描述</td>
-    <td>类型</td>
-    <td>默认值</td>
-   </tr>
-   <tr>
-    <td colspan=3>SubscribeKeyType</td>
-    <td colspan=2>订阅Key规则 (生成订阅Channel)</td>
-    <td><a href="https://github.com/masastack/MASA.Framework/blob/0.7.0/src/BuildingBlocks/Caching/Masa.BuildingBlocks.Caching/Enumerations/SubscribeKeyType.cs">Enum</a></td>
-    <td>2</td>
-   </tr>
-   <tr>
-    <td colspan=3>SubscribeKeyPrefix</td>
-    <td colspan=2>订阅Key前缀 (生成订阅Channel)</td>
-    <td>string</td>
-    <td>空字符串</td>
-   </tr>
-   <tr>
-    <td colspan=3>CacheEntryOptions</td>
-    <td colspan=2>内存缓存有效期</td>
-    <td><a href="https://github.com/masastack/MASA.Framework/blob/0.7.0/src/Contrib/Caching/Masa.Contrib.Caching.MultilevelCache/Options/MultilevelCacheOptions.cs">object</a></td>
-    <td></td>
-   </tr>
-  
-  <tr>
-    <td rowspan=12></td>
-    <td colspan=2>AbsoluteExpiration</td>
-    <td colspan=2>绝对过期时间</td>
-    <td>DateTimeOffset?</td>
-    <td>null (永不过期)</td>
-   </tr>
-   <tr>
-    <td colspan=2>AbsoluteExpirationRelativeToNow</td>
-    <td colspan=2>相对于现在的绝对到期时间 (与AbsoluteExpiration共存时，优先使用AbsoluteExpirationRelativeToNow)</td>
-    <td>TimeSpan?</td>
-    <td>null (永不过期)</td>
-   </tr>
-   <tr>
-    <td colspan=2>SlidingExpiration</td>
-    <td colspan=2>滑动过期时间</td>
-    <td>TimeSpan?</td>
-    <td>null (永不过期)</td>
-   </tr>
-  </table>
-</div>
+   ```csharp
+   [ApiController]
+   [Route("[controller]/[action]")]
+   public class HomeController : ControllerBase
+   {
+       private readonly IMultilevelCacheClient _multilevelCacheClient;
+       public HomeController(IMultilevelCacheClient multilevelCacheClient) => _multilevelCacheClient = multilevelCacheClient;
+   
+       [HttpGet]
+       public async Task<string?> GetAsync()
+       {
+           //读取
+           var cacheData = await _multilevelCacheClient.GetAsync<string>("key");
+           if (string.IsNullOrEmpty(cacheData))
+           {
+               cacheData = "value";
+               //写入
+               await _multilevelCacheClient.SetAsync<string>("key", "value");
+           }
+           return cacheData;
+       }
+   }
+   ```
 
 ## 高阶用法
 
-### 注册多级缓存
+### 多级缓存注册方式
 
-#### 通过本地配置文件注册
+我们提供了多种方法来初始化多级缓存的配置。我们推荐采用 **选项模式** 使用 `Configure<MultilevelCacheOptions>` 来设置多级缓存的配置信息。
+
+#### 1. 选项模式
+
+> 我们还可以借助 [`MasaConfiguration`](../../building-blocks/configuration/index.md) 完成选项模式支持
+
+:::: code-group
+::: code-group-item 1. 支持选项模式
+```csharp Program.cs
+builder.Services.Configure<MultilevelCacheOptions>(options =>
+{
+    options.SubscribeKeyType = SubscribeKeyType.ValueTypeFullNameAndKey;
+});
+```
+:::
+::: code-group-item 2. 添加多级缓存并使用分布式 Redis 缓存
+```csharp Program.cs
+builder.Services.AddMultilevelCache(distributedCacheOptions =>
+{
+    distributedCacheOptions.UseStackExchangeRedisCache(redisConfigurationOptions =>
+    {
+        redisConfigurationOptions.Servers = new List<RedisServerOptions>()
+        {
+            new("localhost", 6379)
+        };
+        redisConfigurationOptions.DefaultDatabase = 3;
+    });
+});
+```
+:::
+::::
+
+#### 2. 通过本地配置文件注册
 
 :::: code-group
 ::: code-group-item 1. 修改本地配置文件
@@ -141,7 +135,7 @@ app.MapGet("/get/{id}", async (IMultilevelCacheClient multilevelCacheClient, [Fr
 }
 ```
 :::
-::: code-group-item 2. 添加多级缓存并使用分布式Redis缓存
+::: code-group-item 2. 添加多级缓存并使用分布式 Redis 缓存
 ```csharp Program.cs
 builder.Services.AddMultilevelCache(distributedCacheOptions =>
 {
@@ -151,50 +145,146 @@ builder.Services.AddMultilevelCache(distributedCacheOptions =>
 :::
 ::::
 
-#### 手动指定配置
+#### 3. 手动指定配置
 
-使用默认配置, 并指定Redis配置信息
+使用默认配置, 并指定 Redis 配置信息
 
 :::: code-group
-::: code-group-item 1. 添加多级缓存并使用分布式Redis缓存
+::: code-group-item 1. 添加多级缓存并使用分布式 Redis 缓存
 ```csharp Program.cs
 builder.Services.AddMultilevelCache(distributedCacheOptions =>
 {
-    distributedCacheOptions.UseStackExchangeRedisCache(RedisConfigurationOptions);
+    distributedCacheOptions.UseStackExchangeRedisCache(redisConfigurationOptions =>
+    {
+        redisConfigurationOptions.Servers = new List<RedisServerOptions>()
+        {
+            new("localhost", 6379)
+        };
+        redisConfigurationOptions.DefaultDatabase = 3;
+    });
 });
 ```
 :::
 ::::
+   
+   
+### 多级缓存配置参数说明
 
-#### 选项模式
+<div class="custom-table">
+  <table style='border-collapse: collapse;table-layout:fixed;width:100%'>
+   <col span=6>
+   <tr style="background-color:#f3f4f5; font-weight: bold">
+    <td colspan=3>参数名</td>
+    <td colspan=2>参数描述</td>
+    <td>类型</td>
+    <td>默认值</td>
+   </tr>
+   <tr>
+    <td colspan=3>SubscribeKeyType</td>
+    <td colspan=2>订阅Key规则 (生成订阅Channel)</td>
+    <td><a href="https://github.com/masastack/MASA.Framework/blob/main/src/BuildingBlocks/Caching/Masa.BuildingBlocks.Caching/Enumerations/SubscribeKeyType.cs">Enum</a></td>
+    <td>2</td>
+   </tr>
+   <tr>
+    <td colspan=3>SubscribeKeyPrefix</td>
+    <td colspan=2>订阅Key前缀 (生成订阅Channel)</td>
+    <td>string</td>
+    <td>空字符串</td>
+   </tr>
+   <tr>
+    <td colspan=3>CacheEntryOptions</td>
+    <td colspan=2>内存缓存有效期</td>
+    <td><a href="https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Caching/Masa.Contrib.Caching.MultilevelCache/Options/MultilevelCacheOptions.cs">object</a></td>
+    <td></td>
+   </tr>
+  <tr>
+    <td rowspan=12></td>
+    <td colspan=2>AbsoluteExpiration</td>
+    <td colspan=2>绝对过期时间：到期后就失效</td>
+    <td>DateTimeOffset?</td>
+    <td>null (永不过期)</td>
+   </tr>
+   <tr>
+    <td colspan=2>AbsoluteExpirationRelativeToNow</td>
+    <td colspan=2>相对于现在的绝对到期时间 (与AbsoluteExpiration共存时，优先使用AbsoluteExpirationRelativeToNow)</td>
+    <td>TimeSpan?</td>
+    <td>null (永不过期)</td>
+   </tr>
+   <tr>
+    <td colspan=2>SlidingExpiration</td>
+    <td colspan=2>滑动过期时间：只要在窗口期内访问，它的过期时间就一直向后顺延一个窗口长度</td>
+    <td>TimeSpan?</td>
+    <td>null (永不过期)</td>
+   </tr>
+  </table>
+</div>
 
-:::: code-group
-::: code-group-item 1. 支持选项模式
+### 更多使用
+
+#### 滑动过期
+
+滑动过期可以通过全局配置和单次操作直接指定的方式使用，当全局配置和直接指定都设置了滑动过期时间的时，以直接指定的时间为准
+
+1. 全局配置
 ```csharp Program.cs
-builder.Services.Configure<MultilevelCacheOptions>(options =>
+builder.Services.AddMultilevelCache(opt =>
 {
-    options.SubscribeKeyType = SubscribeKeyType.ValueTypeFullNameAndKey;
+    opt.UseStackExchangeRedisCache(redisOptions =>
+    {
+        redisOptions.Servers = new List<RedisServerOptions>()
+        {
+            new("localhost", 6379)
+        };
+        //设置key的有效期是30分钟，超过30分钟缓存过期
+        redisOptions.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
+        //设置滑动过期时间为10分钟，当该缓存Key在10分钟之内被访问了，则继续延长10分钟 （直到达到绝对过期时间后被删除）。若该缓存 key 在10分钟内未被访问，则会被移除。
+        redisOptions.SlidingExpiration = TimeSpan.FromMinutes(10);
+    });
 });
 ```
-:::
-::: code-group-item 2. 添加多级缓存并使用分布式Redis缓存
-```csharp Program.cs
-builder.Services.AddMultilevelCache(distributedCacheOptions =>
-{
-    distributedCacheOptions.UseStackExchangeRedisCache(RedisConfigurationOptions);
-});
-```
-:::
-::::
 
-> 除此之外我们还可以借助 [`MasaConfiguration`](../../building-blocks/configuration/index.md) 完成选项模式支持
+2. 单次操作直接指定
+
+在调用 `Set` 方法时候，指定缓存过期策略。
+
+```csharp
+[ApiController]
+[Route("[controller]/[action]")]
+public class HomeController : ControllerBase
+{
+    private readonly IMultilevelCacheClient _multilevelCacheClient;
+    public HomeController(IMultilevelCacheClient multilevelCacheClient) => _multilevelCacheClient = multilevelCacheClient;
+
+    [HttpGet]
+    public async Task<string?> GetAsync()
+    {
+        var cacheData = await _multilevelCacheClient.GetAsync<string>("key");
+        if (string.IsNullOrEmpty(cacheData))
+        {
+            cacheData = "value";
+
+            var options = new CacheEntryOptions
+            {
+                //设置key的有效期是30分钟，超过30分钟缓存过期
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30),
+                //设置滑动过期时间为10分钟，当该缓存Key在10分钟之内被访问了，则继续延长10分钟 （直到达到绝对过期时间后被删除）。若该缓存key在10分钟内未被访问，则会被移除。
+                SlidingExpiration = TimeSpan.FromMinutes(10),
+            };
+            // 设置的时候指定分布式是缓存和内存缓存的过期策略
+            await _multilevelCacheClient.SetAsync<string>("key", "value", options, options);
+        }
+        return cacheData;
+    }
+}
+```
+
 
 ## 原理剖析
 
-### 同步更新
-
-为何多级缓存可以实现缓存发生更新后, 其它副本会随之更新, 而不需要等待缓存失效后重新加载?
-
-多级缓存中使用了分布式缓存提供的Pub/Sub能力
-
-![Multilevel.png](https://s2.loli.net/2022/11/17/W5AgTiX9LOjyGza.png)
+   ### 同步更新
+   
+   为何多级缓存可以实现缓存发生更新后, 其它副本会随之更新, 而不需要等待缓存失效后重新加载?
+   
+   多级缓存中使用了分布式缓存提供的[Pub/Sub](/framework/building-blocks/caching/stackexchange-redis#使用PubSub)能力
+   
+   ![多级缓存原理流程图](https://cdn.masastack.com/framework/building-blocks/cache/multilevel_cache.png)
