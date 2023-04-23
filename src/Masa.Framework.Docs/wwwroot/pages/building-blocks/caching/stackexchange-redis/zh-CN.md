@@ -1,4 +1,6 @@
-# 分布式Redis缓存 - 概述
+# 缓存 - 分布式Redis缓存
+
+## 概述
 
 什么是[`分布式缓存`](https://learn.microsoft.com/zh-cn/aspnet/core/performance/caching/distributed)
 
