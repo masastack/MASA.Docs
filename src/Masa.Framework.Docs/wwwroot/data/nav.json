@@ -17,7 +17,7 @@
     "title": "getting-started",
     "items": [
       "overview",
-      "mf-part-1"
+      "web-project"
     ]
   },
   {
@@ -147,6 +147,13 @@
         ]
       },
       "minimal-apis",
+      {
+        "title": "rules-engine",
+        "items": [
+          "overview",
+          "microsoft-rules-engine"
+        ]
+      },
       "stack-sdks",
       {
         "title": "storage",
