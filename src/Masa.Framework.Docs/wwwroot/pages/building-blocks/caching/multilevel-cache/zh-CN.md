@@ -1,6 +1,4 @@
-# 多级缓存
-
-## 概述
+# 多级缓存 - 概述
 
 多级缓存是指在一个系统的不同架构层级进行数据缓存，以提升访问效率。 MASA Framework 的多级缓存是在分布式缓存的基础上，再加了一层内存缓存。使用多级缓存, 可以降低请求穿透到分布式缓存, 减少网络消耗以及序列化带来的性能影响, 使用它可以大大缩减响应时间。并且 MASA Framework 的多级缓存是支持分布式部署的，当缓存数据在集群的某个节点被更新或删除时，其它集群节点也会同步更新或删除缓存数据。[查看原因](#同步更新)
 
@@ -10,9 +8,9 @@
 
 ## 使用
 
-因为多级缓存基于分布式缓存的，所以我们需要安装`Masa.Contrib.Caching.MultilevelCache`和任意一个分布式缓存提供者 (例: [Masa.Contrib.Caching.Distributed.StackExchangeRedis](./stackexchange-redis.md))
+因为多级缓存基于分布式缓存的，所以我们需要安装 `Masa.Contrib.Caching.MultilevelCache` 和任意一个分布式缓存提供者 (例: [Masa.Contrib.Caching.Distributed.StackExchangeRedis](./stackexchange-redis.md))
 
-1. 安装`Masa.Contrib.Caching.MultilevelCache`、`Masa.Contrib.Caching.Distributed.StackExchangeRedis`
+1. 安装 `Masa.Contrib.Caching.MultilevelCache`、`Masa.Contrib.Caching.Distributed.StackExchangeRedis`
 
    ```shell 终端
    dotnet add package Masa.Contrib.Caching.MultilevelCache
@@ -24,11 +22,11 @@
    ```csharp Program.cs
    builder.Services.AddMultilevelCache(distributedCacheOptions =>
    {
-       distributedCacheOptions.UseStackExchangeRedisCache();//使用分布式Redis缓存, 默认localhost:6379
+       distributedCacheOptions.UseStackExchangeRedisCache();//使用分布式 Redis 缓存, 默认 localhost:6379
    });
    ```
 
-3. 修改appsettings.json文件，添加分布式缓存 `Redis` 的配置信息
+3. 修改 appsettings.json 文件，添加分布式缓存 `Redis` 的配置信息
 
    ```json appsettings.json
    {
@@ -44,7 +42,7 @@
    }
    ```
 
-4. 使用多级缓存，在构造函数中注入`IMultilevelCacheClient` 对象
+4. 使用多级缓存，在构造函数中注入 `IMultilevelCacheClient` 对象
 
    ```csharp
    [ApiController]
@@ -74,7 +72,7 @@
 
 ### 多级缓存注册方式
 
-我们提供了多种方法来初始化多级缓存的配置。我们推荐采用**选项模式**使用`Configure<MultilevelCacheOptions>`来设置多级缓存的配置信息。
+我们提供了多种方法来初始化多级缓存的配置。我们推荐采用 **选项模式** 使用 `Configure<MultilevelCacheOptions>` 来设置多级缓存的配置信息。
 
 #### 1. 选项模式
 
@@ -237,7 +235,7 @@ builder.Services.AddMultilevelCache(opt =>
         };
         //设置key的有效期是30分钟，超过30分钟缓存过期
         redisOptions.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
-        //设置滑动过期时间为10分钟，当该缓存Key在10分钟之内被访问了，则继续延长10分钟 （直到达到绝对过期时间后被删除）。若该缓存key在10分钟内未被访问，则会被移除。
+        //设置滑动过期时间为10分钟，当该缓存Key在10分钟之内被访问了，则继续延长10分钟 （直到达到绝对过期时间后被删除）。若该缓存 key 在10分钟内未被访问，则会被移除。
         redisOptions.SlidingExpiration = TimeSpan.FromMinutes(10);
     });
 });
@@ -245,7 +243,7 @@ builder.Services.AddMultilevelCache(opt =>
 
 2. 单次操作直接指定
 
-在调用`Set`方法时候，指定缓存过期策略。
+在调用 `Set` 方法时候，指定缓存过期策略。
 
 ```csharp
 [ApiController]
