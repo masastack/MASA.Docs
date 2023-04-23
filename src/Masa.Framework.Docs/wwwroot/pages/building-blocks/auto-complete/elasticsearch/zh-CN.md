@@ -69,8 +69,6 @@
    await autoCompleteClient.DeleteAsync("{es-document-id}");
    ```
 
-   
-
 ## 高级
 
 ### 使用自定义模型 
@@ -146,8 +144,6 @@
    ```csharp
    await autoCompleteClient.DeleteAsync("1");
    ```
-
-   
 
 ## 常见问题
 
