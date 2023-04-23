@@ -64,7 +64,7 @@
            {
                ProjectIdentity = "",
                Name = "",
-               JobType = JobTypes.JobApp,
+               JobType = JobTypes.DaprServiceInvocation,
                CronExpression = "",
                OperatorId = Guid.Empty,
                DaprServiceInvocationConfig = new SchedulerJobDaprServiceInvocationConfig
@@ -86,7 +86,7 @@
 |----------------------|--------------------------------------|
 | **ProjectIdentity**  | [项目](stack/pm/introduce) ID                      |
 | **Name**             | Job 的名称                            |
-| **JobType**          | Job 的类型（`JobTypes.JobApp` 为 Job 应用） |
+| **JobType**          | Job 的类型（`JobTypes.DaprServiceInvocation` 为 Dapr Service Invocation） |
 | **CronExpression**   | Cron 表达式（Job 执行的周期）          |
 | **OperatorId**       | 操作人/创建人                         |
 | **DaprServiceIdentity**   | Service应用（Id）    |
