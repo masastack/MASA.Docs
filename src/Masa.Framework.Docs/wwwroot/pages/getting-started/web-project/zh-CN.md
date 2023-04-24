@@ -1,6 +1,6 @@
 # 快速入门
 
-本章是一个使用 **MASA Framework** 创建Web程序的快速入门教程，我们会使用 **MASA Framework** 创建一个简单的待办事项应用程序。以下是程序最终运行效果：
+本章是一个使用 **MASA Framework** 创建 Web 程序的快速入门教程，我们会使用 **MASA Framework** 创建一个简单的待办事项应用程序。以下是程序最终运行效果：
 
 > 你也可以直接下载我们写好的源码去运行，下载地址：https://github.com/masalabs/Masa.Framework.TodoApp
 
@@ -8,12 +8,12 @@
 
 ## 项目依赖
 
-* 开发工具：Visual Studio或其它
+* 开发工具：Visual Studio 或其它
 * .NET 版本：6.0 +
 
 ## 安装 MASA Template
 
-本教程将会使用 `MASA Template` 创建TodoApp解决方案。我们先打开 `cmd` 运行下面的命令安装模板
+本教程将会使用 `MASA Template` 创建 TodoApp 解决方案。我们先打开 `cmd` 运行下面的命令安装模板
 
    ```shell 终端
    dotnet new install Masa.Template
@@ -21,7 +21,7 @@
 
 ## 创建项目
 
-在目录下使用cmd运行以下命令，它将会创建整个TodoApp解决方案。在这里我们将使用 [MASA.Blazor](https://docs.masastack.com/blazor/getting-started/installation) 来完成我们UI界面。
+在目录下使用 cmd 运行以下命令，它将会创建整个 TodoApp 解决方案。在这里我们将使用 [MASA.Blazor](https://docs.masastack.com/blazor/getting-started/installation) 来完成我们UI界面。
 
    ```shell 终端
    dotnet new masafx-service-cqrs --name TodoApp --no-https true --no-example true -db sqlite
@@ -82,7 +82,7 @@
 
 ## 创建 Todo 后端接口服务
 
-我们的TodoApp整个业务大概需要有以下接口：
+我们的 TodoApp 整个业务大概需要有以下接口：
 
    * Create：创建一个待办事项
    * Update：修改一个待办事项
@@ -92,7 +92,7 @@
 
 ### 创建 Dto
 
-我们在 `TodoApp.Contracts` 项目中创建我们交换数据所需要的Dto。它将被Service后端项目和Blazor前端项目共享 避免多次定义
+我们在 `TodoApp.Contracts` 项目中创建我们交换数据所需要的 Dto。它将被 Service 后端项目和 Blazor 前端项目共享，避免多次定义
 
    :::: code-group
    ::: code-group-item TodoGetListDto.cs
@@ -328,15 +328,15 @@
 
 ## 创建 Todo 前端界面
 
-接下来我们将要开始编写我们的前端web界面了，在这之前我们再看下我们的web前端最终效果图
+接下来我们将要开始编写我们的前端 web 界面了，在这之前我们再看下我们的 web 前端最终效果图
 
    ![界面UI图](https://cdn.masastack.com/framework/getting-started/web-project/result.png)
 
 ### 创建接口服务调用
 
->  我们的web程序需要调用后端接口来获取数据，我们得先创建后端接口服务调用。
+>  我们的 web 程序需要调用后端接口来获取数据，我们得先创建后端接口服务调用。
 
-在 `TodoApp.Web` 项目下的 **ApiCallers** 目录中分别创建 `TodoServiceOptions.cs` 和 `TodoCaller.cs`，前者是todo后端服务的配置，后者是接口调用
+在 `TodoApp.Web` 项目下的 **ApiCallers** 目录中分别创建 `TodoServiceOptions.cs` 和 `TodoCaller.cs`，前者是 todo 后端服务的配置，后者是接口调用
 
    :::: code-group
    ::: code-group-item TodoServiceOptions.cs
@@ -452,7 +452,7 @@
    }
    ```
 
-### 实现UI界面
+### 实现 UI 界面
 
 >  接下来我们就开始编写我们的界面了
 
