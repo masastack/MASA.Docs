@@ -1,6 +1,8 @@
-# 数据 - 概述
+# Data（数据）- 概述
 
 `MASA Framework` 被设计成与数据库无关. 目前支持了以下 [`ORM`](https://zh.wikipedia.org/wiki/%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB%E6%98%A0%E5%B0%84) 框架
+
+## 最佳实践
 
 * [`Entity Framework Core`](/framework/building-blocks/data/orm-efcore)
 

@@ -46,7 +46,7 @@
    Console.WriteLine("规则执行结果为{0}", result[0].IsValid);
    ```
 
-## 高级
+## 高阶用法
 
 ### 扩展支持的方法
 

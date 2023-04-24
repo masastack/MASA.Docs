@@ -45,7 +45,7 @@ services.AddAutoInject();
 IRepository<TEntity> repository;//从DI获取
 ```
 
-## 高级用法
+## 高阶用法
 
 ### 自动注册
 

@@ -69,7 +69,7 @@
    await autoCompleteClient.DeleteAsync("{es-document-id}");
    ```
 
-## 高级
+## 高阶用法
 
 ### 使用自定义模型 
 

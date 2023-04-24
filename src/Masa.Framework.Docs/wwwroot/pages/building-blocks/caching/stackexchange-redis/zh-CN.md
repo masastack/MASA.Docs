@@ -8,58 +8,59 @@
 
 1. 安装 `Masa.Contrib.Caching.Distributed.StackExchangeRedis`
 
-```shell 终端
-dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
-```
+   ```shell 终端
+   dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
+   ```
 
 2. 添加 `Redis` 的配置信息
 
-```json appsettings.json
-{
-    "RedisConfig":{
-        "Servers":[
-            {
-                "Host":"localhost",
-                "Port":6379
-            }
-        ],
-        "DefaultDatabase":3
-    }
-}
-```
+   ```json appsettings.json
+   {
+       "RedisConfig":{
+           "Servers":[
+               {
+                   "Host":"localhost",
+                   "Port":6379
+               }
+           ],
+           "DefaultDatabase":3
+       }
+   }
+   ```
 
 3. 注册分布式缓存，并使用 Redis 缓存
 
-```csharp Program.cs
-builder.Services.AddDistributedCache(distributedCacheOptions =>
-{
-    distributedCacheOptions.UseStackExchangeRedisCache();//使用分布式Redis缓存, 默认使用本地`RedisConfig`节点的配置
-});
-```
+   ```csharp Program.cs
+   builder.Services.AddDistributedCache(distributedCacheOptions =>
+   {
+       distributedCacheOptions.UseStackExchangeRedisCache();//使用分布式Redis缓存, 默认使用本地`RedisConfig`节点的配置
+   });
+   ```
 
 4. 使用分布式缓存，在构造函数中注入 `IDistributedCacheClient` 对象
 
- ```csharp
- [ApiController]
-[Route("[controller]/[action]")]
- public class HomeController : ControllerBase
- {
-     private readonly IDistributedCacheClient _distributedCacheClient;
-     public HomeController(IDistributedCacheClient distributedCacheClient) => _distributedCacheClient = distributedCacheClient;
-
-     [HttpGet]
-     public async Task<string?> GetAsync()
-     {
-         var cacheData = await _distributedCacheClient.GetAsync<string>("key");
-         if (string.IsNullOrEmpty(cacheData))
-         {
-             cacheData = "value";
-             await _distributedCacheClient.SetAsync<string>("key", "value");
-         }
-         return cacheData;
-     }
- }
- ```
+   ```csharp
+   [ApiController]
+   [Route("[controller]/[action]")]
+   public class HomeController : ControllerBase
+   {
+       private readonly IDistributedCacheClient _distributedCacheClient;
+       public HomeController(IDistributedCacheClient distributedCacheClient) => _distributedCacheClient = distributedCacheClient;
+   
+       [HttpGet]
+       public async Task<string?> GetAsync()
+       {
+           var cacheData = await _distributedCacheClient.GetAsync<string>("key");
+           if (string.IsNullOrEmpty(cacheData))
+           {
+               cacheData = "value";
+               await _distributedCacheClient.SetAsync<string>("key", "value");
+           }
+   
+           return cacheData;
+       }
+   }
+   ```
 
 ## 高阶用法
 
@@ -67,12 +68,13 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 
 我们提供了多种方法来初始化 Redis 的配置。我们推荐采用 **选项模式** 使用 `Configure<RedisConfigurationOptions>` 来设置 Redis 的配置信息。
 
-#### 1. 通过选项模式注册
+#### 通过选项模式注册
 
 > 我们还可以借助 [`MasaConfiguration`](../../building-blocks/configuration/index.md) 完成选项模式支持
 
 :::: code-group
 ::: code-group-item 1. 支持选项模式
+
 ```csharp Program.cs
 builder.Services.Configure<RedisConfigurationOptions>(redisConfigurationOptions =>
 {
@@ -98,7 +100,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 :::
 ::::
 
-#### 2. 通过本地配置文件注册
+#### 通过本地配置文件注册
 
 在指定的本地配置文件中的指定节点配置 Redis 信息, 完成注册
 
@@ -130,7 +132,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 :::
 ::::
 
-#### 3. 通过委托指定 Redis 配置注册
+#### 通过委托指定 Redis 配置注册
 
 ```csharp Program.cs
 builder.Services.AddDistributedCache(distributedCacheOptions =>
@@ -150,7 +152,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 });
 ```
 
-#### 4. 通过指定 Configuration 注册
+#### 通过指定 Configuration 注册
 
 :::: code-group
 ::: code-group-item 1. 修改appsettings.json
@@ -178,9 +180,9 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 :::
 ::::
 
-### Redis 配置参数说明
+### Redis 配置参数
 
-* `RedisConfigurationOptions`类
+* `RedisConfigurationOptions` 类
 
 <div class="custom-table">
   <table style='border-collapse: collapse;table-layout:fixed;width:100%'>
@@ -227,7 +229,6 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
     <td>int</td>
     <td>5000</td>
    </tr>
-  
    <tr>
     <td colspan=3>ClientName</td>
     <td colspan=2>用于所有连接的客户端名称</td>

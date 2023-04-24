@@ -78,7 +78,7 @@ app.MapGet("issues", ([FromServices] GithubCaller caller, string state)
     => caller.GetIssuesByOpenAsync(state);
 ```
 
-## 高级
+## 高阶用法
 
 基于HttpClient的Caller实现不仅仅支持了[中间件](/framework/building-blocks/caller/overview#section-4e2d95f44ef6)、[Xml请求](/framework/building-blocks/caller/overview#xml683c5f0f)、[认证](/framework/building-blocks/caller/overview#section-8ba48bc1), 还支持[自定义HttpClient](#自定义HttpClient) 
 

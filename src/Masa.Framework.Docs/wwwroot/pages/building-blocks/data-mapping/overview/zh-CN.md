@@ -1,4 +1,4 @@
-## 概念
+## Data Mapping（数据映射） - 概念
 
 提供对象映射的能力, 通过添加提供者的引用并注册, 即可轻松完成对象映射的能力
 
@@ -20,7 +20,7 @@ dotnet add package Masa.Contrib.Data.Mapping.Mapster
 
 ```csharp
 builder.Services.AddMapster();
-``` 
+```
 
 3. 映射对象
 
@@ -77,7 +77,7 @@ public class OrderItem
 }
 ```
 
-## 高级
+## 高阶用法
 
 通过`IMapper`我们可以很简单的完成对象映射, 但是使用它必须要先获取到`IMapper`, 而它需要通过DI获取, 这样就使得我们在某些地方使用起来变得复杂, 为了解决这一问题, 我们针对`Object`类型做了方法扩展
 
@@ -91,7 +91,7 @@ dotnet add package Masa.BuildingBlocks.Data.MappingExtensions
 
 ```csharp
 builder.Services.AddMapster();
-``` 
+```
 
 3. 使用映射
 
@@ -149,4 +149,4 @@ public class User
 
     public string Description { get; set; }
 }
-``` 
+```

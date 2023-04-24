@@ -21,4 +21,43 @@
 
    > 可通过 **AppDomain.CurrentDomain.GetAssemblies()** 查看其中是否包含对应 `Event`、`EventHandler` 的程序集
 
-   
+
+2. 按照文档操作，通过`EventBus`发布事件后，对应的Handler并没有执行，也没有发现错误？
+
+   1. EventBus.PublishAsync(@event) 是异步方法，确保等待方法调用成功，检查是否出现同步方法调用异步方法的情况
+
+   2. 注册`EventBus`时指定程序集集合, Assembly被用于注册时获取并保存事件与Handler的对应关系
+
+   > Assembly 的优先级：
+   >
+   > ```
+   > 手动指定Assembly集合 -> MasaApp.GetAssemblies()
+   > ```
+
+   ```
+   var builder = WebApplication.CreateBuilder(args);
+   var assemblies = new[]
+   {
+       typeof(UserHandler).Assembly
+   };
+   builder.Services.AddEventBus(assemblies);
+   ```
+
+3. 通过 EventBus 发布事件，Handler出错，但数据依然保存到数据库中
+
+   1. 检查是否禁用事务
+      1. DisableRollbackOnFailure 是否为 true（是否失败时禁止回滚）
+      2. UseTransaction 是否为 false（禁止使用事务）
+   2. 检查当前数据库是否支持回滚。例如: 使用的是Mysql数据库，但回滚数据失败，请[查看](https://developer.aliyun.com/article/357842)
+
+4. 为什么开启了异常重试却未执行重试？
+
+   默认 `UserFriendlyException` 异常不支持重试，如果需要支持重试，则需要重新实现 `IExceptionStrategyProvider` 
+
+5. 支持 Transaction
+
+   配合 `MASA.Contrib.Ddd.Domain.Repository.EF.Repository` 、`UnitOfWork` 使用，当 `Event` 实现了 `ITransaction`，会在执行 `Add` 、`Update`、`Delete` 方法时自动开启事务，且在 `Handler` 全部执行后提交事务，当事务出现异常后，会自动回滚事务
+
+6. EventBus 是线程安全的吗？
+
+   不是线程安全的，如果多线程并发执行 EventBus.PublishAsync() ，则可能会出现数据未提交等异常

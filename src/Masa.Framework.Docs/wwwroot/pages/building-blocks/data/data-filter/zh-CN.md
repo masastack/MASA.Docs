@@ -1,10 +1,10 @@
-## 数据过滤
+## 数据 - 数据过滤
 
-在`Masa.BuildingBlocks.Data.Contracts`中提供了数据过滤的功能, 我们定义了一些支持开箱即用的过滤
+在 `Masa.BuildingBlocks.Data.Contracts` 中提供了数据过滤的功能, 我们定义了一些支持开箱即用的过滤
 
 ### 软删除
 
-实现`ISoftDelete`的实体支持软删除, 当执行删除操作时, 我们将把当前数据标记为删除, 它并不是物理删除, 数据仍然保存在数据库中, 但默认查询时会过滤掉已经被标记删除的数据
+实现 `ISoftDelete` 的实体支持软删除, 当执行删除操作时, 我们将把当前数据标记为删除, 它并不是物理删除, 数据仍然保存在数据库中, 但默认查询时会过滤掉已经被标记删除的数据
 
 ```csharp
 public class Student : ISoftDelete

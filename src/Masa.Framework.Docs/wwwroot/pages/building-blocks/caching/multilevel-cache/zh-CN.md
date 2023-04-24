@@ -4,7 +4,7 @@
 
 多级缓存是指在一个系统的不同架构层级进行数据缓存，以提升访问效率。 MASA Framework 的多级缓存是在分布式缓存的基础上，再加了一层内存缓存。使用多级缓存, 可以降低请求穿透到分布式缓存, 减少网络消耗以及序列化带来的性能影响, 使用它可以大大缩减响应时间。并且 MASA Framework 的多级缓存是支持分布式部署的，当缓存数据在集群的某个节点被更新或删除时，其它集群节点也会同步更新或删除缓存数据。[查看原因](#同步更新)
 
-> 使用多级缓存的时候需要注意：当内存中的缓存数据很多也很大的时候，可能会导致内存超负荷，这个时候我们推荐使用缓存[滑动过期](#滑动过期)
+> 使用多级缓存的时候需要注意：当内存中的缓存数据特别多的时候，可能会导致内存超负荷，这个时候我们推荐使用缓存[滑动过期](#滑动过期)
 
 ![多级缓存结构图](https://cdn.masastack.com/framework/building-blocks/cache/multilevel_design.png)
 
@@ -76,7 +76,7 @@
 
 我们提供了多种方法来初始化多级缓存的配置。我们推荐采用 **选项模式** 使用 `Configure<MultilevelCacheOptions>` 来设置多级缓存的配置信息。
 
-#### 1. 选项模式
+#### 选项模式
 
 > 我们还可以借助 [`MasaConfiguration`](../../building-blocks/configuration/index.md) 完成选项模式支持
 
@@ -106,7 +106,7 @@ builder.Services.AddMultilevelCache(distributedCacheOptions =>
 :::
 ::::
 
-#### 2. 通过本地配置文件注册
+#### 通过本地配置文件注册
 
 :::: code-group
 ::: code-group-item 1. 修改本地配置文件
@@ -145,7 +145,7 @@ builder.Services.AddMultilevelCache(distributedCacheOptions =>
 :::
 ::::
 
-#### 3. 手动指定配置
+#### 手动指定配置
 
 使用默认配置, 并指定 Redis 配置信息
 

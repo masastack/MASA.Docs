@@ -302,10 +302,8 @@
       dotnet add package Microsoft.EntityFrameworkCore.Tools --version 6.0.0
       ```
       
-      > 若安装其它版本的 `EntityFrameworkCore.Tools` ，则需要再安装相同版本的 `Microsoft.EntityFrameworkCore` 、 `Microsoft.EntityFrameworkCore.Sqlite` ，否则会导致模型迁移失败
-      
    2. 模型迁移
-
+   
       :::: code-group
       ::: code-group-item .NET Core CLI
       ```shell 终端
@@ -313,13 +311,13 @@
       ```
       :::
       ::: code-group-item Visual Studio
-
+   
       ```shell Visual Studio
       Add-Migration InitialCreate
       ```
       :::
       ::::
-
+   
       > 需在 `Masa.EShop.Service.Catalog` 文件夹下执行迁移命令
 
    3. 更新数据库
@@ -341,7 +339,7 @@
       > 模型迁移需要安装 `Microsoft.EntityFrameworkCore.Tools` ，请确保已正确安装
       >
       > 多数据上下文时请在命令行尾部增加 ` --context CatalogDbContext`
-
+   
 8. 种子数据迁移 （非必须）
 
    :::: code-group

@@ -70,7 +70,7 @@ app.MapGet("/Test/User/Hello", ([FromServices] CustomCaller caller, string name)
     => caller.HelloAsync(name);
 ```
 
-## 高级
+## 高阶用法
 
 基于DaprClient的Caller实现不仅仅支持了[中间件](/framework/building-blocks/caller/overview#section-4e2d95f44ef6)、[Xml请求](/framework/building-blocks/caller/overview#xml683c5f0f)、[认证](/framework/building-blocks/caller/overview#section-8ba48bc1), 还支持自定义`DaprClient`的`HttpEndpoint`、`GrpcEndpoint`
 

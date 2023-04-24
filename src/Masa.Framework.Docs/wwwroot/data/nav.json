@@ -77,7 +77,8 @@
           "overview",
           "orm-efcore",
           "data-filter",
-          "connection-strings"
+          "connection-strings",
+          "faq"
         ]
       },
       {
@@ -142,6 +143,15 @@
           "web",
           "blazor-server",
           "blazor-wasm"
+        ]
+      },
+      {
+        "title": "id-generator",
+        "items": [
+          "overview",
+          "normal-guid",
+          "sequential-guid",
+          "snowflake"
         ]
       },
       "isolation",
