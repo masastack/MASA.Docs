@@ -4,13 +4,7 @@
     "items": [
       "overview",
       "observability",
-      "modern-application",
-      {
-        "title": "faq",
-        "items": [
-          "load-event"
-        ]
-      }
+      "modern-application"
     ]
   },
   {
@@ -39,7 +33,8 @@
         "title": "auto-complete",
         "items": [
           "overview",
-          "elasticsearch"
+          "elasticsearch",
+          "faq"
         ]
       },
       {
@@ -118,7 +113,8 @@
         "items": [
           "overview",
           "local-event",
-          "integration-event"
+          "integration-event",
+          "faq"
         ]
       },
       {

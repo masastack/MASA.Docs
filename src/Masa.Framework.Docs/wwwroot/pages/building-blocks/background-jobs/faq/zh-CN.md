@@ -2,7 +2,7 @@
 
 ## 概述
 
-记录了后台任务中可能遇到的问题以及问题应该如何解决
+记录了使用 **后台任务** 可能遇到的问题以及问题应该如何解决
 
 ## 公共
 
@@ -44,7 +44,6 @@
 
   :::: code-group
   ::: code-group-item 设置 RootServiceProvider
-
   ```csharp Program.cs
   using Masa.BuildingBlocks.Data;
   using Masa.BuildingBlocks.Extensions.BackgroundJobs;
@@ -68,10 +67,8 @@
   
   app.Run();
   ```
-
   :::
   ::: code-group-item 通过静态方法使用
-
   ```
   using BackgroundJobsDemo.Dto;
   using Masa.BuildingBlocks.Extensions.BackgroundJobs;
@@ -90,6 +87,5 @@
       }
   }
   ```
-
   :::
   ::::
