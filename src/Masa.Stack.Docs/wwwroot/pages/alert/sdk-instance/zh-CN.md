@@ -1,12 +1,12 @@
-# SDK示例
+# SDK 示例
 
 ## 简介
 
-通过注入`IAlertClient`接口，调用对应Service获取Alert SDK 提供的能力。
+通过注入 `IAlertClient` 接口，调用对应 Service 获取 Alert SDK 提供的能力。
 
 ## 服务介绍
 
-Alert SDK 包含以下服务
+Alert SDK 包含以下服务：
 
 ```csharp
 IAlertClient
@@ -23,15 +23,15 @@ dotnet add package Masa.Contrib.StackSdks.Alert
 
 ### 注册相关服务
 
-```csharp
-builder.Services.AddAlertClient("http://alertservice.com");
+```csharp program.cs
+builder.Services.AddAlertClient("https://alertservice.com");
 ```
 
-> `http://alertservice.com` 需要替换为真实的Alert后台服务地址
+> `https://alertservice.com` 需要替换为真实的 Alert 后台服务地址。
 
-### 依赖注入IAlertClient
+### 依赖注入 IAlertClient
 
-```csharp 
+```csharp program.cs
 var app = builder.Build();
    
 app.MapGet("/GetAlarmRule", ([FromServices] IAlertClient alertClient, Guid id) =>
@@ -44,11 +44,11 @@ app.Run();
 
 ## 场景
 
-MASA.Scheduler Job需要告警时通过调用MASA.Alert的SDK自动创建告警规则并进行管理。
+任务调度中心（MASA.Scheduler）的 Job 需要告警时通过调用告警中心（MASA.Alert）的 SDK 自动创建告警规则并进行管理。
 
 ### 创建告警规则
 
-示例只介绍部分参数用法
+示例只介绍部分参数用法。
 
 ```csharp
 var whereExpression = $@"{{""bool"":{{""must"":[{{""term"":{{""Attributes.JobId.keyword"":""{jobId}""}}}},{{""term"":{{""SeverityText.keyword"":""Error""}}}}]}}}}";
