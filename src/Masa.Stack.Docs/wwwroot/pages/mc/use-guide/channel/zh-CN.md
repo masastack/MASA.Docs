@@ -25,28 +25,28 @@
 
 不同的渠道类型有不同的配置参数。
 
-1. 短信渠道配置
-
-   目前短信发送使用阿里云，需要填写阿里云的AccessKeyId和AccessKeySecret参数。创建短信渠道后，短信模板会自动同步到本地短信模板池中，创建短信模板时可以直接选择。
-
-   ![channel-add-sms](https://cdn.masastack.com/stack/doc/mc/channel-add-sms.png)
-
-2. 邮箱渠道配置
-
-   ![channel-add-email](https://cdn.masastack.com/stack/doc/mc/channel-add-email.png)
-
-3. 站内信渠道配置
-
-   ![channel-add-websiteMessage](https://cdn.masastack.com/stack/doc/mc/channel-add-websiteMessage.png)
-
-4. APP渠道配置
-
-   支持个推和极光。
-
-   ![channel-add-app](https://cdn.masastack.com/stack/doc/mc/channel-add-app.png)
-
-### 编辑和删除渠道
+   1. 短信渠道配置
+   
+      目前短信发送使用阿里云，需要填写阿里云的AccessKeyId和AccessKeySecret参数。创建短信渠道后，短信模板会自动同步到本地短信模板池中，创建短信模板时  可 以直接选择。
+   
+      ![channel-add-sms](https://cdn.masastack.com/stack/doc/mc/channel-add-sms.png)
+   
+   2. 邮箱渠道配置
+   
+      ![channel-add-email](https://cdn.masastack.com/stack/doc/mc/channel-add-email.png)
+   
+   3. 站内信渠道配置
+   
+      ![channel-add-websiteMessage](https://cdn.masastack.com/stack/doc/mc/channel-add-websiteMessage.png)
+   
+   4. APP渠道配置
+   
+      支持个推和极光。
+   
+      ![channel-add-app](https://cdn.masastack.com/stack/doc/mc/channel-add-app.png)
+   
+## 编辑和删除渠道
 
 点击要编辑的渠道卡片右上角的编辑图标，弹出编辑渠道对话框，可以编辑渠道信息或删除渠道。
 
-![channel-edit](https://cdn.masastack.com/stack/doc/mc/channel-edit.png)
+   ![channel-edit](https://cdn.masastack.com/stack/doc/mc/channel-edit.png)
