@@ -11,3 +11,6 @@
 * 内容存放到`DocContent`
   
   > `Masa.Docs.Shared`的csproj里设置了XCOPY，将自动从 `*.sln` 同级寻找`DocContent`目录复制到项目的`CompileContent`内
+
+### 在线编译预览
+https://docs.masastack.com/document/compile
