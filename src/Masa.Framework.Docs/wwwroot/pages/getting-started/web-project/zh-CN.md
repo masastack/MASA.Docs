@@ -53,7 +53,7 @@
 
 2. 然后修改 `TodoAppDbContext`，将 **TodoEntity** 添加进去，修改完后的 `TodoAppDbContext.cs` 如下：
 
-   ```csharp DataAccess/TodoAppDbContext.cs
+   ```csharp DataAccess/TodoAppDbContext.cs l:5,19,20
    namespace TodoApp.Service.DataAccess;
 
    public class TodoAppDbContext : MasaDbContext
@@ -270,6 +270,7 @@
 
 
 4. 创建完成之后，我们的目录结构如下：
+
    ![CQRS代码结构图](https://cdn.masastack.com/framework/getting-started/web-project/create_cqrs.png)
 
 ### 创建 MinimalApi 接口
@@ -404,7 +405,7 @@
 
 添加后端接口调用服务，修改 `TodoApp.Web` 项目中的 `Program.cs` 文件
 
-   ```csharp Program.cs
+   ```csharp Program.cs l:8,9
    using TodoApp.Web.ApiCallers;
    
    var builder = WebApplication.CreateBuilder(args);
@@ -436,7 +437,7 @@
 
 在这里我们还需要修改 **appsetting.json** 配置文件添加我们后端接口地址：
 
-   ```json appsetting.json
+   ```json appsetting.json l:9-11
    {
      "Logging": {
        "LogLevel": {
