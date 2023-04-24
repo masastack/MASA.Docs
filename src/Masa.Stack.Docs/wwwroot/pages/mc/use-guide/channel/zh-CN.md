@@ -16,12 +16,12 @@
 
 第一步：选择渠道类型。
 
-![channel-add-type](https://cdn.masastack.com/stack/doc/mc/channel-add-type.png)
+   ![channel-add-type](https://cdn.masastack.com/stack/doc/mc/channel-add-type.png)
 
 第二步：配置渠道信息。
 
-- 渠道名称：渠道的显示名称。
-- 渠道ID：用于调用SDK发送消息时指定渠道的唯一标识。
+   - 渠道名称：渠道的显示名称。
+   - 渠道ID：用于调用SDK发送消息时指定渠道的唯一标识。
 
 不同的渠道类型有不同的配置参数。
 
