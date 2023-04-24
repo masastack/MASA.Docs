@@ -12,17 +12,17 @@
    dotnet add package Masa.Contrib.Data.IdGenerator.NormalGuid
    ```
 
-2. 注册`GUID`生成器
+2. 注册 `GUID` ~~~~生成器
 
    ```csharp 终端
    var builder = WebApplication.CreateBuilder(args);
    builder.Services.AddSimpleGuidGenerator();
    ```
 
-3. 使用`GUID`生成器生成**有序的id**
+3. 使用 `GUID` 生成器生成**有序的 id**
 
    :::: code-group
-   ::: code-group-item 通过 Id生成器工厂创建（静态）
+   ::: code-group-item 通过 Id 生成器工厂创建（静态）
 
    ```csharp Domain/Entities/CatalogBrand.cs
    using Masa.BuildingBlocks.Data;

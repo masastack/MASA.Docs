@@ -22,11 +22,11 @@
    > 可通过 **AppDomain.CurrentDomain.GetAssemblies()** 查看其中是否包含对应 `Event`、`EventHandler` 的程序集
 
 
-2. 按照文档操作，通过`EventBus`发布事件后，对应的Handler并没有执行，也没有发现错误？
+2. 按照文档操作，通过 `EventBus` 发布事件后，对应的 Handler 并没有执行，也没有发现错误？
 
    1. EventBus.PublishAsync(@event) 是异步方法，确保等待方法调用成功，检查是否出现同步方法调用异步方法的情况
 
-   2. 注册`EventBus`时指定程序集集合, Assembly被用于注册时获取并保存事件与Handler的对应关系
+   2. 注册 `EventBus` 时指定程序集集合，Assembly 被用于注册时获取并保存事件与 Handler 的对应关系
 
    > Assembly 的优先级：
    >
@@ -48,7 +48,7 @@
    1. 检查是否禁用事务
       1. DisableRollbackOnFailure 是否为 true（是否失败时禁止回滚）
       2. UseTransaction 是否为 false（禁止使用事务）
-   2. 检查当前数据库是否支持回滚。例如: 使用的是Mysql数据库，但回滚数据失败，请[查看](https://developer.aliyun.com/article/357842)
+   2. 检查当前数据库是否支持回滚。例如: 使用的是 MySQL 数据库，但回滚数据失败，请[查看](https://developer.aliyun.com/article/357842)
 
 4. 为什么开启了异常重试却未执行重试？
 
