@@ -43,6 +43,15 @@
         ]
       },
       {
+        "title": "background-jobs",
+        "items": [
+          "overview",
+          "memory",
+          "hangfire",
+          "faq"
+        ]
+      },
+      {
         "title": "caching",
         "items": [
           "overview",
