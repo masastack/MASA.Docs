@@ -2,9 +2,9 @@
 
 ## 概述
 
-本章将使用[事件总线](/framework/building-blocks/dispatcher/overview)和[读写分离](/framework/building-blocks/cqrs)，并接入`FluentValidation`调整参数验证
+本章将使用[事件总线](/framework/building-blocks/dispatcher/overview)和[读写分离](/framework/building-blocks/cqrs)，并接入 `FluentValidation` 调整参数验证
 
-> 示例中不再创建读模型，使用与写模型完全一致的数据库，会创建一个`CatalogQueryDbContext`用来标记当前使用的是读模型
+> 示例中不再创建读模型，使用与写模型完全一致的数据库，会创建一个 `CatalogQueryDbContext` 用来标记当前使用的是读模型
 
 以创建商品为例：
 
@@ -27,7 +27,7 @@
 
    > `FluentValidation.AspNetCore`、`Masa.Contrib.Dispatcher.Events.FluentValidation`提供了基于`FluentValidation`的验证中间件，分离关注点
    >
-   > 使用`Masa.Contrib.Data.UoW.EFCore`后，EventBus会自动保存提交
+   > 使用 `Masa.Contrib.Data.UoW.EFCore` 后，EventBus 会自动保存提交
 
 2. 注册[进程内事件总线](/framework/building-blocks/dispatcher/local-event)、[跨进程事件总线](/framework/building-blocks/dispatcher/integration-event)、工作单元（UoW），并使用 `FluentValidation` 进行参数验证`
 
@@ -69,9 +69,9 @@
    app.Run();
    ```
 
-   > 注册事件总线在**AddServices**之前即可，集成事件总线由`dapr`提供，确保开发环境已经成功配置[dapr](https://docs.dapr.io/zh-hans/getting-started/)环境
+   > 注册事件总线在 **AddServices** 之前即可，集成事件总线由 `dapr` 提供，确保开发环境已经成功配置 [dapr](https://docs.dapr.io/zh-hans/getting-started/) 环境
 
-3. 安装`Dapr Starter`并注册 （提供`dapr sidecar`管理）
+3. 安装 `Dapr Starter` 并注册 （提供 `dapr sidecar` 管理）
 
    :::: code-group
    ::: code-group-item 安装 nuget 包
@@ -105,9 +105,9 @@
    :::
    ::::
 
-   > 线上环境不需要使用[DaprStarter](/framework/building-blocks/development/dapr-starter)，它仅在开发环境下使用
+   > 线上环境不需要使用 [DaprStarter](/framework/building-blocks/development/dapr-starter) ，它仅在开发环境下使用
 
-4. 新建读库上下文`CatalogQueryDbContext`并注册
+4. 新建读库上下文 `CatalogQueryDbContext` 并注册
 
    :::: code-group
    ::: code-group-item CatalogQueryDbContext（读模型）
@@ -161,7 +161,7 @@
    :::
    ::::
 
-   > 在CQRS架构下 读模型只支持查询，通过优化读模型提升查询效率，读模型的数据上下文与写模型的数据上下文可以完全不同，读模型用`缓存`、`ES`或者其它数据源都可以
+   > 在 [CQRS](/framework/building-blocks/cqrs) 架构下 读模型只支持查询，通过优化读模型提升查询效率，读模型的数据上下文与写模型的数据上下文可以完全不同，读模型用`缓存`、`ES` 或者其它数据源都可以
 
 5. 修改用于接收新增产品、修改产品参数类，按照类型将其分为`XXXCommand`、`XXXQuery`，并为其创建对应的参数验证类`XXXCommandValidator`、`XXXQueryValidator`
 
@@ -506,7 +506,7 @@
    :::
    ::::
 
-   > 事件处理程序所在类支持通过构造函数注入、也支持方法注入 (标记`EventHandler`特性的**public**方法)
+   > 事件处理程序所在类支持通过构造函数注入、也支持方法注入 (标记 `EventHandler` 特性的 **public** 方法)
 
 7. 新增商品创建集成事件
 
@@ -531,9 +531,9 @@
 
    > 用于创建商品完成后，通知仓库管理员
    >
-   > 选中`Masa.EShop.Contracts.Catalog`并安装**nuget**包`Masa.BuildingBlocks.Dispatcher.IntegrationEvents`
+   > 选中 `Masa.EShop.Contracts.Catalog` 并安装 **nuget** 包 `Masa.BuildingBlocks.Dispatcher.IntegrationEvents`
 
-8. 修改`CatalogItemService.cs`
+8. 修改 `CatalogItemService.cs`
 
    ```csharp Services/CatalogItemService.cs
    using Masa.BuildingBlocks.Dispatcher.Events;
@@ -632,4 +632,4 @@
 
 ## 总结
 
-通过事件总线、读写分离，它将使我们更聚焦业务。将关注点分离，使得我们在读场景时关注性能，写场景时关注业务逻辑，而在需要验证参数时在`XXXValidator`完成，避免过多不相关的操作影响到核心业务
+通过事件总线、读写分离，它将使我们更聚焦业务。将关注点分离，使得我们在读场景时关注性能，写场景时关注业务逻辑，而在需要验证参数时在 `XXXValidator` 完成，避免过多不相关的操作影响到核心业务

@@ -91,7 +91,7 @@
 
 1. 按照文档操作, 并没有发现对应的方法、属性或类 
    
-    可通过尝试安装与[示例](https://github.com/masalabs/MASA.Framework.Tutorial/blob/main/Directory.Build.props)一致的`MASA Framework`版本的预览版再进行重试，如果仍未找到对应的方法、属性或者类，可以尝试在[这里](https://github.com/masastack/MASA.Templates/issues?q=)进行搜索查询，如果仍然未找到答案可以给我们提[Issues](https://github.com/masastack/MASA.Templates/issues/new/choose)
+    可通过尝试安装与[示例](https://github.com/masalabs/MASA.Framework.Tutorial/blob/main/Directory.Build.props)一致的`MASA Framework`版本的预览版再进行重试，如果仍未找到对应的方法、属性或者类，可以尝试在[这里](https://github.com/masastack/MASA.Framework/issues?q=)进行搜索查询，如果仍然未找到答案可以给我们提[Issues](https://github.com/masastack/MASA.Templates/issues/new/choose)
 
 2. 教程中使用的版本号均为`$(MasaFrameworkPackageVersion)`，这个是什么?
 

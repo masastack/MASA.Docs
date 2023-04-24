@@ -4,7 +4,7 @@
 
 本章将使用[多级缓存](/framework/building-blocks/caching/multilevel-cache)技术，相比[分布式缓存](https://learn.microsoft.com/zh-cn/aspnet/core/performance/caching/distributed)，它有着更好的数据读取能力
 
-> 教程中分布式缓存使用的是[Redis缓存](/framework/building-blocks/caching/stackexchange-redis)，请确保有可用的Redis服务器以供使用
+> 教程中分布式缓存使用的是 [Redis缓存](/framework/building-blocks/caching/stackexchange-redis)，请确保有可用的 Redis 缓存服务器以供使用
 
 
 

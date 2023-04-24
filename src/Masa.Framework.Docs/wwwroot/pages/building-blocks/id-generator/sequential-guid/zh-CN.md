@@ -1,27 +1,27 @@
-# 有序Guid生成器
+# Id Generator（Id 生成器） - 有序Guid生成器
 
-通常我们喜欢使用`GUID`类型，因为它可以在数据保存之前就得到**主键**，而不是必须要提交保存后才可以知道**主键**，这对于一些场景是十分有效的。
+## 概述
 
-但默认`GUID `生成的是不连续的，当用它作为数据库的主键id使用时会带来严重的性能问题，因此我们提供了`ISequentialGuidGenerator`，用于生成连续的`GUID`
+通常我们喜欢使用 `GUID` 类型，因为它可以在数据保存之前就得到**主键**，而不是必须要提交保存后才可以知道**主键**，这对于一些场景是十分有效的。
 
-## 开始
+但默认 `GUID` 生成的是不连续的，当用它作为数据库的主键id使用时会带来严重的性能问题，因此我们提供了 `ISequentialGuidGenerator` ，用于生成连续的 `GUID`
 
-1. 安装`Masa.Contrib.Data.IdGenerator.SequentialGuid`
+## 使用
+
+1. 安装 `Masa.Contrib.Data.IdGenerator.SequentialGuid`
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Data.IdGenerator.SequentialGuid --prerelease
+   dotnet add package Masa.Contrib.Data.IdGenerator.SequentialGuid
    ```
 
-   
-
-2. 注册`GUID`生成器
+2. 注册 `GUID` 生成器
 
    ```csharp 终端
    var builder = WebApplication.CreateBuilder(args);
    builder.Services.AddSequentialGuidGenerator();
    ```
 
-3. 使用`GUID`生成器生成**有序的id**
+3. 使用 `GUID` 生成器生成**有序的 id**
 
    :::: code-group
    ::: code-group-item 通过 Id生成器工厂创建（静态）
