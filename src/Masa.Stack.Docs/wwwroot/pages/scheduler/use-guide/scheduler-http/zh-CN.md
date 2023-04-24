@@ -17,8 +17,8 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
 | 类型 | 描述 |
 | --------- | ------------------------------------------- |
 | 请求类型 | Http请求类型（GET，POST，PUT，DELETE，HEAD） |
-| 请求地址 | 调度请求的接口地址                         |
-| 请求参数 | 接口参数                                    |
+| 请求地址 | 调度请求的接口地址 |
+| 请求参数 | 接口参数 |
 | 校验条件 | **默认响应码200**：接口Http响应码返回是否为200 <br/> **内容包含**：与**校验内容**配合使用<br/> **内容不包含**：与**校验内容**配合使用 |
 
 ## API创建
@@ -81,16 +81,16 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
    } 
    ```
 
-   | **属性**             | **描述**                               |
-   |----------------------|--------------------------------------|
-   | **ProjectIdentity**  | [项目](stack/pm/introduce) ID                      |
-   | **Name**             | Job 的名称                            |
-   | **JobType**          | Job 的类型（`JobTypes.Http` 为 Http） |
-   | **CronExpression**   | Cron 表达式（Job 执行的周期）          |
-   | **OperatorId**       | 操作人/创建人                         |
-   | **HttpMethod**       | 请求类型       |
-   | **RequestUrl**       | 请求地址        |
-   | **HttpParameters**   | 接口参数（Query）            |
-   | **HttpBody**         | 接口参数 (Content)            |
-   | **HttpVerifyType**   | 校验条件                   |
-   | **VerifyContent**    | 校验内容                   |
+   | **属性** | **描述** |
+   |----------------------|-------------------------|
+   | **ProjectIdentity**  | [项目](stack/pm/introduce) ID |
+   | **Name** | Job 的名称 |
+   | **JobType** | Job 的类型（`JobTypes.Http` 为 Http） |
+   | **CronExpression** | Cron 表达式（Job 执行的周期） |
+   | **OperatorId** | 操作人/创建人 |
+   | **HttpMethod** | 请求类型 |
+   | **RequestUrl** | 请求地址 |
+   | **HttpParameters** | 接口参数（Query） |
+   | **HttpBody** | 接口参数 (Content) |
+   | **HttpVerifyType** | 校验条件 |
+   | **VerifyContent** | 校验内容 |
