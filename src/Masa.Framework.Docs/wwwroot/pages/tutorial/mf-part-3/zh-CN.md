@@ -17,11 +17,11 @@
 1. 选中 `Masa.EShop.Service.Catalog`项目并安装 `Masa.Contrib.Dispatcher.Events`、 `Masa.Contrib.Dispatcher.Events.FluentValidation`、`Masa.Contrib.Data.UoW.EFCore`、 `Masa.Contrib.Dispatcher.IntegrationEvents.Dapr`、`Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore`、`FluentValidation.AspNetCore`
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Dispatcher.Events --prerelease
-   dotnet add package Masa.Contrib.Dispatcher.Events.FluentValidation --prerelease
-   dotnet add package Masa.Contrib.Data.UoW.EFCore --prerelease
-   dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.Dapr --prerelease
-   dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore --prerelease
+   dotnet add package Masa.Contrib.Dispatcher.Events -v 1.0.0-preview.29
+   dotnet add package Masa.Contrib.Dispatcher.Events.FluentValidation -v 1.0.0-preview.29
+   dotnet add package Masa.Contrib.Data.UoW.EFCore -v 1.0.0-preview.29
+   dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.Dapr -v 1.0.0-preview.29
+   dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore -v 1.0.0-preview.29
    dotnet add package FluentValidation.AspNetCore
    ```
 
@@ -31,7 +31,7 @@
 
 2. 注册[进程内事件总线](/framework/building-blocks/dispatcher/local-event)、[跨进程事件总线](/framework/building-blocks/dispatcher/integration-event)、工作单元（UoW），并使用 `FluentValidation` 进行参数验证`
 
-   ```csharp Program.cs
+   ```csharp Program.cs l:11-18,29-33
    using System.Reflection;
    using FluentValidation;
    using Masa.BuildingBlocks.Data.UoW;
@@ -77,13 +77,13 @@
    ::: code-group-item 安装 nuget 包
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Development.DaprStarter.AspNetCore --prerelease
+   dotnet add package Masa.Contrib.Development.DaprStarter.AspNetCore -v 1.0.0-preview.29
    ```
 
    :::
    ::: code-group-item 注册DaprStarter
 
-   ```csharp Program.cs
+   ```csharp Program.cs l:9
    var builder = WebApplication.CreateBuilder(args);
    
    -----Ignore the rest of the service registration-----
@@ -133,7 +133,7 @@
    ```
    ::: 
    ::: code-group-item 注册 CatalogQueryDbContext
-   ```csharp Program.cs
+   ```csharp Program.cs l:12-17
    var builder = WebApplication.CreateBuilder(args);
    
    -----Ignore the rest of the service registration-----

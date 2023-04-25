@@ -2,39 +2,40 @@
 
 本章是一个使用 **MASA Framework** 创建 Web 程序的快速入门教程，我们会使用 **MASA Framework** 创建一个简单的待办事项应用程序。以下是程序最终运行效果：
 
-> 你也可以直接下载我们写好的源码去运行，下载地址：https://github.com/masalabs/Masa.Framework.TodoApp
-
 ![运行效果图](https://cdn.masastack.com/framework/getting-started/web-project/result.png)
+
+## 下载源码
+
+* [Masa.Framework.TodoApp](https://github.com/masalabs/Masa.Framework.TodoApp)
 
 ## 项目依赖
 
-* 开发工具：Visual Studio 或其它
+* 开发工具：Visual Studio 2022 及更高版本或其它支持 [`.NET 6.0`](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) `.NET SDK` 版本的开发工具
 * .NET 版本：6.0 +
 
 ## 安装 MASA Template
 
 本教程将会使用 `MASA Template` 创建 TodoApp 解决方案。我们先打开 `cmd` 运行下面的命令安装模板
 
-   ```shell 终端
-   dotnet new install Masa.Template
-   ```
+```shell 终端
+dotnet new install Masa.Template
+```
 
 ## 创建项目
 
 在目录下使用 cmd 运行以下命令，它将会创建整个 TodoApp 解决方案。在这里我们将使用 [MASA.Blazor](https://docs.masastack.com/blazor/getting-started/installation) 来完成我们UI界面。
 
-   ```shell 终端
-   dotnet new masafx-service-cqrs --name TodoApp --no-https true --no-example true -db sqlite
-   cd TodoApp/src
-   dotnet new masablazor-empty-server --name TodoApp.Web --no-https true
-   dotnet add ./TodoApp.Web/TodoApp.Web.csproj reference ./TodoApp.Contracts/TodoApp.Contracts.csproj
-   dotnet add ./TodoApp.Web/TodoApp.Web.csproj package Masa.Contrib.Service.Caller.HttpClient -v 1.0.0-preview.29
-   cd ../
-   dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
-   
-   ```
+```shell 终端
+dotnet new masafx-service-cqrs --name TodoApp --no-https true --no-example true -db sqlite
+cd TodoApp/src
+dotnet new masablazor-empty-server --name TodoApp.Web --no-https true
+dotnet add ./TodoApp.Web/TodoApp.Web.csproj reference ./TodoApp.Contracts/TodoApp.Contracts.csproj
+dotnet add ./TodoApp.Web/TodoApp.Web.csproj package Masa.Contrib.Service.Caller.HttpClient -v 1.0.0-preview.29
+cd ../
+dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
+```
 
-   ![项目结构图](https://cdn.masastack.com/framework/getting-started/web-project/1525201-20230419151038284-19118664.png)
+![项目结构图](https://cdn.masastack.com/framework/getting-started/web-project/1525201-20230419151038284-19118664.png)
 
 ## 定义实体
 
@@ -55,21 +56,21 @@
 
    ```csharp DataAccess/TodoAppDbContext.cs l:5,19,20
    namespace TodoApp.Service.DataAccess;
-
+   
    public class TodoAppDbContext : MasaDbContext
    {
        public DbSet<TodoEntity> Todos { get; set; }
-
+   
        public TodoAppDbContext(MasaDbContextOptions<TodoAppDbContext> options) : base(options)
        {
        }
-
+   
        protected override void OnModelCreatingExecuting(ModelBuilder modelBuilder)
        {
            base.OnModelCreatingExecuting(modelBuilder);
            ConfigEntities(modelBuilder);
        }
-
+   
        private static void ConfigEntities(ModelBuilder modelBuilder)
        {
            var todoBuilder = modelBuilder.Entity<TodoEntity>();
@@ -77,6 +78,7 @@
        }
    }
    ```
+   
 3. 实体创建完成之后的目录结构如下所示：
    ![实体目录结构](https://cdn.masastack.com/framework/getting-started/web-project/create_entity_effect.png)
 
@@ -140,6 +142,7 @@
    ```
    :::
    ::: code-group-item UpdateTodoCommand.cs
+
    ```csharp
    namespace TodoApp.Service.Application.Commands;
    
@@ -147,6 +150,7 @@
    ```
    :::
    ::: code-group-item DeleteTodoCommand.cs
+
    ```csharp
    namespace TodoApp.Service.Application.Commands;
    
@@ -198,6 +202,7 @@
    ```
    :::
    ::: code-group-item TodoCommandHandler.cs
+   
    ```csharp
    using TodoApp.Service.Application.Commands;
    

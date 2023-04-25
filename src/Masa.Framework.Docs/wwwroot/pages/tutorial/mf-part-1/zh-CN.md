@@ -19,7 +19,7 @@
 
    ```shell 终端
    cd Masa.EShop.Service.Catalog
-   dotnet add package Masa.Contrib.Service.MinimalAPIs --prerelease
+   dotnet add package Masa.Contrib.Service.MinimalAPIs -v 1.0.0-preview.29
    ```
 
    或者直接修改项目文件为:
@@ -44,35 +44,16 @@
 
 3. 注册 [MinimalAPIs (最小API)](/framework/building-blocks/minimal-apis)
 
-   :::: code-group
-   ::: code-group-item 注册 MinimalAPIs 后
-
-   ```csharp Program.cs
+   ```csharp Program.cs l:3
    var builder = WebApplication.CreateBuilder(args);
    
-   //注册MinimalAPIs
    var app = builder.AddServices();
    
    app.MapGet("/", () => "Hello World!");
    
    app.Run();
    ```
-
-   :::
-   ::: code-group-item 注册 MinimalAPIs 前
-
-   ```csharp Program.cs
-   var builder = WebApplication.CreateBuilder(args);
-   var app = builder.Build();
    
-   app.MapGet("/", () => "Hello World!");
-   
-   app.Run();
-   ```
-
-   :::
-   ::::
-
 4. 创建`CatalogItemService` (产品服务), 并需 <font Color=Red>继承</font> `ServiceBase`
 
    > 提供产品的增删改查
@@ -291,7 +272,7 @@
    :::
    ::: code-group-item 修改 Program.cs，注册并使用Swagger
 
-   ```csharp Program.cs
+   ```csharp Program.cs l:5-6,16-17
    var builder = WebApplication.CreateBuilder(args);
    
    #region Register Swagger
@@ -342,7 +323,7 @@
 
 > 修改启动配置，增加配置: `"launchUrl": "swagger"`
 
-```json Properties/launchSettings.json
+```json Properties/launchSettings.json l:8
 {
   "profiles": {
     "Masa.EShop.Service.Catalog": {

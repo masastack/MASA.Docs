@@ -9,12 +9,12 @@
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Exceptions`
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Exceptions --prerelease
+   dotnet add package Masa.Contrib.Exceptions -v 1.0.0-preview.29
    ```
 
-2. 使用[全局异常](/framework/building-blocks/exception)，修改`Program.cs`
+2. 使用[全局异常](/framework/building-blocks/exception)
 
-   ```csharp Program.cs
+   ```csharp Program.cs l:7
    var builder = WebApplication.CreateBuilder(args);
    
    -----Ignore the rest of the service registration-----

@@ -9,8 +9,8 @@
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Ddd.Domain`、`Masa.Contrib.Ddd.Domain.Repository.EFCore`、`Masa.Contrib.Data.UoW.EFCore`、`Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore`、`Masa.Contrib.Dispatcher.IntegrationEvents.Dapr`
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Ddd.Domain --prerelease
-   dotnet add package Masa.Contrib.Ddd.Domain.Repository.EFCore --prerelease
+   dotnet add package Masa.Contrib.Ddd.Domain -v 1.0.0-preview.29
+   dotnet add package Masa.Contrib.Ddd.Domain.Repository.EFCore -v 1.0.0-preview.29
    ```
    
 2. 注册[领域事件](/framework/building-blocks/ddd/domain-event)、[仓储](/framework/building-blocks/ddd/repository)、工作单元
@@ -18,7 +18,7 @@
    :::: code-group
    ::: code-group-item 注册领域事件总线并使用仓储
    
-   ```csharp Program.cs
+   ```csharp Program.cs l:5-8
    using Masa.BuildingBlocks.Ddd.Domain.Repositories;
    
    var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +40,7 @@
    :::
    ::: code-group-item 可简写 （修改原注册事件总线）
    
-   ```
+   ```csharp Program.cs l:5-12
    using Masa.BuildingBlocks.Ddd.Domain.Repositories;
    
    var builder = WebApplication.CreateBuilder(args);
