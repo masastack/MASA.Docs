@@ -25,10 +25,10 @@
         ]
       },
       {
-        "title": "develop-authorize-oauth"
+        "title": "authentication-authorization"
       },
       {
-	"title": "sdk-instance"
+	"title": "sdk"
       }
     ]
   },
