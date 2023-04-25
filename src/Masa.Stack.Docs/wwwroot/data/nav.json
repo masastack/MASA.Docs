@@ -25,26 +25,10 @@
         ]
       },
       {
-        "title": "develop-guide",
-        "items": [
-          "permission",
-          "identity-provider",
-          "swagger",
-          "user",
-          "role",
-          "sdk-instance",
-          "sso"
-        ]
+        "title": "authentication-authorization"
       },
       {
-        "title": "sso",
-        "items": [
-          "api-resource",
-          "api-scope",
-          "client",
-          "identity-resource",
-          "user-claim"
-        ]
+	"title": "sdk"
       }
     ]
   },
@@ -56,7 +40,6 @@
       "introduce",
       "basic-concepts",
       "best-practices",
-      "sdk-instance",
       "related-agreements",
       "faq"
     ]
