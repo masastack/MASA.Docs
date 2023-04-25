@@ -10,26 +10,24 @@
     "title": "auth",
     "icon": "mdi-bookmark",
     "items": [
-      "get-started",
       "introduce",
       {
         "title": "use-guide",
         "items": [
           "user",
-          "permission",
+          "rolepermision",
           "team",
-          "org",
-          "identity-provider",
-          "position",
-          "operation-log"
+          "sso",
+          "configureoauth",
+          "org"
         ]
       },
-      {
-        "title": "authentication-authorization"
-      },
-      {
-	"title": "sdk"
-      }
+      "authentication-authorization",
+      "api",
+      "sdk",
+      "best-practices",
+      "CommonProblem",
+      "related-agreements"
     ]
   },
   {
