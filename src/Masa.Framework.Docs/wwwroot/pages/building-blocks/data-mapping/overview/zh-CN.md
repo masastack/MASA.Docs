@@ -2,9 +2,9 @@
 
 提供对象映射的能力，通过添加提供者的引用并注册，即可轻松完成对象映射的能力
 
-## 功能
+## 最佳实践
 
-* [Masa.Contrib.Data.Mapping.Mapster](/framework/building-blocks/mapping/mapster): 基于 [Mapster](https://github.com/MapsterMapper/Mapster) 的扩展，轻松完成对象映射的能力
+* [Mapster](/framework/building-blocks/data-mapping/mapster): 基于 [Mapster](https://github.com/MapsterMapper/Mapster) 的扩展，轻松完成对象映射的能力
 
 ## 源码解读
 

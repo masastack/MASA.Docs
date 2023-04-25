@@ -59,7 +59,7 @@
    
    ```
 
-   > Redis 地址是记录 DCC 配置信息的 Redis 缓存服务地址
+   > Redis 地址：记录 DCC 配置信息的 Redis 缓存服务地址
 
 5. 配置支持语言
 
@@ -106,4 +106,4 @@
    });
    ```
 
-通过以上配置，我们将使用与`DCC`配置中默认 AppId，并读取名称为 `Culture.{语言}` 的配置对象，以上述例子来讲，由于我们支持的语言为 `zh-CN`、 `en-US`，因此我们将默认使用与 DCC 配置一致的默认 AppId 下的 `Culture.zh-CN` 、 `Culture.en-Us` 两个配置对象的值，后续如果需要管理资源的话，对应修改它们的值即可，无需重启应用，因为它们是支持热更新的 [如何管理对象](https://docs.masastack.com/stack/dcc/guide/quick-get-started/use-guide.html)
+通过以上配置，我们将使用与`DCC`配置中默认 AppId，并读取名称为 `Culture.{语言}` 的配置对象，以上述例子来讲，由于我们支持的语言为 `zh-CN`、 `en-US`，因此我们将默认使用与 DCC 配置一致的默认 AppId 下的 `Culture.zh-CN` 、 `Culture.en-Us` 两个配置对象的值，后续如果需要管理资源的话，对应修改它们的值即可，无需重启应用，因为它们是支持热更新的 [如何管理对象](/stack/dcc/get-started)

@@ -1,4 +1,4 @@
-##　国际化 - ASP.NET Core
+# 国际化 - ASP.NET Core
 
 ## 概述
 
@@ -22,7 +22,7 @@
 
 ## 使用
 
-与 [`Masa.Contrib.Globalization.I18n`](/framework/building-blocks/globalization/i18n) 相比，它仅仅是增加了使用 `I18n` 中间件的操作，目的是解析设置当前线程的区域性，完整代码如下
+与 [`Masa.Contrib.Globalization.I18n`](/framework/building-blocks/globalization/i18n) 相比，它仅仅是增加了使用 `I18n` 中间件的操作，目的是解析设置当前线程的区域，完整代码如下
 
 1. 安装`Masa.Contrib.Globalization.I18n.AspNetCore`
 
@@ -34,7 +34,6 @@
 
    :::: code-group
    ::: code-group-item en-US.json
-
    ```json Resources/I18n/en-US.json
    {
        "Home":"Home"
@@ -42,7 +41,6 @@
    ```
    :::
    ::: code-group-item zh-CN.json
-
    ```json Resources/I18n/zh-CN.json
    {
        "Home":"首页"
@@ -50,7 +48,6 @@
    ```
    :::
    ::: code-group-item supportedCultures.json
-
    ```json Resources/I18n/supportedCultures.json
    [
        {
@@ -65,7 +62,6 @@
        }
    ]
    ```
-
    :::
    ::::
 

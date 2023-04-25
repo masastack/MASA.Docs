@@ -2,7 +2,7 @@
 
 ## 概述
 
-基于[`RulesEngine`](https://github.com/microsoft/RulesEngine)实现的规则引擎，它提供了一种简单的方法，使您能够将规则放在系统核心逻辑之外的存储中，从而确保规则的任何更改都不会影响核心系统
+基于 [`RulesEngine`](https://github.com/microsoft/RulesEngine) 实现的规则引擎，它提供了一种简单的方法，使您能够将规则放在系统核心逻辑之外的存储中，从而确保规则的任何更改都不会影响核心系统
 
 ## 使用
 
@@ -52,7 +52,7 @@
 
 默认规则引擎不支持除 `System` 命名空间以外的方法，但可以通过更改默认配置支持其它方法
 
-1. 新建`StringUtils`类，用于扩展字符串方法，并为规则引擎中提供扩展方法
+1. 新建 `StringUtils` 类，用于扩展字符串方法，并为规则引擎中提供扩展方法
 
    ```csharp
    public static class StringUtils

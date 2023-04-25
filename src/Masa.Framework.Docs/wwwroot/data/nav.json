@@ -89,6 +89,14 @@
         ]
       },
       {
+        "title": "data-serializer",
+        "items": [
+          "overview",
+          "json",
+          "yaml"
+        ]
+      },
+      {
         "title": "development",
         "items": [
           "overview",
@@ -140,9 +148,10 @@
         "title": "identity",
         "items": [
           "overview",
-          "web",
+          "aspnetcore",
           "blazor-server",
-          "blazor-wasm"
+          "blazor-wasm",
+          "faq"
         ]
       },
       {
@@ -154,13 +163,16 @@
           "snowflake"
         ]
       },
-      "isolation",
       {
-        "title": "openId-connect",
+        "title": "isolation",
         "items": [
-          "overview"
+          "overview",
+          "multi-environment",
+          "multi-tenant",
+          "faq"
         ]
       },
+      "openId-connect",
       "minimal-apis",
       {
         "title": "rules-engine",
@@ -174,7 +186,7 @@
         "title": "storage",
         "items": [
           "overview",
-          "oss"
+          "aliyun-oss"
         ]
       }
     ]
