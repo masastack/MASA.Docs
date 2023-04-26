@@ -1,106 +1,218 @@
 ## 概念
 
-`Dcc`是分布式配置中心, 为`MasaConfiguration`提供了远程配置的能力，使项目支持获取远程配置信息的能力
+基于 [MASA DCC](/stack/dcc/introduce) 分布式配置中心实现的远程配置。当远程配置发生变更的时候，我们的应用中的配置也会同步更新[查看原理](#同步更新配置)
 
 ## 使用
 
-1. 安装`Masa.Contrib.Configuration.ConfigurationApi.Dcc`
+1. 安装 `Masa.Contrib.Configuration.ConfigurationApi.Dcc`
 
-``` powershell
-dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc
-```
+   ``` shell 终端
+   dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc
+   ```
 
-2. 配置Dcc服务器信息，修改`appsettings.json`
+2. 添加 `MASA DCC` 配置，并注册 DCC 服务
 
-``` appsettings.json
+   > MASA DCC 是将配置写入到 Redis。所以我们的项目读取配置信息需要配置 Redis 服务。
+
+   :::: code-group
+   ::: code-group-item appsettings.json
+   ``` json appsettings.json
+   {
+     //Dcc配置，扩展Configuration能力，支持远程配置（新增）
+     "DccOptions": {
+       "ManageServiceAddress ": "http://localhost:8890",
+       "RedisOptions": {
+         "Servers": [
+           {
+             "Host": "localhost",
+             "Port": 8889
+           }
+         ],
+         "DefaultDatabase": 0,
+         "Password": ""
+       }
+     },
+     "AppId": "Dcc's Application Id",
+     "Environment": "Development",
+     "ConfigObjects": [ "Platforms" ], //待挂载的配置对象名
+     "Secret": "", //Dcc AppId的秘钥，为更新远程配置提供许可
+     "Cluster": "Default"
+   }
+   ```
+   :::
+   ::: code-group-item Program.cs
+   ``` csharp Program.cs
+   builder.Services.AddMasaConfiguration(configureBuilder => configureBuilder.UseDcc());
+   ```
+   :::
+   ::::
+
+3. 新增 AppConfig 配置类，并继承 `DccConfigurationOptions` 类
+
+   ```csharp
+   public class AppConfig : DccConfigurationOptions
+   {
+       public override string? Section => "App";
+       
+       public List<string> PositionTypes { get; set; }
+   
+       public JWTConfig JWTConfig { get; set; }
+   }
+   
+   public class JWTConfig
+   {
+       public string Issuer { get; set; }
+       public string SecretKey { get; set; }
+       public string Audience { get; set; }
+   }
+   ```
+
+4. 在 MASA DCC 中增加一个 AppConfig 配置项，如下图所示：
+
+   > 增加的配置项，最好添加到指定的应用集群环境中去，指定的应用集群环境是指和appsettings.json配置的AppId、Cluster、Environment 保持一致。
+   
+   ![DCC-Configuration](https://cdn.masastack.com/framework/building-blocks/configuration/dcc-configuration.png)
+
+5. 在构造函数中注入 `IOptions<AppConfig>` 对象获取`AppConfig`配置信息
+
+   ```csharp
+      [Route("api/[controller]")]
+      [ApiController]
+      public class HomeController : ControllerBase
+      {
+          private readonly IOptions<AppConfig> _positionTypeOptions;
+      
+          public HomeController(IOptions<AppConfig> positionTypeOptions)
+          {
+              _positionTypeOptions = positionTypeOptions;
+          }
+      
+          [HttpGet]
+          public AppConfig GetStrings()
+          {
+              return _positionTypeOptions.Value;
+          }
+      }
+   ```
+
+## 高阶用法
+
+
+### 手动映射
+
+MASA DCC 配置默认是通过类名称和属性名称去跟远程配置项的名称进行匹配来进行配置的。如果当我们的配置节点和属性名称不一致时，那么可以手动指定映射的配置节点。手动指定配置有以下两种方式：
+
+* 通过重写配置类中的 Section 属性指定映射
+* `AddMasaConfiguration` 的时候指定映射
+
+   :::: code-group
+   ::: code-group-item 重写Section属性指定映射
+   ```csharp AppConfig.cs l:3
+   public class AppConfig : DccConfigurationOptions
+   {
+       public override string? Section => "App";
+       
+       public List<string> PositionTypes { get; set; }
+   
+       public JWTConfig JWTConfig { get; set; }
+   }
+   
+   public class JWTConfig
+   {
+       public string Issuer { get; set; }
+       public string SecretKey { get; set; }
+       public string Audience { get; set; }
+   }
+   ```
+   :::
+   ::: code-group-item AddMasaConfiguration指定映射
+   ```csharp Program.cs
+   builder.Services.AddMasaConfiguration(configureBuilder =>
+   {
+       configureBuilder.UseDcc();
+       configureBuilder.UseMasaOptions(options =>
+       {
+           options.MappingConfigurationApi<AppConfig>("Dcc's Application Id","App");
+       });
+   });
+   ```
+   :::
+   ::::
+
+### 通过 Configuration 获取配置
+
+当然我们的配置也可以通过使用 [IConfiguration](https://learn.microsoft.com/en-us/dotnet/core/extensions/configuration) 或 `IMasaConfiguration` 获取配置。我们更加推荐你使用 `IMasaConfiguration` 去获取配置
+
+首先我们先添加一个配置类，去 MASA DCC 中配置它
+
+```csharp AppConfig.cs l:3
+public class AppConfig : DccConfigurationOptions
 {
-  //Dcc配置，扩展Configuration能力，支持远程配置（新增）
-  "DccOptions": {
-    "ManageServiceAddress ": "http://localhost:8890",
-    "RedisOptions": {
-      "Servers": [
-        {
-          "Host": "localhost",
-          "Port": 8889
-        }
-      ],
-      "DefaultDatabase": 0,
-      "Password": ""
-    }
-  },
-  "AppId": "Replace-With-Your-AppId",
-  "Environment": "Development",
-  "ConfigObjects": [ "Platforms" ], //待挂载的配置对象名
-  "Secret": "", //Dcc AppId的秘钥，为更新远程配置提供许可
-  "Cluster": "Default"
+    public override string? Section => "App";
+    
+    public List<string> PositionTypes { get; set; }
+
+    public JWTConfig JWTConfig { get; set; }
+}
+
+public class JWTConfig
+{
+    public string Issuer { get; set; }
+    public string SecretKey { get; set; }
+    public string Audience { get; set; }
 }
 ```
 
-> Dcc项目需要使用Redis服务
+1. 推荐使用 `IMasaConfiguration` 获取配置值。我们只需要在构造函数中注入该对象，并使用 `ConfigurationApi` 属性中的 `GetSection` 方法
 
-3. 使用Dcc
+   ```csharp l:15
+   [Route("api/[controller]")]
+   [ApiController]
+   public class HomeController : ControllerBase
+   {
+       private readonly IMasaConfiguration _masaConfiguration;
+   
+       public HomeController(IMasaConfiguration masaConfiguration)
+       {
+           _masaConfiguration = masaConfiguration;
+       }
+   
+       [HttpGet]
+       public string? GetStrings()
+       {
+           return _masaConfiguration.ConfigurationApi.Get("Dcc's Application Id").GetSection("App:JWTConfig:Issuer")?.Value;
+       }
+   }
+   ```
 
-```csharp
-var app = builder.AddMasaConfiguration(configurationBuilder => configurationBuilder.UseDcc()).Build();
-```
+2. 使用 `IConfiguration` 获取配置值
 
-4. 新增Redis配置类，用于在项目中获取Reids配置
+   > 特此说明：通过 IConfiguration 获取配置需要再配置值前面增加 ConfigurationApi 节点，如获取App节点值，则需要 Configuration[ConfigurationApi:App]。这个获取方式会在 **1.0** 正式版本中调整
 
-```csharp
-/// <summary>
-/// 自动映射远程节点Redis映射到RedisOptions类
-/// </summary>
-public class RedisOptions : ConfigurationApiMasaConfigurationOptions
-{
-    public string Host { get; set; }
+   ```csharp l:15
+   [Route("api/[controller]")]
+   [ApiController]
+   public class HomeController : ControllerBase
+   {
+       private readonly IConfiguration _configuration;
+   
+       public HomeController(IConfiguration configuration)
+       {
+           _configuration = configuration;
+       }
+   
+       [HttpGet]
+       public string? GetStrings()
+       {
+           return _configuration.GetSection("ConfigurationApi:App:JWTConfig:Issuer")?.Value;
+       }
+   }
+   ```
 
-    public int Port { get; set; }
+## 原理剖析
 
-    public string Password { get; set; }
+### 同步更新配置
 
-    public int DefaultDatabase { get; set; }
-}
-```
-
-5. 获取Redis配置信息
-
-```csharp
-// 通过DI获取到IOptions<RedisOptions> options;
-
-IOptions<RedisOptions> options = serviceProvider.GetRequiredService<IOptions<RedisOptions>>(); 
-Console.WriteLine(options.Value.Host + ":" + options.Value.Port);
-```
-
-## 映射
-
-MasaConfiguration默认支持选项模式, Dcc 可以通过继承`ConfigurationApiMasaConfigurationOptions`来实现自动映射, 例如: 
-
-```csharp
-/// <summary>
-/// 自动映射远程节点Redis映射到RedisOptions类
-/// </summary>
-public class RedisOptions : ConfigurationApiMasaConfigurationOptions
-{
-    /// <summary>
-    /// 配置中心的AppId，如果与默认AppId一致，可省略
-    /// </summary>
-    [JsonIgnore]
-    public override string AppId { get; set; } = "Replace-With-Your-AppId";
-
-    /// <summary>
-    /// 配置对象名称, 如果配置对象名与类名一致，可省略
-    /// </summary>
-    [JsonIgnore]
-    public override string? ObjectName { get; init; } = "Redis";
-
-    public string Host { get; set; }
-
-    public int Port { get; set; }
-
-    public string Password { get; set; }
-
-    public int DefaultDatabase { get; set; }
-}
-```
-
-> 手动映射可[查看](/framework/building-blocks/configuration/override#手动映射)
+   为何分布式配置可以实现远程配置发生更新后, 应用的配置会随之更新?
+   
+   远程配置更新使用了分布式缓存提供的[Pub/Sub](/framework/building-blocks/caching/stackexchange-redis#使用PubSub)能力
