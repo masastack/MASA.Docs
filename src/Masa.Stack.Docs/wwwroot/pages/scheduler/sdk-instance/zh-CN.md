@@ -1,10 +1,10 @@
 ## 简介
 
-通过注入`ISchedulerClient`接口，调用对应Service获取Scheduler SDK 提供的能力。
+通过注入 `ISchedulerClient` 接口，调用对应 `Service` 获取 `Scheduler SDK` 提供的能力。
 
 ## 服务介绍
 
-Scheduler SDK 包含一下几个大类的服务
+`Scheduler SDK` 包含一下几个大类的服务
 
 ```csharp
 ISchedulerClient
@@ -14,25 +14,25 @@ ISchedulerClient
 
 ## 使用介绍
 
-### 安装依赖包
+1. 安装依赖包
 
-```shelll
-dotnet add package Masa.Contrib.StackSdks.Scheduler
-```
+   ```shell 终端
+   dotnet add package Masa.Contrib.StackSdks.Scheduler
+   ```
 
-### 注册相关服务
+2. 注册 Scheduler 服务
 
-```csharp
-builder.Services.AddSchedulerClient("http://schedulerservice.com");
-```
+   ```csharp
+   builder.Services.AddSchedulerClient("http://schedulerservice.com");
+   ```
 
-> `http://schedulerservice.com` 需要替换为真实的Scheduler后台服务地址
+   > `http://schedulerservice.com` 需要替换为真实的 `Scheduler` 后台服务地址
 
-### 用例
+3. 用例
 
-   - [`注册Job 应用`](stack/scheduler/use-guide/scheduler-job-app/#API创建)
+   * [注册 Job 应用](stack/scheduler/use-guide/scheduler-job-app/#API创建)
 
-   - [`注册Http`](stack/scheduler/use-guide/scheduler-http/#API创建)
+   * [注册 HTTP](stack/scheduler/use-guide/scheduler-http/#API创建)
 
-   - [`注册Dapr`](stack/scheduler/use-guide/scheduler-dapr/#API创建)
+   * [注册 Dapr](stack/scheduler/use-guide/scheduler-dapr/#API创建)
 

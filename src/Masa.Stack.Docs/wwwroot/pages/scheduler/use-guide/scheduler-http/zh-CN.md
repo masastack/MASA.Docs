@@ -1,31 +1,32 @@
-﻿# Http
+﻿# HTTP
 
 ## 安装包
 
-```shell
+```shell 终端
 dotnet add package Masa.Contrib.StackSdks.Scheduler
 ```
 
 ## 手动创建
+
 ![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_http_insert.png)
 
 ![填写调度信息2](http://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_http_insert_2.png)
 
-| 类型 | 描述 |
-| --------- | ------------------------------------------- |
-| 请求类型 | Http请求类型（GET，POST，PUT，DELETE，HEAD） |
-| 请求地址 | 调度请求的接口地址 |
-| 请求参数 | 接口参数 |
-| 校验条件 | **默认响应码200**：接口Http响应码返回是否为200 <br/> **内容包含**：与**校验内容**配合使用<br/> **内容不包含**：与**校验内容**配合使用 |
+| 类型     | 描述                                                                                                                                  |
+|----------|---------------------------------------------------------------------------------------------------------------------------------------|
+| 请求类型 | `HTTP` 请求类型（`GET`，`POST`，`PUT`，`DELETE`，`HEAD`）                                                                               |
+| 请求地址 | 调度请求的接口地址                                                                                                                    |
+| 请求参数 | 接口参数                                                                                                                              |
+| 校验条件 | **默认响应码 200**：接口 `HTTP` 响应码返回是否为 `200` <br/> **内容包含**：与**校验内容**配合使用<br/> **内容不包含**：与**校验内容**配合使用 |
 
 ## API创建
-   1. 注册相关服务，修改`Program.cs`
+1. 注册 `Scheduler` 服务
 
-   ```csharp
-   builder.Services.AddSchedulerClient("schedulers服务地址");
+   ```csharp Program.cs
+   builder.Services.AddSchedulerClient("schedulers 服务地址");
    ```
 
-   2. 注册一个Job应用示例
+2. 注册一个 `Job` 应用示例
 
    ```csharp
    using Masa.BuildingBlocks.StackSdks.Scheduler;
@@ -77,16 +78,16 @@ dotnet add package Masa.Contrib.StackSdks.Scheduler
    public record JobRegisterResult(Guid JobID);
    ```
 
-   | **属性** | **描述** |
-   |----------------------|-------------------------|
-   | **ProjectIdentity**  | [项目](stack/pm/introduce) ID |
-   | **Name** | Job 的名称 |
-   | **JobType** | Job 的类型（`JobTypes.Http` 为 Http） |
-   | **CronExpression** | Cron 表达式（Job 执行的周期） |
-   | **OperatorId** | 操作人/创建人 |
-   | **HttpMethod** | 请求类型 |
-   | **RequestUrl** | 请求地址 |
-   | **HttpParameters** | 接口参数（Query） |
-   | **HttpBody** | 接口参数 (Content) |
-   | **HttpVerifyType** | 校验条件 |
-   | **VerifyContent** | 校验内容 |
+   | 属性                | 描述                                      |
+   |---------------------|-------------------------------------------|
+   | **ProjectIdentity** | [项目](stack/pm/introduce) `ID`           |
+   | **Name**            | `Job` 的名称                              |
+   | **JobType**         | `Job` 的类型（`JobTypes.HTTP` 为 `HTTP`） |
+   | **CronExpression**  | `Cron` 表达式（`Job` 执行的周期）         |
+   | **OperatorId**      | 操作人/创建人                             |
+   | **HttpMethod**      | 请求类型                                  |
+   | **RequestUrl**      | 请求地址                                  |
+   | **HttpParameters**  | 接口参数（`Query`）                       |
+   | **HttpBody**        | 接口参数 (`Content`)                      |
+   | **HttpVerifyType**  | 校验条件                                  |
+   | **VerifyContent**   | 校验内容                                  |
