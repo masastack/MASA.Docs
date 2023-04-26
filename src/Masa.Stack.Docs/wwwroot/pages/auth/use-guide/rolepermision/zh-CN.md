@@ -1,7 +1,7 @@
 # 角色权限
 
 MASA Auth中的角色设计是一个扁平的权限带名词，角色本身没有任何权限。只做去重的处理，可以挂靠各种权限生成带权限的角色。
-角色之间采用RBAC 3.0的模型设计，可有角色权限的继承关系和使用次数。
+角色之间采用RBAC3的模型设计，可有角色权限的继承关系和使用次数。
 权限做为项目中的功能使用合集，在调整与设置的时候又细分了前端、API等。前端权限除了可以生成菜单外，也可以挂靠API权限，还可以挂靠在角色、团队以及个人用户名下。
 
 使用Auth用户登录**Auth控制台**。
@@ -66,18 +66,18 @@ MASA Auth中的角色设计是一个扁平的权限带名词，角色本身没�
 
 在左侧导航栏，点击**角色权限**->**权限**。
 
-MASA Auth 权限分为两大类**前端权限**和**Api权限**，其中前端权限分为菜单权限、元素权限和数据权限(暂不支持)。
+MASA Auth 权限分为两大类**前端权限**和**API权限**，其中前端权限分为菜单权限、元素权限和数据权限(暂不支持)。
 
 * **菜单权限**：即系统菜单，配置用户拥有哪些菜单
 * **元素权限**：页面内权限细分控制，如哪些人有删除权限，元素权限需要配合Masa.Blazor 提供的`IPermissionValidator`使用
 * **数据权限**：用户数据控制、如业务员只能看到自己的业务数据(暂不支持)
-* **Api权限**：Api接口访问权限配置
+* **API权限**：API接口访问权限配置
 
 ![权限管理功能结构图](https://cdn.masastack.com/stack/doc/auth/use-guide/permision/permision.svg)
 
 ### 新建权限
 
-选择项目，点击**前端权限**或**Api**标签，鼠标移到对应的节点上，点击`新建图标`
+选择项目，点击**前端权限**或**API**标签，鼠标移到对应的节点上，点击`新建图标`
 
 > 根节点为选择项目的应用
 
@@ -101,7 +101,7 @@ MASA Auth 权限分为两大类**前端权限**和**Api权限**，其中前端�
 
 ![新建前端权限图](https://cdn.masastack.com/stack/doc/auth/use-guide/permision/permision-add-frontend.png)
 
-#### 新建Api权限
+#### 新建API权限
 
 * **Key**：必填，权限名称，可包含中文、英文字母、数字，最多20个字符。
 * **Code**：必填，权限唯一标识（保证唯一性，默认拼接系统应用AppId）。
@@ -110,7 +110,7 @@ MASA Auth 权限分为两大类**前端权限**和**Api权限**，其中前端�
 * **Url**：可空，权限地址
 * **描述**：可空，最多255个字符
 
-![新建Api权限图](https://cdn.masastack.com/stack/doc/auth/use-guide/permision/permision-add-api.png)
+![新建API权限图](https://cdn.masastack.com/stack/doc/auth/use-guide/permision/permision-add-api.png)
 
 > 点击新建权限表单的`显示名称`，输入中英文显示名称
 
@@ -124,15 +124,15 @@ MASA Auth 权限分为两大类**前端权限**和**Api权限**，其中前端�
 
 权限类型、挂靠角色、权限使用者只可查看，编辑、启用、禁用、删除前端权限。
 
-> 挂靠Api权限：可选择关联的Api权限。
+> 挂靠API权限：可选择关联的API权限。
 
 ![编辑前端权限图](https://cdn.masastack.com/stack/doc/auth/use-guide/permision/permision-edit-frontend.png)
 
-#### 编辑Api权限
+#### 编辑API权限
 
-在表单中编辑、删除Api权限。
+在表单中编辑、删除API权限。
 
-![编辑Api权限图](https://cdn.masastack.com/stack/doc/auth/use-guide/permision/permision-edit-api.png)
+![编辑API权限图](https://cdn.masastack.com/stack/doc/auth/use-guide/permision/permision-edit-api.png)
 
 > 点击编辑权限页的`显示名称`，输入中英文显示名称
 
