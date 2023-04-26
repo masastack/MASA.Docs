@@ -37,15 +37,154 @@ builder.Services.AddAuthClient("http://authservice.com");
 
 > `http://authservice.com` 为Auth后台服务地址
 
-### 依赖注入IAuthClient
+### 示例
+#### 用户管理
+:::: code-group 
+::: code-group-item 获取当前用户信息
 
 ```csharp 
-var app = builder.Build();
+using Masa.BuildingBlocks.StackSdks.Auth;
+using Masa.BuildingBlocks.StackSdks.Auth.Contracts.Model;
+using Microsoft.AspNetCore.Mvc;
 
-app.MapGet("/GetTeams", ([FromServices] IAuthClient authClient) =>
+/// <summary>
+/// 用户
+/// </summary>
+[ApiController]
+[Route("[controller]/[action]")]
+public class UserController : ControllerBase
 {
-    return authClient.TeamService.GetAllAsync();
-});
+    private readonly IAuthClient _authClient;
+    public UserController(IAuthClient authClient)
+    {
+        _authClient = authClient;
+    }
 
-app.Run();
+    [HttpGet]
+    public async Task<UserModel> GetCurrentUserAsync()
+    {
+        return await _authClient.UserService.GetCurrentUserAsync();
+    }
+}
 ```
+:::
+::: code-group-item 更新用户信息
+
+``` csharp
+using Masa.BuildingBlocks.StackSdks.Auth;
+using Masa.BuildingBlocks.StackSdks.Auth.Contracts.Model;
+using Microsoft.AspNetCore.Mvc;
+
+/// <summary>
+/// 用户
+/// </summary>
+[ApiController]
+[Route("[controller]/[action]")]
+public class UserController : ControllerBase
+{
+    private readonly IAuthClient _authClient;
+    public UserController(IAuthClient authClient)
+    {
+        _authClient = authClient;
+    }
+
+    [HttpPost]
+	public async Task UpdateBasicInfoAsync(UpdateUserBasicInfoModel user)
+    {
+        return await _authClient.UserService.UpdateBasicInfoAsync(user);
+    }
+}
+
+```
+:::
+::: code-group-item 删除用户
+
+``` csharp
+using Masa.BuildingBlocks.StackSdks.Auth;
+using Masa.BuildingBlocks.StackSdks.Auth.Contracts.Model;
+using Microsoft.AspNetCore.Mvc;
+
+/// <summary>
+/// 用户
+/// </summary>
+[ApiController]
+[Route("[controller]/[action]")]
+public class UserController : ControllerBase
+{
+    private readonly IAuthClient _authClient;
+    public UserController(IAuthClient authClient)
+    {
+        _authClient = authClient;
+    }
+
+    [HttpPost]
+	public async Task RemoveAsync(Guid id)
+    {
+        return await _authClient.UserService.RemoveAsync(id);
+    }
+}
+
+```
+::: 
+::::
+
+#### 登录
+
+:::: code-group 
+::: code-group-item 手机号登录
+``` csharp
+using Masa.BuildingBlocks.StackSdks.Auth;
+using Masa.BuildingBlocks.StackSdks.Auth.Contracts.Model;
+using Microsoft.AspNetCore.Mvc;
+
+/// <summary>
+/// 用户
+/// </summary>
+[ApiController]
+[Route("[controller]/[action]")]
+public class LoginController : ControllerBase
+{
+    private readonly IAuthClient _authClient;
+    public UserController(IAuthClient authClient)
+    {
+        _authClient = authClient;
+    }
+
+    [HttpPost]
+	public async Task<TokenModel> LoginByPhoneNumberAsync(LoginByPhoneNumberFromSsoModel login);
+    {
+        return await _authClient.UserService.LoginByPhoneNumberAsync(login);
+    }
+}
+
+```
+:::
+::: code-group-item 密码登录
+
+``` csharp
+using Masa.BuildingBlocks.StackSdks.Auth;
+using Masa.BuildingBlocks.StackSdks.Auth.Contracts.Model;
+using Microsoft.AspNetCore.Mvc;
+
+/// <summary>
+/// 用户
+/// </summary>
+[ApiController]
+[Route("[controller]/[action]")]
+public class LoginController : ControllerBase
+{
+    private readonly IAuthClient _authClient;
+    public UserController(IAuthClient authClient)
+    {
+        _authClient = authClient;
+    }
+
+    [HttpPost]
+	public async Task<TokenModel> LoginByPasswordAsync(LoginByPasswordModel login);
+    {
+        return await _authClient.UserService.LoginByPasswordAsync(login);
+    }
+}
+
+```
+::: ::::
