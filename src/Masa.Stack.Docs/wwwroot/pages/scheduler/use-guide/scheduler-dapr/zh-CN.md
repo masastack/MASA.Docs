@@ -2,17 +2,14 @@
 
 ## 安装包
 
-   ```powershelll
-   Install-Package Masa.Contrib.StackSdks.Scheduler
+   ```shell
+   dotnet add package Masa.Contrib.StackSdks.Scheduler
    ```
 
 ## 手动创建
+![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_dapr_insert.png)
 
-### 1. 填写调度信息
-
-   ![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_dapr_insert.png)
-
-   ![填写调度信息2](http://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_dapr_insert_2.png)
+![填写调度信息2](http://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_dapr_insert_2.png)
 
    | 类型 | 描述 |
    | --------- | ------------------ |
@@ -23,9 +20,6 @@
    | Data | 参数内容 |
 
 ## API创建
-
-### 2. 编写一个API创建代码
-
    1. 注册相关服务，修改`Program.cs`
 
    ```csharp
@@ -35,17 +29,17 @@
    2. 注册一个Job应用示例
 
    ```csharp
-   using Microsoft.AspNetCore.Mvc;
    using Masa.BuildingBlocks.StackSdks.Scheduler;
    using Masa.BuildingBlocks.StackSdks.Scheduler.Enum;
    using Masa.BuildingBlocks.StackSdks.Scheduler.Model;
    using Masa.BuildingBlocks.StackSdks.Scheduler.Request;
+   using Microsoft.AspNetCore.Mvc;
    
    /// <summary>
    /// 一个测试的任务调度的Controller
    /// </summary>
    [ApiController]
-   [Route("[controller]")]
+   [Route("[controller]/[action]")]
    public class SchedulerDaprController : ControllerBase
    {
        private readonly ISchedulerClient _schedulerClient;
@@ -55,8 +49,8 @@
            _schedulerClient = schedulerClient;
        }
    
-       [HttpGet]
-       public async Task<bool> Register()
+       [HttpPost]
+       public async Task<JobRegisterResult> Register()
        {
            var request = new AddSchedulerJobRequest
            {
@@ -73,22 +67,24 @@
                    Data = ""
                }
            };
-           var jobId = await _schedulerClient.SchedulerJobService.AddAsync(request);
-           return true;
+           var jobID = _schedulerClient.SchedulerJobService.AddAsync(request);
+		   return new JobRegisterResult(jobID);
        }
    }
    
+   public record JobRegisterResult(Guid JobID);
+   
    ```
-
-| **属性** | **描述** |
-|----------------------|--------------------------------------|
-| **ProjectIdentity**  | [项目](stack/pm/introduce) ID |
-| **Name** | Job 的名称 |
-| **JobType** | Job 的类型（`JobTypes.DaprServiceInvocation` 为 Dapr Service Invocation） |
-| **CronExpression** | Cron 表达式（Job 执行的周期） |
-| **OperatorId** | 操作人/创建人 |
-| **DaprServiceIdentity** | Service应用（Id） |
-| **MethodName** | 请求地址 |
-| **HttpMethod** | 请求类型 |
-| **Data** | 接口参数 (Content) |
+  
+   | **属性** | **描述** |
+   |----------------------|--------------------------------------|
+   | **ProjectIdentity**  | [项目](stack/pm/introduce) ID |
+   | **Name** | Job 的名称 |
+   | **JobType** | Job 的类型（`JobTypes.DaprServiceInvocation` 为 Dapr Service Invocation） |
+   | **CronExpression** | Cron 表达式（Job 执行的周期） |
+   | **OperatorId** | 操作人/创建人 |
+   | **DaprServiceIdentity** | Service应用（Id） |
+   | **MethodName** | 请求地址 |
+   | **HttpMethod** | 请求类型 |
+   | **Data** | 接口参数 (Content) |
 

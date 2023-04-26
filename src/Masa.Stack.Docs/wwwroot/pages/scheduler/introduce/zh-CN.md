@@ -4,7 +4,7 @@
 
 Scheduler是MASA Stack 1.0推出的一款辅助性软件产品，主要负责处理应用程序任务执行的调度，以及自动重试等相关操作。在MASA Stack产品中，与MASA MC、MASA TSC、MASA Alert 3款产品结合，发挥最大的调度价值。当然Scheduler并不只是给MASA Stack产品使用，它同样可以为业务创造价值
 
- ![introduce](http://cdn.masastack.com/stack/doc/scheduler/introduce.png)
+![introduce](http://cdn.masastack.com/stack/doc/scheduler/introduce.png)
 
 ### 特性与优势
 
@@ -15,13 +15,10 @@ Scheduler是MASA Stack 1.0推出的一款辅助性软件产品，主要负责处
 对于执行策略有多维度可以进行配置，特别对于执行优先级、执行失败后的相关策略都可进行设置。
 
 ### 基础结构
-
-   ![Infrastructurei](http://cdn.masastack.com/stack/doc/scheduler/Infrastructurei.png)
+![Infrastructure](http://cdn.masastack.com/stack/doc/scheduler/Infrastructurei.png)
 
 ### Job运行流程图
-
-   ![job-run-flow](http://cdn.masastack.com/stack/doc/scheduler/job-run-flow.png)
+![job-run-flow](http://cdn.masastack.com/stack/doc/scheduler/job-run-flow.png)
 
 ### 互相发现模型
-
-   ![discovery-model](http://cdn.masastack.com/stack/doc/scheduler/discovery-model.png)
+![discovery-model](http://cdn.masastack.com/stack/doc/scheduler/discovery-model.png)

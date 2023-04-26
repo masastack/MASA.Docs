@@ -2,17 +2,14 @@
 
 ## 安装包
 
-```powershelll
-Install-Package Masa.Contrib.StackSdks.Scheduler
+```shell
+dotnet add package Masa.Contrib.StackSdks.Scheduler
 ```
 
 ## 手动创建
+![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_http_insert.png)
 
-### 1. 填写调度信息
-
-   ![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_http_insert.png)
-
-   ![填写调度信息2](http://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_http_insert_2.png)
+![填写调度信息2](http://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_http_insert_2.png)
 
 | 类型 | 描述 |
 | --------- | ------------------------------------------- |
@@ -22,9 +19,6 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
 | 校验条件 | **默认响应码200**：接口Http响应码返回是否为200 <br/> **内容包含**：与**校验内容**配合使用<br/> **内容不包含**：与**校验内容**配合使用 |
 
 ## API创建
-
-### 2. 编写一个API创建代码
-
    1. 注册相关服务，修改`Program.cs`
 
    ```csharp
@@ -34,17 +28,17 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
    2. 注册一个Job应用示例
 
    ```csharp
-   using Microsoft.AspNetCore.Mvc;
    using Masa.BuildingBlocks.StackSdks.Scheduler;
    using Masa.BuildingBlocks.StackSdks.Scheduler.Enum;
    using Masa.BuildingBlocks.StackSdks.Scheduler.Model;
    using Masa.BuildingBlocks.StackSdks.Scheduler.Request;
+   using Microsoft.AspNetCore.Mvc;
    
    /// <summary>
    /// 一个测试的任务调度的Controller
    /// </summary>
    [ApiController]
-   [Route("[controller]")]
+   [Route("[controller]/[action]")]
    public class SchedulerHttpController : ControllerBase
    {
        private readonly ISchedulerClient _schedulerClient;
@@ -54,8 +48,8 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
            _schedulerClient = schedulerClient;
        }
    
-       [HttpGet]
-       public async Task<bool> Register()
+       [HttpPost]
+       public async Task<JobRegisterResult> Register()
        {
            var request = new AddSchedulerJobRequest
            {
@@ -75,10 +69,12 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
                    VerifyContent = ""
                }
            };
-           var jobId = await _schedulerClient.SchedulerJobService.AddAsync(request);
-           return true;
+           var jobID = await _schedulerClient.SchedulerJobService.AddAsync(request);
+           return new JobRegisterResult(jobID);
        }
    } 
+   
+   public record JobRegisterResult(Guid JobID);
    ```
 
    | **属性** | **描述** |

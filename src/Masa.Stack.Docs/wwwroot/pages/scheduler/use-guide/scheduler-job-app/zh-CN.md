@@ -4,19 +4,17 @@
 
 ## 安装包
 
-```powershelll
-Install-Package Masa.Contrib.StackSdks.Scheduler
+```shell
+dotnet add package Masa.Contrib.StackSdks.Scheduler
 ```
 
 ## 手动创建
 
 ### 1. 上传资源文件
-
-   ![上传资源文件](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles.png)
+![上传资源文件](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles.png)
 
 ### 2. 新建源文件
-
-   ![新建源文件](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert.png)
+![新建源文件](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert.png)
 
    1. 编写代码
 
@@ -48,20 +46,18 @@ Install-Package Masa.Contrib.StackSdks.Scheduler
    }
    ```
 
-   4. 打包Job
+   2. 打包Job
 
    ![打包Job](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_release.png)
 
-   5. 上传
+   3. 上传
 
    ![上传](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_upload.png)
 
 ### 3. 填写调度信息
-
-   ![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail.png)
+![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail.png)
 
 ### 4. 设置资源文件执行类
-
 ![设置资源文件执行类](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail_2.png)
 
 |**属性**| **描述**|

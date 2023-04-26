@@ -16,8 +16,8 @@ ISchedulerClient
 
 ### 安装依赖包
 
-```powershelll
-Install-Package Masa.Contrib.StackSdks.Scheduler
+```shelll
+dotnet add package Masa.Contrib.StackSdks.Scheduler
 ```
 
 ### 注册相关服务
