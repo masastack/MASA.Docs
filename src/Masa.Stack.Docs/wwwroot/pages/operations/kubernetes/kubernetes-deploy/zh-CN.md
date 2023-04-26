@@ -105,6 +105,19 @@ kubectl get pods --namespace dapr-system
 
 1. 本地测试需修改 coredns 解析（可选）
 
+   > 先执行命令 `ip a`，找到 eth0 的 ip，如：
+   >
+   > ```
+   > 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+   >     link/ether 00:15:5d:81:d5:f0 brd ff:ff:ff:ff:ff:ff
+   >     inet 172.20.88.53/20 brd 172.20.95.255 scope global eth0
+   >        valid_lft forever preferred_lft forever
+   >     inet6 fe80::215:5dff:fe81:d5f0/64 scope link
+   >        valid_lft forever preferred_lft forever
+   > ```
+   >
+   > 其中ip为 172.20.88.53，以下例子，根据你自己的 ip 替换 hosts 中的即可
+
    ```shell
    cat > coredns.yaml <<EOF
    apiVersion: v1
@@ -112,22 +125,23 @@ kubectl get pods --namespace dapr-system
      Corefile: |
        .:53 {
            hosts {
-               127.0.0.1  pm-local.masastack.com
-               127.0.0.1  pm-service-local.masastack.com
-               127.0.0.1  auth-sso-local.masastack.com
-               127.0.0.1  auth-service-local.masastack.com
-               127.0.0.1  auth-local.masastack.com
-               127.0.0.1  dcc-service-local.masastack.com
-               127.0.0.1  dcc-local.masastack.com
-               127.0.0.1  alert-service-local.masastack.com
-               127.0.0.1  alert-local.masastack.com
-               127.0.0.1  mc-service-local.masastack.com
-               127.0.0.1  mc-local.masastack.com
-               127.0.0.1  tsc-service-local.masastack.com
-               127.0.0.1  tsc-local.masastack.com
-               127.0.0.1  scheduler-service-local.masastack.com
-               127.0.0.1  scheduler-worker-local.masastack.com
-               127.0.0.1  scheduler-local.masastack.com
+               172.20.88.53  pm-local.masastack.com
+               172.20.88.53  pm-service-local.masastack.com
+               172.20.88.53  auth-sso-local.masastack.com
+               172.20.88.53  auth-service-local.masastack.com
+               172.20.88.53  auth-local.masastack.com
+               172.20.88.53  dcc-service-local.masastack.com
+               172.20.88.53  dcc-local.masastack.com
+               172.20.88.53  alert-service-local.masastack.com
+               172.20.88.53  alert-local.masastack.com
+               172.20.88.53  mc-service-local.masastack.com
+               172.20.88.53  mc-local.masastack.com
+               172.20.88.53  tsc-service-local.masastack.com
+               172.20.88.53  tsc-local.masastack.com
+               172.20.88.53  scheduler-service-local.masastack.com
+               172.20.88.53  scheduler-worker-local.masastack.com
+               172.20.88.53  scheduler-local.masastack.com
+           fallthrough
            }
            errors
            health {
@@ -241,23 +255,36 @@ kubectl get pods --namespace dapr-system
 
    * 修改内容如下
 
+     > 先执行命令 `ip a`，找到 eth0 的 ip，如：
+     >
+     > ```
+     > 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+     >     link/ether 00:15:5d:81:d5:f0 brd ff:ff:ff:ff:ff:ff
+     >     inet 172.20.88.53/20 brd 172.20.95.255 scope global eth0
+     >        valid_lft forever preferred_lft forever
+     >     inet6 fe80::215:5dff:fe81:d5f0/64 scope link
+     >        valid_lft forever preferred_lft forever
+     > ```
+     >
+     > 其中ip为 172.20.88.53，以下例子，根据你自己的 ip 替换 hosts 中的即可
+
      ```
-     127.0.0.1  pm-local.masastack.com
-     127.0.0.1  pm-service-local.masastack.com
-     127.0.0.1  auth-sso-local.masastack.com
-     127.0.0.1  auth-service-local.masastack.com
-     127.0.0.1  auth-local.masastack.com
-     127.0.0.1  dcc-service-local.masastack.com
-     127.0.0.1  dcc-local.masastack.com
-     127.0.0.1  alert-service-local.masastack.com
-     127.0.0.1  alert-local.masastack.com
-     127.0.0.1  mc-service-local.masastack.com
-     127.0.0.1  mc-local.masastack.com
-     127.0.0.1  tsc-service-local.masastack.com
-     127.0.0.1  tsc-local.masastack.com
-     127.0.0.1  scheduler-service-local.masastack.com
-     127.0.0.1  scheduler-worker-local.masastack.com
-     127.0.0.1  scheduler-local.masastack.com
+     172.20.88.53  pm-local.masastack.com
+     172.20.88.53  pm-service-local.masastack.com
+     172.20.88.53  auth-sso-local.masastack.com
+     172.20.88.53  auth-service-local.masastack.com
+     172.20.88.53  auth-local.masastack.com
+     172.20.88.53  dcc-service-local.masastack.com
+     172.20.88.53  dcc-local.masastack.com
+     172.20.88.53  alert-service-local.masastack.com
+     172.20.88.53  alert-local.masastack.com
+     172.20.88.53  mc-service-local.masastack.com
+     172.20.88.53  mc-local.masastack.com
+     172.20.88.53  tsc-service-local.masastack.com
+     172.20.88.53  tsc-local.masastack.com
+     172.20.88.53  scheduler-service-local.masastack.com
+     172.20.88.53  scheduler-worker-local.masastack.com
+     172.20.88.53  scheduler-local.masastack.com
      ```
 
      > 自动生成域名规则为 `<app-name><-type><-env><-demo>.<domain-name>`
