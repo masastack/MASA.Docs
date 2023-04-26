@@ -161,7 +161,7 @@
    app.Run();
    ```
 
-   > 软删除、数据过滤等功能由 `Masa.Contrib.Data.Contracts` 提供，如需使用，请安装 nuget 包
+   > 软删除、数据过滤等功能由 `Masa.Contrib.Data.Contracts` 提供
 
 2. 在集成事件总线、隔离性等组件中需要得到默认数据库连接字符串地址，还需额外配置:
 

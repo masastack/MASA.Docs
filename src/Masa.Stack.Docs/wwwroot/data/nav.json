@@ -34,8 +34,8 @@
     "title": "dcc",
     "icon": "mdi-bookmark",
     "items": [
-      "get-started",
       "introduce",
+      "use-guide",
       "basic-concepts",
       "best-practices",
       "related-agreements",
@@ -46,8 +46,8 @@
     "title": "pm",
     "icon": "mdi-bookmark",
     "items": [
-      "get-started",
       "introduce",
+      "use-guide",
       "basic-concepts",
       "best-practices",
       "sdk-instance",
@@ -104,9 +104,10 @@
       {
         "title": "use-guide",
         "items": [
-          "scheduler-job",
-          "scheduler-task",
-          "scheduler-resource"
+          "get-started",
+          "scheduler-job-app",
+          "scheduler-http",
+          "scheduler-dapr"
         ]
       },
       "sdk-instance",

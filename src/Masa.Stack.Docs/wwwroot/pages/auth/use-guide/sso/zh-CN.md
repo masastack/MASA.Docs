@@ -109,9 +109,9 @@
 
 ![删除身份资源图](https://cdn.masastack.com/stack/doc/auth/sso/identityresource/identityresource-delete.png)
 
-## Api范围
+## API范围
 
-Api范围用于描述Api,比如发送邮件Api。单个Api范围对应单个Api。
+API范围用于描述API,比如发送邮件API。单个API范围对应单个API。
 
 ```csharp
 var apiScope = new ApiScope
@@ -121,19 +121,19 @@ var apiScope = new ApiScope
 };
 ```
 
-在左侧导航栏，点击**单点登录**->**Api范围**。
+在左侧导航栏，点击**单点登录**->**API范围**。
 
 以表格形式展现，有分页、模糊搜索功能。
 
-### 搜索Api范围
+### 搜索API范围
 
 > 模糊搜索Api范围名称，显示名称
 
-![Api范围列表图](https://cdn.masastack.com/stack/doc/auth/sso/apiscope/apiscope-search.png)
+![API范围列表图](https://cdn.masastack.com/stack/doc/auth/sso/apiscope/apiscope-search.png)
 
-### 新建Api范围
+### 新建API范围
 
-点击列表页右上角的`新建`可打开新建Api范围的表单窗口。
+点击列表页右上角的`新建`可打开新建API范围的表单窗口。
 
 * **显示名称**：必填，2到50个字符。
 * **名称**：必填，唯一不可重复，2到50个字符。
@@ -144,11 +144,11 @@ var apiScope = new ApiScope
 > 在文档中展示：勾选代表会在发现文档中展示该身份资源  
 > 用户声明可多选
 
-![新建Api范围图](https://cdn.masastack.com/stack/doc/auth/sso/apiscope/apiscope-add.png)
+![新建API范围图](https://cdn.masastack.com/stack/doc/auth/sso/apiscope/apiscope-add.png)
 
-### 编辑Api范围
+### 编辑API范围
 
-点击表格中指定行对应的操作列中的`编辑图标`可打开编辑Api范围的表单窗口。
+点击表格中指定行对应的操作列中的`编辑图标`可打开编辑API范围的表单窗口。
 
 * **显示名称**：必填，2到50个字符。
 * **名称**：不可编辑。
@@ -159,17 +159,17 @@ var apiScope = new ApiScope
 > 在文档中展示：勾选代表会在发现文档中展示该身份资源  
 > 用户声明可多选
 
-![编辑Api范围图](https://cdn.masastack.com/stack/doc/auth/sso/apiscope/apiscope-edit.png)
+![编辑API范围图](https://cdn.masastack.com/stack/doc/auth/sso/apiscope/apiscope-edit.png)
 
-### 删除Api范围
+### 删除API范围
 
 点击表格中指定行对应的操作列中的`删除图标`，点击`确定`即可删除。
 
 ![删除Api范围图](https://cdn.masastack.com/stack/doc/auth/sso/apiscope/apiscope-delete.png)
 
-## Api资源
+## API资源
 
-Api资源是Api范围的集合，一个Api资源对应多个Api范围。
+API资源是API范围的集合，一个API资源对应多个API范围。
 
 ```csharp
 var apiResource = new ApiResource
@@ -185,47 +185,47 @@ var apiResource = new ApiResource
 };
 ```
 
-在左侧导航栏，点击**单点登录**->**Api资源**。
+在左侧导航栏，点击**单点登录**->**API资源**。
 
 以表格形式展现，有分页、模糊搜索功能。
 
-### 搜索Api资源
+### 搜索API资源
 
-> 模糊搜索Api资源名称，显示名称
+> 模糊搜索API资源名称，显示名称
 
-![Api资源列表图](https://cdn.masastack.com/stack/doc/auth/sso/apiresource/apiresource-search.png)
+![API资源列表图](https://cdn.masastack.com/stack/doc/auth/sso/apiresource/apiresource-search.png)
 
-### 新建Api资源
+### 新建API资源
 
-点击列表页右上角的`新建`可打开新建Api资源的表单窗口。
+点击列表页右上角的`新建`可打开新建API资源的表单窗口。
 
 * **显示名称**：必填，2到50个字符。
 * **名称**：必填，唯一不可重复，2到50个字符。
 * **描述**：可空，最多255个字符。
 
-> 在文档中展示：勾选代表会在发现文档中展示该Api资源  
+> 在文档中展示：勾选代表会在发现文档中展示该API资源  
 > 用户声明和Api范围可多选
 
-![新建Api资源图](https://cdn.masastack.com/stack/doc/auth/sso/apiresource/apiresource-add.png)
+![新建API资源图](https://cdn.masastack.com/stack/doc/auth/sso/apiresource/apiresource-add.png)
 
-### 编辑Api资源
+### 编辑API资源
 
-点击表格中指定行对应的操作列中的`编辑图标`可打开编辑Api资源的表单窗口。
+点击表格中指定行对应的操作列中的`编辑图标`可打开编辑API资源的表单窗口。
 
 * **显示名称**：必填，2到50个字符。
 * **名称**：不可编辑。
 * **描述**：必填，2到255个字符。
 
-> 在文档中展示：勾选代表会在发现文档中展示该Api资源  
-> 用户声明和Api范围可多选
+> 在文档中展示：勾选代表会在发现文档中展示该API资源  
+> 用户声明和API范围可多选
 
-![编辑Api资源图](https://cdn.masastack.com/stack/doc/auth/sso/apiresource/apiresource-edit.png)
+![编辑API资源图](https://cdn.masastack.com/stack/doc/auth/sso/apiresource/apiresource-edit.png)
 
-### 删除Api资源
+### 删除API资源
 
 点击表格中指定行对应的操作列中的`删除图标`，点击`确定`即可删除。
 
-![删除Api资源图](https://cdn.masastack.com/stack/doc/auth/sso/apiresource/apiresource-delete.png)
+![删除API资源图](https://cdn.masastack.com/stack/doc/auth/sso/apiresource/apiresource-delete.png)
 
 ## 客户端
 
@@ -318,7 +318,7 @@ var apiResource = new ApiResource
 
 ##### 资源信息
 
-* **资源信息**：身份资源和Api资源可选。
+* **资源信息**：身份资源和API资源可选。
 
 ![编辑客户端资源信息图](https://cdn.masastack.com/stack/doc/auth/sso/client/client-edit-resource.png)
 
