@@ -263,5 +263,5 @@ helm uninstall masastack -n masastack
 | middleware-{redis,prometheus,sqlserver,otel,elastic}.service.type | ClusterIP,NodePort，默认为ClusterIP，主要为服务提供外部方位时修改 |
 | middleware-{redis,prometheus,sqlserver,otel,elastic}.service.nodePort | 例如，32200 ；结合type使用，指定需要的端口                   |
 
->  [更多参数]([helm/values.yaml at main · masastack/helm · GitHub](https://github.com/masastack/helm/blob/main/values.yaml))
+>  [更多参数](https://github.com/masastack/helm/blob/main/values.yaml)
 
