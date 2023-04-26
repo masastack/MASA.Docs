@@ -1,10 +1,10 @@
 ## 聚合
 
-是一组相关对象的集合, 作为一个整体被外界访问, 聚合根具有全局标识, 在全局中它是唯一的, 而实体在这个聚合内部才是唯一的
+是一组相关对象的集合，作为一个整体被外界访问，聚合根具有全局标识，在全局中它是唯一的，而实体在这个聚合内部才是唯一的
 
 ## 聚合根
 
-聚合根继承`IAggregateRoot`, 一般我们的聚合根继承`AggregateRoot<TKey>`, 因为它提供了一个类型为`TKey`的主键`id`, 通常情况下这足够我们使用了, 如:
+聚合根继承`IAggregateRoot`，一般我们的聚合根继承`AggregateRoot<TKey>`，因为它提供了一个类型为`TKey`的主键`id`，通常情况下这足够我们使用了，如:
 
 ```csharp
 public class Order: AggregateRoot<int>
@@ -68,7 +68,7 @@ public class Order: AggregateRoot<int>
 
 #### 添加领域事件
 
-在聚合根中被允许添加[`领域事件`](/framework/building-blocks/ddd/domain-event), 它们将在工作单元被保存时入队到领域事件总线, 并在 
+在聚合根中被允许添加[`领域事件`](/framework/building-blocks/ddd/domain-event)，它们将在工作单元被保存时入队到领域事件总线, 并在 
 
 
 例如: 在`Order`的构造函数中添加了一个订单状态为已提交的领域事件, 我们可以在项目的其他地方定义其`Handler`实现业务解耦

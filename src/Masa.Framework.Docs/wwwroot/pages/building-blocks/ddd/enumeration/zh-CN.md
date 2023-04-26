@@ -1,6 +1,6 @@
 ## 枚举类
 
-提供枚举类基类, 使用枚举类来代替使用枚举, [查看原因](https://learn.microsoft.com/zh-cn/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/enumeration-classes-over-enum-types), 例如:
+提供枚举类基类，使用枚举类来代替使用枚举，[查看原因](https://learn.microsoft.com/zh-cn/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/enumeration-classes-over-enum-types)，例如:
 
 ```csharp
 public class OrderStatus : Enumeration
