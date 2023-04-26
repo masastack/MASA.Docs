@@ -103,19 +103,73 @@ kubectl get pods --namespace dapr-system
 
 ## 安装 MASA Stack
 
-1. 添加 MASA Stack 的 Helm 仓库
+1. 本地测试需修改 coredns 解析（可选）
+
+   ```shell
+   cat > coredns.yaml <<EOF
+   apiVersion: v1
+   data:
+     Corefile: |
+       .:53 {
+           hosts {
+               127.0.0.1  pm-local.masastack.com
+               127.0.0.1  pm-service-local.masastack.com
+               127.0.0.1  auth-sso-local.masastack.com
+               127.0.0.1  auth-service-local.masastack.com
+               127.0.0.1  auth-local.masastack.com
+               127.0.0.1  dcc-service-local.masastack.com
+               127.0.0.1  dcc-local.masastack.com
+               127.0.0.1  alert-service-local.masastack.com
+               127.0.0.1  alert-local.masastack.com
+               127.0.0.1  mc-service-local.masastack.com
+               127.0.0.1  mc-local.masastack.com
+               127.0.0.1  tsc-service-local.masastack.com
+               127.0.0.1  tsc-local.masastack.com
+               127.0.0.1  scheduler-service-local.masastack.com
+               127.0.0.1  scheduler-worker-local.masastack.com
+               127.0.0.1  scheduler-local.masastack.com
+           }
+           errors
+           health {
+              lameduck 5s
+           }
+           ready
+           kubernetes cluster.local in-addr.arpa ip6.arpa {
+              pods insecure
+              fallthrough in-addr.arpa ip6.arpa
+              ttl 30
+           }
+           prometheus :9153
+           forward . /etc/resolv.conf {
+              max_concurrent 1000
+           }
+           cache 30
+           loop
+           reload
+           loadbalance
+       }
+   kind: ConfigMap
+   metadata:
+     name: coredns
+     namespace: kube-system
+   EOF
+   kubectl apply -f coredns.yaml 
+   kubectl rollout restart deploy/coredns -n kube-system
+   ```
+
+2. 添加 MASA Stack 的 Helm 仓库
 
    ```shell
    helm repo add masastack https://masastack.github.io/helm/
    ```
 
-2. 更新仓库
+3. 更新仓库
 
    ```shell
    helm repo update masastack 
    ```
 
-3. 查看 MASA Stack 的版本
+4. 查看 MASA Stack 的版本
 
    > 带 --devel 和 --versions，可以看到 pre release 版本
 
@@ -123,7 +177,7 @@ kubectl get pods --namespace dapr-system
    helm search repo masastack --devel --versions
    ```
 
-4. 安装 MASA Stack
+5. 安装 MASA Stack
 
    > 本文选择 1.0.0-rc1，你可以自行更换版本，修改 version 即可
    >
@@ -171,7 +225,7 @@ kubectl get pods --namespace dapr-system
    :::
    ::::
 
-5. 等待安装
+6. 等待安装
 
    > 根据网络情况拉取镜像一般需要 5-10 分钟左右，程序启动和集群配置等操作根据你的机器性能一般在 5-10 分钟左右
    >
@@ -181,29 +235,29 @@ kubectl get pods --namespace dapr-system
    watch kubectl get pods -n masastack
    ```
 
-6. 修改本地 hosts（可选，如果是正式环境或者可以通过域名解析IP则不需要）
+7. 修改本地 hosts（可选，如果是正式环境或者可以通过域名解析IP则不需要）
 
    * 打开 hosts 文件，`C:\Windows\System32\drivers\etc`
 
    * 修改内容如下
 
      ```
-     localhost  pm-local.masastack.com
-     localhost  pm-service-local.masastack.com
-     localhost  auth-sso-local.masastack.com
-     localhost  auth-service-local.masastack.com
-     localhost  auth-local.masastack.com
-     localhost  dcc-service-local.masastack.com
-     localhost  dcc-local.masastack.com
-     localhost  alert-service-local.masastack.com
-     localhost  alert-local.masastack.com
-     localhost  mc-service-local.masastack.com
-     localhost  mc-local.masastack.com
-     localhost  tsc-service-local.masastack.com
-     localhost  tsc-local.masastack.com
-     localhost  scheduler-service-local.masastack.com
-     localhost  scheduler-worker-local.masastack.com
-     localhost  scheduler-local.masastack.com
+     127.0.0.1  pm-local.masastack.com
+     127.0.0.1  pm-service-local.masastack.com
+     127.0.0.1  auth-sso-local.masastack.com
+     127.0.0.1  auth-service-local.masastack.com
+     127.0.0.1  auth-local.masastack.com
+     127.0.0.1  dcc-service-local.masastack.com
+     127.0.0.1  dcc-local.masastack.com
+     127.0.0.1  alert-service-local.masastack.com
+     127.0.0.1  alert-local.masastack.com
+     127.0.0.1  mc-service-local.masastack.com
+     127.0.0.1  mc-local.masastack.com
+     127.0.0.1  tsc-service-local.masastack.com
+     127.0.0.1  tsc-local.masastack.com
+     127.0.0.1  scheduler-service-local.masastack.com
+     127.0.0.1  scheduler-worker-local.masastack.com
+     127.0.0.1  scheduler-local.masastack.com
      ```
 
      > 自动生成域名规则为 `<app-name><-type><-env><-demo>.<domain-name>`
@@ -254,14 +308,14 @@ helm uninstall masastack -n masastack
 
 | 变量名                                                       | 备注                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| global.sqlserver.{ip,id,port,password}                       | 使用外部数据库的时候配置，ip地址，账号，端口和密码           |
-| global.redis.{ip,db,port,password}                           | 使用外部redis的配置                                          |
-| global.elastic.{ip,port}                                     | 使用外部elasticsearch的配置                                  |
-| global.prometheus{ip,port}                                   | 使用外部prometheus的配置                                     |
-| global.suffix_identity                                       | <env>配置环境变量，针对本地多环境来使用                      |
-| global.volumeclaims.{enabled,storageSize,storageClassName}   | 分别是启动StorageClass存储，指定存储空间大小，指定相应的StorageClass，若无指定使用默认sc |
-| middleware-{redis,prometheus,sqlserver,otel,elastic}.service.type | ClusterIP,NodePort，默认为ClusterIP，主要为服务提供外部方位时修改 |
-| middleware-{redis,prometheus,sqlserver,otel,elastic}.service.nodePort | 例如，32200 ；结合type使用，指定需要的端口                   |
+| `global.sqlserver.{ip,id,port,password}`                     | 使用外部数据库的时候配置，ip地址，账号，端口和密码           |
+| `global.redis.{ip,db,port,password}`                         | 使用外部redis的配置                                          |
+| `global.elastic.{ip,port}`                                   | 使用外部elasticsearch的配置                                  |
+| `global.prometheus.{ip,port}`                                | 使用外部prometheus的配置                                     |
+| `global.suffix_identity`                                     | <env>配置环境变量，针对本地多环境来使用                      |
+| `global.volumeclaims.{enabled,storageSize,storageClassName}` | 分别是启动StorageClass存储，指定存储空间大小，指定相应的StorageClass，若无指定使用默认sc |
+| `middleware-{redis,prometheus,sqlserver,otel,elastic}.service.type` | ClusterIP,NodePort，默认为ClusterIP，主要为服务提供外部方位时修改 |
+| `middleware-{redis,prometheus,sqlserver,otel,elastic}.service.nodePort` | 例如，32200 ；结合type使用，指定需要的端口                   |
 
 >  [更多参数](https://github.com/masastack/helm/blob/main/values.yaml)
 
