@@ -46,8 +46,8 @@
     "title": "pm",
     "icon": "mdi-bookmark",
     "items": [
-      "get-started",
       "introduce",
+      "use-guide",
       "basic-concepts",
       "best-practices",
       "sdk-instance",
