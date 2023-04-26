@@ -21,7 +21,7 @@
   <!-- 注释内容，暂不展示，请勿删除 -->
   <!-- * MasaConfiguration：配置（提供强类型的配置，支持监听配置更新）---->
 
-> 友情提示：按需使用[`Building Block`](/framework/concepts/building-blocks)有助于更高效的完成工作
+> 友情提示：按需使用 [`Building Block`](/framework/concepts/building-blocks) 有助于更高效的完成工作
 
 ## 目录
 
@@ -48,7 +48,7 @@
 
    > 通过以上命令验证确保已安装符合条件版本的`.NET SDK`, `MASA Framewokr`最低版本：`.NET6.0`
 
-2. 确保已安装支持[`.NET 6.0`](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)或支持更高`.NET SDK`版本的开发工具，例如：
+2. 确保已安装支持 [`.NET 6.0`](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)或支持更高 `.NET SDK` 版本的开发工具，例如：
    * [Visual Studio](https://visualstudio.microsoft.com/zh-hans/downloads/): Visual Studio 2022及更高版本
    * [Rider](https://www.jetbrains.com/rider/): Rider 2022.2及更高版本
    * [Visual Studio Code](https://code.visualstudio.com/download)

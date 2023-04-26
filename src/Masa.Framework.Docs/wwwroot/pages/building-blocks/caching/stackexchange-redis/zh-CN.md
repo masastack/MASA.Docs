@@ -184,137 +184,137 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
 
 * `RedisConfigurationOptions` 类
 
-<div class="custom-table">
-  <table style='border-collapse: collapse;table-layout:fixed;width:100%'>
-   <col span=6>
-   <tr style="background-color:#f3f4f5; font-weight: bold">
-    <td colspan=3>参数名</td>
-    <td colspan=2>参数描述</td>
-    <td>类型</td>
-    <td>默认值</td>
-   </tr>
-   <tr>
-    <td colspan=3>AbsoluteExpiration</td>
-    <td colspan=2>绝对过期时间：到期后就失效</td>
-    <td>DateTimeOffset?</td>
-    <td>null (永不过期)</td>
-   </tr>
-   <tr>
-    <td colspan=3>AbsoluteExpirationRelativeToNow</td>
-    <td colspan=2>相对于现在的绝对到期时间 (与AbsoluteExpiration共存时，优先使用AbsoluteExpirationRelativeToNow)</td>
-    <td>TimeSpan?</td>
-    <td>null (永不过期)</td>
-   </tr>
-   <tr>
-    <td colspan=3>SlidingExpiration</td>
-    <td colspan=2>滑动过期时间：只要在窗口期内访问，它的过期时间就一直向后顺延一个窗口长度</td>
-    <td>TimeSpan?</td>
-    <td>null (永不过期)</td>
-   </tr>
-   <tr>
-    <td colspan=3>AbortOnConnectFail</td>
-    <td colspan=2>是否应通过 TimeoutException 显式通知连接/配置超时</td>
-    <td>bool</td>
-    <td>false</td>
-   </tr>
-   <tr>
-    <td colspan=3>AllowAdmin</td>
-    <td colspan=2>是否应允许管理操作</td>
-    <td>bool</td>
-    <td>false</td>
-   </tr>
-   <tr>
-    <td colspan=3>AsyncTimeout</td>
-    <td colspan=2>允许异步操作的时间 (ms)</td>
-    <td>int</td>
-    <td>5000</td>
-   </tr>
-   <tr>
-    <td colspan=3>ClientName</td>
-    <td colspan=2>用于所有连接的客户端名称</td>
-    <td>string</td>
-    <td>空字符串</td>
-   </tr>
-   <tr>
-    <td colspan=3>ChannelPrefix</td>
-    <td colspan=2>自动编码和解码频道</td>
-    <td>string</td>
-    <td>空字符串</td>
-   </tr>
-   <tr>
-    <td colspan=3>ConnectRetry</td>
-    <td colspan=2>链接重试</td>
-    <td>int</td>
-    <td>3</td>
-   </tr>
-   <tr>
-    <td colspan=3>ConnectTimeout</td>
-    <td colspan=2>链接超时 (ms)</td>
-    <td>int</td>
-    <td>5000</td>
-   </tr>
-   <tr>
-    <td colspan=3>DefaultDatabase</td>
-    <td colspan=2>默认数据库</td>
-    <td>int</td>
-    <td>0</td>
-   </tr>
-   <tr>
-    <td colspan=3>Password</td>
-    <td colspan=2>密码</td>
-    <td>string</td>
-    <td>空字符串</td>
-   </tr>
-   <tr>
-    <td colspan=3>Proxy</td>
-    <td colspan=2>代理</td>
-    <td>Enum</td>
-    <td>0</td>
-   </tr>
-   <tr>
-    <td colspan=3>Ssl</td>
-    <td colspan=2>是否应加密连接</td>
-    <td>bool</td>
-    <td>false</td>
-   </tr>
-   <tr>
-    <td colspan=3>SyncTimeout</td>
-    <td colspan=2>允许同步操作的时间 (ms)</td>
-    <td>int</td>
-    <td>5000</td>
-   </tr>
-   <tr>
-    <td colspan=3>GlobalCacheOptions</td>
-    <td colspan=2>缓存全局配置</td>
-    <td> </td>
-   </tr>
-   <tr>
-    <td rowspan=1></td>
-    <td colspan=2>CacheKeyType（<a href='#缓存Key的规则'>查看详情</a>）</td>
-    <td colspan=2>缓存Key类型</td>
-    <td>None、TypeName、TypeAlias</td>
-    <td>TypeName</td>
-   </tr>
-   <tr>
-    <td colspan=3>Servers（redis 配置集合）</td>
-    <td colspan=2>Redis配置信息</td>
-    <td> </td>
-   </tr>
-   <tr>
-    <td rowspan=12></td>
-    <td colspan=2>Host</td>
-    <td colspan=2>ip地址</td>
-    <td>string</td>
-    <td>localhost</td>
-   </tr>
-   <tr>
-    <td colspan=2>Port</td>
-    <td colspan=2>端口</td>
-    <td>int</td>
-    <td>6379</td>
-   </tr>
-  </table>
-</div>
+   <div class="custom-table">
+     <table style='border-collapse: collapse;table-layout:fixed;width:100%'>
+      <col span=6>
+      <tr style="background-color:#f3f4f5; font-weight: bold">
+       <td colspan=3>参数名</td>
+       <td colspan=2>参数描述</td>
+       <td>类型</td>
+       <td>默认值</td>
+      </tr>
+      <tr>
+       <td colspan=3>AbsoluteExpiration</td>
+       <td colspan=2>绝对过期时间：到期后就失效</td>
+       <td>DateTimeOffset?</td>
+       <td>null (永不过期)</td>
+      </tr>
+      <tr>
+       <td colspan=3>AbsoluteExpirationRelativeToNow</td>
+       <td colspan=2>相对于现在的绝对到期时间 (与AbsoluteExpiration共存时，优先使用AbsoluteExpirationRelativeToNow)</td>
+       <td>TimeSpan?</td>
+       <td>null (永不过期)</td>
+      </tr>
+      <tr>
+       <td colspan=3>SlidingExpiration</td>
+       <td colspan=2>滑动过期时间：只要在窗口期内访问，它的过期时间就一直向后顺延一个窗口长度</td>
+       <td>TimeSpan?</td>
+       <td>null (永不过期)</td>
+      </tr>
+      <tr>
+       <td colspan=3>AbortOnConnectFail</td>
+       <td colspan=2>是否应通过 TimeoutException 显式通知连接/配置超时</td>
+       <td>bool</td>
+       <td>false</td>
+      </tr>
+      <tr>
+       <td colspan=3>AllowAdmin</td>
+       <td colspan=2>是否应允许管理操作</td>
+       <td>bool</td>
+       <td>false</td>
+      </tr>
+      <tr>
+       <td colspan=3>AsyncTimeout</td>
+       <td colspan=2>允许异步操作的时间 (ms)</td>
+       <td>int</td>
+       <td>5000</td>
+      </tr>
+      <tr>
+       <td colspan=3>ClientName</td>
+       <td colspan=2>用于所有连接的客户端名称</td>
+       <td>string</td>
+       <td>空字符串</td>
+      </tr>
+      <tr>
+       <td colspan=3>ChannelPrefix</td>
+       <td colspan=2>自动编码和解码频道</td>
+       <td>string</td>
+       <td>空字符串</td>
+      </tr>
+      <tr>
+       <td colspan=3>ConnectRetry</td>
+       <td colspan=2>链接重试</td>
+       <td>int</td>
+       <td>3</td>
+      </tr>
+      <tr>
+       <td colspan=3>ConnectTimeout</td>
+       <td colspan=2>链接超时 (ms)</td>
+       <td>int</td>
+       <td>5000</td>
+      </tr>
+      <tr>
+       <td colspan=3>DefaultDatabase</td>
+       <td colspan=2>默认数据库</td>
+       <td>int</td>
+       <td>0</td>
+      </tr>
+      <tr>
+       <td colspan=3>Password</td>
+       <td colspan=2>密码</td>
+       <td>string</td>
+       <td>空字符串</td>
+      </tr>
+      <tr>
+       <td colspan=3>Proxy</td>
+       <td colspan=2>代理</td>
+       <td>Enum</td>
+       <td>0</td>
+      </tr>
+      <tr>
+       <td colspan=3>Ssl</td>
+       <td colspan=2>是否应加密连接</td>
+       <td>bool</td>
+       <td>false</td>
+      </tr>
+      <tr>
+       <td colspan=3>SyncTimeout</td>
+       <td colspan=2>允许同步操作的时间 (ms)</td>
+       <td>int</td>
+       <td>5000</td>
+      </tr>
+      <tr>
+       <td colspan=3>GlobalCacheOptions</td>
+       <td colspan=2>缓存全局配置</td>
+       <td> </td>
+      </tr>
+      <tr>
+       <td rowspan=1></td>
+       <td colspan=2>CacheKeyType（<a href='#缓存Key的规则'>查看详情</a>）</td>
+       <td colspan=2>缓存Key类型</td>
+       <td>None、TypeName、TypeAlias</td>
+       <td>TypeName</td>
+      </tr>
+      <tr>
+       <td colspan=3>Servers（redis 配置集合）</td>
+       <td colspan=2>Redis配置信息</td>
+       <td> </td>
+      </tr>
+      <tr>
+       <td rowspan=12></td>
+       <td colspan=2>Host</td>
+       <td colspan=2>ip地址</td>
+       <td>string</td>
+       <td>localhost</td>
+      </tr>
+      <tr>
+       <td colspan=2>Port</td>
+       <td colspan=2>端口</td>
+       <td>int</td>
+       <td>6379</td>
+      </tr>
+     </table>
+   </div>
 
 ### 缓存Key的规则
 

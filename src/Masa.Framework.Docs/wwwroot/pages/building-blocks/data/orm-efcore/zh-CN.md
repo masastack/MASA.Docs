@@ -1,6 +1,6 @@
 # 数据 - Entity Framework Core (EFCore)
 
-提供了基于 [`Entity Framework Core`](https://learn.microsoft.com/zh-cn/ef/core/) 的数据访问技术, 它不依赖任何的 DBMS , 根据实际使用的 DBMS 引用安装对应的包即可, 目前支持:
+提供了基于 [`Entity Framework Core`](https://learn.microsoft.com/zh-cn/ef/core/) 的数据访问技术，它不依赖任何的 DBMS ，根据实际使用的 DBMS 引用安装对应的包即可，目前支持：
 
 * [SqlServer](#SqlServer)
 * [Pomelo.MySql](#Pomelo.MySql)：如果您使用的是mysql，建议使用
@@ -13,20 +13,20 @@
 
 ## 使用
 
-1. 安装 **Masa.Contrib.Data.EFCore.XXX** , 以 **SqlServer** 数据库为例:
+1. 安装 **Masa.Contrib.Data.EFCore.XXX** ，以 **SqlServer** 数据库为例：
 
    ```shell 终端
    dotnet add package Masa.Contrib.Data.EFCore.SqlServer
    ```
 
-   > 不同的数据库在使用上差别不大, 仅需要更换引用的包以及替换注册数据上下文时使用数据库代码即可
+   > 不同的数据库在使用上差别不大，仅需要更换引用的包以及替换注册数据上下文时使用数据库代码即可
 
 2. 创建 DbContext 
 
-   与直接使用`DbContext`类似, 但它<font color=Red>需要继承 MasaDbContext\<TDbContext\></font> 或 <font color=Red>MasaDbContext</font>
+   与直接使用`DbContext`类似，但它<font color=Red>需要继承 MasaDbContext\<TDbContext\></font> 或 <font color=Red>MasaDbContext</font>
 
      :::: code-group
-     ::: code-group-item 方案1: MasaDbContext<TDbContext> (推荐)
+     ::: code-group-item 方案1：MasaDbContext<TDbContext> (推荐)
 
    ```csharp Infrastructure/CatalogDbContext.cs
    public class CatalogDbContext : MasaDbContext<CatalogDbContext>
@@ -38,7 +38,7 @@
    ```
 
      :::
-     ::: code-group-item 方案2: MasaDbContext
+     ::: code-group-item 方案2：MasaDbContext
 
    ```csharp Infrastructure/CatalogDbContext.cs
    public class CatalogDbContext : MasaDbContext
@@ -54,15 +54,15 @@
      :::
      ::::
 
-   <app-alert type="warning" content="在最新版本中, MasaDbContext支持使用无参构造函数, 但必须要重载OnConfiguring"></app-alert>
+   <app-alert type="warning" content="在最新版本中，MasaDbContext支持使用无参构造函数，但必须要重载OnConfiguring"></app-alert>
 
-   <font Color=Red>继承 MasaDbContext 的数据上下文查询默认不跟踪</font>, 如需修改为全局跟踪, 需[自行配置](/framework/building-blocks/data/faq#efcore)
+   <font Color=Red>继承 MasaDbContext 的数据上下文查询默认不跟踪</font>，如需修改为全局跟踪，需[自行配置](/framework/building-blocks/data/faq#efcore)
 
    > 默认查询不跟踪，可以提高查询性能
 
 3. 注册DbContext
 
-   注册数据上下文通常使用以下两种方式:
+   注册数据上下文通常使用以下两种方式：
 
    * 不指定数据库连接字符串地址
 
@@ -80,7 +80,7 @@
      :::
      ::: code-group-item 2. 注册MasaDbContext
 
-     ```csharp Program.cs
+     ```csharp Program.cs l:3-6
      var builder = WebApplication.CreateBuilder(args);
      
      builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder =>
@@ -98,7 +98,7 @@
 
    * 指定数据库连接字符串地址
 
-     ```csharp
+     ```csharp Program.cs l:3-6
      var builder = WebApplication.CreateBuilder(args);
      
      builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder =>
@@ -120,12 +120,12 @@
   :::: code-group
   ::: code-group-item 1. 安装包
 
-  ``` shell
-  Install-Package Masa.Contrib.Data.EFCore.SqlServer
+  ``` shell 终端
+  dotnet add package Masa.Contrib.Data.EFCore.SqlServer
   ```
   :::
   ::: code-group-item 2. 创建 CatalogDbContext
-  ```csharp
+  ```csharp Infrastructure/CatalogDbContext.cs l:3-6
   public class CatalogDbContext : MasaDbContext<CatalogDbContext>
   {
       protected override void OnConfiguring(MasaDbContextOptionsBuilder optionsBuilder)
@@ -136,7 +136,7 @@
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>();
@@ -152,7 +152,7 @@
 
 1. OnConfiguring 方法中不支持启用软删除等，如果需要使用软删除，除了自定义数据上下文<font Color=Red>需要重载 OnConfiguring</font>，还需要在<font Color=Red>注册MasaDbContext时启用过滤</font>
 
-   ```csharp Program.cs
+   ```csharp Program.cs l:3
    var builder = WebApplication.CreateBuilder(args);
    
    builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseFilter());
@@ -164,7 +164,7 @@
 
    > 软删除、数据过滤等功能由 `Masa.Contrib.Data.Contracts` 提供，如需使用，请安装 nuget 包
 
-2. 在集成事件总线、隔离性等组件中需要得到默认数据库连接字符串地址, 还需额外配置:
+2. 在集成事件总线、隔离性等组件中需要得到默认数据库连接字符串地址，还需额外配置:
 
    ```csharp Program.cs
    builder.Services.Configure<ConnectionStrings>(connectionString =>
@@ -177,7 +177,7 @@
 
 如果不希望使用 **本地配置文件** 保存数据库地址，也不希望将地址在代码中硬编码，那通过选项模式将会使得它们变得更简单
 
-```csharp Program.cs
+```csharp Program.cs l:3-6
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<ConnectionStrings>(connectionString =>
@@ -199,18 +199,18 @@ app.Run();
 
 ## 其它数据库
 
-不同数据库的连接字符串略有差别, 可参考[文档](https://www.connectionstrings.com)选择对应的数据库字符串即可
+不同数据库的连接字符串略有差别，可参考[文档](https://www.connectionstrings.com)选择对应的数据库字符串即可
 
 ### SqlServer
 
   :::: code-group
   ::: code-group-item 1. 安装包
-  ``` shell
-  Install-Package Masa.Contrib.Data.EFCore.SqlServer
+  ``` shell 终端
+  dotnet add package Masa.Contrib.Data.EFCore.SqlServer
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "server=localhost;uid=sa;pwd=P@ssw0rd;database=catalog"
@@ -219,7 +219,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseSqlServer());
@@ -235,12 +235,12 @@ app.Run();
 
   :::: code-group
   ::: code-group-item 1. 安装包
-  ``` shell
-  Install-Package Masa.Contrib.Data.EFCore.Pomelo.MySql
+  ``` shell 终端
+  dotnet add package Masa.Contrib.Data.EFCore.Pomelo.MySql
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json
+  ```json appsettings.json
   {
     "ConnectionStrings": {
       "DefaultConnection": "Server=localhost;port=3306;Database=identity;Uid=myUsername;Pwd=P@ssw0rd;"
@@ -249,7 +249,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseMySql(new MySqlServerVersion("5.7.26"));
@@ -261,18 +261,18 @@ app.Run();
   :::
   ::::
 
-> 基于[`Pomelo.EntityFrameworkCore.MySql`](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql)的扩展, 如果您使用的是mysql，建议使用它
+> 基于[`Pomelo.EntityFrameworkCore.MySql`](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql)的扩展，如果您使用的是mysql，建议使用它
 
 ### MySql
 
   :::: code-group
   ::: code-group-item 1. 安装包
-  ``` shell
-  Install-Package Masa.Contrib.Data.EFCore.MySql
+  ``` shell 终端
+  dotnet add package Masa.Contrib.Data.EFCore.MySql
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "Server=localhost;port=3306;Database=identity;Uid=myUsername;Pwd=P@ssw0rd;"
@@ -281,7 +281,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseMySQL());
@@ -293,18 +293,18 @@ app.Run();
   :::
   ::::
 
-基于[`MySql.EntityFrameworkCore`](https://www.nuget.org/packages/MySql.EntityFrameworkCore)的扩展, 不推荐使用
+基于[`MySql.EntityFrameworkCore`](https://www.nuget.org/packages/MySql.EntityFrameworkCore)的扩展，不推荐使用
 
 ### Sqlite
 
   :::: code-group
   ::: code-group-item 1. 安装包
-  ``` shell
-  Install-Package Masa.Contrib.Data.EFCore.Sqlite
+  ``` shell 终端
+  dotnet add package Masa.Contrib.Data.EFCore.Sqlite
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "Data Source=test.db;"
@@ -313,7 +313,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseSqlite());
@@ -329,12 +329,13 @@ app.Run();
 
   :::: code-group
   ::: code-group-item 1. 安装包
-  ``` shell
-  Install-Package Masa.Contrib.Data.EFCore.Cosmos
+  ``` shell 终端
+  dotnet add package Masa.Contrib.Data.EFCore.Cosmos
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json
+
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "AccountKey=AccountKey;AccountEndpoint=AccountEndpoint;Database=Database"
@@ -343,7 +344,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseCosmos());
@@ -359,12 +360,12 @@ app.Run();
 
   :::: code-group
   ::: code-group-item 1. 安装包
-  ``` shell
-  Install-Package Masa.Contrib.Data.EFCore.InMemory
+  ``` shell 终端
+  dotnet add package Masa.Contrib.Data.EFCore.InMemory
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "identity"
@@ -373,7 +374,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase());
@@ -389,12 +390,12 @@ app.Run();
 
   :::: code-group
   ::: code-group-item 1. 安装包
-  ``` shell
-  Install-Package Masa.Contrib.Data.EFCore.Oracle
+  ``` shell 终端
+  dotnet add package Masa.Contrib.Data.EFCore.Oracle
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "Data Source=MyOracleDB;Integrated Security=yes;"
@@ -403,7 +404,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseOracle());
@@ -419,12 +420,12 @@ app.Run();
 
   :::: code-group
   ::: code-group-item 1. 安装包
-  ``` shell
-  Install-Package Masa.Contrib.Data.EFCore.PostgreSql
+  ``` shell 终端
+  dotnet add package Masa.Contrib.Data.EFCore.PostgreSql
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "Host=myserver;Username=sa;Password=P@ssw0rd;Database=identity;"
@@ -433,7 +434,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseNpgsql());

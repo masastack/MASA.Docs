@@ -10,7 +10,7 @@
 
 ## 使用
 
-因为多级缓存基于分布式缓存的，所以我们需要安装 `Masa.Contrib.Caching.MultilevelCache` 和任意一个分布式缓存提供者 (例: [Masa.Contrib.Caching.Distributed.StackExchangeRedis](./stackexchange-redis.md))
+因为多级缓存基于分布式缓存的，所以我们需要安装 `Masa.Contrib.Caching.MultilevelCache` 和任意一个分布式缓存提供者 (例：[Masa.Contrib.Caching.Distributed.StackExchangeRedis](./stackexchange-redis.md))
 
 1. 安装 `Masa.Contrib.Caching.MultilevelCache`、`Masa.Contrib.Caching.Distributed.StackExchangeRedis`
 
@@ -24,9 +24,11 @@
    ```csharp Program.cs
    builder.Services.AddMultilevelCache(distributedCacheOptions =>
    {
-       distributedCacheOptions.UseStackExchangeRedisCache();//使用分布式 Redis 缓存, 默认 localhost:6379
+       distributedCacheOptions.UseStackExchangeRedisCache();
    });
    ```
+   
+   > 使用分布式 Redis 缓存, 默认 localhost:6379
 
 3. 修改 appsettings.json 文件，添加分布式缓存 `Redis` 的配置信息
 
@@ -57,12 +59,12 @@
        [HttpGet]
        public async Task<string?> GetAsync()
        {
-           //读取
+           //read
            var cacheData = await _multilevelCacheClient.GetAsync<string>("key");
            if (string.IsNullOrEmpty(cacheData))
            {
                cacheData = "value";
-               //写入
+               //write
                await _multilevelCacheClient.SetAsync<string>("key", "value");
            }
            return cacheData;
