@@ -22,7 +22,7 @@
 
 3. 序列化
 
-   ```csharp
+   ```csharp l:2-6
    IJsonSerializer jsonSerializer;// 通过DI获取
    jsonSerializer.Serialize(new
    {
@@ -33,7 +33,7 @@
 
 4. 反序列化
 
-   ```csharp
+   ```csharp l:12
    public class UserDto
    {
        [JsonPropertyName("id")]

@@ -76,11 +76,10 @@
    ]
    ```
 
-6. 注册 MasaConfiguration、I18n 并使用 I18n
+6. 注册 `MasaConfiguration`、`I18n` 并使用 `I18n`
 
-   ```csharp Program.cs
+   ```csharp Program.cs l:3-10,14
    var builder = WebApplication.CreateBuilder(args);
-   
    
    builder.Services.AddMasaConfiguration(options =>
    {
@@ -98,7 +97,7 @@
 
 7. 使用 I18n
 
-   ```csharp Program.cs
+   ```csharp Program.cs l:3-4
    app.MapGet("/parameter/verify", (int page) =>
    {
        MasaArgumentException.ThrowIfLessThan(page, 1);
@@ -106,4 +105,4 @@
    });
    ```
 
-通过以上配置，我们将使用与`DCC`配置中默认 AppId，并读取名称为 `Culture.{语言}` 的配置对象，以上述例子来讲，由于我们支持的语言为 `zh-CN`、 `en-US`，因此我们将默认使用与 DCC 配置一致的默认 AppId 下的 `Culture.zh-CN` 、 `Culture.en-Us` 两个配置对象的值，后续如果需要管理资源的话，对应修改它们的值即可，无需重启应用，因为它们是支持热更新的 [如何管理对象](/stack/dcc/get-started)
+通过以上配置，我们将使用与`DCC`配置中默认 `AppId`，并读取名称为 `Culture.{语言}` 的配置对象，以上述例子来讲，由于我们支持的语言为 `zh-CN`、 `en-US`，因此我们将默认使用与 `DCC` 配置一致的默认 `AppId` 下的 `Culture.zh-CN` 、 `Culture.en-Us` 两个配置对象的值，后续如果需要管理资源的话，对应修改它们的值即可，无需重启应用，因为它们是支持热更新的 [如何管理对象](/stack/dcc/get-started)

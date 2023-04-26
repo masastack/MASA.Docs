@@ -9,7 +9,7 @@
    :::: code-group
    ::: code-group-item 方案1
 
-   ```csharp
+   ```csharp Program.cs l:2-8,12
    var builder = WebApplication.CreateBuilder(args);
    builder.Services.AddIsolation(isolationBuilder =>
    {
@@ -27,7 +27,7 @@
    ```
    :::
    ::: code-group-item 方案2
-   ```csharp
+   ```csharp Program.cs l:2-11,15
    var builder = WebApplication.CreateBuilder(args);
    
    builder.Services.Configure<IsolationOptions>(options =>
@@ -57,7 +57,7 @@
 
    使用选项模式配置指定 `name` 的配置信息，以数据上下文为例
 
-   ```csharp
+   ```csharp Program.cs l:3-29,33
    var builder = WebApplication.CreateBuilder(args);
    
    builder.Services.Configure<IsolationOptions<ConnectionStrings>>(options =>
@@ -90,6 +90,8 @@
    
    var app = builder.Build();
    
+   app.UseIsolation();
+   
    app.Run();
    ```
 
@@ -101,7 +103,7 @@
 
    :::: code-group
    ::: code-group-item 自定义隔离性配置提供程序
-   ```csharp
+   ```csharp l:1-30
    public class CustomIsolationConfigProvider : IIsolationConfigProvider
    {
        /// <summary>
@@ -135,7 +137,7 @@
    ```
    :::
    ::: code-group-item 使用自定义隔离性配置提供程序
-   ```csharp
+   ```csharp Program.cs l:3-7,11
    var builder = WebApplication.CreateBuilder(args);
    
    builder.Services.AddScoped<IIsolationConfigProvider, CustomIsolationConfigProvider>();
@@ -145,6 +147,8 @@
    });
    
    var app = builder.Build();
+   
+   app.UseIsolation();
    
    app.Run();
    ```

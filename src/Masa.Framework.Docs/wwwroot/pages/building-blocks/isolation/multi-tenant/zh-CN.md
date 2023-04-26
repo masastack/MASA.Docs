@@ -83,7 +83,7 @@
 
 :::: code-group
 ::: code-group-item 方案1
-```csharp
+```csharp Program.cs l:7
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddIsolation(isolationBuilder =>
 {
@@ -101,7 +101,7 @@ app.Run();
 ```
 :::
 ::: code-group-item 方案2
-```csharp
+```csharp Program.cs l:5
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<IsolationOptions>(options =>
@@ -190,7 +190,7 @@ app.Run();
 
 ### 配置规则
 
-```
+```json appsettings.json l:2-19
 {
   "Isolation":{
     "ConnectionStrings":[

@@ -22,7 +22,7 @@
 
 3. 序列化
 
-   ```csharp
+   ```csharp l:23
    var person = new Person
    {
        Name = "Abe Lincoln",
@@ -50,7 +50,7 @@
 
 4. 反序列化
 
-   ```csharp
+   ```csharp l:13
    var yml = @"
    name: George Washington
    age: 89

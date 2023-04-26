@@ -2,7 +2,7 @@
 
 ## 概述
 
-为 Web 应用程序提供处理异常的模型，并提供了基于中间件的全局异常处理和针对 MVC 使用的异常过滤器来处理异常信息，在我们实际开发过程中，全局异常中间件与异常过滤器二选一使用即可
+为 `Web` 应用程序提供处理异常的模型，并提供了基于中间件的全局异常处理和针对 `MVC` 使用的异常过滤器来处理异常信息，在我们实际开发过程中，全局异常中间件与异常过滤器二选一使用即可
 
 ## 功能
 
@@ -14,7 +14,7 @@
 
 全局异常中间件与全局异常过滤器是两种处理异常的手段，它们的执行顺序是不同的，详细可查看 [ASP.NET Core 中间件](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/middleware)、[ASP.NET Core 中的筛选器](https://learn.microsoft.com/zh-cn/aspnet/core/mvc/controllers/filters)
 
-它们默认支持 i18n ，当服务使用 i18n 后，异常信息会根据请求文化 ( Culture) 信息转换为对应的语言
+默认支持 `i18n` ，当服务使用 `i18n` 后，异常信息会根据请求文化（`Culture`）信息转换为对应的语言
 
 1. 安装 `Masa.Contrib.Exceptions`
 
@@ -33,7 +33,7 @@
    :::
    ::: code-group-item 全局异常过滤器
 
-   ```csharp Program.cs
+   ```csharp Program.cs l:3
    builder.Services
        .AddMvc()
        .AddMasaExceptionHandler();
@@ -75,7 +75,7 @@ throw new MasaException("自定义异常错误, 当前日志等级为Warning.", 
 
 :::: code-group
 ::: code-group-item 手动指定异常处理
-```csharp
+```csharp Program.cs l:4-8
 app.UseMasaExceptionHandler(options =>
 {
     //处理自定义异常
@@ -88,7 +88,7 @@ app.UseMasaExceptionHandler(options =>
 ```
 :::
 ::: code-group-item 注册自定义异常处理程序
-```csharp
+```csharp l:1-18,22
 public class ExceptionHandler : IMasaExceptionHandler
 {
     private readonly ILogger<ExceptionHandler> _logger;
@@ -107,11 +107,14 @@ public class ExceptionHandler : IMasaExceptionHandler
     }
 }
 builder.Services.AddSingleton<ExceptionHandler>();
+
+var app = builder.Build();
+
 app.UseMasaExceptionHandler();
 ```
 :::
 ::: code-group-item 使用自定义异常处理程序
-```csharp
+```csharp l:1-10,12-15
 public class ExceptionHandler : IMasaExceptionHandler
 {
     public void OnException(MasaExceptionContext context)
@@ -139,7 +142,7 @@ app.UseMasaExceptionHandler(option =>
 
 :::: code-group
 ::: code-group-item 手动指定异常处理
-```csharp
+```csharp Program.cs l:3-10
 builder.Services
     .AddMvc()
     .AddMasaExceptionHandler(options =>
@@ -153,7 +156,7 @@ builder.Services
 ```
 :::
 ::: code-group-item 注册自定义异常处理程序
-```csharp
+```csharp l:1-17,19,23
 public class ExceptionHandler : IMasaExceptionHandler
 {
     private readonly ILogger<ExceptionHandler> _logger;
@@ -180,7 +183,7 @@ builder.Services
 ```
 :::
 ::: code-group-item 使用自定义异常处理程序
-```csharp
+```csharp l:1-10,14,17
 public class ExceptionHandler : IMasaExceptionHandler
 {
     public void OnException(MasaExceptionContext context)
@@ -318,7 +321,7 @@ Validation failed:
 
 5. 参数异常 + 友好异常
 
-   ```csharp Program.cs
+   ```csharp Program.cs l:3-4,9
    app.MapGet("/parameter/verify", (int page) =>
    {
        MasaArgumentException.ThrowIfLessThan(page, 1);

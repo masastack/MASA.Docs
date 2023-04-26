@@ -22,8 +22,7 @@ public class Student : ISoftDelete
 ### 多租户
 
 实现 `IMultiTenant` 的实体支持多租户，通常情况下使用逻辑隔离时，使用它更为合适,
-它的本质是在默认查询后增加租户 id 等于`当前请求的租户 id `条件，以满足默认数据过滤的功能，如果租户是通过物理隔离 (
-每个租户使用一个全新的数据库时，它的用处不是很大)
+它的本质是在默认查询后增加租户 `ID` 等于`当前请求的租户 ID` 条件，以满足默认数据过滤的功能，如果租户是通过物理隔离（每个租户使用一个全新的数据库时，它的用处不是很大）
 
 ```csharp
 public class User : IMultiTenant
@@ -36,7 +35,7 @@ public class User : IMultiTenant
 }
 ```
 
-> 如果你的租户 id 不是 `Guid` 类型时，可通过修改继承接口为 `IMultiTenant<T>` 以支持其他类型的租户 id ，例如: `IMultiTenant<int>`
+> 如果你的租户 `ID` 不是 `Guid` 类型时，可通过修改继承接口为 `IMultiTenant<T>` 以支持其他类型的租户 `ID` ，例如: `IMultiTenant<int>`
 
 ### 多环境
 

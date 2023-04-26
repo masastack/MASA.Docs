@@ -8,7 +8,7 @@
 
 ## 源码解读
 
-提供了映射的抽象`IMapper`，它支持：
+提供了映射的抽象 `IMapper`，它支持：
 
 * Map\<TSource, TDestination\>(TSource source, MapOptions? options = null)：根据源类型以及目标类型将源类型对象映射为目标类型并返回
 

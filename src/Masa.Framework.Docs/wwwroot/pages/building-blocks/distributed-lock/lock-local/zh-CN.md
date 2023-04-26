@@ -14,14 +14,14 @@
 
 2. 注册锁, 修改类`Program`
 
-   ```csharp
+   ```csharp l:2
    var builder = WebApplication.CreateBuilder(args);
    builder.Services.AddLocalDistributedLock();
    ```
 
 3. 使用锁
 
-   ```csharp
+   ```csharp l:2-8
    IDistributedLock distributedLock; //从DI获取`IDistributedLock`
    using (var lockObj = distributedLock.TryGet("Replace Your Lock Name"))
    {

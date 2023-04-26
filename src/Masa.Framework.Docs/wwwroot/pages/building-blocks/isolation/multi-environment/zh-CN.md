@@ -142,7 +142,7 @@ app.Run();
 
 针对支持通过本地配置文件的构建块，以数据上下文为例，其配置满足以下规则：
 
-```json
+```json appsettings.json l:2-19
 {
   "Isolation":{
     "ConnectionStrings":[

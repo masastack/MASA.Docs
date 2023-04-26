@@ -210,7 +210,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json appsettings.json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "server=localhost;uid=sa;pwd=P@ssw0rd;database=catalog"
@@ -219,7 +219,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp Program.cs
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseSqlServer());
@@ -249,7 +249,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp Program.cs
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseMySql(new MySqlServerVersion("5.7.26"));
@@ -272,7 +272,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json appsettings.json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "Server=localhost;port=3306;Database=identity;Uid=myUsername;Pwd=P@ssw0rd;"
@@ -281,7 +281,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp Program.cs
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseMySQL());
@@ -304,7 +304,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json appsettings.json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "Data Source=test.db;"
@@ -313,7 +313,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp Program.cs
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseSqlite());
@@ -335,7 +335,7 @@ app.Run();
   :::
   ::: code-group-item 2. 配置 appsettings.json
 
-  ```json appsettings.json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "AccountKey=AccountKey;AccountEndpoint=AccountEndpoint;Database=Database"
@@ -344,7 +344,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp Program.cs
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseCosmos());
@@ -365,7 +365,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json appsettings.json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "identity"
@@ -374,7 +374,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp Program.cs
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase());
@@ -395,7 +395,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json appsettings.json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "Data Source=MyOracleDB;Integrated Security=yes;"
@@ -404,7 +404,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp Program.cs
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseOracle());
@@ -425,7 +425,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 2. 配置 appsettings.json
-  ```json appsettings.json
+  ```json appsettings.json l:2-4
   {
     "ConnectionStrings": {
       "DefaultConnection": "Host=myserver;Username=sa;Password=P@ssw0rd;Database=identity;"
@@ -434,7 +434,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp Program.cs
+  ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
   builder.Services.AddMasaDbContext<CatalogDbContext>(optionsBuilder => optionsBuilder.UseNpgsql());

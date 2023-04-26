@@ -56,7 +56,7 @@
 
 3. 注册 `I18n` 
 
-   ```csharp Program.cs
+   ```csharp Program.cs l:2
    var builder = WebApplication.CreateBuilder(args);
    builder.Services.AddI18n();
    ```

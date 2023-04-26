@@ -674,7 +674,7 @@ public class ProjectService : ServiceBase
 
         :::: code-group
         ::: code-group-item 方案1: 全局配置匹配失败后使用 Get 请求
-        ```csharp
+        ```csharp Program.cs l:4
         var builder = WebApplication.CreateBuilder(args);
         builder.AddServices(globalRouteOptions =>
         {
@@ -683,7 +683,7 @@ public class ProjectService : ServiceBase
         ```
         :::
         ::: code-group-item 方案2: 局部配置匹配失败后使用 Get 请求
-        ```csharp
+        ```csharp Services/ProjectService.cs l:5
         public class ProjectService : ServiceBase
         {
             public ProjectService()
@@ -709,7 +709,7 @@ public class ProjectService : ServiceBase
 
         :::: code-group
         ::: code-group-item 方案1: 修改方法名
-        ```csharp
+        ```csharp Services/ProjectService.cs l:3
         public class ProjectService : ServiceBase
         {
             public Task<List<string>> GetProjectListAsync()
@@ -726,13 +726,13 @@ public class ProjectService : ServiceBase
         ```
         :::
         ::: code-group-item 方案2: 修改 `XXXPrefixes` 规则被识别为 `Get` 请求
-        ```csharp
+        ```csharp Services/ProjectService.cs l:6-9
         public class ProjectService : ServiceBase
         {
             public ProjectService()
             {
         	    //或者通过全局配置使得对全局生效
-                RouteOptions.GetPrefixes=new List<string>()
+                RouteOptions.GetPrefixes = new List<string>()
                 {
                     "Project"
                 };
@@ -759,7 +759,7 @@ public class ProjectService : ServiceBase
 
 继承 `ServiceBase` 服务不支持通过构造函数注入服务，如果你需要从 `DI` 获取指定服务，可通过<font color=Red>在方法上增加对应服务的参数类型</font>来使用、或者通过其父类 `ServiceBase` 提供的<font color=Red>GetService<TService>()</font>、<font color=Red> GetRequiredService <TService>()</font>来使用，例如：
 
-  ```csharp
+  ```csharp 
 public class CatalogItemService : ServiceBase
 {
     private CatalogDbContext _dbContext => GetRequiredService<CatalogDbContext>();
@@ -771,7 +771,7 @@ public class CatalogItemService : ServiceBase
 
 :::: code-group
 ::: code-group-item 方案1
-```csharp
+```csharp Services/ProjectService.cs l:3
 public class ProjectService : ServiceBase
 {
     public Task<List<string>> GetProjectListAsync(ILogger<ProjectService> logger)
@@ -789,7 +789,7 @@ public class ProjectService : ServiceBase
 ```
 :::
 ::: code-group-item 方案2
-```csharp
+```csharp Services/ProjectService.cs l:3
 public class ProjectService : ServiceBase
 {
     private ILogger<ProjectService> Logger => GetRequiredService<ILogger<ProjectService>>();
