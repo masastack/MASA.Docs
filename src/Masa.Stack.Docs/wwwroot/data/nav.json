@@ -104,9 +104,10 @@
       {
         "title": "use-guide",
         "items": [
-          "scheduler-job",
-          "scheduler-task",
-          "scheduler-resource"
+          "get-started",
+          "scheduler-job-app",
+          "scheduler-http",
+          "scheduler-dapr"
         ]
       },
       "sdk-instance",
