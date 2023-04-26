@@ -1,4 +1,4 @@
-﻿# 基于K8s部署MASA Stack
+﻿# 基于 K8s 部署 MASA Stack
 
 本文介绍如何部署MASA Stack，为了方便大家本地体验，在环境准备环节我们会基于[Docker Desktop](https://www.docker.com/products/docker-desktop/)，它同样适用于生产环境的K8s
 
