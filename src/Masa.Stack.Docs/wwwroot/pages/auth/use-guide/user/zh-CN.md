@@ -3,7 +3,7 @@
 Auth用户是MASA Stack的一种实体身份，代表需要访问MASA Stack应用的人员，户包含多类用户，包括终端用户、第三方用户（QQ/微信/Github/域用户等）、员工（内部员工/外部员工）。
 为了让用户能够访问MASA Stack应用，需要先创建Auth用户并授权。
 
-> 用户的权限来自于角色、团队、自身的扩展权限。可执行权限：页面权限、元素权限、Api权限
+> 用户的权限来自于角色、团队、自身的扩展权限。可执行权限：页面权限、元素权限、API权限
 
 ![用户管理结构图](https://cdn.masastack.com/stack/doc/auth/use-guide/user/user-functional.svg)
 
