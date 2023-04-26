@@ -34,8 +34,8 @@
     "title": "dcc",
     "icon": "mdi-bookmark",
     "items": [
-      "get-started",
       "introduce",
+      "use-guide",
       "basic-concepts",
       "best-practices",
       "related-agreements",
