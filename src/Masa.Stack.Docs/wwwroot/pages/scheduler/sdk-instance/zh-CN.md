@@ -22,7 +22,7 @@ ISchedulerClient
 
 2. 注册 Scheduler 服务
 
-   ```csharp
+   ```csharp Program.cs
    builder.Services.AddSchedulerClient("http://schedulerservice.com");
    ```
 
