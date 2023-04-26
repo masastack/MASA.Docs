@@ -10,42 +10,24 @@
     "title": "auth",
     "icon": "mdi-bookmark",
     "items": [
-      "get-started",
       "introduce",
       {
         "title": "use-guide",
         "items": [
           "user",
-          "permission",
+          "rolepermision",
           "team",
-          "org",
-          "identity-provider",
-          "position",
-          "operation-log"
+          "sso",
+          "configureoauth",
+          "org"
         ]
       },
-      {
-        "title": "develop-guide",
-        "items": [
-          "permission",
-          "identity-provider",
-          "swagger",
-          "user",
-          "role",
-          "sdk-instance",
-          "sso"
-        ]
-      },
-      {
-        "title": "sso",
-        "items": [
-          "api-resource",
-          "api-scope",
-          "client",
-          "identity-resource",
-          "user-claim"
-        ]
-      }
+      "authentication-authorization",
+      "api",
+      "sdk",
+      "best-practices",
+      "faq",
+      "related-agreements"
     ]
   },
   {
@@ -56,7 +38,6 @@
       "introduce",
       "basic-concepts",
       "best-practices",
-      "sdk-instance",
       "related-agreements",
       "faq"
     ]
