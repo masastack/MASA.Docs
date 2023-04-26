@@ -28,7 +28,7 @@
    app.Run();
    ```
 
-3.  获取当前租户
+3. 获取当前租户
 
    ```csharp Program.cs l:11-14
    var builder = WebApplication.CreateBuilder(args);

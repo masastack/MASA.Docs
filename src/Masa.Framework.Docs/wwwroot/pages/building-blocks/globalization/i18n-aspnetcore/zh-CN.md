@@ -2,7 +2,7 @@
 
 ## 概述
 
-[`Masa.Contrib.Globalization.I18n.AspNetCore`](https://www.nuget.org/packages/Masa.Contrib.Globalization.I18n.AspNetCore)为 [I18n](/framework/building-blocks/globalization/i18n) 协助解析设置当前线程的区域性，对于`ASP.NET Core Web`项目来说，只需要使用它即可，它属于微软提供[本地化的中间件](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/localization#localization-middleware)的能力，它默认支持以下三种方式进行语言切换
+[`Masa.Contrib.Globalization.I18n.AspNetCore`](https://www.nuget.org/packages/Masa.Contrib.Globalization.I18n.AspNetCore)为 [I18n](/framework/building-blocks/globalization/i18n) 协助解析设置当前线程的区域性，对于 `ASP.NET Core Web` 项目来说，只需要使用它即可，它属于微软提供[本地化的中间件](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/localization#localization-middleware)的能力，它默认支持以下三种方式进行语言切换。
 
 * URL 参数 方式：?culture=en-US，此方式优先级最高，格式为：culture=区域码
 
@@ -18,7 +18,7 @@
 
    语言优先级: URL 参数 方式 > Cookies方式 > 客户端语言 > 默认语言
 
-   > 如果当前请求的语言是不支持的，则使用默认语言
+   > 如果当前请求的语言不支持，则使用默认语言
 
 ## 使用
 
@@ -65,7 +65,7 @@
    :::
    ::::
 
-3. 注册 `I18n` ，并修改 `Program` 
+3. 注册 `I18n`，并修改 `Program` 
 
    ```csharp
    builder.Services.AddI18n();
@@ -100,4 +100,4 @@
 
 ## 其它
 
-如果你的项目不属于`ASP.NET Core Web`项目，那么只需要安装 [`Masa.Contrib.Globalization.I18n`](https://www.nuget.org/packages/Masa.Contrib.Globalization.I18n)，除此之外，你需要配合`UI`完成对当前语言的设置即可，点击查看如何使用 [`Masa.Contrib.Globalization.I18n`](/framework/building-blocks/globalization/i18n)
+如果你的项目不属于 `ASP.NET Core Web` 项目，那么只需要安装 [`Masa.Contrib.Globalization.I18n`](https://www.nuget.org/packages/Masa.Contrib.Globalization.I18n)，除此之外，你需要配合 `UI` 完成对当前语言的设置即可，点击查看如何使用 [`Masa.Contrib.Globalization.I18n`](/framework/building-blocks/globalization/i18n)

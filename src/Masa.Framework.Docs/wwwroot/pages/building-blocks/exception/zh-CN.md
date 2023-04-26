@@ -211,7 +211,7 @@ builder.Services
 
 ### 异常与Http状态码
 
-MASA Framework 提供的了几种常用的异常类型，当API服务对外抛出以下异常类型时，服务端将响应与之对应的Http状态码：
+`MASA Framework` 提供的了几种常用的异常类型，当 `API` 服务对外抛出以下异常类型时，服务端将响应与之对应的 `Http` 状态码：
 
 |  异常类型   | 描述  |  HttpStatusCode  |
 |  ----  | ----  | ----  |
@@ -220,7 +220,7 @@ MASA Framework 提供的了几种常用的异常类型，当API服务对外抛�
 | MasaArgumentException  | 参数异常 | 500 |
 | MasaException  | 内部服务错误 | 500 |
 
-其中 HttpStatusCode 为298是验证异常，存在固定格式的响应信息
+其中 `HttpStatusCode` 为298是验证异常，存在固定格式的响应信息
 
 ``` http
 Validation failed: 
@@ -234,19 +234,19 @@ Validation failed:
 
 异常与 [I18n](/framework/building-blocks/globalization/overview) 结合使用，会有更好的使用体验
 
-1. 安装 i18n
+1. 安装 `Masa.Contrib.Globalization.I18n.AspNetCore`
 
    ```shell 终端
    dotnet add package Masa.Contrib.Globalization.I18n.AspNetCore
    ```
 
-2. 安装 exception
+2. 安装 `exception`
 
    ```shell 终端
    dotnet add package Masa.Contrib.Exceptions
    ```
 
-3. 注册 i18n 并使用 全局异常中间件
+3. 注册 `i18n` 并使用 全局异常中间件
 
    ```csharp Program.cs l:3,9,11-17
    var builder = WebApplication.CreateBuilder(args);
@@ -338,29 +338,29 @@ Validation failed:
 
 ### MasaException
 
-基于 Exception 的扩展类，是 MASA Framework 提供的异常基类，对外抛出 `HttpStatusCode` 为`500`的错误码，并将其 Message 作为响应内容输出
+基于 `Exception` 的扩展类，是 `MASA Framework` 提供的异常基类，对外抛出 `HttpStatusCode` 为`500`的错误码，并将其 `Message` 作为响应内容输出
 
-* ErrorCode：错误码，针对 ErrorCode 不为 null 且不等于空字符，且开启了[多语言](/framework/building-blocks/globalization/overview)后，可以通过 `GetLocalizedMessage` 方法获取当前语言的错误信息
+* ErrorCode：错误码，针对 `ErrorCode` 不为 `null` 且不等于空字符，在开启了[多语言](/framework/building-blocks/globalization/overview)后，可以通过 `GetLocalizedMessage` 方法获取当前语言的错误信息
 
 ### UserFriendlyException
 
-基于 MasaException 的扩展类，是 MASA Framework 提供的用户友好异常类，对外抛出 `HttpStatusCode` 为`299`的错误码，并将其 Message 作为响应内容输出
+基于 `MasaException` 的扩展类，是 `MASA Framework` 提供的用户友好异常类，对外抛出 `HttpStatusCode` 为`299`的错误码，并将其 `Message` 作为响应内容输出
 
 ### MasaArgumentException
 
-基于 MasaException 的扩展类，是 MASA Framework 提供的参数异常类，默认对外抛出 `HttpStatusCode` 为`500`的错误码，并将其 Message 作为响应内容输出，提供了以下方法
+基于 `MasaException` 的扩展类，是 `MASA Framework` 提供的参数异常类，默认对外抛出 `HttpStatusCode` 为`500`的错误码，并将其 `Message` 作为响应内容输出，提供了以下方法
 
-* ThrowIfNullOrEmptyCollection：若参数为Null或者空集合时抛出异常
-* ThrowIfNull：若参数为Null时抛出异常
-* ThrowIfNullOrEmpty：若参数为Null或空字符串时抛出异常
-* ThrowIfNullOrWhiteSpace：若参数为Null或空白字符时抛出异常
-* ThrowIfGreaterThan：若参数大于{value}时抛出异常
-* ThrowIfGreaterThanOrEqual：若参数大于等于{value}时抛出异常
-* ThrowIfLessThan：若参数小于{value}时抛出异常
-* ThrowIfLessThanOrEqual：若参数小于等于{value}时抛出异常
-* ThrowIfOutOfRange：若参数不在指定范围之间时抛出异常 (\< minValue & \> maxValue)
-* ThrowIfContain：若参数包含指定字符串时抛出异常
-* ThrowIf：若条件满足时抛出异常
+* ThrowIfNullOrEmptyCollection：参数为 `Null` 或者空集合时抛出异常
+* ThrowIfNull：参数为 `Null` 时抛出异常
+* ThrowIfNullOrEmpty：参数为 `Null` 或空字符串时抛出异常
+* ThrowIfNullOrWhiteSpace：参数为 `Null` 或空白字符时抛出异常
+* ThrowIfGreaterThan：参数大于 `{value}` 时抛出异常
+* ThrowIfGreaterThanOrEqual：参数大于等于 `{value}` 时抛出异常
+* ThrowIfLessThan：参数小于 `{value}` 时抛出异常
+* ThrowIfLessThanOrEqual：参数小于等于 `{value}` 时抛出异常
+* ThrowIfOutOfRange：参数不在指定范围之间时抛出异常 (\< minValue & \> maxValue)
+* ThrowIfContain：参数包含指定字符串时抛出异常
+* ThrowIf：条件满足时抛出异常
 
 ### MasaValidatorException
 

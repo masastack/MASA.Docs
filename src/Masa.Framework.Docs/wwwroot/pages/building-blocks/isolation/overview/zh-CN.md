@@ -13,7 +13,7 @@ MASA Framework 提供了隔离性的功能，它支持了**物理隔离**、**�
 
 | 最佳实践                                                          | 数据上下文  | 缓存  | 存储  | 调用者 | 规则引擎 | 自动补全 | 集成事件 | 配置 |
 |:--------------------------------------------------------------|:------:|:---:|:---:|:---:|:--:|:----: |:----: |:----: |
-| [多租户](/framework/building-blocks/isolation/multi-tenant)      |   ✅    |  ✅  |  ✅  |  ✅  |  ✅ | ✅ | ❌ | ❌ |
-| [多环境](/framework/building-blocks/isolation/multi-environment) |   ✅    |  ✅ |  ✅  |  ✅  |  ✅ | ✅ | ❌ | ❌ |
+| [多租户](/framework/building-blocks/isolation/multi-tenant)      |   ✅    |  ✅  |  ✅  |  ✅  |  ✅ | ✅ | - | - |
+| [多环境](/framework/building-blocks/isolation/multi-environment) |   ✅    |  ✅ |  ✅  |  ✅  |  ✅ | ✅ | - | - |
 
-> 集成事件、配置暂时不支持隔离性
+> ✅：支持。 ❌：不支持。 -：暂不支持。

@@ -50,4 +50,4 @@
 
 ### 存储客户端工厂
 
-`IClientFactory`对象存储提供者工厂，通过指定`BucketName`，创建指定的IClientContainer
+`IClientFactory` 对象存储提供者工厂，通过指定 `BucketName` ，创建指定的 `IClientContainer`
