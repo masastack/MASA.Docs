@@ -35,7 +35,7 @@
    - 每种渠道模板不同，请按照下载的导入模板格式填写。
    - 对于模板消息，导入模板支持消息模板变量。如果消息变量和收件人变量同时填写，将优先使用收件人变量。
 
-   ![send-message-receivers](https://cdn.masastack.com/stack/doc/mc/send-message-receivers.png)
+   ![send-message-receivers](https://cdn.masastack.com/stack/doc/mc/send-message-receivers.png)  
    ![send-message-receivers-import](https://cdn.masastack.com/stack/doc/mc/send-message-receivers-import.png)
 
 ### 步骤 4：发送规则
@@ -51,9 +51,9 @@
 
 在消息任务列表中，您可以管理所有消息任务。该列表以卡片形式展现，并支持高级筛选、模糊搜索、分页等功能。您可以启用/禁用、查看、测试或删除任务。
 
-   ![messageTasks](https://cdn.masastack.com/stack/doc/mc/messageTasks.png)
-   ![messageTasks-action](https://cdn.masastack.com/stack/doc/mc/messageTasks-action.png)
+![messageTasks](https://cdn.masastack.com/stack/doc/mc/messageTasks.png)  
+![messageTasks-action](https://cdn.masastack.com/stack/doc/mc/messageTasks-action.png)
 
 此外，您还可以查看任务详情，包括批次数据和消息内容，并支持撤回操作。
 
-   ![messageTasks-details](https://cdn.masastack.com/stack/doc/mc/messageTasks-details.png)
+![messageTasks-details](https://cdn.masastack.com/stack/doc/mc/messageTasks-details.png)

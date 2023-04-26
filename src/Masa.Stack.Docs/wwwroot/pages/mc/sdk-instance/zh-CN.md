@@ -38,16 +38,16 @@ builder.Services.AddMcClient("http://mcservice.com");
 :::: code-group
 ::: code-group-item 给外部用户发送普通消息(邮箱)
 ```csharp
-using Microsoft.AspNetCore.Mvc;
 using Masa.BuildingBlocks.StackSdks.Mc;
 using Masa.BuildingBlocks.StackSdks.Mc.Enum;
 using Masa.BuildingBlocks.StackSdks.Mc.Model;
+using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
 /// 一个测试的Controller
 /// </summary>
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/[action]")]
 public class McController : ControllerBase
 {
     private readonly IMcClient _mcClient;
@@ -56,8 +56,8 @@ public class McController : ControllerBase
         _mcClient = mcClient;
     }
 
-    [HttpGet]
-    public async Task SendEmail()
+    [HttpPost]
+    public Task SendEmail()
     {
         var request = new SendOrdinaryMessageByExternalModel
         {
@@ -77,7 +77,7 @@ public class McController : ControllerBase
                 }
             }
         };
-        await _mcClient.MessageTaskService.SendOrdinaryMessageByExternalAsync(request);
+        return _mcClient.MessageTaskService.SendOrdinaryMessageByExternalAsync(request);
     }
 }
 ```
@@ -85,16 +85,16 @@ public class McController : ControllerBase
 
 ::: code-group-item 给Auth用户发送模板消息(短信)
 ```csharp
-using Microsoft.AspNetCore.Mvc;
 using Masa.BuildingBlocks.StackSdks.Mc;
 using Masa.BuildingBlocks.StackSdks.Mc.Enum;
 using Masa.BuildingBlocks.StackSdks.Mc.Model;
+using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
 /// 一个测试的Controller
 /// </summary>
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/[action]")]
 public class McController : ControllerBase
 {
     private readonly IMcClient _mcClient;
@@ -103,8 +103,8 @@ public class McController : ControllerBase
         _mcClient = mcClient;
     }
 
-    [HttpGet]
-    public async Task SendSms()
+    [HttpPost]
+    public Task SendSms()
     {
         var request = new SendTemplateMessageByInternalModel
         {
@@ -121,7 +121,7 @@ public class McController : ControllerBase
                 }
             }
         };
-        await _mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
+        return _mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
     }
 }
 ```
@@ -129,16 +129,16 @@ public class McController : ControllerBase
 
 ::: code-group-item 发送站内信广播
 ```csharp
-using Microsoft.AspNetCore.Mvc;
 using Masa.BuildingBlocks.StackSdks.Mc;
 using Masa.BuildingBlocks.StackSdks.Mc.Enum;
 using Masa.BuildingBlocks.StackSdks.Mc.Model;
+
 
 /// <summary>
 /// 一个测试的Controller
 /// </summary>
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/[action]")]
 public class McController : ControllerBase
 {
     private readonly IMcClient _mcClient;
@@ -147,8 +147,8 @@ public class McController : ControllerBase
         _mcClient = mcClient;
     }
 
-    [HttpGet]
-    public async Task SendWebsiteMessage()
+    [HttpPost]
+    public Task SendWebsiteMessage()
     {
         var request = new SendTemplateMessageByInternalModel
         {
@@ -157,7 +157,7 @@ public class McController : ControllerBase
             ReceiverType = SendTargets.Broadcast,
             TemplateCode = "模版代码",
         };
-        await _mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
+        return _mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
     }
 }
 ```

@@ -14,32 +14,32 @@
 
 点击卡片列表右上角的`新建`按钮，弹出新建渠道的表单窗口。表单包括两个步骤。
 
-第一步：选择渠道类型。
+1. 选择渠道类型。
 
    ![channel-add-type](https://cdn.masastack.com/stack/doc/mc/channel-add-type.png)
 
-第二步：配置渠道信息。
+2. 配置渠道信息。
 
    - 渠道名称：渠道的显示名称。
    - 渠道ID：用于调用SDK发送消息时指定渠道的唯一标识。
 
 不同的渠道类型有不同的配置参数。
 
-   1. 短信渠道配置
+   * 短信渠道配置
    
       目前短信发送使用阿里云，需要填写阿里云的AccessKeyId和AccessKeySecret参数。创建短信渠道后，短信模板会自动同步到本地短信模板池中，创建短信模板时  可 以直接选择。
    
       ![channel-add-sms](https://cdn.masastack.com/stack/doc/mc/channel-add-sms.png)
    
-   2. 邮箱渠道配置
+   * 邮箱渠道配置
    
       ![channel-add-email](https://cdn.masastack.com/stack/doc/mc/channel-add-email.png)
    
-   3. 站内信渠道配置
+   * 站内信渠道配置
    
       ![channel-add-websiteMessage](https://cdn.masastack.com/stack/doc/mc/channel-add-websiteMessage.png)
    
-   4. APP渠道配置
+   * APP渠道配置
    
       支持个推和极光。
    
@@ -49,4 +49,4 @@
 
 点击要编辑的渠道卡片右上角的编辑图标，弹出编辑渠道对话框，可以编辑渠道信息或删除渠道。
 
-   ![channel-edit](https://cdn.masastack.com/stack/doc/mc/channel-edit.png)
+![channel-edit](https://cdn.masastack.com/stack/doc/mc/channel-edit.png)

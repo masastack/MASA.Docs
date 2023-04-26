@@ -14,7 +14,7 @@
 
 ### 高级搜索
 
-   ![smsTemplates-advanced-search](https://cdn.masastack.com/stack/doc/mc/smsTemplates-advanced-search.png)
+![smsTemplates-advanced-search](https://cdn.masastack.com/stack/doc/mc/smsTemplates-advanced-search.png)
 
 ## 新建消息模板
 
@@ -37,15 +37,13 @@
    ![smsTemplate-add2](https://cdn.masastack.com/stack/doc/mc/smsTemplate-add2.png)
 
 ### 邮箱模板创建
-
-   ![emailTemplate-add](https://cdn.masastack.com/stack/doc/mc/emaiTemplate-add.png)
+![emailTemplate-add](https://cdn.masastack.com/stack/doc/mc/emaiTemplate-add.png)
 
 ### 站内信模板创建
-
-   ![websiteMessageTemplate-add](https://cdn.masastack.com/stack/doc/mc/websiteMessageTemplate-add.png)
+![websiteMessageTemplate-add](https://cdn.masastack.com/stack/doc/mc/websiteMessageTemplate-add.png)
 
 ## 编辑消息模板
 
 点击表格中指定行操作列中的“编辑图标”可打开编辑消息模板的表单窗口。
 
-   ![smsTemplate-edit](https://cdn.masastack.com/stack/doc/mc/smsTemplate-edit.png)
+![smsTemplate-edit](https://cdn.masastack.com/stack/doc/mc/smsTemplate-edit.png)
