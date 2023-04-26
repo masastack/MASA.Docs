@@ -1,6 +1,6 @@
-﻿# 基于 K8s 部署 MASA Stack
+# 基于K8s部署MASA Stack
 
-本文介绍如何部署MASA Stack，为了方便大家本地体验，在环境准备环节我们会基于[Docker Desktop](https://www.docker.com/products/docker-desktop/)，它同样适用于生产环境的K8s
+本文介绍如何部署 MASA Stack，为了方便大家本地体验，在环境准备环节我们会基于 [Docker Desktop](https://www.docker.com/products/docker-desktop/)，它同样适用于生产环境的 K8s
 
 
 
@@ -15,7 +15,7 @@
 
 ## 环境准备
 
-本文档默认你已经安装[Docker Desktop](https://www.docker.com/products/docker-desktop/)和[WSL](https://learn.microsoft.com/en-us/windows/wsl/about)，并且基于Windows 11+的[Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/)
+本文档默认你已经安装 [Docker Desktop](https://www.docker.com/products/docker-desktop/) 和 [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)，并且基于 Windows 11+ 的 [Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/)
 
 > 部分安装脚本需要国外资源，如果出现超时等情况需要自行解决
 
@@ -23,7 +23,7 @@
 
 ### 启用 Docker K8s
 
-> 如果你已经有K8s可以跳过这个部分
+> 如果你已经有 K8s 可以跳过这个部分
 
 ![image-20230426150522160](https://cdn.masastack.com/stack/doc/stack/enable-docker-k8s.png)
 
@@ -57,7 +57,7 @@ helm version
 
 > 注意：ingress-nginx 的版本和 k8s 版本是有兼容性要求的，因本文档安装的 K8s 是 1.25 且 ingress-nginx 是 1.7.0 所以都使用最新的。但仍然建议确认一下[版本兼容性](https://github.com/kubernetes/ingress-nginx#supported-versions-table)
 
-> 注意：ingress-nginx的镜像可能会访问多个国外网站，如果出现超时你要想个办法怎么访问国外变快（建议开启全局）
+> 注意：ingress-nginx 的镜像可能会访问多个国外网站，如果出现超时你要想个办法怎么访问国外变快（建议开启全局）
 
 ```shell
 helm upgrade --install ingress-nginx ingress-nginx \
@@ -75,7 +75,7 @@ kubectl get pods -n ingress-nginx
 
 ### 安装 Dapr
 
-根据[官方的Helm部署文档](https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-production/)
+根据[官方的 Helm 部署文档](https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-production/)
 
 ```shell
 helm repo add dapr https://dapr.github.io/helm-charts/
@@ -83,7 +83,7 @@ helm repo update
 helm search repo dapr --devel --versions
 ```
 
-此时，根据搜索到的 dapr 版本，你可以根据喜好选择替换`--version`即可（本示例选用 1.10.*）
+此时，根据搜索到的 dapr 版本，你可以根据喜好选择替换 `--version` 即可（本示例选用 1.10.* ）
 
 ```shell
 helm upgrade --install dapr dapr/dapr \
@@ -103,7 +103,7 @@ kubectl get pods --namespace dapr-system
 
 ## 安装 MASA Stack
 
-1. 添加 MASA Stack 的 helm 仓库
+1. 添加 MASA Stack 的 Helm 仓库
 
    ```shell
    helm repo add masastack https://masastack.github.io/helm/
@@ -125,11 +125,11 @@ kubectl get pods --namespace dapr-system
 
 4. 安装 MASA Stack
 
-   > 本文选择 1.0.0-rc1，你可以自行更换版本，修改version即可
+   > 本文选择 1.0.0-rc1，你可以自行更换版本，修改 version 即可
    >
    > 在发布正式版之前必须指定 --version，否则无法找到 stable 版本
 
-   > 生成证书的参数示例（如果你使用正式的证书则可以省略生成证书部分，但安装时secret和domain参数也要相应修改）
+   > 生成证书的参数示例（如果你使用正式的证书则可以省略生成证书部分，但安装时 secretName 和 domain 参数也要相应修改）
    >
    > * Country Name 国家名称：CN
    > * State or Province Name 省份： GuangDong
@@ -173,13 +173,64 @@ kubectl get pods --namespace dapr-system
 
 5. 等待安装
 
-   > 根据网络情况拉取镜像一般需要5-10分钟左右，程序启动和集群配置等操作根据你的机器性能一般在5-10分钟左右
+   > 根据网络情况拉取镜像一般需要 5-10 分钟左右，程序启动和集群配置等操作根据你的机器性能一般在 5-10 分钟左右
    >
    > 这个命令可以试试查看所有 masastack 命名空间下的 pod 的状态，退出可以按 CTRL + C
 
    ```shell
    watch kubectl get pods -n masastack
    ```
+
+6. 修改本地 hosts（可选，如果是正式环境或者可以通过域名解析IP则不需要）
+
+   * 打开 hosts 文件，`C:\Windows\System32\drivers\etc`
+
+   * 修改内容如下
+
+     ```
+     localhost  pm-local.masastack.com
+     localhost  pm-service-local.masastack.com
+     localhost  auth-sso-local.masastack.com
+     localhost  auth-service-local.masastack.com
+     localhost  auth-local.masastack.com
+     localhost  dcc-service-local.masastack.com
+     localhost  dcc-local.masastack.com
+     localhost  alert-service-local.masastack.com
+     localhost  alert-local.masastack.com
+     localhost  mc-service-local.masastack.com
+     localhost  mc-local.masastack.com
+     localhost  tsc-service-local.masastack.com
+     localhost  tsc-local.masastack.com
+     localhost  scheduler-service-local.masastack.com
+     localhost  scheduler-worker-local.masastack.com
+     localhost  scheduler-local.masastack.com
+     ```
+
+     > 自动生成域名规则为 `<app-name><-type><-env><-demo>.<domain-name>`
+     >
+     > 以 MASA PM 为例：
+     >
+     > app-name：pm
+     >
+     > type：pm 分为 web 和 service 两种，默认 web 类型不需要拼入域名，其余type直接拼入域名
+     >
+     > env：可以自定义环境，示例中以local为例子，实际推荐dev/staging/production，此参数可以在安装时修改 global.suffix_identity 进行指定
+     >
+     > domain-name：此参数可以在安装时修改 global.domain 进行指定
+     >
+     > 
+     >
+     > 因此最终MASA PM的域名为两个，分别是：
+     >
+     > pm-local.masastack.com
+     >
+     > pm-service-local.masastack.com
+
+7. 访问 MASA PM，在浏览器内输入网址：https://pm-local.masastack.com
+
+8. 根据文档开始学习 [MASA Stack](https://docs.masastack.com/stack/stack/introduce)
+
+   
 
 
 
@@ -213,3 +264,4 @@ helm uninstall masastack -n masastack
 | middleware-{redis,prometheus,sqlserver,otel,elastic}.service.nodePort | 例如，32200 ；结合type使用，指定需要的端口                   |
 
 >  [更多参数]([helm/values.yaml at main · masastack/helm · GitHub](https://github.com/masastack/helm/blob/main/values.yaml))
+
