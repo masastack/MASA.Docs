@@ -1,4 +1,4 @@
-# 分布式锁 - Madelson
+# 分布式锁 - Medallion
 
 ## 概念
 
