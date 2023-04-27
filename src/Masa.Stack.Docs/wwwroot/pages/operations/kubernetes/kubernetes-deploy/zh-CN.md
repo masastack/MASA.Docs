@@ -311,6 +311,26 @@ kubectl get pods --namespace dapr-system
 
 7. 访问 MASA PM，在浏览器内输入网址：https://pm-local.masastack.com
 
+   > 账号：admin
+   >
+   > 密码：admin123
+
+   因为证书不是授信的源办法的，所以可能会出现下面提示
+
+   <img src="https://cdn.masastack.com/stack/doc/stack/err-cert-authority-invalid.png" alt="image-20230427145621278" style="zoom:50%;" />
+
+   解决办法：点击高级，然后再点击 继续访问 pm-local.masastack.com（不安全）
+
+   
+
+   如果你的浏览器没有提示继续访问，而是直接提示无法访问，因为网站使用的是 HSTS
+
+   那你可以尝试使用隐私模式或者调整浏览器的隐私安全策略
+
+   <img src="https://cdn.masastack.com/stack/doc/stack/err-cert-authority-invalid-hsts.png" alt="image-20230427150809578" style="zoom:50%;" />
+
+   
+
 8. 根据文档开始学习 [MASA Stack](https://docs.masastack.com/stack/stack/introduce)
 
    
