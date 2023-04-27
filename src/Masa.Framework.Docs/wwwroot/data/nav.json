@@ -208,7 +208,7 @@
           "overview",
           "fluent-validation",
           "dependency-injection",
-          "dotnet",
+          "dotnet-extensions",
           "enums",
           "expression"
         ]
