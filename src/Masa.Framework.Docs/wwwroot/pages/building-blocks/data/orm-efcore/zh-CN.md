@@ -117,38 +117,37 @@
 
 新版本的 `MasaDbContext` 支持其<font color=Red>派生类（子类）使用无参数的构造函数</font>，但其派生类必须<font color=Red>重写 OnConfiguring</font>方法，以 **SqlServer** 数据库为例，完整代码如下：
 
-  :::: code-group
-  ::: code-group-item 1. 安装包
+1. 安装 `Masa.Contrib.Data.EFCore.SqlServer`
 
-  ``` shell 终端
-  dotnet add package Masa.Contrib.Data.EFCore.SqlServer
-  ```
-  :::
-  ::: code-group-item 2. 创建 CatalogDbContext
-  ```csharp Infrastructure/CatalogDbContext.cs l:3-6
-  public class CatalogDbContext : MasaDbContext<CatalogDbContext>
-  {
-      protected override void OnConfiguring(MasaDbContextOptionsBuilder optionsBuilder)
-      {
-          optionsBuilder.UseSqlite("Data Source=test.db;");
-      }
-  }
-  ```
-  :::
-  ::: code-group-item 3. 注册 MasaDbContext
-  ```csharp Program.cs l:3
-  var builder = WebApplication.CreateBuilder(args);
-  
-  builder.Services.AddMasaDbContext<CatalogDbContext>();
-  
-  var app = builder.Build();
-  
-  app.Run();
-  ```
-  :::
-  ::::
+   ```shell 终端
+   dotnet add package Masa.Contrib.Data.EFCore.SqlServer
+   ```
 
-虽然`MasaDbContext`支持无参数构造函数创建数据上下文，但我们不推荐使用，原因如下：
+2. 创建 `CatalogDbContext`
+
+   ```csharp Infrastructure/CatalogDbContext.cs l:3-6
+   public class CatalogDbContext : MasaDbContext<CatalogDbContext>
+   {
+       protected override void OnConfiguring(MasaDbContextOptionsBuilder optionsBuilder)
+       {
+           optionsBuilder.UseSqlite("Data Source=test.db;");
+       }
+   }
+   ```
+
+3. 注册 `MasaDbContext`
+
+   ```csharp Program.cs l:3
+   var builder = WebApplication.CreateBuilder(args);
+   
+   builder.Services.AddMasaDbContext<CatalogDbContext>();
+   
+   var app = builder.Build();
+   
+   app.Run();
+   ```
+
+虽然 `MasaDbContext` 支持无参数构造函数创建数据上下文，但我们不推荐使用，原因如下：
 
 1. OnConfiguring 方法中不支持启用软删除等，如果需要使用软删除，除了自定义数据上下文<font Color=Red>需要重载 OnConfiguring</font>，还需要在<font Color=Red>注册MasaDbContext时启用过滤</font>
 
@@ -162,7 +161,7 @@
    app.Run();
    ```
 
-   > 软删除、数据过滤等功能由 `Masa.Contrib.Data.Contracts` 提供，如需使用，请安装 nuget 包
+   > 软删除、数据过滤等功能由 `Masa.Contrib.Data.Contracts` 提供
 
 2. 在集成事件总线、隔离性等组件中需要得到默认数据库连接字符串地址，还需额外配置:
 
@@ -219,6 +218,7 @@ app.Run();
   ```
   :::
   ::: code-group-item 3. 注册 MasaDbContext
+
   ```csharp Program.cs l:3
   var builder = WebApplication.CreateBuilder(args);
   
@@ -445,3 +445,46 @@ app.Run();
   ```
   :::
   ::::
+
+## 友情提示
+
+* 本地配置中，`ConnectionStrings` 仅支持 字符串类型的键值对集合
+
+  正确：
+
+  ```json appsettings.json l:2-5
+  {
+    "ConnectionStrings": {
+      "DefaultConnection": "server=localhost;uid=sa;pwd=P@ssw0rd;database=identity",
+      "ReadConnection": "server=localhost;uid=sa;pwd=P@ssw0rd;database=identity2"
+    }
+  }
+  ```
+
+  <font Color=Red>错误写法：</font>
+
+  ```json appsettings.json l:4-6
+  {
+    "ConnectionStrings": {
+      "DefaultConnection": "server=localhost;uid=sa;pwd=P@ssw0rd;database=identity",
+      "ReadConnection": [
+        "server=localhost;uid=sa;pwd=P@ssw0rd;database=identity2"
+      ]
+    }
+  }
+  ```
+  
+  or
+  
+  ```json appsettings.json l:4-6
+  {
+    "ConnectionStrings": {
+      "DefaultConnection": "server=localhost;uid=sa;pwd=P@ssw0rd;database=identity",
+      "ReadConnection": {
+        "ConnectionString": "server=localhost;uid=sa;pwd=P@ssw0rd;database=identity2"
+      }
+    }
+  }
+  ```
+  
+  

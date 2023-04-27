@@ -1,6 +1,6 @@
-## Prometheus HTTP API 客户端实现
+# 数据 - Prometheus HTTP API
 
-[Prometheus HTTP API](https://prometheus.io/docs/prometheus/latest/querying/api/)的功能实现，目前只支持了用到的部分API，详见[实现功能](#实现功能)。
+基于  [Prometheus HTTP API](https://prometheus.io/docs/prometheus/latest/querying/api/)  的功能实现，目前只支持了用到的部分  `API`，详见[实现功能](#实现功能)。
 
 ## 实现功能
 
@@ -16,36 +16,45 @@
 
 1. 安装包
 
-```csharp
-dotnet add package Masa.Utils.Data.Prometheus
-```
+   ```shell 终端
+   dotnet add package Masa.Utils.Data.Prometheus
+   ```
 
 2. 服务注册
 
-```csharp
-var prometheusUrl = "http://localhost:9090";
-builder.Service.AddPrometheusClient(prometheusUrl);
-```
+   ```csharp l:2
+   var prometheusUrl = "http://localhost:9090";
+   builder.Service.AddPrometheusClient(prometheusUrl);
+   ```
 
-3. 注入服务
+3. 使用 `Prometheus ` 进行查询
 
-```csharp
-public class MyPrometheusQueryService
-{
-    private readonly IMasaPrometheusClient _client;
+   ```csharp l:5,16
+   public class MyPrometheusQueryService
+   {
+       private readonly IMasaPrometheusClient _client;
+      
+       public MyPrometheusQueryService(IMasaPrometheusClient client)
+       {
+           _client = client;
+       }
+   
+       public Task<QueryResultCommonResponse> QueryAsync()
+       {
+           var query = new QueryRequest
+           {
+               Query = "up"
+           };
+           return _client.QueryAsync(query);
+       }
+   }
+   ```
 
-    public MyPrometheusQueryService(IMasaPrometheusClient client)
-    {
-        _client = client;
-    }
-}
-```
-
-4. 查询
+## 其它示例
 
 ### 即时查询
 
-```csharp
+```csharp l:4
 var query = new QueryRequest
 {
     Query = "up"
@@ -53,11 +62,11 @@ var query = new QueryRequest
 var result = await _client.QueryAsync(query);
 ```
 
-所有查询操作中的Time，均支持`DateTime.Now.ToString()` 和 标准`unix`时间戳，例如 `2022-06-17T02:00:00.000Z`、`1670407664`
+> 所有查询操作中的Time，均支持`DateTime.Now.ToString()` 和 标准`unix`时间戳，例如 `2022-06-17T02:00:00.000Z`、`1670407664`
 
 ### 范围查询
 
-```csharp
+```csharp l:4
 var query = new QueryRequest
 {
     Query = "up"
@@ -65,9 +74,9 @@ var query = new QueryRequest
 var result = await _client.QueryAsync(query);
 ```
 
-### series查询
+### series 查询
 
-```csharp
+```csharp l:7
 var query = new MetaDataQueryRequest
 {
     Match = new string[] { "up" },
@@ -77,9 +86,9 @@ var query = new MetaDataQueryRequest
 var result = await _client.QueryRangeAsync(query);
 ```
 
-### label查询
+### label 查询
 
-```csharp
+```csharp l:7
 var query = new MetaDataQueryRequest
 {
     Match = new string[] { "up" },
@@ -89,9 +98,9 @@ var query = new MetaDataQueryRequest
 var result = await _client.LabelsQueryAsync(query);
 ```
 
-### label-values查询
+### label-values 查询
 
-```csharp
+```csharp l:7
 var query = new LableValueQueryRequest
 {
     Lable = "job",
@@ -101,9 +110,9 @@ var query = new LableValueQueryRequest
 var result = await _client.LabelValuesQueryAsync(query);
 ```
 
-### exemplar查询
+### exemplar 查询
 
-```csharp
+```csharp l:7
 var query = new QueryExemplarRequest
 {
     Query = "test_exemplar_metric_total",
@@ -113,11 +122,11 @@ var query = new QueryExemplarRequest
 var result = await _client.ExemplarQueryAsync(query);
 ```
 
-### metric-metadata查询
+### metric-metadata 查询
 
-```csharp
+```csharp l:2
 var query = new MetricMetaQueryRequest();
 var result = await _client.MetricMetaQueryAsync(query);
 ```
 
-返回结果格式请参考[请求结果格式说明](https://prometheus.io/docs/prometheus/latest/querying/api/#format-overview)和[表达式结果格式说明](https://prometheus.io/docs/prometheus/latest/querying/api/#expression-query-result-formats)
+返回结果格式请参考 [请求结果格式说明 ](https://prometheus.io/docs/prometheus/latest/querying/api/#format-overview)和 [表达式结果格式说明](https://prometheus.io/docs/prometheus/latest/querying/api/#expression-query-result-formats)
