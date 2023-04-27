@@ -2,11 +2,11 @@
 
 现代应用是现代技术、体系架构、软件交付实践和操作流程的组合，可以更快、更频繁、更一致、更安全地交付价值，最终让我们聚焦业务，让变化更简单。
 
-![现代应用](https://s2.loli.net/2023/04/04/Zw4gCJIh5j6GA7F.png)
+![现代应用](https://cdn.masastack.com/framework/concepts/modern-application/modern.png)
 
 ## 不现代的应用
 
-![不现代的应用](https://s2.loli.net/2023/04/04/R3uk5Q6fJNPXs4c.png)
+![不现代的应用](https://cdn.masastack.com/framework/concepts/modern-application/not-modern.png)
 
 ## 云原生架构
 
@@ -15,14 +15,14 @@
 * 更轻松地运行弹性和可扩展的应用程序
 * 提高架构的可移植性
 * 对单个组件进行更改，从而降低对整个应用程序的风险
-* K8s管理大规模容器
-* DevOps提高发布速度和运维的可扩展性
+* `K8s` 管理大规模容器
+* `DevOps` 提高发布速度和运维的可扩展性
 
-![云原生](https://s2.loli.net/2022/12/30/QDkz3cfjWq6TE5s.png)
+![云原生](https://cdn.masastack.com/framework/concepts/modern-application/cloud-native.png)
 
 ## 微服务
 
-![微服务.png](https://s2.loli.net/2023/04/04/eVrSW5nQ74XxNUm.png)
+![微服务](https://cdn.masastack.com/framework/concepts/modern-application/microservice.png)
 
 ## 运维
 
