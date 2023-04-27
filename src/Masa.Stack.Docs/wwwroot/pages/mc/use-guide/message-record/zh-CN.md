@@ -5,7 +5,7 @@
 消息记录列表以表格形式展现，支持高级筛选、模糊搜索、分页等功能。
 
 ### 模糊搜索
-   
+
 ![messageRecords](https://cdn.masastack.com/stack/doc/mc/messageRecords.png)
 
 ### 高级搜索
