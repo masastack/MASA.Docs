@@ -31,16 +31,14 @@ builder.Services.AddObservable(builder.Logging, new MasaObservableOptions
 
  ## 验证是否接入成功
 
- 1. 接入了Masa PM,在团队首页，选择项目所在的团队后，首页会出现对应的项目信息，则代表接入成功。
+ 1. 接入 `MASA.Alert`，在团队首页，选择项目所在的团队后，首页会出现对应的项目信息，则代表接入成功。
 
-    ![img]()
+    ![接入成功团队验证图](https://cdn.masastack.com/stack/doc/tsc/best-practices/team-succeed.png)
 
- 2. 没有接入Masa PM，在仪表盘列表，选中 `Service`名称仪表盘，打开后，服务下拉选项搜索对应的应用名称，能够找到对应的数据；
+ 2. 接入 `auth-service-develop`，在仪表盘列表，选中 `Service` 名称仪表盘，打开后，服务下拉选项搜索对应的服务名称，能够找到对应的数据，则代表接入成功。
 
-    ![img]()
+    ![接入成功仪表盘验证图](https://cdn.masastack.com/stack/doc/tsc/best-practices/dashboard-succeed.png)
 
-    追踪页面，服务下拉选项，搜索对应的应用名称，能够找到对应的数据；
+3. 接入 `masa-alert-service-admin`，追踪页面，服务下拉选项，搜索对应的应用名称，能够找到对应的数据，则代表接入成功。
     
-    ![img]()
-
-    则代表接入成功。
+    ![接入成功追踪验证图](https://cdn.masastack.com/stack/doc/tsc/best-practices/trace-succeed.png)
