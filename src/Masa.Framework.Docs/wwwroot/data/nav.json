@@ -108,13 +108,9 @@
         "items": [
           "overview",
           "domain-model",
-          "value-model",
-          "entity",
-          "aggregate-root",
           "repository",
-          "enumeration",
           "domain-service",
-          "domain-event"
+          "faq"
         ]
       },
       {
