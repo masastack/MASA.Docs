@@ -1,4 +1,4 @@
-# 基于K8s部署MASA Stack
+# 基于 K8s 部署 MASA Stack
 
 本文介绍如何部署 MASA Stack，为了方便大家本地体验，在环境准备环节我们会基于 [Docker Desktop](https://www.docker.com/products/docker-desktop/)，它同样适用于生产环境的 K8s
 
@@ -118,7 +118,7 @@ kubectl get pods --namespace dapr-system
    >        valid_lft forever preferred_lft forever
    > ```
    >
-   > 其中ip为 172.20.88.53，以下例子，根据你自己的 ip 替换 hosts 中的即可
+   > 其中 ip 为 172.20.88.53，以下例子，根据你自己的 ip 替换 hosts 中的即可
 
    ```shell
    cat > coredns.yaml <<EOF
