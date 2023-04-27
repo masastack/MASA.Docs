@@ -1,6 +1,6 @@
 # 使用指南 - 渠道管理
 
-渠道管理用于配置不同的消息推送渠道，包括短信、邮箱、站内信、APP等类型。其中短信渠道使用阿里云，APP推送支持个推和极光。
+渠道管理用于配置不同的消息推送渠道，包括短信、邮箱、站内信、`APP` 等类型。其中短信渠道使用阿里云，`APP` 推送支持个推和极光。
 
 ## 渠道列表
 
@@ -21,13 +21,14 @@
 2. 配置渠道信息。
 
    - 渠道名称：渠道的显示名称。
-   - 渠道ID：用于调用SDK发送消息时指定渠道的唯一标识。
+   
+   - 渠道 `ID`：用于调用 `SDK` 发送消息时指定渠道的唯一标识。
 
 不同的渠道类型有不同的配置参数。
 
    * 短信渠道配置
    
-      目前短信发送使用阿里云，需要填写阿里云的AccessKeyId和AccessKeySecret参数。创建短信渠道后，短信模板会自动同步到本地短信模板池中，创建短信模板时  可 以直接选择。
+      目前短信发送使用阿里云，需要填写阿里云的 `AccessKeyId` 和 `AccessKeySecret` 参数。创建短信渠道后，短信模板会自动同步到本地短信模板池中，创建短信模板时可以直接选择。
    
       ![channel-add-sms](https://cdn.masastack.com/stack/doc/mc/channel-add-sms.png)
    
@@ -39,7 +40,7 @@
    
       ![channel-add-websiteMessage](https://cdn.masastack.com/stack/doc/mc/channel-add-websiteMessage.png)
    
-   * APP渠道配置
+   * `APP` 渠道配置
    
       支持个推和极光。
    
