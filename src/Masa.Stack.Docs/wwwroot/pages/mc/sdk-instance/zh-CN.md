@@ -2,7 +2,7 @@
 
 ## 简介
 
-通过注入`IMcClient`接口，调用对应Service获取MC SDK 提供的能力。
+通过注入 `IMcClient` 接口，调用对应Service获取MC SDK 提供的能力。
 
 ## 服务介绍
 
@@ -21,7 +21,7 @@ IMcClient
 
 ### 安装依赖包
 
-``` powershell
+``` shell 终端
 dotnet add package Masa.Contrib.StackSdks.Mc
 ```
 
@@ -83,7 +83,7 @@ public class McController : ControllerBase
 ```
 :::
 
-::: code-group-item 给Auth用户发送模板消息(短信)
+::: code-group-item 给 Auth 用户发送模板消息(短信)
 ```csharp
 using Microsoft.AspNetCore.Mvc;
 using Masa.BuildingBlocks.StackSdks.Mc;
@@ -166,18 +166,18 @@ public class McController : ControllerBase
 
 | **字段** | **描述** |
 | --- | --- |
-| **ChannelCode** | 渠道代码/渠道ID |
+| **ChannelCode** | 渠道代码/渠道 ID |
 | **ChannelType** | 渠道类型（`Sms`：短信，`Email`：邮箱，`WebsiteMessage`：站内信，`App`：应用程序） |
 | **ReceiverType** | 发送类型（`Assign`：指定，`Broadcast`：广播） |
 | **MessageInfo.Title** | 消息标题 |
 | **MessageInfo.Content** | 消息内容 |
-| **Receivers[].ChannelUserIdentity** | ChannelType为`Email`时填邮箱地址，ChannelType为`Sms`时填手机号（具体内容通过`ChannelType`决定） |
-| **Receivers[].SubjectId** | 用户Id（具体内容通过`MessageTaskReceiverTypes`决定） |
+| **Receivers[].ChannelUserIdentity** | ChannelType 为`Email`时填邮箱地址，ChannelType 为`Sms`时填手机号（具体内容通过`ChannelType`决定） |
+| **Receivers[].SubjectId** | 用户Id（具体内容通过 `MessageTaskReceiverTypes` 决定） |
 | **Receivers[].MessageTaskReceiverTypes** | 接收人类型（`User`：用户，`Organization`：组织架构，`Role`：角色，`Team`：团队，`Group`：收件人组） |
 
-### SignalR发送检查
+### SignalR 发送检查
 
-广播模式下通过SignalR发送检查通知，客户端接收后需要主动调用SDK的检查方法才会生成当前用户的站内信数据
+广播模式下通过 SignalR 发送检查通知，客户端接收后需要主动调用SDK的检查方法才会生成当前用户的站内信数据
 
 ```csharp
  HubConnection = new HubConnectionBuilder()
@@ -205,9 +205,9 @@ HubConnection?.On(SignalRMethodConsts.CHECK_NOTIFICATION, async () =>
 });
 ```
 
-### App消息推送
+### App 消息推送
 
-用户绑定Cid
+用户绑定 Cid
 
 ```csharp
  [RoutePattern(HttpMethod = "Post")]
@@ -223,7 +223,7 @@ HubConnection?.On(SignalRMethodConsts.CHECK_NOTIFICATION, async () =>
  }
 ```
 
-向用户推送app消息
+向用户推送 app 消息
 
 ```csharp
 app.MapGet("/SendAppMessage", async ([FromServices] IMcClient mcClient) =>

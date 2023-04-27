@@ -6,12 +6,12 @@
 
 ### 模糊搜索
    
-   ![messageRecords](https://cdn.masastack.com/stack/doc/mc/messageRecords.png)
+![messageRecords](https://cdn.masastack.com/stack/doc/mc/messageRecords.png)
 
 ### 高级搜索
 
-   ![messageRecords-advanced-search](https://cdn.masastack.com/stack/doc/mc/messageRecords-advanced-search.png)
+![messageRecords-advanced-search](https://cdn.masastack.com/stack/doc/mc/messageRecords-advanced-search.png)
 
 ### 查看记录
 
-   ![messageRecord-details](https://cdn.masastack.com/stack/doc/mc/messageRecord-details.png)
+![messageRecord-details](https://cdn.masastack.com/stack/doc/mc/messageRecord-details.png)
