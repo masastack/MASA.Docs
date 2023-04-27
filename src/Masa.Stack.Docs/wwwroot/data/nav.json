@@ -121,19 +121,19 @@
     "icon": "mdi-bookmark",
     "items": [
       "introduce",
-      "basic-concepts",
       {
         "title": "use-guide",
         "items": [
-          "get-started",
-          "log",
-          "metric"
+          "basic-concepts",
+          "monitoring",
+          "error-query",
+          "trouble-shooting"
         ]
       },
+      "api",
       "sdk-instance",
       "best-practices",
-      "faq",
-      "related-agreements"
+      "faq"
     ]
   },
   {
