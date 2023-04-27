@@ -209,6 +209,101 @@ public class JWTConfig
    }
    ```
 
+### 通过 IConfigurationApiClient 获取配置
+
+我们也可以通过 `IConfigurationApiClient` 对象获取配置，以及监听配置变更。并且该对象除了能够获取当前应用的配置，也可以获取其它集群环境应用的配置信息。
+
+1. 获取当前应用的配置
+
+   ```cshapr
+   [Route("api/[controller]")]
+   [ApiController]
+   public class HomeController : ControllerBase
+   {
+       private readonly IConfigurationApiClient _configurationApiClient;
+   
+       public HomeController(IConfigurationApiClient configurationApiClient)
+       {
+           _configurationApiClient = configurationApiClient;
+       }
+   
+       [HttpGet]
+       public async Task<AppConfig> GetAppConfig()
+       {
+           return await _configurationApiClient.GetAsync<AppConfig>("AppConfig", newvalue =>
+           {
+               Console.WriteLine("值发生了改变");
+           });
+       }
+   }
+   ```
+   
+2. 获取其它集群环境应用的配置
+
+   ```cshapr
+   [Route("api/[controller]")]
+   [ApiController]
+   public class HomeController : ControllerBase
+   {
+       private readonly IConfigurationApiClient _configurationApiClient;
+   
+       public HomeController(IConfigurationApiClient configurationApiClient)
+       {
+           _configurationApiClient = configurationApiClient;
+       }
+   
+       [HttpGet]
+       public async Task<AppConfig> GetAppConfig()
+       {
+           return await _configurationApiClient.GetAsync<AppConfig>("enviroment", "cluster", "appId", "AppConfig", newvalue =>
+           {
+               Console.WriteLine("值发生了改变");
+           });
+       }
+   }
+   ```
+
+### 使用 IConfigurationApiManage 管理配置
+
+当你需要在当前应用修改和更新某个配置的时候，你可以使用 `IConfigurationApiManage` 对象进行管理，如下：
+
+```csharp
+[Route("api/[controller]")]
+[ApiController]
+public class ConfigurationApiManageController : ControllerBase
+{
+    private readonly IConfigurationApiManage _configurationApiManage;
+
+    public ConfigurationApiManageController(IConfigurationApiManage configurationApiManage)
+    {
+        _configurationApiManage = configurationApiManage;
+    }
+
+    [HttpPost]
+    public async Task AddConfiguration()
+    {
+        var configObjectDic = new Dictionary<string, object> { };
+        configObjectDic[nameof(AppConfig)] = new AppConfig
+        {
+            JWTConfig = new JWTConfig { Audience = "MASAStack.com" },
+            PositionTypes = new List<string> { "MASA Stack" }
+        };
+        await _configurationApiManage.AddAsync("development enviroment", "default cluster", "application id", configObjectDic);
+    }
+
+    [HttpPut]
+    public async Task UpdateConfiguration()
+    {
+        var configObject = new AppConfig
+        {
+            JWTConfig = new JWTConfig { Audience = "MASAStack.com" },
+            PositionTypes = new List<string> { "MASA Stack" }
+        };
+        await _configurationApiManage.UpdateAsync("development enviroment", "default cluster", "application id", nameof(AppConfig), configObject);
+    }
+}
+```
+
 ## 原理剖析
 
 ### 同步更新配置

@@ -13,27 +13,6 @@
   * [Masa.Contrib.Configuration.ConfigurationApi.Dcc](/framework/building-blocks/configuration/dcc): 对接分布式配置中心 [MASA DCC](/stack/dcc/introduce)，从而实现配置集中管理。
   * 更多……（敬请期待）
 
-### 本地配置
-
-如果希望获取本地配置节点, 则可通过以下三种方式获取
-
-* 由DI获取`IConfiguration`的示例`configuration`后, 通过`configuration.GetSection("Local")`获取本地配置
-* 由DI获取`IMasaConfiguration`的示例`masaConfiguration`后, 通过`masaConfiguration.Local`获取本地配置
-* 通过选项模式获取配置信息
-
-### 远程配置
-
-如果希望获取远程配置节点, 则可通过以下四种方式获取
-
-* 由DI获取`IConfiguration`的示例`configuration`后, 通过`configuration.GetSection("ConfigurationApi")`获取远程配置
-* 由DI获取`IMasaConfiguration`的示例`masaConfiguration`后, 通过`masaConfiguration.ConfigurationApi`获取远程配置
-* 通过选项模式获取配置信息
-* 由DI获取`IConfigurationApiClient`的示例`configurationApiClient`后, 通过其提供的方法获取指定配置
-
-### 管理远程配置
-
-由DI获取到`IConfigurationApiManage`, 支持新增、更新配置
-
 ## 源码解读
 
 ### 结构调整
