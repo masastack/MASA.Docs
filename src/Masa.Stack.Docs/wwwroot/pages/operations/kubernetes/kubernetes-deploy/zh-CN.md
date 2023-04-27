@@ -107,18 +107,15 @@ kubectl get pods --namespace dapr-system
 
 1. 本地测试需修改 coredns 解析（可选）
 
-   > 先执行命令 `ip a`，找到 eth0 的 ip，如：
+   > 先执行命令 `kubectl get svc -n ingress-nginx`，找到  CLUSTER-IP 的地址，如：
    >
    > ```
-   > 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
-   >     link/ether 00:15:5d:81:d5:f0 brd ff:ff:ff:ff:ff:ff
-   >     inet 172.20.88.53/20 brd 172.20.95.255 scope global eth0
-   >        valid_lft forever preferred_lft forever
-   >     inet6 fe80::215:5dff:fe81:d5f0/64 scope link
-   >        valid_lft forever preferred_lft forever
+   > NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+   > ingress-nginx-controller             LoadBalancer   10.102.212.224   localhost     80:30269/TCP,443:31696/TCP   19m
+   > ingress-nginx-controller-admission   ClusterIP      10.97.224.233    <none>        443/TCP
    > ```
    >
-   > 其中 ip 为 172.20.88.53，以下例子，根据你自己的 ip 替换 hosts 中的即可
+   > 其中 ip 为 10.102.212.224，以下例子，根据你自己的 ip 替换 hosts 中的即可
 
    ```shell
    cat > coredns.yaml <<EOF
