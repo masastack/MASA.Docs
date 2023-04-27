@@ -32,7 +32,7 @@
    :::
    ::: code-group-item appsettings.json
 
-   ```json appsettings.json
+   ```json appsettings.json l:2-9
    {
      "AppConfig": {
        "PositionTypes": [ "Low", "Medium", "Hight" ],
@@ -74,63 +74,41 @@
 
 ### 选项模式
 
-本地配置也是基于 `Microsoft.Extensions.Configuration` 来实现的，所以它也支持 [.NET Core的 Options 模式](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/options)
+本地配置也是基于 .NET Core 的 `Microsoft.Extensions.Configuration` 来实现的，所以它也支持 [.NET Core的 Options 模式](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/options)
 
 > 支持选项模式后, 我们可以通过`IOptions<TModel>`、`IOptionsMonitor<TModel>`、`IOptionsSnapshot<TModel>` 获取配置信息
 
+#### 自动映射指定 Section 
 
-### 手动映射
+自动映射配置默认是通过类名称和属性名称跟本地配置项的名称匹配。如果当我们的配置节点和属性名称不一致时，那么可以重写父类的 `Section` 属性，如下所示：
 
-MASA Framework 的配置默认是通过类名称和属性名称去配置文件中进行匹配，当我们的配置节点和属性名称不一致时，那么可以手动指定映射的配置节点。手动指定配置有以下两种方式：
-* 通过重写配置类中的 Section 属性指定映射
-* `AddMasaConfiguration` 的时候指定映射
+```csharp AppConfig.cs l:3
+public class AppConfig : LocalMasaConfigurationOptions
+{
+    public override string? Section => "App";
+    
+    public List<string> PositionTypes { get; set; }
 
-   :::: code-group
-   ::: code-group-item 重写Section属性指定映射
-   ```csharp AppConfig.cs l:3
-   public class AppConfig : LocalMasaConfigurationOptions
-   {
-       public override string? Section => "App";
-       
-       public List<string> PositionTypes { get; set; }
-   
-       public JWTConfig JWTConfig { get; set; }
-   }
-   
-   public class JWTConfig
-   {
-       public string Issuer { get; set; }
-       public string SecretKey { get; set; }
-       public string Audience { get; set; }
-   }
-   ```
-   :::
-   ::: code-group-item AddMasaConfiguration指定映射
-   ```csharp Program.cs
-   builder.Services.AddMasaConfiguration(configureBuilder =>
-   {
-       configureBuilder.UseMasaOptions(options =>
-       {
-           options.MappingLocal<AppConfig>("App");
-       });
-   });
-   ```
-   :::
-   ::::
+    public JWTConfig JWTConfig { get; set; }
+}
 
-### 通过 Configuration 获取配置
+public class JWTConfig
+{
+    public string Issuer { get; set; }
+    public string SecretKey { get; set; }
+    public string Audience { get; set; }
+}
+```
 
-当然我们的配置也可以通过使用 [IConfiguration](https://learn.microsoft.com/en-us/dotnet/core/extensions/configuration) 或 `IMasaConfiguration` 获取配置。我们更加推荐你使用 `IMasaConfiguration` 去获取配置
+#### 手动映射
 
-首先我们先添加一个配置类，并在配置文件中配置它
+当我们系统中某些类无法继承 `LocalMasaConfigurationOptions` 类时，那么可以手动指定映射的配置节点。
 
 :::: code-group
 ::: code-group-item AppConfig.cs
 ```csharp AppConfig.cs
-public class AppConfig : LocalMasaConfigurationOptions
+public class AppConfig
 {
-    public override string? Section => "App";
-
     public List<string> PositionTypes { get; set; }
 
     public JWTConfig JWTConfig { get; set; }
@@ -144,6 +122,26 @@ public class JWTConfig
 }
 ```
 :::
+::: code-group-item 手动添加映射
+```csharp Program.cs l:3-6
+builder.Services.AddMasaConfiguration(configureBuilder =>
+{
+    configureBuilder.UseMasaOptions(options =>
+    {
+        options.MappingLocal<AppConfig>("App");
+    });
+});
+```
+:::
+::::
+
+### 通过 Configuration 获取配置
+
+当然我们的配置也可以通过使用 [IConfiguration](https://learn.microsoft.com/en-us/dotnet/core/extensions/configuration) 或 `IMasaConfiguration` 获取配置。我们更加推荐你使用 `IMasaConfiguration` 去获取配置
+
+首先我们先在配置文件中新增一个配置
+
+:::: code-group
 ::: code-group-item appsettings.json
 ```json appsettings.json
 {
@@ -157,6 +155,11 @@ public class JWTConfig
   }
 }
 
+```
+:::
+::: code-group-item 注册MasaConfiguration
+```csharp
+builder.Services.AddMasaConfiguration(new List<Assembly>{ typeof(Program).Assembly });
 ```
 :::
 ::::
@@ -185,7 +188,7 @@ public class JWTConfig
 
 2. 使用 `IConfiguration` 获取配置值
 
-   > 特此说明：通过 IConfiguration 获取配置需要再配置值前面增加 Local 节点，如获取App节点值，则需要 Configuration[Local:App]。这个获取方式会在 **1.0** 正式版本中调整
+   > 特此说明：如果使用了AddMasaConfiguration，通过 IConfiguration 获取配置需要再配置值前面增加 Local 节点。如获取 App 节点值，则需要 Configuration[Local:App]。这个获取方式会在 **1.0** 正式版本中调整
 
    ```csharp l:15
    [Route("api/[controller]")]
