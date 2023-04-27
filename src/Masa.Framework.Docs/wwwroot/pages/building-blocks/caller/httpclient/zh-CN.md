@@ -635,3 +635,23 @@ builder.Services.AddCaller(clientBuilder =>
        }
    }
    ```
+
+## 常见问题
+
+* 继承`HttpClientCallerBase`的实现类支持从DI获取, 如果你需要获取来自DI的服务，可通过构造函数注入所需服务
+* 继承`HttpClientCallerBase`的实现类的生命周期为: `Scoped`
+* 如果`自定义Caller` (继承HttpClientCallerBase的类)与`AddAutoRegistrationCaller`方法不在一个程序集, 可能会出现自动注册自定义Caller失败的情况, 可通过下面提供的任一方案解决:
+
+① 指定Assembly集合 (仅对当前Caller有效)
+```csharp
+var assemblies = typeof({Replace-With-Your-CustomCaller}).Assembly;
+builder.Services.AddAutoRegistrationCaller(assemblies);
+```
+
+② 设置全局Assembly集合 (影响全局Assembly默认配置, 设置错误的Assembly集合会导致其它使用全局Assembly的服务出现错误)
+
+```csharp
+var assemblies = typeof({Replace-With-Your-CustomCaller}).Assembly;
+MasaApp.SetAssemblies(assemblies);
+builder.Services.AddAutoRegistrationCaller();
+```
