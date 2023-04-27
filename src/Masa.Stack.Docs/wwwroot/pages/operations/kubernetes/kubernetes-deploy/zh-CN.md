@@ -265,25 +265,25 @@ kubectl get pods --namespace dapr-system
      >  valid_lft forever preferred_lft forever
      > ```
      >
-     > 其中ip为 10.102.212.224，以下例子，根据你自己的 ip 替换 hosts 中的即可
+     > 其中ip为 172.20.88.53，以下例子，根据你自己的 ip 替换 hosts 中的即可
 
      ```
-     10.102.212.224  pm-local.masastack.com
-     10.102.212.224  pm-service-local.masastack.com
-     10.102.212.224  auth-sso-local.masastack.com
-     10.102.212.224  auth-service-local.masastack.com
-     10.102.212.224  auth-local.masastack.com
-     10.102.212.224  dcc-service-local.masastack.com
-     10.102.212.224  dcc-local.masastack.com
-     10.102.212.224  alert-service-local.masastack.com
-     10.102.212.224  alert-local.masastack.com
-     10.102.212.224  mc-service-local.masastack.com
-     10.102.212.224  mc-local.masastack.com
-     10.102.212.224  tsc-service-local.masastack.com
-     10.102.212.224  tsc-local.masastack.com
-     10.102.212.224  scheduler-service-local.masastack.com
-     10.102.212.224  scheduler-worker-local.masastack.com
-     10.102.212.224  scheduler-local.masastack.com
+     172.20.88.53  pm-local.masastack.com
+     172.20.88.53  pm-service-local.masastack.com
+     172.20.88.53  auth-sso-local.masastack.com
+     172.20.88.53  auth-service-local.masastack.com
+     172.20.88.53  auth-local.masastack.com
+     172.20.88.53  dcc-service-local.masastack.com
+     172.20.88.53  dcc-local.masastack.com
+     172.20.88.53  alert-service-local.masastack.com
+     172.20.88.53  alert-local.masastack.com
+     172.20.88.53  mc-service-local.masastack.com
+     172.20.88.53  mc-local.masastack.com
+     172.20.88.53  tsc-service-local.masastack.com
+     172.20.88.53  tsc-local.masastack.com
+     172.20.88.53  scheduler-service-local.masastack.com
+     172.20.88.53  scheduler-worker-local.masastack.com
+     172.20.88.53  scheduler-local.masastack.com
      ```
 
      > 自动生成域名规则为 `<app-name><-type><-env><-demo>.<domain-name>`
