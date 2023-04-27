@@ -124,22 +124,22 @@ kubectl get pods --namespace dapr-system
      Corefile: |
        .:53 {
            hosts {
-               172.20.88.53  pm-local.masastack.com
-               172.20.88.53  pm-service-local.masastack.com
-               172.20.88.53  auth-sso-local.masastack.com
-               172.20.88.53  auth-service-local.masastack.com
-               172.20.88.53  auth-local.masastack.com
-               172.20.88.53  dcc-service-local.masastack.com
-               172.20.88.53  dcc-local.masastack.com
-               172.20.88.53  alert-service-local.masastack.com
-               172.20.88.53  alert-local.masastack.com
-               172.20.88.53  mc-service-local.masastack.com
-               172.20.88.53  mc-local.masastack.com
-               172.20.88.53  tsc-service-local.masastack.com
-               172.20.88.53  tsc-local.masastack.com
-               172.20.88.53  scheduler-service-local.masastack.com
-               172.20.88.53  scheduler-worker-local.masastack.com
-               172.20.88.53  scheduler-local.masastack.com
+               10.102.212.224  pm-local.masastack.com
+               10.102.212.224  pm-service-local.masastack.com
+               10.102.212.224  auth-sso-local.masastack.com
+               10.102.212.224  auth-service-local.masastack.com
+               10.102.212.224  auth-local.masastack.com
+               10.102.212.224  dcc-service-local.masastack.com
+               10.102.212.224  dcc-local.masastack.com
+               10.102.212.224  alert-service-local.masastack.com
+               10.102.212.224  alert-local.masastack.com
+               10.102.212.224  mc-service-local.masastack.com
+               10.102.212.224  mc-local.masastack.com
+               10.102.212.224  tsc-service-local.masastack.com
+               10.102.212.224  tsc-local.masastack.com
+               10.102.212.224  scheduler-service-local.masastack.com
+               10.102.212.224  scheduler-worker-local.masastack.com
+               10.102.212.224  scheduler-local.masastack.com
            fallthrough
            }
            errors
@@ -258,32 +258,32 @@ kubectl get pods --namespace dapr-system
      >
      > ```
      > 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
-     >     link/ether 00:15:5d:81:d5:f0 brd ff:ff:ff:ff:ff:ff
-     >     inet 172.20.88.53/20 brd 172.20.95.255 scope global eth0
-     >        valid_lft forever preferred_lft forever
-     >     inet6 fe80::215:5dff:fe81:d5f0/64 scope link
-     >        valid_lft forever preferred_lft forever
+     > link/ether 00:15:5d:81:d5:f0 brd ff:ff:ff:ff:ff:ff
+     > inet 172.20.88.53/20 brd 172.20.95.255 scope global eth0
+     >  valid_lft forever preferred_lft forever
+     > inet6 fe80::215:5dff:fe81:d5f0/64 scope link
+     >  valid_lft forever preferred_lft forever
      > ```
      >
-     > 其中ip为 172.20.88.53，以下例子，根据你自己的 ip 替换 hosts 中的即可
+     > 其中ip为 10.102.212.224，以下例子，根据你自己的 ip 替换 hosts 中的即可
 
      ```
-     172.20.88.53  pm-local.masastack.com
-     172.20.88.53  pm-service-local.masastack.com
-     172.20.88.53  auth-sso-local.masastack.com
-     172.20.88.53  auth-service-local.masastack.com
-     172.20.88.53  auth-local.masastack.com
-     172.20.88.53  dcc-service-local.masastack.com
-     172.20.88.53  dcc-local.masastack.com
-     172.20.88.53  alert-service-local.masastack.com
-     172.20.88.53  alert-local.masastack.com
-     172.20.88.53  mc-service-local.masastack.com
-     172.20.88.53  mc-local.masastack.com
-     172.20.88.53  tsc-service-local.masastack.com
-     172.20.88.53  tsc-local.masastack.com
-     172.20.88.53  scheduler-service-local.masastack.com
-     172.20.88.53  scheduler-worker-local.masastack.com
-     172.20.88.53  scheduler-local.masastack.com
+     10.102.212.224  pm-local.masastack.com
+     10.102.212.224  pm-service-local.masastack.com
+     10.102.212.224  auth-sso-local.masastack.com
+     10.102.212.224  auth-service-local.masastack.com
+     10.102.212.224  auth-local.masastack.com
+     10.102.212.224  dcc-service-local.masastack.com
+     10.102.212.224  dcc-local.masastack.com
+     10.102.212.224  alert-service-local.masastack.com
+     10.102.212.224  alert-local.masastack.com
+     10.102.212.224  mc-service-local.masastack.com
+     10.102.212.224  mc-local.masastack.com
+     10.102.212.224  tsc-service-local.masastack.com
+     10.102.212.224  tsc-local.masastack.com
+     10.102.212.224  scheduler-service-local.masastack.com
+     10.102.212.224  scheduler-worker-local.masastack.com
+     10.102.212.224  scheduler-local.masastack.com
      ```
 
      > 自动生成域名规则为 `<app-name><-type><-env><-demo>.<domain-name>`
@@ -306,7 +306,7 @@ kubectl get pods --namespace dapr-system
      >
      > pm-service-local.masastack.com
 
-7. 访问 MASA PM，在浏览器内输入网址：https://pm-local.masastack.com
+8. 访问 MASA PM，在浏览器内输入网址：https://pm-local.masastack.com
 
    > 账号：admin
    >
@@ -328,7 +328,7 @@ kubectl get pods --namespace dapr-system
 
    
 
-8. 根据文档开始学习 [MASA Stack](https://docs.masastack.com/stack/stack/introduce)
+9. 根据文档开始学习 [MASA Stack](https://docs.masastack.com/stack/stack/introduce)
 
    
 
@@ -364,4 +364,3 @@ helm uninstall masastack -n masastack
 | `middleware-{redis,prometheus,sqlserver,otel,elastic}.service.nodePort` | 例如，32200 ；结合type使用，指定需要的端口                   |
 
 >  [更多参数](https://github.com/masastack/helm/blob/main/values.yaml)
-
