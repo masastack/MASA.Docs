@@ -21,12 +21,12 @@ IConfiguration
 
 ```shell 终端
 dotnet add package Masa.Contrib.Configuration //MasaConfiguration的核心
-dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由Dcc提供远程配置的能力
+dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由 DCC 提供远程配置的能力
 ```
 
 ### 入门
 
-1. 配置 `Dcc` 所需参数（远程能力）
+1. 配置 `DCC` 所需参数（远程能力）
 
    ```json appsettings.json
    {
@@ -59,7 +59,7 @@ dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由Dcc提�
    
    ```
 
-2. 注册 `MasaConfiguration`，并使用 `Dcc`，修改 `Program.cs`
+2. 注册 `MasaConfiguration`，并使用 `DCC`
 
    ```csharp Program.cs
    builder.AddMasaConfiguration(configurationBuilder =>
@@ -132,11 +132,11 @@ dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由Dcc提�
    }
    ```
 
-2. 注册 `MasaConfiguration`，并使用 `Dcc`，修改 `Program.cs`
+2. 注册 `MasaConfiguration`，并使用 `DCC`
 
    :::: code-group
    ::: code-group-item 无需手动映射
-   ```csharp
+   ```csharp Program
    builder.Services.AddMasaConfiguration(configurationBuilder =>
    {
        configurationBuilder.UseDcc();
@@ -191,13 +191,13 @@ dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由Dcc提�
 
 ### 3. 总结
 
-`Dcc` 为 `IConfiguration` 提供了远程配置的管理以及查看能力，完整的能力请查看[文档](https://docs.masastack.com/framework/building-blocks/configuration/overview)
+`DCC` 为 `IConfiguration` 提供了远程配置的管理以及查看能力，完整的能力请查看[文档](https://docs.masastack.com/framework/building-blocks/configuration/overview)
 
 此处Redis为远程配置，介绍的是远程配置挂载到 `IConfiguration` 之后的效果以及用法，此配置与`MASA.Contrib.Configuration` 中 `Redis` 的毫无关系，仅仅是展示同一个配置信息在两个源的使用方式以及映射节点关系的差别
 
 ### 4. 标签管理用例
 
-通过 `DCC SDK` 的 `DccClient` 获取 `Dcc` 的相关数据（标签）
+通过 `DCC SDK` 的 `DccClient` 获取 `DCC` 的相关数据（标签）
 
 ```csharp
 IDccClient
@@ -210,9 +210,9 @@ IDccClient
    dotnet add package Masa.Contrib.StackSdks.Dcc
    ```
 
-2. 注册 `MasaConfiguration` ，并使用 `Dcc` ，修改 `Program.cs`
+2. 注册 `MasaConfiguration`，并使用 `DCC`
 
-   ```csharp
+   ```csharp Program.cs
    builder.Services.AddDccClient();
    ```
 
