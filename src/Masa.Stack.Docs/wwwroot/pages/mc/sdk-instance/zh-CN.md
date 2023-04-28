@@ -118,7 +118,7 @@ app.Run();
 ```
 :::
 
-::: code-group-item 给用户推送 `APP` 消息
+::: code-group-item 给用户发送 `APP` 消息
 ```csharp
 var app = builder.Build();
 
