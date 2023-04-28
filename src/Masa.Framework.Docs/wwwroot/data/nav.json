@@ -59,7 +59,8 @@
         "items": [
           "overview",
           "httpclient",
-          "daprclient"
+          "daprclient",
+          "faq"
         ]
       },
       {
