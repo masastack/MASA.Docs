@@ -8,15 +8,15 @@
 
 ## 最佳实践
 
-* [阿里云](/framework/building-blocks/storage/aliyun-oss): 数据存储在[阿里云Oss](https://www.aliyun.com/product/oss)
+* [阿里云](/framework/building-blocks/storage/aliyun-oss): 数据存储在 [阿里云 OSS](https://www.aliyun.com/product/oss)
 
-后续将逐步提供更多的云存储平台支持，如果您有喜欢的其它云存储平台，欢迎提[建议](/framework/contribution/overview#section-95ee9898)，或者自己实现它并为Masa框架做出[贡献](/framework/contribution/overview)
+后续将逐步提供更多的云存储平台支持，如果您有喜欢的其它云存储平台，欢迎提 [建议](/framework/contribution/overview#section-95ee9898)，或者自己实现它并为 MASA Framework 框架做出 [贡献](/framework/contribution/overview)
 
 ## 能力介绍
 
-|  提供者   | Sts  |  Token  | 获取文件流 | 获取指定区域文件流 | 上传文件 | 检测文件是否存在 | 删除文件 | 批量删除文件 |
-| :----| :----: |:----: |:----: |:----: |:----: |:----: |:----: |:----: |
-| [阿里云Oss](/framework/contribs/support-storage/oss)  | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 提供者                                                | Sts  |  Token  | 获取文件流 | 获取指定区域文件流 | 上传文件 | 检测文件是否存在 | 删除文件 | 批量删除文件 |
+|:---------------------------------------------------| :----: |:----: |:----: |:----: |:----: |:----: |:----: |:----: |
+| [阿里云 OSS](/framework/contribs/support-storage/oss) | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 ## 源码解读
 

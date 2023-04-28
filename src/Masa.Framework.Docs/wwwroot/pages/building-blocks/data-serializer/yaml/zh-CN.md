@@ -1,6 +1,6 @@
 ﻿# 数据序列化 - Yaml
 
-## 概念
+## 概述
 
 基于 [YamlDotNet](https://github.com/aaubry/YamlDotNet) 实现的序列化与反序列化程序
 

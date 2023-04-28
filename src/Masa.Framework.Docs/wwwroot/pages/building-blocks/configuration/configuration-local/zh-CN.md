@@ -50,7 +50,7 @@ Console.WriteLine(options.Value.ConnectionStrings.DefaultConnection);
 
 ## 配置
 
-MasaConfiguration默认支持选项模式, 本地配置可以通过继承`LocalMasaConfigurationOptions`来实现自动映射, 例如:
+MasaConfiguration默认支持选项模式，本地配置可以通过继承`LocalMasaConfigurationOptions`来实现自动映射，例如:
 
 ```csharp
 public class AppConfig : LocalMasaConfigurationOptions

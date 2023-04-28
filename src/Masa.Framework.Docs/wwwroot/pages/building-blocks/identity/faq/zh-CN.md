@@ -6,8 +6,8 @@
 
    Q: 以 `Yaml` 为例：
 
-   ```csharp Program.cs
+   ```csharp Program.cs l:2-3
    var services = new ServiceCollection();
-   services.AddYaml();
-   services.AddMasaIdentity(DataType.Yml.ToString());
+   services.AddSerialization(nameof(DataType.Yml), builder => builder.UseYaml());
+   services.AddMasaIdentity(nameof(DataType.Yml));
    ```

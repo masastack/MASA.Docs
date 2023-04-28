@@ -1,6 +1,6 @@
 # 领域驱动设计 - 领域模型
 
-## 概念
+## 概述
 
 在软件开发中，对特定业务领域进行抽象和建模的过程。它描述了一个系统中涉及的实体、属性、关系以及相互作用，以及它们之间的行为和规则。 通过构建领域模型，可以更好地理解业务需求，并将其转换为可执行的代码。
 
@@ -20,7 +20,7 @@
 
   > 实体可以随时间跟踪信息，而值对象更像是一个时间点的快照
 
-实体需要继承 `Entity`
+实体需要继承 `Entity`，例如：
 
 ```csharp l:1
 public class OperateLog : FullEntity<Guid, int>
@@ -41,7 +41,7 @@ public class OperateLog : FullEntity<Guid, int>
 
 是一组相关对象的集合，作为一个整体被外界访问，聚合根具有全局标识，在全局中它是唯一的
 
-聚合根类需要继承  `AggregateRoot`，例如：
+聚合根类需要继承 `AggregateRoot`，例如：
 
 ```csharp Domain/Catalog/Aggregates/CatalogItem.cs l:7,35
 using Masa.BuildingBlocks.Data;
@@ -138,7 +138,7 @@ private void AddCatalogDomainIntegrationEvent()
 
 * 易于调试：使用枚举类型可以提高代码的可调试性，因为它允许您在代码中打印枚举常量的名称，而不是数字或其他表示形式。
 
-枚举类需要继承 `Enumeration`
+枚举类需要继承 `Enumeration`，例如：
 
 ```csharp l:1
 public class CatalogType: Enumeration

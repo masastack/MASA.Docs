@@ -26,7 +26,7 @@
 
    ```csharp
    var json = @"{
-     ""WorkflowName"": ""UserInputWorkflow"",// 非必填
+     ""WorkflowName"": ""UserInputWorkflow"",// optional
      ""Rules"": [
        {
          ""RuleName"": ""CheckAge"",

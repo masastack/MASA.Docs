@@ -1,6 +1,8 @@
 # LDAP - Novell
 
-基于 [Novell.Directory.Ldap.NETStandard](https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard) 的实现, 适用于任何 LDAP 协议兼容的目录服务器 (包括 Microsoft Active Directory)
+## 概述
+
+基于 [Novell.Directory.Ldap.NETStandard](https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard) 的实现，适用于任何 LDAP 协议兼容的目录服务器 (包括 Microsoft Active Directory)
 
 ## 使用
 

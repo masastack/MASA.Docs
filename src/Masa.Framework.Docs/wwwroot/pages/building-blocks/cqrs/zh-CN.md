@@ -1,6 +1,6 @@
 # 读写分离
 
-## 概念
+## 概述
 
 [CQRS](https://learn.microsoft.com/zh-cn/azure/architecture/patterns/cqrs)是一种与领域驱动设计和事件溯源相关的架构模式，它将事件（Event）划分为 命令端（Command）和 查询端（Query）
 
@@ -12,7 +12,7 @@
 
 ![image-20230428110923203](https://cdn.masastack.com/framework/framework/building-blocks/cqrs.png)
 
-通过 `MASA Framework` 提供的[事件总线](/framework/building-blocks/dispatcher/overview)，我们可以很轻松的实现 `CQRS` 模式。根据业务需求，我们可以创建并维护读模型，将读操作和写操作进行分离，从而提高应用程序的可扩展性和性能。
+通过 `MASA Framework` 提供的 [事件总线](/framework/building-blocks/dispatcher/overview)，我们可以很轻松的实现 `CQRS` 模式。根据业务需求，我们可以创建并维护读模型，将读操作和写操作进行分离，从而提高应用程序的可扩展性和性能。
 
 ## 使用
 

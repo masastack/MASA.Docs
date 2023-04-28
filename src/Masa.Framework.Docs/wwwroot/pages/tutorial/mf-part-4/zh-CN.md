@@ -9,7 +9,7 @@
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Exceptions`
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Exceptions -v 1.0.0-preview.29
+   dotnet add package Masa.Contrib.Exceptions -v 1.0.0-rc.1
    ```
 
 2. 使用[全局异常](/framework/building-blocks/exception)
@@ -31,7 +31,7 @@
 3. 通过 Swagger 测试，以创建商品为例
 
    <div>
-     <img alt="Create Product" src="https://s2.loli.net/2023/04/11/S18vjEtYpFJXPzd.png"/>
+     <img alt="Create Product" src="https://cdn.masastack.com/framework/tutorial/mf-part-4/swagger.png"/>
    </div>
 
 

@@ -1,6 +1,6 @@
 # 数据映射 - Mapster
 
-## 概念
+## 概述
 
 基于 [Mapster](https://github.com/MapsterMapper/Mapster) 的一个对象到对象的映射器，在原来的基础上增加自动获取并使用最佳构造函数映射，支持嵌套映射，减轻映射的工作量。
 

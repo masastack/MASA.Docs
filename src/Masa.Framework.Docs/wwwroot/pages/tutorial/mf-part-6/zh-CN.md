@@ -9,8 +9,8 @@
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Ddd.Domain`、`Masa.Contrib.Ddd.Domain.Repository.EFCore`、`Masa.Contrib.Data.UoW.EFCore`、`Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore`、`Masa.Contrib.Dispatcher.IntegrationEvents.Dapr`
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Ddd.Domain -v 1.0.0-preview.29
-   dotnet add package Masa.Contrib.Ddd.Domain.Repository.EFCore -v 1.0.0-preview.29
+   dotnet add package Masa.Contrib.Ddd.Domain -v 1.0.0-rc.1
+   dotnet add package Masa.Contrib.Ddd.Domain.Repository.EFCore -v 1.0.0-rc.1
    ```
    
 2. 注册[领域事件](/framework/building-blocks/ddd/domain-event)、[仓储](/framework/building-blocks/ddd/repository)、工作单元

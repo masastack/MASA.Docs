@@ -1,4 +1,4 @@
-## 概念
+## 概述
 
 我们可观测性基于[OpenTelemetry](https://opentelemetry.io/docs/)的接入，使用标准的OTLPExporter，[Logs](https://opentelemetry.io/docs/concepts/observability-primer/#logs)和[Traces](https://opentelemetry.io/docs/concepts/observability-primer/#distributed-traces)的持久化采用[Elasticsearch](https://www.elastic.co/cn/elasticsearch/)，[Metrics](https://opentelemetry.io/docs/concepts/observability-primer/#reliability--metrics)持久化采用[Prometheus](https://prometheus.io/)。
 

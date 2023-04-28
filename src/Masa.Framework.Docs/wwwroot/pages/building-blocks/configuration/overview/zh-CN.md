@@ -1,6 +1,6 @@
-## 概念
+## 概述
 
-基于键值的配置系统, 可以被用于任何类型的应用程序, 基于`Microsoft.Extensions.Configuration`, 但与默认配置不同的是, 我们将配置分为`Local`、`ConfigurationApi`两种, 其中配置的提供者有:
+基于键值的配置系统，可以被用于任何类型的应用程序，基于`Microsoft.Extensions.Configuration`, 但与默认配置不同的是, 我们将配置分为`Local`、`ConfigurationApi`两种, 其中配置的提供者有:
 
 * Local: 本地配置
   * [Masa.Contrib.Configuration](http://nuget.org/packages/Masa.Contrib.Configuration): 提供本地配置以及存储本地、远程配置信息的能力 [查看详细](/building-blocks/framework/configuration/local)

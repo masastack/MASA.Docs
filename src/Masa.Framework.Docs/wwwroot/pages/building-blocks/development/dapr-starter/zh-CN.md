@@ -9,28 +9,39 @@
 * [`Masa.Contrib.Development.DaprStarter`](https://nuget.org/packages/Masa.Contrib.Development.DaprStarter)：`Dapr Starter` 核心功能库，包含 `dapr sidecar` 的启动、停止等操作
 * [`Masa.Contrib.Development.DaprStarter.AspNetCore`](https://nuget.org/packages/Masa.Contrib.Development.DaprStarter.AspNetCore): 为 `Asp.Net Core` 的 Web 程序提供一站式方案，项目启动时会自动启动 `dapr sidecar`
 
-## 必要条件
 
-* [安装Dapr-Cli](https://docs.dapr.io/zh-hans/getting-started/install-dapr-cli/) 并初始化 [Dapr](https://docs.dapr.io/zh-hans/getting-started/install-dapr-selfhost/)
-
-  安装 `Masa.Contrib.Development.DaprStarter.AspNetCore`
-
-  ```shell 终端
-  dotnet add package Masa.Contrib.Development.DaprStarter.AspNetCore
-  ```
 
 ## 使用
 
-以下三种写法任选其一，未配置的必须参数会根据约定自动生成
+1. [安装 Dapr-Cli](https://docs.dapr.io/zh-hans/getting-started/install-dapr-cli/) 并初始化 [Dapr](https://docs.dapr.io/zh-hans/getting-started/install-dapr-selfhost/)
 
-一、 默认装配 (根据约定获取配置启动)
+2. 安装  `Masa.Contrib.Development.DaprStarter.AspNetCore`
+
+   ```shell 终端
+   dotnet add package Masa.Contrib.Development.DaprStarter.AspNetCore
+   ```
+
+3. 启动 `DaprStarter`
+
+   ```csharp Program.cs l:2
+   var builder = WebApplication.CreateBuilder(args);
+   builder.Services.AddDaprStarter();
+   ```
+
+## 高阶用法
+
+### 启动DaprStarter
+
+`Dapr Starter` 启动可支持配置，对于未配置的必须参数会根据约定自动生成
+
+#### 默认装配
 
 ```csharp Program.cs l:2
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDaprStarter();
 ```
 
-二、 代码指定配置 + 约定
+#### 代码指定配置 + 约定
 
 ```csharp Program.cs l:2-6
 var builder = WebApplication.CreateBuilder(args);
@@ -42,7 +53,7 @@ builder.Services.AddDaprStarter(opt =>
 });
 ```
 
-三、 配置文件 + 约定
+#### 配置文件 + 约定
 
 :::: code-group
 ::: code-group-item appsettings.json
@@ -58,6 +69,7 @@ builder.Services.AddDaprStarter(opt =>
   }
 }
 ```
+
 :::
 ::: code-group-item 注册DaprStarter
 
@@ -65,14 +77,11 @@ builder.Services.AddDaprStarter(opt =>
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDaprStarter();
 ```
+
 :::
 ::::
 
 > 优势：更改 `appsettings.json` 配置后，`dapr sidecar` 会自动更新，项目无需重启
-
-
-
-## 高阶用法
 
 除上述三种方法以外，还支持 [`选项模式`](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/options)，Dapr Starter的数据源是 `IOptionsMonitor<DaprOptions>`，借助 [`MasaConfiguration`](/framework/building-blocks/configuration)，我们也可以将 Dapr Starter的配置存储到远程配置中心，但这个是没有太大必要的，它只是开发环境下用来运行 dapr sidecar 的
 
@@ -87,7 +96,7 @@ builder.Services.AddDaprStarter();
 为更方便我们在项目中使用 `Dapr Sidecar`，我们约定：
 
 1. `dapr appid` 生成规则：`AppId + AppIdDelimiter + AppIdSuffix`
-    
+   
     1. AppId: 项目名.Replace(".", "-")
     2. AppIdDelimiter：-
     3. AppIdSuffix：当前机器网卡地址 (默认)
@@ -119,7 +128,7 @@ builder.Services.AddDaprStarter();
 
 默认装配不会在项目启动时立即启动 `Dapr Sidecar`，会延迟启动，因此使用默认装配启动的应用程序，请不要在后台任务中直接使用 `DaprClient`，或者改为延迟获取 `DaprClient` ，确保获取 `DaprClient` 在 `Dapr Sidecar` 启动之后（`DaprStarter` 会协助补全 `DaprHttpPort`、`DaprGrpcPort` 端口信息，如果获取 `DaprClient` 实例在 `DaprStarter` 启动之前，那造成的结果是获取到错误的端口配置，`HttpPort`: 3500，`GRpcPort`: 50001。 最后导致使用 `dapr` 的功能出错）
 
-如果需要在后台任务中使用 `DaprClient`，我们建议不要使用**延迟启动 **`Dapr Sidecar`，并至少为 `AppPort` 赋值，确保开发的正常运行。
+如果需要在后台任务中使用 `DaprClient`，我们建议不要使用 **延迟启动 **`Dapr Sidecar`，并至少为 `AppPort` 赋值，确保开发的正常运行。
 
 ```
 builder.Services.AddDaprStarter(opt =>

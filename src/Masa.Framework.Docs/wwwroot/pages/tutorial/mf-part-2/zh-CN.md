@@ -9,13 +9,13 @@
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Data.EFCore.Sqlite` 、`Masa.Contrib.Data.Contracts`
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Data.EFCore.Sqlite -v 1.0.0-preview.29
-   dotnet add package Masa.Contrib.Data.Contracts -v 1.0.0-preview.29
+   dotnet add package Masa.Contrib.Data.EFCore.Sqlite -v 1.0.0-rc.1
+   dotnet add package Masa.Contrib.Data.Contracts -v 1.0.0-rc.1
    ```
 
    > **Masa.Contrib.Data.Contracts** 提供了软删除、数据过滤的功能
 
-2. 新增**商品品牌**、**商品类型**、**商品信息**模型:
+2. 新增 **商品品牌**、**商品类型**、**商品信息**模型:
 
    :::: code-group
      ::: code-group-item CatalogBrand

@@ -1,4 +1,4 @@
-## 概念
+## 概述
 
 基于HttpClient实现的Caller
 
@@ -14,7 +14,7 @@ dotnet add package Masa.Contrib.Service.Caller.HttpClient
 
 使用`Caller`并使用指定实现的`Caller`
 
-1. 注册`Caller`并使用基于`HttpClient`的Caller实现, 修改`Program`
+1. 注册`Caller`并使用基于`HttpClient`的Caller实现，修改`Program`
 
 ```csharp
 builder.Services.AddCaller("{Replace-With-Your-Name}", options =>
