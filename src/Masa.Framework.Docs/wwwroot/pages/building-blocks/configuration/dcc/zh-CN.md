@@ -412,7 +412,7 @@ public class ConfigurationApiManageController : ControllerBase
    }
    ```
 
-5. 新建`ConfigurationApiMasaConfigurationOptions`类，并继承`MasaConfigurationOptions`
+5. 新建 `ConfigurationApiMasaConfigurationOptions` 类，并继承 `MasaConfigurationOptions`
    
    不同的配置中心中存储配置的名称是不一样的，在 `Apollo` 中配置对象名称叫做命名空间，因此为了方便开发人员可以使用起来更方便，我们建议不同的配置中心可以有自己专属的属性，以此来降低开发人员的学习成本
 
