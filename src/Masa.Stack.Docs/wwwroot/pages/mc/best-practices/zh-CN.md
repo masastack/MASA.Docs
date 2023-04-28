@@ -14,4 +14,4 @@
    
 2. 创建消息模板。请参考[使用指南-消息模板](stack/mc/use-guide/send-message)
    
-3. `SDK` 调用。请参考[SDK 示例](stack/mc/sdk-instance)
+3. `SDK` 调用。请参考 [SDK 示例](stack/mc/sdk-instance)

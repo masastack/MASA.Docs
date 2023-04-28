@@ -22,6 +22,6 @@ A：请参考[使用指南-发送消息](stack/mc/use-guide/send-message)。同�
 
 ## Q：调用 `SDK` 发送站内信广播消息，并没有生成用户的站内信数据？
 
-A：广播模式下通过 `SignalR` 发送检查通知，客户端接收后需要主动调用 `SDK` 的检查方法才会生成当前用户的站内信数据。请参考[SDK 示例](stack/mc/sdk-instance)。
+A：广播模式下通过 `SignalR` 发送检查通知，客户端接收后需要主动调用 `SDK` 的检查方法才会生成当前用户的站内信数据。请参考 [SDK 示例](stack/mc/sdk-instance)。
 
 我们会持续收集更多的 FAQ。
