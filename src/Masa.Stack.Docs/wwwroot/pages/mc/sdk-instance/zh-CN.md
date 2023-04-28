@@ -25,7 +25,7 @@ IMcClient
 dotnet add package Masa.Contrib.StackSdks.Mc
 ```
 
-### 注册 `MC` 服务
+### 注册 MC 服务
 
 ```csharp Program.cs
 builder.Services.AddMcClient("http://mcservice.com");
