@@ -3,17 +3,17 @@
 ### 什么是分布式配置中心？
 
 答：
-1.	有后台界面提供修改配置；
-2.	配置服务有相关安全保证功能；
-3.	支持不同环境配置；
-4.	有完备的配置与管理权限；
-5.	应用程序配置简单快捷；
+1. 有后台界面供我们修改配置
+2. 配置服务如果挂了有相关的容灾逻辑
+3. 支持不同环境下的配置信息（我们线上的配置一般是分不同的环境配置不同的值）
+4. 相关权限管理（只有负责人才能对配置进行update）
+5. 简单易用（有对应的SDK支持或api支持）
  
 ![introduce](http://cdn.masastack.com/stack/doc/dcc/introduce.png)
 
 ### 什么是MASA DCC？
 
- MASA DCC是MASA Stack1.0推出的分布式配置中心，在整个MASA Stack产品中担任所有系统以及部分全局综合配置的功能。
+ MASA DCC 是 MASA Stack 1.0推出的分布式配置中心，在整个 MASA Stack 产品中担任所有系统以及部分全局综合配置的功能。
 单独配置后台:
 
 ![introduce-2](http://cdn.masastack.com/stack/doc/dcc/introduce-2.png) 
