@@ -45,7 +45,7 @@
    
    app.MapGet("/", (IMultiTenantContext multiTenantContext) =>
    {
-       return multiTenantContext.CurrentTenant?.Id ?? "空";
+       return multiTenantContext.CurrentTenant?.Id ?? "Empty";
    });
    
    app.Run();

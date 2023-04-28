@@ -2,7 +2,7 @@
 
 ## 概述
 
-是一种软件体系结构，其中<font Color=Red> 单个软件实例 </font>可以 <font Color=Red>为多个租户提供服务 </font>。租户可以自定义应用程序的某个部分，例如用户界面或业务规则的颜色，但他们无法自定义应用程序的代码。查看在维基百科中的[定义](https://zh.wikipedia.org/wiki/Multitenancy)
+是一种软件体系结构，其中<font Color=Red> 单个软件实例 </font>可以 <font Color=Red>为多个租户提供服务 </font>。租户可以自定义应用程序的某个部分，例如用户界面或业务规则的颜色，但他们无法自定义应用程序的代码。查看在维基百科中的 [定义](https://zh.wikipedia.org/wiki/Multitenancy)
 
 ## 使用
 
@@ -43,7 +43,7 @@
    
    app.MapGet("/", (IMultiTenantContext multiTenantContext) =>
    {
-       return multiTenantContext.CurrentTenant?.Id ?? "空";
+       return multiTenantContext.CurrentTenant?.Id ?? "Empty";
    });
    
    app.Run();
@@ -215,7 +215,7 @@ app.Run();
 
 * ConnectionStrings：Db连接字符串配置 (节点名与组件有关，比如使用 **分布式 Redis 缓存**时，此节点名默认为： **RedisConfig**，支持修改节点名)
 
-* TenantId：支持具体租户 `ID` 或者*，不使用多租户时可删除此节点
+* TenantId：支持具体租户 `ID` 或者 `*`，不使用多租户时可删除此节点
 
   * 当其值为*时，代表无论租户 `ID` 是多少，当前数据都满足
 

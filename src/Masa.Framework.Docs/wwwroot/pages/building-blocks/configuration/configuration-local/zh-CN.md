@@ -1,6 +1,6 @@
-## 介绍
+# 配置 - 本地配置
 
-基于 `Microsoft.Extensions.Configuration` 的基础上进行了优化，不需要手动 `Configure<xxxOptions>`。
+基于 `Microsoft.Extensions.Configuration` 的基础上进行了优化，不需要手动 `Configure<XXXOptions>`。
 
 ## 使用
 
@@ -74,9 +74,9 @@
 
 ### 选项模式
 
-本地配置也是基于 .NET Core 的 `Microsoft.Extensions.Configuration` 来实现的，所以它也支持 [.NET Core的 Options 模式](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/options)
+本地配置也是基于 `.NET Core` 的 `Microsoft.Extensions.Configuration` 来实现的，所以它也支持 [.NET Core的 Options 模式](https://learn.microsoft.com/zh-cn/dotnet/core/extensions/options)
 
-> 支持选项模式后, 我们可以通过`IOptions<TModel>`、`IOptionsMonitor<TModel>`、`IOptionsSnapshot<TModel>` 获取配置信息
+> 支持选项模式后，我们可以通过`IOptions<TModel>`、`IOptionsMonitor<TModel>`、`IOptionsSnapshot<TModel>` 获取配置信息
 
 #### 自动映射指定 Section 
 

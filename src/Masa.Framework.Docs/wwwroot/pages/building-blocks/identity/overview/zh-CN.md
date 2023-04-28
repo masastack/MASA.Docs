@@ -19,28 +19,28 @@
 获取当前用户信息
 
 * IsAuthenticated：获取当前用户是否认证
-* UserId：获取用户Id
+* UserId：获取用户 ID
 * UserName：获取用户名称
-* GetUserId：获取指定类型的用户Id
-* GetUser：获取基础的用户信息 (用户id、用户名称、用户权限集合)
+* GetUserId：获取指定类型的用户 ID
+* GetUser：获取基础的用户信息 (用户 ID、用户名称、用户权限集合)
 * GetUserRoles：获得指定类型的用户权限集合
 
 #### IMultiTenantUserContext
 
 获取多租户用户信息，继承`IUserContext`
 
-* TenantId：获取当前租户id
-* GetTenantId：获取指定类型的租户id
+* TenantId：获取当前租户 ID
+* GetTenantId：获取指定类型的租户 ID
 
 #### IMultiEnvironmentUserContext
 
-获取多环境用户信息，继承`IUserContext`
+获取多环境用户信息，继承 `IUserContext`
 
 * Environment：获得当前环境
 
 #### IIsolatedUserContext
 
-获取多租户用户信息以及环境信息，继承IMultiTenantUserContext、IMultiEnvironmentUserContext
+获取多租户用户信息以及环境信息，继承 `IMultiTenantUserContext`、`IMultiEnvironmentUserContext`
 
 ### 设置用户信息
 
