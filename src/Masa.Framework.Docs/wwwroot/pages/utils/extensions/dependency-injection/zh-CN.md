@@ -138,7 +138,7 @@ public class ServiceBase: IScopedDependency
 
 #### 依赖标记 Dependency
 
-被用于标记服务仅支持被注册一次，例如:
+被用于标记服务仅支持被注册一次，例如：
 
 ```csharp
 [Dependency(TryRegister = true)]
@@ -148,7 +148,7 @@ public class UserService: IScopedDependency
 }
 ```
 
-`Dependency`有两个参数:
+`Dependency`有两个参数：
 
 * TryRegister：尝试注册到 `DI`，如果服务已经被注册，则不再进行注册（默认：`false`，服务支持注册多个实现）
     * 设置 `true` 则仅当服务未注册时才会被注册，类似 `IServiceCollection` 的 `TryAdd` ... 扩展方法

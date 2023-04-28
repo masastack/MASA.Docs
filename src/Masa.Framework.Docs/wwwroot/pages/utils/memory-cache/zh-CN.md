@@ -2,7 +2,7 @@
 
 ## 概述
 
-[`Masa.Utils.Caching.Memory`](https://www.nuget.org/packages/Masa.Utils.Caching.Memory/) 与 [`Microsoft.Extensions.Caching.Memory`](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) 没有任何关系，[`Masa.Utils.Caching.Memory`](https://www.nuget.org/packages/Masa.Utils.Caching.Memory/) 提供的缓存的生命周期取决于使用者，它提供了线程安全的字典集合，在使用方式上与 [`ConcurrentDictionary`](https://learn.microsoft.com/zh-cn/dotnet/api/system.collections.concurrent.concurrentdictionary-2) 类似，但它接受委托的方法也是支持线程安全的
+`Masa.Utils.Caching.Memory` 与 `Microsoft.Extensions.Caching.Memory` 没有任何关系，`Masa.Utils.Caching.Memory` 提供的缓存的生命周期取决于使用者，它提供了线程安全的字典集合，在使用方式上与 [`ConcurrentDictionary`](https://learn.microsoft.com/zh-cn/dotnet/api/system.collections.concurrent.concurrentdictionary-2) 类似，但它接受委托的方法也是支持线程安全的
 
 ## 使用
 
