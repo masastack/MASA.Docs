@@ -4,38 +4,48 @@
     "items": [
       "overview",
       "observability",
-      "modern-application",
-      {
-        "title": "faq",
-        "items": [
-          "load-event"
-        ]
-      }
+      "modern-application"
     ]
   },
   {
     "title": "getting-started",
     "items": [
       "overview",
-      {
-        "title": "web-project",
-        "items": [
-          "overview",
-          "mf-part-1",
-          "mf-part-2",
-          "mf-part-3",
-          "mf-part-4",
-          "mf-part-5",
-          "mf-part-6",
-          "mf-part-7",
-          "mf-part-8"
-        ]
-      }
+      "web-project"
+    ]
+  },
+  {
+    "title": "tutorial",
+    "items": [
+      "overview",
+      "mf-part-1",
+      "mf-part-2",
+      "mf-part-3",
+      "mf-part-4",
+      "mf-part-5",
+      "mf-part-6"
     ]
   },
   {
     "title": "building-blocks",
     "items": [
+      {
+        "title": "auto-complete",
+        "items": [
+          "overview",
+          "elasticsearch",
+          "faq"
+        ]
+      },
+      {
+        "title": "background-jobs",
+        "items": [
+          "overview",
+          "memory",
+          "hangfire",
+          "faq"
+        ]
+      },
       {
         "title": "caching",
         "items": [
@@ -67,7 +77,8 @@
           "overview",
           "orm-efcore",
           "data-filter",
-          "connection-strings"
+          "connection-strings",
+          "faq"
         ]
       },
       {
@@ -75,6 +86,14 @@
         "items": [
           "overview",
           "mapster"
+        ]
+      },
+      {
+        "title": "data-serializer",
+        "items": [
+          "overview",
+          "json",
+          "yaml"
         ]
       },
       {
@@ -89,13 +108,9 @@
         "items": [
           "overview",
           "domain-model",
-          "value-model",
-          "entity",
-          "aggregate-root",
           "repository",
-          "enumeration",
           "domain-service",
-          "domain-event"
+          "faq"
         ]
       },
       {
@@ -103,7 +118,8 @@
         "items": [
           "overview",
           "local-event",
-          "integration-event"
+          "integration-event",
+          "faq"
         ]
       },
       {
@@ -128,24 +144,45 @@
         "title": "identity",
         "items": [
           "overview",
-          "web",
+          "aspnetcore",
           "blazor-server",
-          "blazor-wasm"
+          "blazor-wasm",
+          "faq"
         ]
       },
       {
-        "title": "openId-connect",
+        "title": "id-generator",
         "items": [
-          "overview"
+          "overview",
+          "normal-guid",
+          "sequential-guid",
+          "snowflake"
         ]
       },
+      {
+        "title": "isolation",
+        "items": [
+          "overview",
+          "multi-environment",
+          "multi-tenant",
+          "faq"
+        ]
+      },
+      "openId-connect",
       "minimal-apis",
+      {
+        "title": "rules-engine",
+        "items": [
+          "overview",
+          "microsoft-rules-engine"
+        ]
+      },
       "stack-sdks",
       {
         "title": "storage",
         "items": [
           "overview",
-          "oss"
+          "aliyun-oss"
         ]
       }
     ]
@@ -167,7 +204,7 @@
           "overview",
           "fluent-validation",
           "dependency-injection",
-          "dotnet",
+          "dotnet-extensions",
           "enums",
           "expression"
         ]
@@ -199,8 +236,7 @@
   {
     "title": "contribution",
     "items": [
-      "issues",
-      "pr",
+      "overview",
       "recommend"
     ]
   }

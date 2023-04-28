@@ -2,27 +2,11 @@
 
 现代应用是现代技术、体系架构、软件交付实践和操作流程的组合，可以更快、更频繁、更一致、更安全地交付价值，最终让我们聚焦业务，让变化更简单。
 
-![现代应用](https://s2.loli.net/2022/12/30/rPpJLhO9CGt6Q1V.png)
+![现代应用](https://cdn.masastack.com/framework/concepts/modern-application/modern.png)
 
 ## 不现代的应用
 
-* 本地存储
-  * 断开连接的
-  * 不可扩展的
-* 不用源代码控制 & 不使用CI/CD
-  * 有味道的软件生命周期
-* 非响应式
-  * 不同设备兼容性低
-* 不可观测
-  * 无法快速排查故障
-  * 无法自动缓存故障影响
-* 没有弹性/无法管理
-  * 运维不友好
-  * 资源无法合理分配
-* 不安全
-  * 信息泄露
-  * 清晰被网络攻击击溃
-* K8s中运行单体
+![不现代的应用](https://cdn.masastack.com/framework/concepts/modern-application/not-modern.png)
 
 ## 云原生架构
 
@@ -31,42 +15,14 @@
 * 更轻松地运行弹性和可扩展的应用程序
 * 提高架构的可移植性
 * 对单个组件进行更改，从而降低对整个应用程序的风险
-* K8s管理大规模容器
-* DevOps提高发布速度和运维的可扩展性
+* `K8s` 管理大规模容器
+* `DevOps` 提高发布速度和运维的可扩展性
 
-![云原生](https://s2.loli.net/2022/12/30/QDkz3cfjWq6TE5s.png)
+![云原生](https://cdn.masastack.com/framework/concepts/modern-application/cloud-native.png)
 
 ## 微服务
 
-### 特征
-
-* 按照领域划分服务
-* 自主开发，独立部署
-* 使用标准通信协议与其他服务通信
-* 组合在一起形成一个应用
-
-### 优势
-
-* 敏捷开发
-  * 服务自治
-  * 独立缩放
-
-### 挑战
-
-* 通信
-* 弹性
-* 分布式数据
-* 秘钥
-
-### 如何解决
-
-* Dapr
-  * 解决通信
-  * 解决分布式数据
-  * 解决秘钥
-* K8s
-  * 解决弹性
-  * 解决秘钥
+![微服务](https://cdn.masastack.com/framework/concepts/modern-application/microservice.png)
 
 ## 运维
 
