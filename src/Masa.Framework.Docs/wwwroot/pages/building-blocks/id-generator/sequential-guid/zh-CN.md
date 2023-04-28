@@ -21,7 +21,7 @@
    builder.Services.AddSequentialGuidGenerator();
    ```
 
-3. 使用 `GUID` 生成器生成**有序的 ID**
+3. 使用 `GUID` 生成器生成 **有序的 ID**
 
    :::: code-group
    ::: code-group-item 通过 ID 生成器工厂创建（静态）

@@ -43,13 +43,13 @@
 4. 读取和存储数据
 
    ```csharp 
-   IClientRepository clientRepository;//从DI获取
-   await _clientRepository.AddAsync(client);//添加客户端数据
-   await _clientRepository.GetDetailAsync(clientId);//获取客户端数据
-   IUserClaimRepository userClaim;//从DI获取
-   await userClaim.AddStandardUserClaimsAsync();//批量创建标准规范的用户申明数据
-   IIdentityResourceRepository identityResourcerepository;//从DI获取
-   await identityResourcerepository.AddStandardIdentityResourcesAsync();//批量创建标准规范的身份资源数据
+   IClientRepository clientRepository;//Get from DI
+   await _clientRepository.AddAsync(client);//Add client data
+   await _clientRepository.GetDetailAsync(clientId);//Get client data
+   IUserClaimRepository userClaim;//Get from DI
+   await userClaim.AddStandardUserClaimsAsync();//Batch create standard specification user declaration data
+   IIdentityResourceRepository identityResourcerepository;//Get from DI
+   await identityResourcerepository.AddStandardIdentityResourcesAsync();//Create standard and standardized identity resource data in batches
    ```
 
    > Masa.Contrib.Authentication.OpenIdConnect.EFCore 提供了`IClientRepository`、`IIdentityResourceRepository`、`IApiResourceRepository`、`IApiScopeRepository`、`IUserClaimRepository`来维护OIDC的基础数据
@@ -73,7 +73,7 @@
 
    > `AddOidcCache()` 默认使用本地 `RedisConfig` 节点的配置，详情参考 [多级缓存](/framework/building-blocks/caching)。使用者可使用重载方法传入自定义的 `redisOption`。
 
-### 使用多级缓存读取OIDC基础数据
+### 使用多级缓存读取 OIDC 基础数据
 
 1. 安装 `Masa.Contrib.Authentication.OpenIdConnect.Cache.Storage`
 
@@ -92,7 +92,7 @@
 3. 读取数据
 
    ```csharp 
-   IMasaOidcClientStore _masaOidcClientStore;//get from DI
+   IMasaOidcClientStore _masaOidcClientStore;//Get from DI
    await _masaOidcClientStore.FindClientByIdAsync(clientId);//Get client data
    await _masaOidcResourceStore.GetAllResourcesAsync();//Get all resource data
    ```

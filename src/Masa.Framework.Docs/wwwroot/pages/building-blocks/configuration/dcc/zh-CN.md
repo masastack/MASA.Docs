@@ -18,7 +18,7 @@
    ::: code-group-item appsettings.json
    ``` json appsettings.json
    {
-     //Dcc配置，扩展Configuration能力，支持远程配置（新增）
+     //Dcc configuration, extended Configuration capabilities, support for remote configuration (new)
      "DccOptions": {
        "ManageServiceAddress ": "http://localhost:8890",
        "RedisOptions": {
@@ -34,8 +34,8 @@
      },
      "AppId": "Dcc's Application Id",
      "Environment": "Development",
-     "ConfigObjects": [ "Platforms" ], //待挂载的配置对象名
-     "Secret": "", //Dcc AppId的秘钥，为更新远程配置提供许可
+     "ConfigObjects": [ "Platforms" ], //The name of the configuration object to be mounted
+     "Secret": "", //The secret key of Dcc AppId, which provides permission for updating remote configuration
      "Cluster": "Default"
    }
    ```
@@ -76,30 +76,30 @@
 5. 在构造函数中注入 `IOptions<AppConfig>` 对象获取`AppConfig`配置信息
 
    ```csharp
-      [Route("api/[controller]")]
-      [ApiController]
-      public class HomeController : ControllerBase
-      {
-          private readonly IOptions<AppConfig> _positionTypeOptions;
-      
-          public HomeController(IOptions<AppConfig> positionTypeOptions)
-          {
-              _positionTypeOptions = positionTypeOptions;
-          }
-      
-          [HttpGet]
-          public AppConfig GetStrings()
-          {
-              return _positionTypeOptions.Value;
-          }
-      }
+   [Route("api/[controller]")]
+   [ApiController]
+   public class HomeController : ControllerBase
+   {
+       private readonly IOptions<AppConfig> _positionTypeOptions;
+   
+       public HomeController(IOptions<AppConfig> positionTypeOptions)
+       {
+           _positionTypeOptions = positionTypeOptions;
+       }
+   
+       [HttpGet]
+       public AppConfig GetStrings()
+       {
+           return _positionTypeOptions.Value;
+       }
+   }
    ```
 
 ## 高阶用法
 
 ### 自动映射指定 Section 
 
-MASA DCC 配置默认是通过类名称和属性名称去跟远程配置项的名称进行匹配。如果当我们的配置节点和属性名称不一致时，那么可以通过重写父类的 `Section` 属性来实现自动映射，如下所示：
+`MASA DCC` 配置默认是通过类名称和属性名称去跟远程配置项的名称进行匹配。如果当我们的配置节点和属性名称不一致时，那么可以通过重写父类的 `Section` 属性来实现自动映射，如下所示：
 
 ```csharp AppConfig.cs l:3
 public class AppConfig : DccConfigurationOptions
@@ -242,7 +242,7 @@ builder.Services.AddMasaConfiguration(configureBuilder => configureBuilder.UseDc
 
 1. 获取当前应用的配置
 
-   ```cshapr
+   ```csharp
    [Route("api/[controller]")]
    [ApiController]
    public class HomeController : ControllerBase
@@ -264,7 +264,7 @@ builder.Services.AddMasaConfiguration(configureBuilder => configureBuilder.UseDc
    
 2. 获取其它集群环境应用的配置
 
-   ```cshapr
+   ```csharp
    [Route("api/[controller]")]
    [ApiController]
    public class HomeController : ControllerBase
@@ -325,10 +325,142 @@ public class ConfigurationApiManageController : ControllerBase
 }
 ```
 
+## 扩展
+
+如何支持其它配置中心，以 `Apollo` 为例：
+
+1. 新建类库 `Masa.Contrib.Configuration.ConfigurationApi.Apollo`
+2. 新建 `ApolloConfigurationRepository` 并继承类 `AbstractConfigurationRepository`
+
+   ```csharp
+   internal class ApolloConfigurationRepository : AbstractConfigurationRepository
+   {
+       private readonly IConfigurationApiClient _client;
+       public override SectionTypes SectionType => SectionTypes.ConfigurationAPI;
+   
+       public DccConfigurationRepository(
+           IConfigurationApiClient client,
+           ILoggerFactory loggerFactory)
+           : base(loggerFactory)
+       {
+           _client = client;
+           
+           //todo: Use IConfigurationApiClient to obtain configuration information that needs to be mounted to remote nodes and monitor configuration changes
+           // Fired when configuration changes FireRepositoryChange(SectionType, Load());
+       }
+   
+       public override Properties Load()
+       {
+           //todo: 返回当前挂载到远程节点的配置信息
+       }
+   }
+   ```
+
+3. 新建类 `ConfigurationApiClient`，为 `ConfigurationApi` 提供获取基础配置的能力
+
+   ```csharp
+   public class ConfigurationApiClient : IConfigurationApiClient
+   {
+       public Task<(string Raw, ConfigurationTypes ConfigurationType)> GetRawAsync(string configObject, Action<string>? valueChanged = null)
+       {
+           throw new NotImplementedException();
+       }
+   
+       public Task<(string Raw, ConfigurationTypes ConfigurationType)> GetRawAsync(string environment, string cluster, string appId, string configObject, Action<string>? valueChanged = null)
+       {
+           throw new NotImplementedException();
+       }
+   
+       public Task<T> GetAsync<T>(string configObject, Action<T>? valueChanged = null);
+       {
+           throw new NotImplementedException();
+       }  
+       public Task<T> GetAsync<T>(string environment, string cluster, string appId, string configObject, Action<T>? valueChanged = null);
+       {
+           throw new NotImplementedException();
+       }  
+       public Task<dynamic> GetDynamicAsync(string environment, string cluster, string appId, string configObject, Action<dynamic> valueChanged)
+       {
+           throw new NotImplementedException();
+       }
+   
+       public Task<dynamic> GetDynamicAsync(string key)
+       {
+           throw new NotImplementedException();
+       }
+   }
+   ```
+
+4. 新建类 `ConfigurationApiManage`，为 `ConfigurationApi` 提供管理配置的能力
+
+   ```csharp
+   public class ConfigurationApiManage : IConfigurationApiManage
+   {
+       // Initialize the remote configuration under the AppId through the management terminal
+       public Task InitializeAsync(string environment, string cluster, string appId, Dictionary<string, string> configObjects)
+       {
+           throw new NotImplementedException();
+       }
+   
+       // Update the information of the specified configuration through the management terminal
+       public Task UpdateAsync(string environment, string cluster, string appId, string configObject, object value)
+       {
+           throw new NotImplementedException();
+       }
+   }
+   ```
+
+5. 新建`ConfigurationApiMasaConfigurationOptions`类，并继承`MasaConfigurationOptions`
+   
+   不同的配置中心中存储配置的名称是不一样的，在 `Apollo` 中配置对象名称叫做命名空间，因此为了方便开发人员可以使用起来更方便，我们建议不同的配置中心可以有自己专属的属性，以此来降低开发人员的学习成本
+
+   ```csharp
+   public abstract class ConfigurationApiMasaConfigurationOptions : MasaConfigurationOptions
+   {
+       /// <summary>
+       /// The name of the parent section, if it is empty, it will be mounted under SectionType, otherwise it will be mounted to the specified section under SectionType
+       /// </summary>
+       [JsonIgnore]
+       public sealed override string? ParentSection => AppId;
+   
+       public virtual string AppId => StaticConfig.AppId;
+   
+       /// <summary>
+       /// The section null means same as the class name, else load from the specify section
+       /// </summary>
+       [JsonIgnore]
+       public sealed override string? Section => Namespace;
+   
+       /// <summary>
+       /// 
+       /// </summary>
+       public virtual string? Namespace { get; }
+   
+       /// <summary>
+       /// Configuration object name
+       /// </summary>
+       [JsonIgnore]
+       public sealed override SectionTypes SectionType => SectionTypes.ConfigurationApi;
+   }
+   ```
+
+6. 选中类库 `Masa.Contrib.BasicAbility.Apollo`，并新建 `IMasaConfigurationBuilder` 的扩展方法 `UseApollo`
+
+   ```csharp
+   public static class MasaConfigurationExtensions
+   {
+       public static IMasaConfigurationBuilder UseApollo(this IMasaConfigurationBuilder builder)
+       {
+           //todo：Register IConfigurationApiClient and IConfigurationApiManage into the service collection, and add ApolloConfigurationRepository through builder.AddRepository()
+           return builder;
+       }
+   }
+   ```
+
 ## 原理剖析
 
 ### 同步更新配置
 
-   为何分布式配置可以实现远程配置发生更新后, 应用的配置会随之更新?
+   为何分布式配置可以实现远程配置发生更新后，应用的配置会随之更新?
    
-   远程配置更新使用了分布式缓存提供的[Pub/Sub](/framework/building-blocks/caching/stackexchange-redis#使用PubSub)能力
+   远程配置更新使用了分布式缓存提供的 [Pub/Sub](/framework/building-blocks/caching/stackexchange-redis#使用PubSub)能力
