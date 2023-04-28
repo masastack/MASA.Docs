@@ -2,14 +2,14 @@
 
 ## 概述
 
-本章将使用[事件总线](/framework/building-blocks/dispatcher/overview)和[读写分离](/framework/building-blocks/cqrs)，并接入 `FluentValidation` 调整参数验证
+本章将使用 [事件总线](/framework/building-blocks/dispatcher/overview) 和 [读写分离](/framework/building-blocks/cqrs)，并接入 `FluentValidation` 调整参数验证
 
 > 示例中不再创建读模型，使用与写模型完全一致的数据库，会创建一个 `CatalogQueryDbContext` 用来标记当前使用的是读模型
 
 以创建商品为例：
 
 <div>
-  <img alt="Create Product" src="https://s2.loli.net/2023/04/19/3SAK54BugxI2O1w.png"/>
+  <img alt="Create Product" src="https://cdn.masastack.com/framework/tutorial/mf-part-3.png"/>
 </div>
 
 ## 开始
@@ -17,11 +17,11 @@
 1. 选中 `Masa.EShop.Service.Catalog`项目并安装 `Masa.Contrib.Dispatcher.Events`、 `Masa.Contrib.Dispatcher.Events.FluentValidation`、`Masa.Contrib.Data.UoW.EFCore`、 `Masa.Contrib.Dispatcher.IntegrationEvents.Dapr`、`Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore`、`FluentValidation.AspNetCore`
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Dispatcher.Events -v 1.0.0-preview.29
-   dotnet add package Masa.Contrib.Dispatcher.Events.FluentValidation -v 1.0.0-preview.29
-   dotnet add package Masa.Contrib.Data.UoW.EFCore -v 1.0.0-preview.29
-   dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.Dapr -v 1.0.0-preview.29
-   dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore -v 1.0.0-preview.29
+   dotnet add package Masa.Contrib.Dispatcher.Events -v 1.0.0-rc.1
+   dotnet add package Masa.Contrib.Dispatcher.Events.FluentValidation -v 1.0.0-rc.1
+   dotnet add package Masa.Contrib.Data.UoW.EFCore -v 1.0.0-rc.1
+   dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.Dapr -v 1.0.0-rc.1
+   dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore -v 1.0.0-rc.1
    dotnet add package FluentValidation.AspNetCore
    ```
 
@@ -77,7 +77,7 @@
    ::: code-group-item 安装 nuget 包
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Development.DaprStarter.AspNetCore -v 1.0.0-preview.29
+   dotnet add package Masa.Contrib.Development.DaprStarter.AspNetCore -v 1.0.0-rc.1
    ```
 
    :::

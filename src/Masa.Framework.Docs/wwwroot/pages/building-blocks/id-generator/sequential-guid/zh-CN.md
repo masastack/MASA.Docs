@@ -24,7 +24,7 @@
 3. 使用 `GUID` 生成器生成**有序的 ID**
 
    :::: code-group
-   ::: code-group-item 通过 `ID` 生成器工厂创建（静态）
+   ::: code-group-item 通过 ID 生成器工厂创建（静态）
 
    ```csharp Domain/Entities/CatalogBrand.cs
    using Masa.BuildingBlocks.Data;
@@ -44,7 +44,7 @@
    }
    ```
    :::
-   ::: code-group-item 通过 `DI` 获取
+   ::: code-group-item 通过 DI 获取
 
    ```csharp Program.cs
    app.MapGet("/getid", (ISequentialGuidGenerator generator) => { return generator.NewId(); });
@@ -62,7 +62,7 @@
 
 以 `MySQL` 数据库为例：
 
-```csharp Program.cs
+```csharp Program.cs l:2
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSequentialGuidGenerator(SequentialGuidType.SequentialAsString);
 ```

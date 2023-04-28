@@ -1,6 +1,8 @@
-## 安全 - 密码
+# 安全 - 密码
 
-提供常见的密码加密和解密的能力, 安装`Masa.Utils.Security.Cryptography`即可
+## 概述
+
+提供常见的密码加密和解密的能力，安装`Masa.Utils.Security.Cryptography`即可
 
 ## 功能
 
@@ -13,17 +15,17 @@
 
 ## 源码解读
 
-> `encoding`为编码格式, 默认`UTF-8`
+> `encoding`为编码格式，默认`UTF-8`
 
 ### Aes帮助类
 
 * 默认秘钥：默认：`masastack.com`
 * 默认偏移量：16位 默认：`AreyoumySnowman?`
-* 默认秘钥长度：**GlobalConfigurationUtils.DefaultAesEncryptKeyLength** (默认32位, 仅支持16、24、32)
+* 默认秘钥长度：**GlobalConfigurationUtils.DefaultAesEncryptKeyLength** (默认32位，仅支持16、24、32)
 * 未指定秘钥时将使用默认秘钥
 * 未指定偏移量时将使用默认偏移量
 
-> 默认秘钥与偏移量未设置内容长度, 如果默认秘钥、偏移量长度不足的将会自动补齐, 长度超出则会被截断
+> 默认秘钥与偏移量未设置内容长度，如果默认秘钥、偏移量长度不足的将会自动补齐，长度超出则会被截断
 
 #### 加密
 
@@ -48,12 +50,12 @@
 
 ### Des加解密
 
-* 默认秘钥：`c7fac67c` (8位) [如何修改](#GlobalConfiguration)
-* 默认偏移量：`c7fac67c` (8位) [如何修改](#GlobalConfiguration)
+* 默认秘钥：`c7fac67c` （8位）
+* 默认偏移量：`c7fac67c` （8位）
 * 未指定秘钥时将使用默认秘钥
 * 未指定偏移量时将使用默认偏移量
 
-> 默认秘钥与偏移量未设置内容长度, 如果默认秘钥、偏移量长度不足的将会自动补齐, 长度超出则会被截断
+> 默认秘钥与偏移量未设置内容长度，如果默认秘钥、偏移量长度不足的将会自动补齐，长度超出则会被截断
 
 * Encrypt：对内容进行 `DES` 加密并返回加密后的字符串
 * EncryptFile：对文件流进行 `DES` 加密并将加密后的文件输出到指定目录

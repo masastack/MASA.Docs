@@ -4,7 +4,7 @@
 
 ## 功能
 
-* Validations: 验证类扩展
+* Validations： 验证类扩展
   * [FluentValidation](/framework/utils/extensions/fluent-validation): 提供基于 [FluentValidation](https://www.nuget.org/packages/FluentValidation) 的参数验证扩展
 * [DependencyInjection](/framework/utils/extensions/dependency-injection): 提供基于 [Microsoft.Extensions.DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection) 的扩展方法
 * [DotNet](/framework/utils/extensions/dotnet): 提供了常用的扩展方法（不依赖任何包）

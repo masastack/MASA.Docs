@@ -1,8 +1,12 @@
 # 事件总线 - 进程内事件
 
-## 概念
+## 概述
 
 进程内事件总线允许服务发布和订阅进程内事件. 如果发布者和订阅者在同一个进程中运行，那么使用进程内事件总线是合适的，在本地事件总线中，我们支持了 UnitOfWork，除此之外，订阅方支持按照顺序执行，同时还支持 `Saga`
+
+<div>
+  <img alt="EventBus" src="https://cdn.masastack.com/framework/building-blocks/dispatcher/local-event/event-bus.png"/>
+</div>
 
 ## 功能列表
 
@@ -232,46 +236,46 @@ EventBus 支持事务，当配合 UnitOfWork 使用时，当出现异常时会�
 
 ### 事件验证中间件
 
-1. 安装`Masa.Contrib.Dispatcher.Events.FluentValidation`、`FluentValidation.AspNetCore`
+1. 安装 `Masa.Contrib.Dispatcher.Events.FluentValidation`、`FluentValidation.AspNetCore`
 
-```shell 终端
-dotnet add package Masa.Contrib.Dispatcher.Events.FluentValidation
-dotnet add package FluentValidation.AspNetCore
-```
+   ```shell 终端
+   dotnet add package Masa.Contrib.Dispatcher.Events.FluentValidation
+   dotnet add package FluentValidation.AspNetCore
+   ```
 
 2. 指定进程内事件使用 FluentValidation 的中间件
 
-```csharp Program.cs l:3-4
-var builder = WebApplication.CreateBuilder(args);
+   ```csharp Program.cs l:3-4
+   var builder = WebApplication.CreateBuilder(args);
+   
+   builder.Services.AddValidatorsFromAssembly(Assembly.GetEntryAssembly());
+   builder.Services.AddEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(ValidatorEventMiddleware<>)));
+   ```
 
-builder.Services.AddValidatorsFromAssembly(Assembly.GetEntryAssembly());
-builder.Services.AddEventBus(eventBusBuilder => eventBusBuilder.UseMiddleware(typeof(ValidatorEventMiddleware<>)));
-```
+3. 创建事件的校验处理，例如：
 
-3. 创建事件的校验处理，例如:
+   ```csharp
+   public class RegisterEventValidator : AbstractValidator<RegisterEvent>
+   {
+       public RegisterEventValidator()
+       {
+           RuleFor(e => e.Account).NotNull().WithMessage("用户名不能为空");
+           RuleFor(e => e.Email).NotNull().WithMessage("邮箱不能为空");
+           RuleFor(e => e.Password)
+               .NotNull().WithMessage("密码不能为空")
+               .MinimumLength(6)
+               .WithMessage("密码必须大于6位")
+               .MaximumLength(20)
+               .WithMessage("密码必须小于20位");
+       }
+   }
+   ```
 
-```csharp
-public class RegisterEventValidator : AbstractValidator<RegisterEvent>
-{
-    public RegisterEventValidator()
-    {
-        RuleFor(e => e.Account).NotNull().WithMessage("用户名不能为空");
-        RuleFor(e => e.Email).NotNull().WithMessage("邮箱不能为空");
-        RuleFor(e => e.Password)
-            .NotNull().WithMessage("密码不能为空")
-            .MinimumLength(6)
-            .WithMessage("密码必须大于6位")
-            .MaximumLength(20)
-            .WithMessage("密码必须小于20位");
-    }
-}
-```
-
-> 不满足事件校验规则的请求会对外抛出指定内容的 `MasaValidatorException` 异常
+   > 不满足事件校验规则的请求会对外抛出指定内容的 `MasaValidatorException` 异常
 
 ## 性能测试
 
-与市面上使用较多的`MeidatR`作了对比，结果如下图所示:
+与市面上使用较多的 `MeidatR`作了对比，结果如下图所示:
 
 BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19043.1023 (21H1/May2021Update)
 11th Gen Intel Core i7-11700 2.50GHz, 1 CPU, 16 logical and 8 physical cores

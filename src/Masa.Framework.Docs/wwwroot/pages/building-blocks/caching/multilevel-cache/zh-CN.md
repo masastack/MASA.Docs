@@ -2,9 +2,9 @@
 
 ## 概述
 
-多级缓存是指在一个系统的不同架构层级进行数据缓存，以提升访问效率。 MASA Framework 的多级缓存是在分布式缓存的基础上，再加了一层内存缓存。使用多级缓存, 可以降低请求穿透到分布式缓存, 减少网络消耗以及序列化带来的性能影响, 使用它可以大大缩减响应时间。并且 MASA Framework 的多级缓存是支持分布式部署的，当缓存数据在集群的某个节点被更新或删除时，其它集群节点也会同步更新或删除缓存数据。[查看原因](#同步更新)
+多级缓存是指在一个系统的不同架构层级进行数据缓存，以提升访问效率。 MASA Framework 的多级缓存是在分布式缓存的基础上，再加了一层内存缓存。使用多级缓存，可以降低请求穿透到分布式缓存，减少网络消耗以及序列化带来的性能影响，使用它可以大大缩减响应时间。并且 MASA Framework 的多级缓存是支持分布式部署的，当缓存数据在集群的某个节点被更新或删除时，其它集群节点也会同步更新或删除缓存数据。[查看原因](#同步更新)
 
-> 使用多级缓存的时候需要注意：当内存中的缓存数据特别多的时候，可能会导致内存超负荷，这个时候我们推荐使用缓存[滑动过期](#滑动过期)
+> 使用多级缓存的时候需要注意：当内存中的缓存数据特别多的时候，可能会导致内存超负荷，这个时候我们推荐使用缓存[滑动过期](#滑动过期)。
 
 ![多级缓存结构图](https://cdn.masastack.com/framework/building-blocks/cache/multilevel_design.png)
 
@@ -19,7 +19,7 @@
    dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis
    ```
 
-2. 注册多级缓存，并使用[`分布式Redis缓存`](./stackexchange-redis.md) 
+2. 注册多级缓存，并使用 [`分布式 Redis 缓存`](./stackexchange-redis.md) 
 
    ```csharp Program.cs
    builder.Services.AddMultilevelCache(distributedCacheOptions =>
@@ -28,11 +28,11 @@
    });
    ```
    
-   > 使用分布式 Redis 缓存, 默认 localhost:6379
+   > 使用分布式 Redis 缓存，默认 localhost:6379
 
-3. 修改 appsettings.json 文件，添加分布式缓存 `Redis` 的配置信息
+3. 添加分布式缓存 `Redis` 的配置信息
 
-   ```json appsettings.json
+   ```json appsettings.json l:2-10
    {
        "RedisConfig":{
            "Servers":[
@@ -48,7 +48,7 @@
 
 4. 使用多级缓存，在构造函数中注入 `IMultilevelCacheClient` 对象
 
-   ```csharp
+   ```csharp Controllers/HomeController.cs l:5-6,12,17
    [ApiController]
    [Route("[controller]/[action]")]
    public class HomeController : ControllerBase
@@ -80,7 +80,7 @@
 
 #### 选项模式
 
-> 我们还可以借助 [`MasaConfiguration`](../../building-blocks/configuration/index.md) 完成选项模式支持
+> 我们还可以借助 [`MasaConfiguration`](/framework/building-blocks/configuration/overview) 完成选项模式支持
 
 :::: code-group
 ::: code-group-item 1. 支持选项模式
@@ -151,9 +151,7 @@ builder.Services.AddMultilevelCache(distributedCacheOptions =>
 
 使用默认配置, 并指定 Redis 配置信息
 
-:::: code-group
-::: code-group-item 1. 添加多级缓存并使用分布式 Redis 缓存
-```csharp Program.cs
+```csharp Program.cs l:5-9
 builder.Services.AddMultilevelCache(distributedCacheOptions =>
 {
     distributedCacheOptions.UseStackExchangeRedisCache(redisConfigurationOptions =>
@@ -166,8 +164,6 @@ builder.Services.AddMultilevelCache(distributedCacheOptions =>
     });
 });
 ```
-:::
-::::
    
    
 ### 多级缓存配置参数说明
@@ -184,7 +180,7 @@ builder.Services.AddMultilevelCache(distributedCacheOptions =>
    <tr>
     <td colspan=3>SubscribeKeyType</td>
     <td colspan=2>订阅Key规则 (生成订阅Channel)</td>
-    <td><a href="https://github.com/masastack/MASA.Framework/blob/main/src/BuildingBlocks/Caching/Masa.BuildingBlocks.Caching/Enumerations/SubscribeKeyType.cs">Enum</a></td>
+    <td>Enum</td>
     <td>2</td>
    </tr>
    <tr>
@@ -196,7 +192,7 @@ builder.Services.AddMultilevelCache(distributedCacheOptions =>
    <tr>
     <td colspan=3>CacheEntryOptions</td>
     <td colspan=2>内存缓存有效期</td>
-    <td><a href="https://github.com/masastack/MASA.Framework/blob/main/src/Contrib/Caching/Masa.Contrib.Caching.MultilevelCache/Options/MultilevelCacheOptions.cs">object</a></td>
+    <td>object</td>
     <td></td>
    </tr>
   <tr>
@@ -287,6 +283,6 @@ public class HomeController : ControllerBase
    
    为何多级缓存可以实现缓存发生更新后, 其它副本会随之更新, 而不需要等待缓存失效后重新加载?
    
-   多级缓存中使用了分布式缓存提供的[Pub/Sub](/framework/building-blocks/caching/stackexchange-redis#使用PubSub)能力
+   多级缓存中使用了分布式缓存提供的 [Pub/Sub](/framework/building-blocks/caching/stackexchange-redis#使用PubSub) 能力
    
    ![多级缓存原理流程图](https://cdn.masastack.com/framework/building-blocks/cache/multilevel_cache.png)

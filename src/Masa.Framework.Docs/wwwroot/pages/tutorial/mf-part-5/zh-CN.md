@@ -11,19 +11,20 @@
 以查询商品为例：
 
 <div>
-  <img alt="query product" src="https://s2.loli.net/2023/04/19/f4KPB6SAnQOzsyZ.png"/>
+  <img alt="query product" src="https://cdn.masastack.com/framework/tutorial/mf-part-5/caching.png"/>
 </div>
+
 
 ## 开始
 
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Caching.Distributed.StackExchangeRedis`、`Masa.Contrib.Caching.MultilevelCache`
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis -v 1.0.0-preview.29
-   dotnet add package Masa.Contrib.Caching.MultilevelCache -v 1.0.0-preview.29
+   dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis -v 1.0.0-rc.1
+   dotnet add package Masa.Contrib.Caching.MultilevelCache -v 1.0.0-rc.1
    ```
    
-2. 配置内存缓存的有效期及分布式Redis缓存
+2. 配置内存缓存的有效期及分布式 Redis 缓存
 
    ```json appsettings.json
    {

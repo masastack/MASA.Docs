@@ -1,6 +1,6 @@
 # 领域驱动设计 - 领域事件
 
-## 概念
+## 概述
 
 什么是[领域事件](https://learn.microsoft.com/zh-cn/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/domain-events-design-implementation)
 

@@ -16,7 +16,7 @@
        isolationBuilder.UseMultiTenant();
    }, options =>
    {
-       options.SectionName = "{自定义隔离性节点名}";
+       options.SectionName = "CustomSectionName";
    });
    
    var app = builder.Build();
@@ -32,7 +32,7 @@
    
    builder.Services.Configure<IsolationOptions>(options =>
    {
-       options.SectionName = "{自定义隔离性节点名}";
+       options.SectionName = "CustomSectionName";
    });
    
    builder.Services.AddIsolation(isolationBuilder =>
@@ -66,18 +66,18 @@
        {
            new()
            {
-               TenantId = "租户1",
+               TenantId = "Tenant 1",
                Data = new ConnectionStrings(new List<KeyValuePair<string, string>>()
                {
-                   new(ConnectionStrings.DEFAULT_CONNECTION_STRING_NAME, "租户1数据库连接字符串地址")
+                   new(ConnectionStrings.DEFAULT_CONNECTION_STRING_NAME, "{Replace-Your-Tenant1-ConnectionString}")
                })
            },
            new()
            {
-               TenantId = "租户2",
+               TenantId = "Tenant 2",
                Data = new ConnectionStrings(new List<KeyValuePair<string, string>>()
                {
-                   new(ConnectionStrings.DEFAULT_CONNECTION_STRING_NAME, "租户2数据库连接字符串地址")
+                   new(ConnectionStrings.DEFAULT_CONNECTION_STRING_NAME, "{Replace-Your-Tenant2-ConnectionString}")
                })
            },
        };
@@ -107,29 +107,29 @@
    public class CustomIsolationConfigProvider : IIsolationConfigProvider
    {
        /// <summary>
-       /// 获取当前租户/环境下指定配置节点下的配置信息（当返回null时，则使用当前组件默认的配置信息）
+       /// Get the configuration information under the specified configuration node under the current tenant/environment (when null is returned, the default configuration information of the current component will be used)
        /// </summary>
-       /// <param name="sectionName">配置节点名 (不同组件的配置节点名不一致 (配置节点名支持自定义))</param>
-       /// <param name="name">名称 （默认为空字符串，支持工厂的构建块支持自定义name）</param>
-       /// <typeparam name="TComponentConfig">组件的配置对象</typeparam>
+       /// <param name="sectionName">Configuration node name (the configuration node names of different components are inconsistent (the configuration node name supports customization))</param>
+       /// <param name="name">Name (the default is an empty string, and the building blocks that support factories support custom names)</param>
+       /// <typeparam name="TComponentConfig">Component's configuration object</typeparam>
        /// <returns></returns>
        /// <exception cref="NotImplementedException"></exception>
        public TComponentConfig? GetComponentConfig<TComponentConfig>(string sectionName, string name = "") where TComponentConfig : class
        {
-           // todo: 获取当前租户/环境下的组件配置信息并返回
+           // todo: Get the component configuration information in the current tenant/environment and return
            return default;
        }
-   
+
        /// <summary>
-       /// 获取指定配置节点的所有配置信息
+       /// Get all configuration information of the specified configuration node
        /// </summary>
-       /// <param name="sectionName">配置节点名 (不同组件的配置节点名不一致 (配置节点名支持自定义))</param>
-       /// <param name="name">名称 （默认为空字符串，支持工厂的构建块支持自定义name）</param>
-       /// <typeparam name="TComponentConfig">组件的配置对象</typeparam>
+       /// <param name="sectionName">Configuration node name (the configuration node names of different components are inconsistent (the configuration node name supports customization))</param>
+       /// <param name="name">Name (the default is an empty string, and the building blocks that support factories support custom names)</param>
+       /// <typeparam name="TComponentConfig">component configuration object</typeparam>
        /// <returns></returns>
        public List<TComponentConfig> GetComponentConfigs<TComponentConfig>(string sectionName, string name = "") where TComponentConfig : class
        {
-           //todo: 获取指定配置节点的所有配置信息
+           //todo: Get all configuration information of the specified configuration node
            var list = new List<TComponentConfig>();
            return list;
        }

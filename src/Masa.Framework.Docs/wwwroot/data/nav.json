@@ -216,6 +216,7 @@
           "novell"
         ]
       },
+      "memory-cache",
       {
         "title": "security",
         "items": [

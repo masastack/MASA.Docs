@@ -57,7 +57,7 @@
 
 我们也可以手动注册服务调用。
 
-> 默认 AddCaller(func) 注册的 Name 为空字符串, 可直接构造函数注入使用 ICaller。如果指定了 Name 名称，则需要通过 `ICallerFactory` 提供的 `Create` 方法获得
+> 默认 AddCaller(func) 注册的 Name 为空字符串，可直接构造函数注入使用 ICaller。如果指定了 Name 名称，则需要通过 `ICallerFactory` 提供的 `Create` 方法获得
 
 1. 使用 AddCaller 方法注册服务调用。不指定 Name 时，Name 为空
 
@@ -280,7 +280,7 @@ MASA Framework 的服务调用提供了中间件功能，在中间件中，你�
        protected override string AppId { get; set; } = "{Replace-With-Your-Dapr-AppID}";
        
        /// <summary>
-       /// 重写UseDaprPost方法, 使用认证
+       /// 重写UseDaprPost方法，使用认证
        /// </summary>
        /// <param name="masaHttpClientBuilder"></param>
        protected override void UseDaprPost(MasaDaprClientBuilder masaHttpClientBuilder)
@@ -326,7 +326,7 @@ MASA Framework 的服务调用提供了中间件功能，在中间件中，你�
        protected override string AppId { get; set; } = "{Replace-With-Your-Dapr-AppID}";
    
        /// <summary>
-       /// 重写ConfigMasaCallerClient方法, 并指定当前Caller使用Xml格式
+       /// 重写ConfigMasaCallerClient方法，并指定当前Caller使用Xml格式
        /// </summary>
        /// <param name="callerClient"></param>
        protected override void ConfigMasaCallerClient(MasaCallerClient callerClient)
@@ -382,7 +382,7 @@ MASA Framework 的服务调用提供了中间件功能，在中间件中，你�
        protected override string AppId { get; set; } = "{Replace-With-Your-Dapr-AppID}";
    
        /// <summary>
-       /// 重写UseDaprPost方法, 使用认证
+       /// 重写UseDaprPost方法，使用认证
        /// </summary>
        /// <param name="masaHttpClientBuilder"></param>
        protected override void UseDaprPost(MasaDaprClientBuilder masaHttpClientBuilder)
@@ -428,7 +428,7 @@ MASA Framework 的服务调用提供了中间件功能，在中间件中，你�
        protected override string AppId { get; set; } = "{Replace-With-Your-Dapr-AppID}";
        
        /// <summary>
-       /// 重写UseDaprPost方法, 使用认证
+       /// 重写UseDaprPost方法，使用认证
        /// </summary>
        /// <param name="masaHttpClientBuilder"></param>
        protected override void UseDaprPost(MasaDaprClientBuilder masaHttpClientBuilder)
@@ -534,7 +534,7 @@ MASA Framework 的服务调用提供了中间件功能，在中间件中，你�
 
 如果说你的应用程序有自己的身份认证逻辑，那么你可以自定义服务调用的身份认证提供服务
 
-1. 新增认证服务, 并实现 `IAuthenticationService`
+1. 新增认证服务，并实现 `IAuthenticationService`
 
    ```csharp
    public class XXXAuthenticationService: IAuthenticationService
@@ -559,7 +559,7 @@ MASA Framework 的服务调用提供了中间件功能，在中间件中，你�
        protected override string AppId { get; set; } = "{Replace-With-Your-Dapr-AppID}";
    
        /// <summary>
-       /// 重写UseDaprPost方法, 使用认证
+       /// 重写UseDaprPost方法，使用认证
        /// </summary>
        /// <param name="masaHttpClientBuilder"></param>
        protected override void UseDaprPost(MasaDaprClientBuilder masaHttpClientBuilder)
@@ -590,7 +590,7 @@ MASA Framework 的服务调用提供了中间件功能，在中间件中，你�
 
 以 `Yaml` 为例:
 
-1. 新建支持 `Yaml` 的 `RequestMessage`、`ResponseMessage`, 并分别实现 `IRequestMessage`、`IResponseMessage`
+1. 新建支持 `Yaml` 的 `RequestMessage`、`ResponseMessage`，并分别实现 `IRequestMessage`、`IResponseMessage`
 
    ```csharp
    public class YmlRequestMessage : IRequestMessage
@@ -620,7 +620,7 @@ MASA Framework 的服务调用提供了中间件功能，在中间件中，你�
    }
    ```
 
-   > `DefaultResponseMessage` 继承 `IResponseMessage`, 通过继承 `DefaultResponseMessage`, 我们仅需要实现将流通过 `Yaml` 解析为对象即可
+   > `DefaultResponseMessage` 继承 `IResponseMessage`，通过继承 `DefaultResponseMessage`，我们仅需要实现将流通过 `Yaml` 解析为对象即可
 
 2. 新增 `MasaCallerClientExtensions`
 
@@ -646,9 +646,9 @@ MASA Framework 的服务调用提供了中间件功能，在中间件中，你�
 
 ## 常见问题
 
-* 继承`DaprCallerBase`的实现类支持从DI获取, 如果你需要获取来自DI的服务，可通过构造函数注入所需服务
+* 继承`DaprCallerBase`的实现类支持从DI获取，如果你需要获取来自DI的服务，可通过构造函数注入所需服务
 * 继承`HttpClientCallerBase`的实现类的生命周期为: `Scoped`
-* 如果`自定义Caller` (继承DaprCallerBase的类)与`AddAutoRegistrationCaller`方法不在一个程序集, 可能会出现自动注册自定义Caller失败的情况, 可通过下面提供的任一方案解决:
+* 如果`自定义Caller` (继承DaprCallerBase的类)与`AddAutoRegistrationCaller`方法不在一个程序集，可能会出现自动注册自定义Caller失败的情况，可通过下面提供的任一方案解决:
 
 ① 指定Assembly集合 (仅对当前Caller有效)
 ```csharp
@@ -656,7 +656,7 @@ var assemblies = typeof({Replace-With-Your-CustomCaller}).Assembly;
 builder.Services.AddAutoRegistrationCaller(assemblies);
 ```
 
-② 设置全局Assembly集合 (影响全局Assembly默认配置, 设置错误的Assembly集合会导致其它使用全局Assembly的服务出现错误)
+② 设置全局Assembly集合 (影响全局Assembly默认配置，设置错误的Assembly集合会导致其它使用全局Assembly的服务出现错误)
 
 ```csharp
 var assemblies = typeof({Replace-With-Your-CustomCaller}).Assembly;

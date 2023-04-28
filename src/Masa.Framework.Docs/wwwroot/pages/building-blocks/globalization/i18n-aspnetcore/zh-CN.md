@@ -74,7 +74,7 @@
 4. 使用 `I18N`
 
    ```csharp
-   app.UseI18n();//启用中间件，完成对请求的解析并为当前请求设置区域
+   app.UseI18n();//Enable the middleware, finish parsing the request and set the region for the current request
    ```
 
 5. 使用 `I18n`

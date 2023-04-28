@@ -4,5 +4,5 @@
 
 ## 最佳实践
 
-* [json](/framework/building-blocks/data-serializer/json): 基于 `System.Text.Json` 实现的序列化与反序列化程序
-* [yaml](/framework/building-blocks/data-serializer/yaml): 基于 [YamlDotNet](https://github.com/aaubry/YamlDotNet) 实现的序列化与反序列化程序
+* [JSON](/framework/building-blocks/data-serializer/json): 基于 `System.Text.Json` 实现的序列化与反序列化程序
+* [YAML](/framework/building-blocks/data-serializer/yaml): 基于 [YamlDotNet](https://github.com/aaubry/YamlDotNet) 实现的序列化与反序列化程序
