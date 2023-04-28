@@ -20,7 +20,7 @@ A：`MASA.MC` 中用户对接的 `MASA.Auth`，如果需要给内部用户发送
 
 A：请参考[使用指南-发送消息](stack/mc/use-guide/send-message)。同时发送规则依赖 `MASA.Scheduler`, 若要支持发送规则需要接入 `MASA.Scheduler`。
 
-## Q：调用 `SDK` 发送站内信广播消息，并没有生成用户的站内信数据？
+## Q：调用 SDK 发送站内信广播消息，并没有生成用户的站内信数据？
 
 A：广播模式下通过 `SignalR` 发送检查通知，客户端接收后需要主动调用 `SDK` 的检查方法才会生成当前用户的站内信数据。请参考 [SDK 示例](stack/mc/sdk-instance)。
 
