@@ -191,9 +191,9 @@ dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由 DCC 提
 
 ### 3. 总结
 
-`DCC` 为 `IConfiguration` 提供了远程配置的管理以及查看能力，完整的能力请查看[文档](https://docs.masastack.com/framework/building-blocks/configuration/overview)
+`DCC` 为 `IConfiguration` 提供了远程配置的管理以及查看能力，完整的能力请查看 [文档](https://docs.masastack.com/framework/building-blocks/configuration/overview)
 
-此处Redis为远程配置，介绍的是远程配置挂载到 `IConfiguration` 之后的效果以及用法，此配置与`MASA.Contrib.Configuration` 中 `Redis` 的毫无关系，仅仅是展示同一个配置信息在两个源的使用方式以及映射节点关系的差别
+此处 Redis 为远程配置，介绍的是远程配置挂载到 `IConfiguration` 之后的效果以及用法，此配置与 `MASA.Contrib.Configuration` 中 `Redis` 的毫无关系，仅仅是展示同一个配置信息在两个源的使用方式以及映射节点关系的差别
 
 ### 4. 标签管理用例
 
