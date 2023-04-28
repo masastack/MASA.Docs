@@ -16,7 +16,7 @@
 
 1. 选择渠道类型。
 
-![channel-add-type](https://cdn.masastack.com/stack/doc/mc/channel-add-type.png)
+   ![channel-add-type](https://cdn.masastack.com/stack/doc/mc/channel-add-type.png)
 
 2. 配置渠道信息。
 
