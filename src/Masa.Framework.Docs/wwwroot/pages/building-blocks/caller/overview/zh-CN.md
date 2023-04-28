@@ -27,7 +27,7 @@ MASA Framework 的服务调用组件提供了基于 `HttpClient` 和 `Dapr` 服�
 
 > `autoThrowException` 为 `true` 会检查 `HttpStatus` 状态码并抛出对应的 `Exception`，部分方法的返回类型是指定类型，且没有 `autoThrowException` 参数，那么它们会自动检查 `HttpStatus` 状态码并抛出对应的 `Exception`（gRPC 请求除外）
 
-* SendAsync：提供原始的 `Send` 方法，需要自行提供`HttpRequestMessage`类型的请求信息
+* SendAsync：提供原始的 `Send` 方法，需要自行提供 `HttpRequestMessage` 类型的请求信息
 * SendGrpcAsync：提供基于 `gRPC` 的请求
 * GetStringAsync：提供 `Get` 请求并获取返回类型为 `string` 的结果
 * GetByteArrayAsync：提供 `Get` 请求并获取返回类型为 `byte[]` 的结果
