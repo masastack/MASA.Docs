@@ -1,30 +1,53 @@
 # 使用指南 - 渠道管理
 
-渠道用于消息推送通道的账号配置,支持短信、邮箱、站内信、app等渠道类型。目前短信使用阿里云，app推送使用个推。
+渠道管理用于配置不同的消息推送渠道，包括短信、邮箱、站内信、`APP` 等类型。其中短信渠道使用阿里云，`APP` 推送支持个推和极光。
 
-## 列表
-渠道列表以卡片形式展现，支持糊搜索、分页等功能
+## 渠道列表
+
+渠道列表以卡片形式展示，支持模糊搜索和分页功能。
+
+搜索功能支持渠道名称和渠道 ID 的模糊搜索。
+
 ![channels](https://cdn.masastack.com/stack/doc/mc/channels.png)
 
-## 新增渠道
+## 新建渠道
 
-1. 选择渠道类型
-   
+点击卡片列表右上角的`新建`按钮，弹出新建渠道的表单窗口。表单包括两个步骤。
+
+1. 选择渠道类型。
+
    ![channel-add-type](https://cdn.masastack.com/stack/doc/mc/channel-add-type.png)
 
-2. 渠道配置信息
-   - 渠道ID用于调用sdk发送消息的参数“ChannelCode”
+2. 配置渠道信息。
 
-   1. 短信渠道配置
-      - 目前短信发送使用阿里云，AccessKeyId和AccessKeySecret请填写对应阿里云的参数
-      - 短信渠道创建后，会自动同步阿里云的短信模板到本地短信模板池子，创建短信模板时可以直接选择
+   - 渠道名称：渠道的显示名称。
+   
+   - 渠道 `ID`：用于调用 `SDK` 发送消息时指定渠道的唯一标识。
 
+不同的渠道类型有不同的配置参数。
+
+   * 短信渠道配置
+   
+      目前短信发送使用阿里云，需要填写阿里云的 `AccessKeyId` 和 `AccessKeySecret` 参数。创建短信渠道后，短信模板会自动同步到本地短信模板池中，创建短信模板时可以直接选择。
+   
       ![channel-add-sms](https://cdn.masastack.com/stack/doc/mc/channel-add-sms.png)
-
-   2. 邮箱渠道配置
-
+   
+   * 邮箱渠道配置
+   
       ![channel-add-email](https://cdn.masastack.com/stack/doc/mc/channel-add-email.png)
-
-   3. 站内信渠道配置
-
+   
+   * 站内信渠道配置
+   
       ![channel-add-websiteMessage](https://cdn.masastack.com/stack/doc/mc/channel-add-websiteMessage.png)
+   
+   * `APP` 渠道配置
+   
+      支持个推和极光。
+   
+      ![channel-add-app](https://cdn.masastack.com/stack/doc/mc/channel-add-app.png)
+   
+## 编辑和删除渠道
+
+点击要编辑的渠道卡片右上角的编辑图标，弹出编辑渠道对话框，可以编辑渠道信息或删除渠道。
+
+![channel-edit](https://cdn.masastack.com/stack/doc/mc/channel-edit.png)
