@@ -75,7 +75,7 @@
    
    ![DCC-Configuration](https://cdn.masastack.com/framework/building-blocks/configuration/dcc-configuration.png)
 
-5. 在构造函数中注入 `IOptions<AppConfig>` 对象获取`AppConfig`配置信息
+5. 在构造函数中注入 `IOptions<AppConfig>` 对象获取 `AppConfig` 配置信息
 
    ```csharp
    [Route("api/[controller]")]
