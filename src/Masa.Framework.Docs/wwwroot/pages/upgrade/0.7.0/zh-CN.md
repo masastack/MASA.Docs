@@ -2,7 +2,7 @@
 
 ## 重构
 
-1. <font color=Red>全局异常</font>(/framework/building-blocks/exception)进行了<font color=Red>重构</font>, 框架原生<font color=Red>支持</font>了[多语言](/framework/building-blocks/globalization/overview), 需要更换引用依赖包
+1. <font color=Red>全局异常</font>(/framework/building-blocks/exception)进行了<font color=Red>重构</font>，框架原生<font color=Red>支持</font>了[多语言](/framework/building-blocks/globalization/overview)，需要更换引用依赖包
 
     * `Masa.Utils.Exceptions` -> `Masa.Contrib.Exceptions` 
     * 全局异常
@@ -43,7 +43,7 @@
         ::::
 
     * <font color=Red>全局异常 + I18n</font>
-      1. 安装包`Masa.Contrib.Globalization.I18n.AspNetCore`
+      1. 安装包 `Masa.Contrib.Globalization.I18n.AspNetCore`
       2. 默认资源
 
           :::: code-group
@@ -94,7 +94,7 @@
           :::
           ::::
       
-      3. 注册并使用I18n
+      3. 注册并使用 `I18n`
       
           ```csharp Program.cs
           var builder = WebApplication.CreateBuilder(args);
@@ -105,7 +105,7 @@
           app.UseI18n();
           ```
 
-      4. 使用I18n
+      4. 使用 `I18n`
          
          ```csharp Program.cs
          app.MapGet("exception", () =>
@@ -119,12 +119,12 @@
          });
          ```
 
-2. DaprStarter重构, 优化与[MasaConfiguration](/framework/building-blocks/configuration/overview)、[服务调用](/framework/building-blocks/caller/overview)使用繁琐的问题, 需要更换引用依赖包
+2. `DaprStarter` 重构，优化与 [MasaConfiguration](/framework/building-blocks/configuration/overview)、[服务调用](/framework/building-blocks/caller/overview)使用繁琐的问题，需要更换引用依赖包
 
     * `Masa.Utils.Development.Dapr` -> `Masa.Contrib.Development.DaprStarter`
     * `Masa.Utils.Development.Dapr.AspNetCore` -> `Masa.Contrib.Development.DaprStarter.AspNetCore`
 
-3. 数据规约重构, 与EFCore解耦, 需要更换引用依赖包
+3. 数据规约重构，与 `EFCore` 解耦，需要更换引用依赖包
 
     * `Masa.Contrib.Data.Contracts.EFCore`重构并更名为`Masa.Contrib.Data.Contracts`
 
@@ -132,4 +132,4 @@
 
 1. 新增加[多语言](/framework/building-blocks/globalization/overview)支持
 2. 新增加[规则引擎](/framework/building-blocks/rule-engine)支持
-3. 增加[基于FluentValidation的事件中间件](/framework/building-blocks/dispatcher/local-event#section-4e8b4ef69a8c8bc14e2d95f44ef6)
+3. 增加[基于 FluentValidation 的事件中间件](/framework/building-blocks/dispatcher/local-event#section-4e8b4ef69a8c8bc14e2d95f44ef6)
