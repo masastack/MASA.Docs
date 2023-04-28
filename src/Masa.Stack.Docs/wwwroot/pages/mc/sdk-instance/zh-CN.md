@@ -42,7 +42,7 @@ var app = builder.Build();
 
 app.MapGet("/SendEmail", async ([FromServices] IMcClient mcClient) =>
 {
-    var request = new SendOrdinaryMessageByExternalModel
+    var message = new SendOrdinaryMessageByExternalModel
     {
         ChannelCode = "渠道代码",
         ChannelType = ChannelTypes.Email,
@@ -61,7 +61,7 @@ app.MapGet("/SendEmail", async ([FromServices] IMcClient mcClient) =>
         }
     };
 
-    await mcClient.MessageTaskService.SendOrdinaryMessageByExternalAsync(request);
+    await mcClient.MessageTaskService.SendOrdinaryMessageByExternalAsync(message);
 });
 
 app.Run();
@@ -74,7 +74,7 @@ var app = builder.Build();
 
 app.MapGet("/SendSms", async ([FromServices] IMcClient mcClient) =>
 {
-    var request = new SendTemplateMessageByInternalModel
+    var message = new SendTemplateMessageByInternalModel
     {
         ChannelCode = "渠道代码",
         ChannelType = ChannelTypes.Sms,
@@ -90,7 +90,7 @@ app.MapGet("/SendSms", async ([FromServices] IMcClient mcClient) =>
         }
     };
 
-    await mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
+    await mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(message);
 });
 
 app.Run();
@@ -103,7 +103,7 @@ var app = builder.Build();
 
 app.MapGet("/SendWebsiteMessage", async ([FromServices] IMcClient mcClient) =>
 {
-    var request = new SendTemplateMessageByInternalModel
+    var message = new SendTemplateMessageByInternalModel
     {
         ChannelCode = "渠道代码",
         ChannelType = ChannelTypes.WebsiteMessage,
@@ -111,7 +111,7 @@ app.MapGet("/SendWebsiteMessage", async ([FromServices] IMcClient mcClient) =>
         TemplateCode = "模板代码",
     };
     
-    await mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
+    await mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(message);
 });
 
 app.Run();
@@ -124,7 +124,7 @@ var app = builder.Build();
 
 app.MapGet("/SendAppMessage", async ([FromServices] IMcClient mcClient) =>
 {
-    var request = new SendOrdinaryMessageByInternalModel
+    var message = new SendOrdinaryMessageByInternalModel
     {
         ChannelCode = "渠道代码",
         ChannelType = ChannelTypes.App,
@@ -145,7 +145,7 @@ app.MapGet("/SendAppMessage", async ([FromServices] IMcClient mcClient) =>
         }
     };
 
-    await mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(request);
+    await mcClient.MessageTaskService.SendTemplateMessageByInternalAsync(message);
 });
 
 app.Run();
@@ -202,11 +202,11 @@ hubConnection?.On(SignalRMethodConsts.CHECK_NOTIFICATION, async () =>
 [RoutePattern(HttpMethod = "Post")]
 public async Task BindClientIdAsync([[FromServices] IMcClient mcClient, string clientId)
 {
-    var options = new BindClientIdModel
+    var bindClientIdModel = new BindClientIdModel
     {
         ChannelCode = "渠道代码",
         ClientId = clientId,//个推cid或极光regId
     };
-    await mcClient.MessageTaskService.BindClientIdAsync(options);
+    await mcClient.MessageTaskService.BindClientIdAsync(bindClientIdModel);
 }
 ```
