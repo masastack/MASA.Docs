@@ -102,7 +102,6 @@ dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由Dcc提�
 ### 2. 自定义配置Options映射关系
 
 1. 映射的实体
-   
 
    ```csharp
    public class AppSettings : ConfigurationApiMasaConfigurationOptions
