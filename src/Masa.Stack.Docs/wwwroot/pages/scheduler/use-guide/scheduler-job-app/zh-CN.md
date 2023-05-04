@@ -43,29 +43,29 @@ dotnet add package Masa.Contrib.StackSdks.Scheduler
 
    2. 打包 `Job`
 
-      ![打包 Job](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_release.png)
+      ![打包 Job](https://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_release.png)
 
    3. 上传 `Job`
 
       1. 打开资源文件页面，点击 `+` 上传。
    
-         ![上传资源文件](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles.png)
+         ![上传资源文件](https://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles.png)
       
       2. 选择文件后
    
-         ![新建源文件](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert.png)
+         ![新建源文件](https://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert.png)
       
       3. 点击 `提交` 完成上传。
    
-         ![上传](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_upload.png)
+         ![上传](https://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_upload.png)
 
 2. 填写调度信息
 
-   ![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail.png)
+   ![填写调度信息](https://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail.png)
 
 3. 设置资源文件执行类
 
-   ![设置资源文件执行类](http://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail_2.png)
+   ![设置资源文件执行类](https://cdn.masastack.com/stack/doc/scheduler/rc1/resourceFiles_insert_detail_2.png)
 
    | 属性           | 描述                                                     |
    |----------------|----------------------------------------------------------|

@@ -8,9 +8,9 @@ dotnet add package Masa.Contrib.StackSdks.Scheduler
 
 ## 手动创建
 
-![填写调度信息](http://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_http_insert.png)
+![填写调度信息](https://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_http_insert.png)
 
-![填写调度信息2](http://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_http_insert_2.png)
+![填写调度信息2](https://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_http_insert_2.png)
 
 | 类型     | 描述                                                                                                                                  |
 |----------|---------------------------------------------------------------------------------------------------------------------------------------|
