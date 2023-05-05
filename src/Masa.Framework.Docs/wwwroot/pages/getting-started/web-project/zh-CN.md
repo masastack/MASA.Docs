@@ -54,16 +54,16 @@ dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
    }
    ```
 
-2. 然后修改 `TodoAppDbContext`，将 **TodoEntity** 添加进去，修改完后的 `TodoAppDbContext.cs` 如下：
+2. 然后修改 `ExampleDbContext`，将 **TodoEntity** 添加进去，修改完后的 `ExampleDbContext.cs` 如下：
 
-   ```csharp DataAccess/TodoAppDbContext.cs l:5,19,20
+   ```csharp DataAccess/ExampleDbContext.cs l:5,19,20
    namespace TodoApp.Service.DataAccess;
    
-   public class TodoAppDbContext : MasaDbContext
+   public class ExampleDbContext : MasaDbContext
    {
        public DbSet<TodoEntity> Todos { get; set; }
    
-       public TodoAppDbContext(MasaDbContextOptions<TodoAppDbContext> options) : base(options)
+       public ExampleDbContext(MasaDbContextOptions<ExampleDbContext> options) : base(options)
        {
        }
    
@@ -190,15 +190,20 @@ dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
    
    public class TodoQueryHandler
    {
-       readonly TodoAppDbContext _todoDbContext;
+       readonly ExampleDbContext _todoDbContext;
    
-       public TodoQueryHandler(TodoAppDbContext todoDbContext) => _todoDbContext = todoDbContext;
+       public TodoQueryHandler(ExampleDbContext todoDbContext) => _todoDbContext = todoDbContext;
    
        [EventHandler]
        public async Task GetListAsync(TodoGetListQuery query)
        {
            var todoDbQuery = _todoDbContext.Set<TodoEntity>().AsNoTracking();
-           query.Result = await todoDbQuery.Select(e => e.Adapt<TodoGetListDto>()).ToListAsync();
+           query.Result = await todoDbQuery.Select(e => new TodoGetListDto
+           {
+               Id = e.Id,
+               Done = e.Done,
+               Title = e.Title,
+           }).ToListAsync();
        }
    }
    ```
@@ -212,9 +217,9 @@ dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
    
    public class TodoCommandHandler
    {
-       readonly TodoAppDbContext _todoDbContext;
+       readonly ExampleDbContext _todoDbContext;
    
-       public TodoCommandHandler(TodoAppDbContext todoDbContext) => _todoDbContext = todoDbContext;
+       public TodoCommandHandler(ExampleDbContext todoDbContext) => _todoDbContext = todoDbContext;
    
        [EventHandler]
        public async Task CreateAsync(CreateTodoCommand command)
