@@ -198,7 +198,12 @@ dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
        public async Task GetListAsync(TodoGetListQuery query)
        {
            var todoDbQuery = _todoDbContext.Set<TodoEntity>().AsNoTracking();
-           query.Result = await todoDbQuery.Select(e => e.Adapt<TodoGetListDto>()).ToListAsync();
+           query.Result = await todoDbQuery.Select(e => new TodoGetListDto
+           {
+               Id = e.Id,
+               Done = e.Done,
+               Title = e.Title,
+           }).ToListAsync();
        }
    }
    ```
