@@ -24,4 +24,18 @@ A：请参考[使用指南-发送消息](stack/mc/use-guide/send-message)。同�
 
 A：广播模式下通过 `SignalR` 发送检查通知，客户端接收后需要主动调用 `SDK` 的检查方法才会生成当前用户的站内信数据。请参考 [SDK 示例](stack/mc/sdk-instance)。
 
+## Q：在非生产环境，想要测试短信发送又不想真的发送短信？
+
+A：可以在 `MASA DCC`配置`MC`的Mock开关。
+
+1. 在 `DCC`中找到 `MC`项目的Service应用
+
+   ![dcc-mc-service](https://cdn.masastack.com/stack/doc/mc/dcc-mc-service.png)
+
+2. 找到Mock配置，将Enable改为 `true`并发布
+
+   ![dcc-mc-mock](https://cdn.masastack.com/stack/doc/mc/dcc-mc-mock.png)
+
+3. 重启MC服务
+
 我们会持续收集更多的 FAQ。
