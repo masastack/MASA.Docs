@@ -36,4 +36,6 @@ A：可以在 `MASA DCC`配置`MC`的Mock开关。
 
    ![dcc-mc-mock](https://cdn.masastack.com/stack/doc/mc/dcc-mc-mock.png)
 
+3. 重启MC服务
+
 我们会持续收集更多的 FAQ。
