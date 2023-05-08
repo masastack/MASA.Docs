@@ -64,7 +64,7 @@ builder.Services.Configure<MasaExceptionLogRelationOptions>(options =>
 > 通过配置异常类型与日志等级，它将更改全局异常类型与日志等级的默认关系，但如果抛出异常时指定了日志等级，则当前异常不受默认关系影响，比如:
 
 ```csharp
-throw new MasaException("自定义异常错误, 当前日志等级为Warning.", LogLevel.Warning);
+throw new MasaException("Custom exception error, the current log level is Warning.", LogLevel.Warning);
 ```
 
 ## 高阶用法

@@ -2,7 +2,7 @@
 
 ## 概述
 
-是 Twitter 开源的分布式 `ID` 生成算法，结果是 64bit 的 `Long` 类型的 `ID` ，有着**全局唯一**和**有序递增**的特点。
+是 Twitter 开源的分布式 `ID` 生成算法，结果是 64bit 的 `Long` 类型的 `ID` ，有着 **全局唯一** 和 **有序递增** 的特点。
 
 在 MASA Framework 中提供了 雪花 `ID` 的默认实现，通过它可以得到唯一有序的 `Long`类型 `ID`
 
@@ -14,17 +14,17 @@
    dotnet add package Masa.Contrib.Data.IdGenerator.Snowflake
    ```
 
-2. 注册雪花id生成器
+2. 注册雪花 ID 生成器
 
    ```csharp Program.cs
    var builder = WebApplication.CreateBuilder(args);
    builder.Services.AddSnowflake();
    ```
 
-3. 获取Id
+3. 获取 ID
 
    :::: code-group
-   ::: code-group-item 通过 雪花 `ID` 生成器工厂创建（静态）
+   ::: code-group-item 通过 雪花 ID 生成器工厂创建（静态）
 
    ```csharp Domain/Entities/CatalogBrand.cs
    using Masa.BuildingBlocks.Data;
@@ -44,7 +44,7 @@
    }
    ```
    :::
-   ::: code-group-item 通过 `DI` 获取
+   ::: code-group-item 通过 DI 获取
 
    ```csharp Program.cs
    app.MapGet("/getid", (ISnowflakeGenerator generator) => { return generator.NewId(); });
@@ -56,7 +56,7 @@
 
 ### 分布式部署
 
-默认提供雪花 `ID` 的方案对分布式部署场景并不友好，它的工作机器id是通过获取环境变量 `WORKER_ID` 来得到的，尽管在使用非容器化部署时可通过手动指定环境变量的方式使用，但在容器化部署场景时，它将毫无作用，因此我们采用了 `Redis` 服务来记录已经被使用的 `WorkerId` ，确保不会生成重复的id
+默认提供雪花 `ID` 的方案对分布式部署场景并不友好，它的工作机器id是通过获取环境变量 `WORKER_ID` 来得到的，尽管在使用非容器化部署时可通过手动指定环境变量的方式使用，但在容器化部署场景时，它将毫无作用，因此我们采用了 `Redis` 服务来记录已经被使用的 `WorkerId` ，确保不会生成重复的 `ID`
 
 1. 安装 `Masa.Contrib.Data.IdGenerator.Snowflake.Distributed.Redis`
 
@@ -86,13 +86,13 @@
 
 #### 基础
 
-| 参数名             | 描述                                                      | 详细                                                                                   |
-| ------------------ | --------------------------------------------------------- |--------------------------------------------------------------------------------------|
-| BaseTime           | 基准时间，小于当前时间（时区：UTC +0）                    | 建议选用现在更近的固定时间，一经使用，不可更变（更改可能导致: 重复 `ID`）                                             |
-| SequenceBits       | 序列号, 默认: **12**，支持0-4095 (2^12-1)                 | 每毫秒每个工作机器最多产生4095个请求                                                                 |
-| WorkerIdBits       | 工作机器id，默认: **10**，支持0-1023个机器 (2^10-1)       | 默认不支持在 `k8s` 集群中使用，在一个 `Pod` 中多副本获取到的 `WorkerId` 是一样的，可能会出现重复 `ID`                   |
-| EnableMachineClock | 启用时钟锁，默认: **false**                               | 启用时钟锁后，生成的 `ID` 不再与当前时间有绝对关系，生成的 `ID` 以项目启动时的时间作为初始时间，项目运行后时钟回拨不会影响 `ID` 的生成         |
-| TimestampType      | 时间戳类型，默认: **1** (毫秒: `Milliseconds`, 秒: `Seconds`) | `TimestampType` 为 `Milliseconds` 时，`SequenceBits` + `WorkerIdBits` 最大长度为22           |
+| 参数名             | 描述                                                      | 详细                                                                                     |
+| ------------------ | --------------------------------------------------------- |----------------------------------------------------------------------------------------|
+| BaseTime           | 基准时间，小于当前时间（时区：UTC +0）                    | 建议选用现在更近的固定时间，一经使用，不可更变（更改可能导致: 重复 `ID`）                                               |
+| SequenceBits       | 序列号, 默认: **12**，支持0-4095 (2^12-1)                 | 每毫秒每个工作机器最多产生 4095 个请求                                                                 |
+| WorkerIdBits       | 工作机器id，默认: **10**，支持0-1023个机器 (2^10-1)       | 默认不支持在 `k8s` 集群中使用，在一个 `Pod` 中多副本获取到的 `WorkerId` 是一样的，可能会出现重复 `ID`                     |
+| EnableMachineClock | 启用时钟锁，默认: **false**                               | 启用时钟锁后，生成的 `ID` 不再与当前时间有绝对关系，生成的 `ID` 以项目启动时的时间作为初始时间，项目运行后时钟回拨不会影响 `ID` 的生成           |
+| TimestampType      | 时间戳类型，默认: **1** (毫秒: `Milliseconds`, 秒: `Seconds`) | `TimestampType` 为 `Milliseconds` 时，`SequenceBits` + `WorkerIdBits` 最大长度为22             |
 | MaxCallBackTime    | 最大回拨时间，默认: 3000 (毫秒)                           | 当不启用时钟锁时，如果出现时间回拨小于 `MaxCallBackTime`，则会等待时间大于最后一次生成id的时间后，再次生成 `ID`，如果大于最大回拨时间，则会抛出异常 |
 
 > WorkerId的值默认从环境变量`WORKER_ID`中获取，如未设置则会返回0 （多机部署时请确保每个服务的WorkerId是唯一的）

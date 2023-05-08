@@ -7,8 +7,8 @@ MASA Framework 中的缓存组件提供[分布式缓存](/framework/building-blo
 
 ## 最佳实践
 
-* 分布式缓存:
+* 分布式缓存：
     * [Redis 缓存](/framework/building-blocks/caching/stackexchange-redis): 基于[StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)实现的分布式缓存
     * 更多……（敬请期待）
-* [多级缓存](/framework/building-blocks/caching/multilevel-cache) : 基于分布式缓存+内存缓存实现的多级缓存, 主要是在分布式缓存和系统中间在增加一层内存缓存，相比分布式缓存而言, 它减少了一次网络传入与反序列化的消耗, 具有更好的性能优势
+* [多级缓存](/framework/building-blocks/caching/multilevel-cache) : 基于分布式缓存 + 内存缓存实现的多级缓存，主要是在分布式缓存和系统中间在增加一层内存缓存，相比分布式缓存而言，它减少了一次网络传入与反序列化的消耗, 具有更好的性能优势
 

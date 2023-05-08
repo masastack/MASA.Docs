@@ -6,7 +6,7 @@
 
 ## 开始
 
-1. 新建<font color=Red>ASP.NET Core 空项目</font>`Masa.EShop.Service.Catalog`用于<font color=Red>提供API服务</font>
+1. 新建<font color=Red>ASP.NET Core 空项目</font>`Masa.EShop.Service.Catalog`用于<font color=Red>提供 API 服务</font>
 
    ```shell 终端
    dotnet new web -o Masa.EShop.Service.Catalog
@@ -19,7 +19,7 @@
 
    ```shell 终端
    cd Masa.EShop.Service.Catalog
-   dotnet add package Masa.Contrib.Service.MinimalAPIs -v 1.0.0-preview.29
+   dotnet add package Masa.Contrib.Service.MinimalAPIs -v 1.0.0-rc.1
    ```
 
    或者直接修改项目文件为:
@@ -304,9 +304,10 @@
    最终的文件夹/文件结构应该如下所示：
 
    <div>
-     <img alt="MinimalAPIs" src="https://s2.loli.net/2023/04/07/YHAqzxgsymR1pKr.png"/>
+     <img alt="MinimalAPIs" src="https://cdn.masastack.com/framework/tutorial/mf-part-1/minimal-api.png"/>
    </div>
 
+   
    > **Masa.EShop.Contracts.Catalog**类库是产品的规约，用于存放产品服务与其它项目共享的文件
    >
    > 解决方案文件夹架构可以通过Visual Studio调整得到（通过终端命令创建相对繁琐，不再赘述，因此命令行创建出的项目是并行排列）
@@ -317,7 +318,7 @@
 
 你会看到当前项目所有的API服务,它们都是[RESTful](https://learn.microsoft.com/zh-cn/azure/architecture/best-practices/api-design)风格的API:
 
-![Swagger UI](https://s2.loli.net/2023/04/07/5AhWBZeTY72cagz.png)
+![Swagger UI](https://cdn.masastack.com/framework/tutorial/mf-part-1/swagger-ui.png)
 
 我们可以通过Swagger的UI更方便的测试API
 

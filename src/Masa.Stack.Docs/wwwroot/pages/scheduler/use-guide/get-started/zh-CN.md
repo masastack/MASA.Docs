@@ -8,7 +8,7 @@
 
 * `Job` 状态：为最后一次任务运行的状态，不包含等待运行状态。
 
-  ![jobs](http://cdn.masastack.com/stack/doc/scheduler/jobs.png)
+  ![jobs](https://cdn.masastack.com/stack/doc/scheduler/jobs.png)
 
 
 ## 新增
@@ -17,7 +17,7 @@
 
 支持 `Job`、`HTTP`、`Dapr Service Invocation`
 
-![job-add-type](http://cdn.masastack.com/stack/doc/scheduler/job-add-type.png)
+![job-add-type](https://cdn.masastack.com/stack/doc/scheduler/job-add-type.png)
 
 **使用方式**
 
@@ -32,7 +32,7 @@
 
 **三种 `Job` 类型的策略**
 
-![job-edit-baseInfo](http://cdn.masastack.com/stack/doc/scheduler/job-edit-baseInfo.png)
+![job-edit-baseInfo](https://cdn.masastack.com/stack/doc/scheduler/job-edit-baseInfo.png)
 
 | 字段 | 描述 |
 | --- | --- |

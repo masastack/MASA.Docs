@@ -21,7 +21,7 @@
 3. 获取用户信息
 
    ```csharp
-   IUserContext userContext;//从DI获取
+   IUserContext userContext;//Get from DI
    var userId = userContext.GetUserId<Guid>();
    ```
 
@@ -32,7 +32,7 @@
 ```csharp
 services.AddMasaIdentity(option =>
 {
-    option.TenantId = "TenantId";// 默认租户id来源为: TenantId
-    option.Mapping("TrueName", "RealName"); //新增身份信息`TrueName`, 并设置信息原来为: `RealName`
+    option.TenantId = "TenantId";// The default tenant id source is: TenantId
+    option.Mapping("TrueName", "RealName"); //Add identity information 'TrueName', and set the original information to: 'RealName'
 });
 ```

@@ -1,18 +1,18 @@
 # 事件总线 - 集成事件
 
-## 概念
+## 概述
 
 集成事件总线允许发布和订阅跨服务传输的消息，服务的发布与订阅不在同一个进程中，在 MASA Framework 中，提供了一个可以被开箱即用的程序，它们由以下程序提供
 
 * Masa.Contrib.Dispatcher.IntegrationEvents: 支持[发件箱模式](https://www.kamilgrzybek.com/design/the-outbox-pattern/)，但仅提供集成事件发布的抽象以及本地消息的抽象，它们的实现由其它类库提供 
     * Masa.Contrib.Dispatcher.IntegrationEvents.Dapr: 借助 [Dapr](https://docs.dapr.io/zh-hans/developing-applications/building-blocks/pubsub/pubsub-overview/) 实现了集成事件发布
-    * Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore: 提供了本地消息的实现，是基于 EFCore 实现的集成事件日志的提供者
+    * Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore: 提供了本地消息的实现，是基于 `EFCore` 实现的集成事件日志的提供者
 
 ## 入门
 
 目前 MASA Framework 仅提供了基于 [`Dapr`](https://docs.dapr.io/zh-hans/developing-applications/building-blocks/pubsub/pubsub-overview/) 的集成事件的发布，我们以 [`Dapr`](https://docs.dapr.io/zh-hans/developing-applications/building-blocks/pubsub/pubsub-overview/) 为例，看一下如何使用集成事件
 
-1. 安装集成事件、工作单元、SqlServer数据库
+1. 安装集成事件、工作单元、SqlServer 数据库
 
    ```shell 终端
    dotnet add package Masa.Contrib.Dispatcher.IntegrationEvents //使用提供发件箱模式的集成事件
@@ -187,7 +187,7 @@ builder.Services
    ```csharp
    public class Publisher : IPublisher
    {
-       public async Task PublishAsync<T>(string topicName, T @event, CancellationToken stoppingToken = default) where T : IIntegrationEvent
+       public async Task PublishAsync<T>(string topicName, T @event, CancellationToken stoppingToken = default)
        {
            //todo: 通过 RabbitMQ.Client 发送消息到RabbitMq
            throw new NotImplementedException();
@@ -197,12 +197,12 @@ builder.Services
 
 3. 新建类 `DispatcherOptionsExtensions`，将自定义 `Publisher` 注册到服务集合
 
-   ```csharp
+   ```csharp l:6
    public static class DispatcherOptionsExtensions
    {
        public static DispatcherOptions UseRabbitMq(this Masa.Contrib.Dispatcher.IntegrationEvents.Options.DispatcherOptions options)
        {
-            //todo: 注册RabbitMq信息
+            //todo: 注册 RabbitMq 信息
             dispatcherOptions.Services.TryAddSingleton<IPublisher, Publisher>();
             return dispatcherOptions;
        }
@@ -211,10 +211,10 @@ builder.Services
 
 4. 如何使用自定义实现 `RabbitMq`
 
-   ```csharp
+   ```csharp l:3
    builder.Services.AddIntegrationEventBus(option =>
    {
-       option.UseRabbitMq();//修改为使用RabbitMq
+       option.UseRabbitMq();//修改为使用 RabbitMq
        option.UseUoW<UserDbContext>(optionBuilder => optionBuilder.UseSqlite($"Data Source=./Db/{Guid.NewGuid():N}.db;"));
        option.UseEventLog<UserDbContext>();
    });

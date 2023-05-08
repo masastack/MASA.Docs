@@ -72,7 +72,7 @@
    原本配置中仅安装 `Masa.Contrib.Data.EFCore.SqlServer` ，当安装了 7.0.5 版本的`Microsoft.EntityFrameworkCore.Tools`后，还需额外安装：
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Data.EFCore.SqlServer --version 7.0.5
+   dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 7.0.5
    ```
 
    查看 **XXX.csproj** 文件：
@@ -87,7 +87,7 @@
      </PropertyGroup>
    
      <ItemGroup>
-       <PackageReference Include="Masa.Contrib.Data.EFCore.SqlServer" Version="1.0.0-preview.30" />
+       <PackageReference Include="Masa.Contrib.Data.EFCore.SqlServer" Version="1.0.0-rc.1" />
        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
          <PrivateAssets>all</PrivateAssets>

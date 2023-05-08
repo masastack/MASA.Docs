@@ -1,4 +1,6 @@
-## 安全 - JWT加密与验证
+# 安全 - JWT 加密与验证
+
+## 概述
 
 根据 `JWT` 方案生成对应的 `Token` 并提供验证合法性方法
 
@@ -45,6 +47,6 @@
 
 ## 源码解读
 
-* CreateToken：创建 `Token`, 在 `timeout` 时间后失效
+* CreateToken：创建 `Token`，在 `timeout` 时间后失效
 * CreateToken：根据传入的 `Claim` 集合创建 `Token`，在 `timeout` 时间后失效
 * IsValid：判断 `Token` 是否合法

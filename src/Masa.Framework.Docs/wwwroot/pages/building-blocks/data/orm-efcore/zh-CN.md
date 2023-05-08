@@ -261,7 +261,7 @@ app.Run();
   :::
   ::::
 
-> 基于[`Pomelo.EntityFrameworkCore.MySql`](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql)的扩展，如果您使用的是mysql，建议使用它
+> 基于 [`Pomelo.EntityFrameworkCore.MySql`](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql) 的扩展，如果您使用的是 mysql ，建议使用它
 
 ### MySql
 

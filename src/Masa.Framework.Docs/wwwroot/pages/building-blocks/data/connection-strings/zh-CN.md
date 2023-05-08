@@ -1,5 +1,7 @@
 ﻿# 数据 - 连接字符串
 
+## 概述
+
 通过为上下文增加 **[ConnectionStringName]** 特性来修改当前数据上下文读取的节点
 
 ## 使用
@@ -16,7 +18,7 @@
 
 2. 新建数据上下文
 
-   ```csharp Infrastructure/OrderReadDbContext.cs
+   ```csharp Infrastructure/OrderReadDbContext.cs l:1
    [ConnectionStringName("ReadDbConnection")]
    public class OrderReadDbContext: MasaDbContext<OrderReadDbContext>
    {

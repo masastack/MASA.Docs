@@ -59,7 +59,8 @@
         "items": [
           "overview",
           "httpclient",
-          "daprclient"
+          "daprclient",
+          "faq"
         ]
       },
       {
@@ -216,6 +217,7 @@
           "novell"
         ]
       },
+      "memory-cache",
       {
         "title": "security",
         "items": [

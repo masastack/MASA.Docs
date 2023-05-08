@@ -1,6 +1,6 @@
 # 分布式锁 - Medallion
 
-## 概念
+## 概述
 
 基于 [DistributedLock](https://github.com/madelson/DistributedLock) 的一个分布式锁，核心能力由 `Masa.Contrib.Data.DistributedLock.Medallion` 提供, 但我们在使用时必须选择一个提供者
 
@@ -134,7 +134,7 @@
    dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.SqlServer
    ```
 
-2. 修改类`Program`
+2. 使用 SqlServer
 
    ```csharp Program.cs l:2-5
    var builder = WebApplication.CreateBuilder(args);
@@ -152,7 +152,7 @@
    dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.WaitHandles
    ```
 
-2. 修改类`Program`
+2. 使用 WaitHandle
 
    ```csharp Program.cs l:2-5
    var builder = WebApplication.CreateBuilder(args);
@@ -170,7 +170,7 @@
    dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.ZooKeeper
    ```
 
-2. 修改类`Program`
+2. 使用 ZooKeeper
 
    ```csharp Program.cs l:2-5
    var builder = WebApplication.CreateBuilder(args);

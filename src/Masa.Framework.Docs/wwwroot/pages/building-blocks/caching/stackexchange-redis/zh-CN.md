@@ -1,4 +1,4 @@
-# 缓存 - 分布式Redis缓存
+# 缓存 - 分布式 Redis 缓存
 
 ## 概述
 
@@ -33,7 +33,7 @@
    ```csharp Program.cs
    builder.Services.AddDistributedCache(distributedCacheOptions =>
    {
-       distributedCacheOptions.UseStackExchangeRedisCache();//使用分布式Redis缓存, 默认使用本地`RedisConfig`节点的配置
+       distributedCacheOptions.UseStackExchangeRedisCache();//使用分布式 Redis 缓存，默认使用本地 `RedisConfig` 节点的配置
    });
    ```
 
@@ -70,7 +70,7 @@
 
 #### 通过选项模式注册
 
-> 我们还可以借助 [`MasaConfiguration`](../../building-blocks/configuration/index.md) 完成选项模式支持
+> 我们还可以借助 [`MasaConfiguration`](/framework/building-blocks/configuration/overview) 完成选项模式支持
 
 :::: code-group
 ::: code-group-item 1. 支持选项模式
@@ -290,7 +290,7 @@ builder.Services.AddDistributedCache(distributedCacheOptions =>
       </tr>
       <tr>
        <td rowspan=1></td>
-       <td colspan=2>CacheKeyType（<a href='#缓存Key的规则'>查看详情</a>）</td>
+       <td colspan=2>CacheKeyType（<a href='#section-7f135b58key7684914d7f6e8bf4660e'>查看详情</a>）</td>
        <td colspan=2>缓存Key类型</td>
        <td>None、TypeName、TypeAlias</td>
        <td>TypeName</td>

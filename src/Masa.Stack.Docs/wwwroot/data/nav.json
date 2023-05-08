@@ -22,9 +22,18 @@
           "org"
         ]
       },
-      "authentication-authorization",
-      "api",
-      "sdk",
+      {
+        "title": "develop-guide",
+        "items": [
+          "permission",
+          "identity-provider",
+          "sso",
+          "authentication-authorization",
+          "api",
+          "sdk-instance",
+          "swagger"
+        ]
+      },
       "best-practices",
       "faq",
       "related-agreements"

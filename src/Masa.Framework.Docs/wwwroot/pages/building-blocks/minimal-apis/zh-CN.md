@@ -1,6 +1,6 @@
 # MinimalAPI (最小API)
 
-## 概念
+## 概述
 
 什么是 [Minimal APIs](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/minimal-apis)
 
@@ -21,7 +21,7 @@
   
   app.MapGet("/api/v1/users/{id}", (Guid id)=>
   {
-      // todo: 查询用户信息
+      // todo: Query user information
       var user = new User()
       {
           Id = id,
@@ -32,19 +32,19 @@
   
   app.MapPost("/api/v1/users", ([FromBody] UserRequest request)=>
   {
-      //todo: 添加用户逻辑
+      //todo: Add user logic
       return Task.FromResult(Results.Accepted());
   });
   
   app.MapDelete("/api/v1/users/{id}",(Guid id)=>
   {
-      //todo: 删除用户逻辑
+      //todo: remove user logic
       return Task.FromResult(Results.Accepted());
   });
   
   app.MapPut("/api/v1/users/{id}",(Guid id, [FromBody] EditUserRequest request)=>
   {
-      //todo: 修改用户逻辑
+      //todo: modify user logic
       return Task.FromResult(Results.Accepted());
   });
   
@@ -57,7 +57,7 @@
 
 1. 安装 Minimal API
 
-    ```shell
+    ```shell 终端
     dotnet add package Masa.Contrib.Service.MinimalAPIs
     ```
 
@@ -68,7 +68,7 @@
     ```csharp
     var builder = WebApplication.CreateBuilder(args);
     
-    var app = builder.AddServices();//注册并映射路由
+    var app = builder.AddServices();//Register and map routes
     
     app.Run();
     ```
@@ -77,11 +77,11 @@
     ```csharp
     var builder = WebApplication.CreateBuilder(args);
     
-    builder.Services.AddMasaMinimalAPIs();//注册MinimalAPI
+    builder.Services.AddMasaMinimalAPIs();//Register MinimalAPI
     
     var app = builder.Build();
     
-    app.MapMasaMinimalAPIs();//映射MinimalAPI路由
+    app.MapMasaMinimalAPIs();//Map MinimalAPI routes
     
     app.Run();
     ```
@@ -100,7 +100,7 @@
         /// </summary>
         public Task<IResult> GetAsync(Guid id)
         {
-            // todo: 查询用户信息
+            // todo: Query user information
             var user = new User()
             {
                 Id = id,
@@ -114,7 +114,7 @@
         /// </summary>
         public Task<IResult> AddAsync([FromBody] UserRequest request)
         {
-            //todo: 添加用户逻辑
+            //todo: Add user logic
             return Task.FromResult(Results.Accepted());
         }
     
@@ -123,7 +123,7 @@
         /// </summary>
         public Task<IResult> DeleteAsync(Guid id)
         {
-            //todo: 删除用户逻辑
+            //todo: remove user logic
             return Task.FromResult(Results.Accepted());
         }
     
@@ -268,7 +268,7 @@
    </tr>
    <tr>
     <td colspan=2><a id ="AutoAppendId">AutoAppendId</a></td>
-    <td colspan=2><font color=Red>路由中是否包含{Id}</font>font>，例如: /api/v1/user/{id}</td>
+    <td colspan=2><font color=Red>路由中是否包含{Id}</font>，例如: /api/v1/user/{id}</td>
     <td></td>
    </tr>
    <tr>
@@ -447,7 +447,7 @@
 自动映射路由生成规则: => <font color=Red>var Pattern(路由) = $"{BaseUri}/{RouteMethodName}";</font>
 
 #### BaseUri (根地址)
-    
+
 * 根据规则<font Color=Red>自动生成根地址</font> (<font Color=Red>默认</font>)
   ```csharp
   根地址 = $"{前缀}/{版本}/{服务名(默认复数)}"
@@ -473,7 +473,7 @@
         }
     }
     ```
-  * 重写根地址规则 (<font Color=Red>个性化</font>)
+  * 重写根地址规则（<font Color=Red>个性化</font>）
     ```csharp
     public class ProjectService : ServiceBase
     {
@@ -487,7 +487,7 @@
             };
             return Task.FromResult(list);
         }
-  
+    
         /// <summary>
         /// 重写根地址规则
         /// </summary>
@@ -505,17 +505,17 @@
 
 优先级: `自定义路由方法名` > `规则生成路由方法名`
 
-  * 规则生成路由方法名 (<font Color=Red>默认</font>)
+  * 规则生成路由方法名（<font Color=Red>默认</font>）
 
     ```csharp
     var methodName = 原方法名.TrimStart("智能匹配到的请求方式前缀"，"").TrimEnd("Async"，"") + "{id}";
     ```
     
-    * 可通过[`DisableTrimMethodPrefix`](#DisableTrimMethodPrefix)<font Color=Red>禁用移除前缀</font>
-    * 根据参数名称匹配是否等于`id`，且未增加`[FromBodyAttribute]`、`[FromFormAttribute]`、`[FromHeaderAttribute]`、`[FromQueryAttribute]`、`[FromServicesAttribute]`特性，可通过[`AutoAppendId`](#AutoAppendId) <font Color=Red>禁用自动追加{id}</font>
+    * 可通过[`DisableTrimMethodPrefix`](#DisableTrimMethodPrefix) <font Color=Red>禁用移除前缀</font>
+    * 根据参数名称匹配是否等于`id`，且未增加`[FromBodyAttribute]`、`[FromFormAttribute]`、`[FromHeaderAttribute]`、`[FromQueryAttribute]`、`[FromServicesAttribute]`特性，可通过[`AutoAppendId`](#AutoAppendId) <font Color=Red>禁用自动追加 {id}</font>
 
   * <a href="#routepattern-8def7531" style="color: red;">自定义路由方法名</a>
-      
+    
     ```csharp Services/ProjectService
     public class ProjectService : ServiceBase
     {
@@ -653,7 +653,7 @@ public class ProjectService : ServiceBase
     * 当前<font color=Red>方法访问级别不是 Public </font>
     * 方法上增加了特性 <font color=Red>IgnoreRoute</font>
   * 智能<font color=Red>匹配请求方式失败</font>
-    * 通过[自定义路由](#自定义路由)特性设置请求方式
+    * 通过[自定义路由](#自定义路由) 特性设置请求方式
         ```csharp
         public class ProjectService : ServiceBase
         {
@@ -673,7 +673,8 @@ public class ProjectService : ServiceBase
     * 修改匹配失败后默认使用[XXX方式](#MapHttpMethodsForUnmatched)请求
 
         :::: code-group
-        ::: code-group-item 方案1: 全局配置匹配失败后使用 Get 请求
+        ::: code-group-item 方案1：全局配置匹配失败后使用 Get 请求
+        
         ```csharp Program.cs l:4
         var builder = WebApplication.CreateBuilder(args);
         builder.AddServices(globalRouteOptions =>
@@ -682,7 +683,8 @@ public class ProjectService : ServiceBase
         });
         ```
         :::
-        ::: code-group-item 方案2: 局部配置匹配失败后使用 Get 请求
+        ::: code-group-item 方案2：局部配置匹配失败后使用 Get 请求
+        
         ```csharp Services/ProjectService.cs l:5
         public class ProjectService : ServiceBase
         {
@@ -706,9 +708,10 @@ public class ProjectService : ServiceBase
         :::
         ::::
     * 修改方法名或修改 [XXXPrefixes 规则](#GetPrefixes)使得方法被智能识别
-
+    
         :::: code-group
-        ::: code-group-item 方案1: 修改方法名
+        ::: code-group-item 方案1：修改方法名
+        
         ```csharp Services/ProjectService.cs l:3
         public class ProjectService : ServiceBase
         {
@@ -725,7 +728,8 @@ public class ProjectService : ServiceBase
         }
         ```
         :::
-        ::: code-group-item 方案2: 修改 `XXXPrefixes` 规则被识别为 `Get` 请求
+        ::: code-group-item 方案2：修改 `XXXPrefixes` 规则被识别为 `Get` 请求
+        
         ```csharp Services/ProjectService.cs l:6-9
         public class ProjectService : ServiceBase
         {
@@ -752,12 +756,12 @@ public class ProjectService : ServiceBase
         ```
         :::
         ::::
-
+        
         > 针对匹配请求方式失败的方法，路由将指定为 `Map`，它支持通过 `Post`、`Get`、`Delete`、`Put` 访问，但 `Swagger` 不能识别它
 
 ### 2. 继承 ServiceBase 的派生类构造函数中获取获取到服务无法正常使用
 
-继承 `ServiceBase` 服务不支持通过构造函数注入服务，如果你需要从 `DI` 获取指定服务，可通过<font color=Red>在方法上增加对应服务的参数类型</font>来使用、或者通过其父类 `ServiceBase` 提供的<font color=Red>GetService<TService>()</font>、<font color=Red> GetRequiredService <TService>()</font>来使用，例如：
+继承 `ServiceBase` 服务不支持通过构造函数注入服务，如果你需要从 `DI` 获取指定服务，可通过<font color=Red>在方法上增加对应服务的参数类型</font>来使用、或者通过其父类 `ServiceBase` 提供的 <font color=Red>GetService<TService>()</font>、<font color=Red> GetRequiredService <TService>()</font> 来使用，例如：
 
   ```csharp 
 public class CatalogItemService : ServiceBase
@@ -832,10 +836,11 @@ Did you mean to register the "Body (Inferred)" parameter(s) as a Service or appl
 
 <app-alert type="warning" content="检查 **ServiceBase** 的**派生类**中是否符合 **Get 请求使用对象来接收参数**，到目前为止，仅发现这一种情况会出现这类错误，它可能是因为手动映射路由、自动映射路由或者是在 `ServiceBase` 的派生类中不规范的创建方法导致"></app-alert>
 
-我们可通过将<font color=Red>参数信息平铺</font>到方法上来或者<font color=Red>增加[FromBody]</font>等特性来标记参数来源，例如:
+我们可通过将 <font color=Red>参数信息平铺</font> 到方法上来或者 <font color=Red>增加 [FromBody] </font> 等特性来标记参数来源，例如:
 
 :::: code-group
 ::: code-group-item 错误用法
+
 ```csharp
 public class ProjectService : ServiceBase
 {
@@ -900,7 +905,7 @@ public class ProjectItemQuery
 
 <app-alert type="warning" content="方案2与方案1的参数来源是不一致的，使用此方案时确保参数信息是通过 `Body` 进行传输"></app-alert>
 
-> 除了以上方案之外，我们也可以通过[自定义参数绑定](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/minimal-apis#custom-binding)来处理 
+> 除了以上方案之外，我们也可以通过 [自定义参数绑定](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/minimal-apis#custom-binding) 来处理 
 
 ## 相关Issues
 

@@ -1,8 +1,8 @@
 # 存储 - 阿里云 OSS
 
-## 概念
+## 概述
 
-基于[阿里云 OSS](https://www.aliyun.com/product/oss) 提供的对象存储
+基于 [阿里云 OSS](https://www.aliyun.com/product/oss) 提供的对象存储
 
 ## 使用
 
@@ -95,7 +95,7 @@ app.MapPost("/upload", async (HttpRequest request, IClient client) =>
 });
 ``` 
 
-> Form表单提交，key为file，类型为文件上传
+> Form 表单提交，key 为 file，类型为文件上传
 
 #### 删除对象
 
@@ -127,7 +127,7 @@ app.MapGet("/download", async (IClient client, string key, string path) =>
 {
     await client.GetObjectAsync("storage1-test", key, stream =>
     {
-        //下载文件到指定路径
+        //Download the file to the specified path
         using var requestStream = stream;
         byte[] buf = new byte[1024];
         var fs = File.Open(path, FileMode.OpenOrCreate);
@@ -150,7 +150,7 @@ app.MapGet("/GetSts", (IClient client) =>
 });
 ```
 
-> [阿里云](https://www.aliyun.com/product/oss) 平台使用STS来获取临时凭证
+> [阿里云](https://www.aliyun.com/product/oss) 平台使用 `STS` 来获取临时凭证
 
 ### 存储客户端容器 IClientContainer
 
@@ -180,8 +180,8 @@ builder.Services.Configure<StorageOptions>(option =>
 {
     option.BucketNames = new BucketNames(new List<KeyValuePair<string, string>>()
     {
-        new("DefaultBucketName", "storage1-test"),//默认BucketName
-        new("picture", "storage1-picture")//指定别名为picture的BucketName为storage1-picture
+        new("DefaultBucketName", "storage1-test"),//Default BucketName
+        new("picture", "storage1-picture")//Specify the BucketName with the alias picture as storage1-picture
     });
 });
 
