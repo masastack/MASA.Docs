@@ -126,7 +126,6 @@
            Name = "Teach you to learn Dapr ……",
            OrderItem = new OrderItem("Teach you to learn Dapr hand by hand", 49.9m)
        };
-       IMapper mapper;// 通过DI获取
        var order = request.Map<Order>();// 将request映射到新的对象
    }
    ```
