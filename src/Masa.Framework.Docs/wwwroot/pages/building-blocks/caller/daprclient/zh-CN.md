@@ -67,7 +67,7 @@
    ::: code-group-item 不指定 Name 注册
 
    ```csharp
-   builder.Services.AddCaller(clientBuilder =>
+   builder.Services.AddCaller(callerBuilder =>
    {
        callerBuilder.UseDapr(client => client.AppId = "{Replace-With-Your-Dapr-AppID}");
    });
@@ -98,7 +98,7 @@
    
        public async Task<IActionResult> HelloAsync(int userId)
        {
-           var userObj = await _userCaller.HelloAsync("word");
+           var userObj = await _caller.HelloAsync("word");
            return Ok(userObj);
        }
    }
