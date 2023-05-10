@@ -237,7 +237,7 @@ dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
            var todo = await _todoDbContext.Set<TodoEntity>().AsNoTracking().FirstOrDefaultAsync(t => t.Id == command.Id);
            if (todo == null)
            {
-               throw new UserFriendlyException("代办不存在");
+               throw new UserFriendlyException("待办不存在");
            }
            command.Dto.Adapt(todo);
            _todoDbContext.Set<TodoEntity>().Update(todo);
@@ -248,7 +248,8 @@ dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
        {
            var todoExists = await _todoDbContext.Set<TodoEntity>().AnyAsync(t => t.Title == title && t.Id != id);
            if (todoExists)
-               throw new UserFriendlyException("代办已存在");
+               throw new UserFriendlyException("
+               已存在");
        }
    
        [EventHandler]
