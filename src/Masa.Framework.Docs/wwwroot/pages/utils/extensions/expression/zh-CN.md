@@ -122,7 +122,7 @@
    }
    ```
 
-* Or\<T\>(bool isCompose, Expression\<Fun\c<T, bool\>\>? second): 当 `isCompose` 为 `false` 时，合并两个 `Expression` 表达式，条件是 **或者**
+* Or\<T\>(bool isCompose, Expression\<Func<T, bool\>\>? second): 当 `isCompose` 为 `true` 时，合并两个 `Expression` 表达式，条件是 **或者**
 
    :::: code-group
    ::: code-group-item Main 单元测试
