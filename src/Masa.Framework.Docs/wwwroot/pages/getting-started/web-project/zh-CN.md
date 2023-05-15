@@ -18,7 +18,7 @@
 本教程将会使用 `MASA Template` 创建 TodoApp 解决方案。我们先打开 `cmd` 运行下面的命令安装模板
 
 ```shell 终端
-dotnet new install Masa.Template
+dotnet new install Masa.Template::1.0.0-rc.1
 ```
 
 ## 创建项目
