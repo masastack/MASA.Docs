@@ -62,7 +62,7 @@
 1. 安装模版
 
    ```shell 终端
-   dotnet new install Masa.Template
+   dotnet new install Masa.Template::1.0.0-rc.1
    ```
 
 2. 使用模版创建
