@@ -181,7 +181,7 @@ SendTemplateMessageByInternalAsync
 | **Variables**                            | 模板参数
 | **Receivers[]**                          | 内部收件人，详见InternalReceiverModel      
 | **SendRules**                            | 发送规则，详见SendRuleModel    
-| **ExtraProperties**          | 扩展属性
+| **ExtraProperties**                      | 扩展属性
 
 #### 给外部用户发送普通消息
 
@@ -196,7 +196,7 @@ SendOrdinaryMessageByExternalAsync
 | **Variables**                            | 模板参数
 | **Receivers[]**                          | 外部收件人，详见ExternalReceiverModel
 | **SendRules**                            | 发送规则，详见SendRuleModel    
-| **ExtraProperties**                       | 扩展属性
+| **ExtraProperties**                      | 扩展属性
 
 #### 给外部用户发送模板消息
 
@@ -211,7 +211,7 @@ SendTemplateMessageByExternalAsync
 | **Variables**                            | 模板参数，发送模板消息时支持
 | **Receivers[]**                          | 外部收件人，详见ExternalReceiverModel
 | **SendRules**                            | 发送规则，详见SendRuleModel    
-| **ExtraProperties**                       | 扩展属性
+| **ExtraProperties**                      | 扩展属性
 
 #### 普通消息内容
 
@@ -219,11 +219,11 @@ MessageInfoModel
 
 | 字段                                     | 描述                                                                                                
 |------------------------------------------|-----------------------------------------------------------------------------------------------------
-| **Title**                    | 消息标题                                                                            
-| **Content**                  | 消息内容
-| **IsJump**                   | 是否跳转
-| **JumpUrl**                  | 跳转地址
-| **ExtraProperties**          | 扩展属性，发送App消息时用于透传内容，发送站内信消息时可以指定Tag，支持根据Tag检索站内信
+| **Title**                                | 消息标题                                                                            
+| **Content**                              | 消息内容
+| **IsJump**                               | 是否跳转
+| **JumpUrl**                              | 跳转地址
+| **ExtraProperties**                      | 扩展属性，发送App消息时用于透传内容，发送站内信消息时可以指定Tag，支持根据Tag检索站内信
 
 #### 发送规则
 
@@ -231,9 +231,9 @@ SendRuleModel
 
 | 字段                                     | 描述                                                                                                
 |------------------------------------------|-----------------------------------------------------------------------------------------------------
-| **IsCustom**                    | 开启发送规则
-| **CronExpression**              | 使用Cron来实现分批发送或定时发送
-| **SendingCount**                | 每次要发送的条数，0即不限制
+| **IsCustom**                             | 开启发送规则
+| **CronExpression**                       | 使用Cron来实现分批发送或定时发送
+| **SendingCount**                         | 每次要发送的条数，0即不限制
 
 #### 内部收件人
 
@@ -241,9 +241,9 @@ InternalReceiverModel
 
 | 字段                                     | 描述                                                                                                
 |------------------------------------------|-----------------------------------------------------------------------------------------------------
-| **SubjectId**                | 用户 `ID`，具体内容通过 `MessageTaskReceiverTypes` 决定                                      
-| **Type** | 接收人类型（`User`：用户，`Organization`：组织架构，`Role`：角色，`Team`：团队，`Group`：收件人组）
-| **Variables**                 | 收件人模板参数，优先级高于模板参数`Variables`
+| **SubjectId**                            | 用户 `ID`，具体内容通过 `MessageTaskReceiverTypes` 决定                                      
+| **Type**                                 | 接收人类型（`User`：用户，`Organization`：组织架构，`Role`：角色，`Team`：团队，`Group`：收件人组）
+| **Variables**                            | 收件人模板参数，优先级高于模板参数`Variables`
 
 
 #### 外部收件人
@@ -252,8 +252,8 @@ ExternalReceiverModel
 
 | 字段                                     | 描述                                                                                                
 |------------------------------------------|-----------------------------------------------------------------------------------------------------
-| **ChannelUserIdentity**      | 渠道用户标识，`ChannelType` 为 `Email` 时填邮箱地址，`ChannelType` 为 `SMS` 时填手机号（具体内容通过 `ChannelType` 决定）  
-| **Variables**                 | 收件人模板参数，优先级高于模板参数`Variables`
+| **ChannelUserIdentity**                 | 渠道用户标识，`ChannelType` 为 `Email` 时填邮箱地址，`ChannelType` 为 `SMS` 时填手机号（具体内容通过 `ChannelType` 决定）  
+| **Variables**                           | 收件人模板参数，优先级高于模板参数`Variables`
 
 ### SignalR 发送检查
 
