@@ -34,6 +34,12 @@
 
 ![job-edit-baseInfo](https://cdn.masastack.com/stack/doc/scheduler/job-edit-baseInfo.png)
 
+**告警**
+
+点击`是否告警`弹出[告警规则](stack/alert/use-guide/alarm-rule)弹窗，规则自动生成，可以按需调整
+
+![job-edit-alert](https://cdn.masastack.com/stack/doc/scheduler/job-edit-alert.png)
+
 | 字段 | 描述 |
 | --- | --- |
 | **调度类型** | **手动运行**：只能通过后台点击启动或者通过 `SDK` 调用 `StartAsync` 接口启动。<br/>**Cron**：会将 `Job` 注册到 `Quartz`，由 `Quartz` 根据 `Cron` 表达式触发 `Start` 事件。 |
