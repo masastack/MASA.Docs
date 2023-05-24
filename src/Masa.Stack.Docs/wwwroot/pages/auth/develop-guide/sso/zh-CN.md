@@ -6,30 +6,112 @@
 
 ## 对接SSO
 
-安装包`Masa.Utils.Security.Authentication.OpenIdConnect`
+### Blazor Server
 
-添加OpenId Connect身份验证
+#### MASA Stack Component
 
-```csharp
-builder.Services.AddMasaOpenIdConnect(MasaOpenIdConnectOptions:masaOpenIdConnectOptions);
-```
+1. 安装包`Masa.Stack.Components`
 
-AddMasaOpenIdConnect方法专门为MASA Stack的封装，AddOpenIdConnect方法内编码针对MASA Stack业务。
+   添加MASA Stack Component 服务
+   
+   ```csharp
+   builder.AddMasaStackComponentsForServer();
+   ```
 
-MasaOpenIdConnectOptions介绍：
+2. 添加OpenId Connect身份验证
+   
+   ```csharp
+   builder.Services.AddMasaOpenIdConnect(MasaOpenIdConnectOptions:masaOpenIdConnectOptions);
+   ```
+   
+   MasaOpenIdConnectOptions介绍：
+   
+   * `Authority` `string` 类型，指定Sso站点地址，如：`https://auth-sso-dev.masastack.com/`
+   * `ClientId` `string` 类型，指定客户端Id
+   * `ClientSecret` `string` 类型，指定客户端ClientSecret，没有为空即可
+   * `Scopes` `List<string>` 类型，补充应用请求的Scope 集合。默认为`openid`和`profile`，具体见[OpenIdConnectOptions](https://github.com/dotnet/aspnetcore/blob/3ea008c80d5cc63de7f90ddfd6823b7b006251ff/src/Security/Authentication/OpenIdConnect/src/OpenIdConnectOptions.cs#L42)
+   
+   > AddMasaOpenIdConnect方法专门为MASA Stack的封装，AddOpenIdConnect方法内编码针对MASA Stack业务。且`Masa.Stack.Components`内依赖了`MASA Dcc`,由`Masa.Contrib.StackSdks.Config`读取相关配置，需要配置环境变量保证正常运行，具体可参考MASA Stack 项目`launchSettings.json`。目前不是最终版，后期优化调整可能较大，故此处先不做过多说明。
 
-* `Authority` `string` 类型，指定Sso站点地址，如：`https://sso-develop.masastack.com`
-* `ClientId` `string` 类型，指定客户端Id
-* `ClientSecret` `string` 类型，指定客户端ClientSecret，没有为空即可
-* `Scopes` `List<string>` 类型，补充应用请求的Scope 集合。默认为`openid`和`profile`，具体见[OpenIdConnectOptions](https://github.com/dotnet/aspnetcore/blob/3ea008c80d5cc63de7f90ddfd6823b7b006251ff/src/Security/Authentication/OpenIdConnect/src/OpenIdConnectOptions.cs#L42)
+3. 在`Startup.cs`中添加相关中间件
+
+   ```csharp l:3,4
+   app.UseRouting();
+   
+   app.UseAuthentication();
+   app.UseAuthorization();
+   
+   app.MapBlazorHub();
+   ```
+
+#### 原生Blazor
+
+1. 安装包`Microsoft.AspNetCore.Authentication.OpenIdConnect`
+
+2. 添加OpenId Connect身份验证
+   ```csharp
+   builder.Services.AddAuthentication(options =>
+   {
+       options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+       options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+       options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+   })
+   .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+   .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
+   {
+       options.Authority = "https://auth-sso-dev.masastack.com/";//sso address
+       options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+       options.SignOutScheme = OpenIdConnectDefaults.AuthenticationScheme;
+       options.RequireHttpsMetadata = false;
+       options.ClientId = "test_client"; //your client id
+       options.ResponseType = OpenIdConnectResponseType.Code;
+       options.Scope.Add("");//add scope 
+   
+       options.NonceCookie.SameSite = SameSiteMode.Unspecified;
+       options.CorrelationCookie.SameSite = SameSiteMode.Unspecified;
+   
+       //options.ClaimActions.MapUniqueJsonKey("account", "account"); //claim map
+   
+       //ensure normal i use self signed certificate
+       options.BackchannelHttpHandler = new HttpClientHandler
+       {
+           ServerCertificateCustomValidationCallback = delegate
+           {
+               return true;
+           }
+       };
+   });
+   
+   builder.Services.AddAuthorization(options =>
+   {
+       // By default, all incoming requests will be authorized according to the default policy
+       options.FallbackPolicy = options.DefaultPolicy;
+   });
+   ```
+   
+   > `AddOpenIdConnect`方法`options`设置了很多参数，相对于`AddMasaOpenIdConnect`实现也删除了很多代码，可以根据业务调整代码。`AddAuthorization`方法中使用`DefaultPolicy`，则所有请求默认跳转至SSO。
+
+3. 在`Startup.cs`中添加相关中间件
+   ```csharp l:3,4
+   app.UseRouting();
+   
+   app.UseAuthentication();
+   app.UseAuthorization();
+   
+   app.MapBlazorHub();
+   ```
+
+### ASP.NET Core Web
+
+同理*原生Blazor* 对接SSO
 
 ## 用户注销
 
 OIDC定义了三个规范完成用户注销动作：
 
-Session Management ：可选。Session管理，规范OIDC服务如何管理Session信息。
-Front-Channel Logout：可选。基于前端的注销机制。
-Back-Channel Logout：可选。基于后端的注销机制。
+* `Session Management` ：可选。Session管理，规范OIDC服务如何管理Session信息。
+* `Front-Channel Logout`：可选。基于前端的注销机制。
+* `Back-Channel Logout`：可选。基于后端的注销机制。
 
 对于有服务端的客户端，IdentityServer提供了对[front-channel](https://openid.net/specs/openid-connect-frontchannel-1_0.html)规范的支持；对于基于浏览器的javascript客户端（例如SPA、React、Angular等），IdentitySever提供了对 [session management](https://openid.net/specs/openid-connect-session-1_0.html) 规范的支持。
 
