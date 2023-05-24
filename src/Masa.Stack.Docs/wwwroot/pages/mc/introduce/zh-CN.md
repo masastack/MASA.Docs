@@ -22,7 +22,7 @@ MASA MC 通过短信、邮箱、站内信（目前已经支持）3个类型来�
 
 ## 产品功能结构图
 
-![MASA MC](https://cdn.masastack.com/stack/doc/mc/product-mix.png)
+![产品功能结构](https://cdn.masastack.com/stack/doc/mc/product-mix.png)
 
 ## 产品特性与优势
 
