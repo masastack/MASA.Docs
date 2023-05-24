@@ -18,7 +18,7 @@
 本教程将会使用 `MASA Template` 创建 TodoApp 解决方案。我们先打开 `cmd` 运行下面的命令安装模板
 
 ```shell 终端
-dotnet new install Masa.Template
+dotnet new install Masa.Template::1.0.0-rc.1
 ```
 
 ## 创建项目
@@ -54,16 +54,16 @@ dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
    }
    ```
 
-2. 然后修改 `TodoAppDbContext`，将 **TodoEntity** 添加进去，修改完后的 `TodoAppDbContext.cs` 如下：
+2. 然后修改 `ExampleDbContext`，将 **TodoEntity** 添加进去，修改完后的 `ExampleDbContext.cs` 如下：
 
-   ```csharp DataAccess/TodoAppDbContext.cs l:5,19,20
+   ```csharp DataAccess/ExampleDbContext.cs l:5,19,20
    namespace TodoApp.Service.DataAccess;
    
-   public class TodoAppDbContext : MasaDbContext
+   public class ExampleDbContext : MasaDbContext
    {
        public DbSet<TodoEntity> Todos { get; set; }
    
-       public TodoAppDbContext(MasaDbContextOptions<TodoAppDbContext> options) : base(options)
+       public ExampleDbContext(MasaDbContextOptions<ExampleDbContext> options) : base(options)
        {
        }
    
@@ -190,15 +190,20 @@ dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
    
    public class TodoQueryHandler
    {
-       readonly TodoAppDbContext _todoDbContext;
+       readonly ExampleDbContext _todoDbContext;
    
-       public TodoQueryHandler(TodoAppDbContext todoDbContext) => _todoDbContext = todoDbContext;
+       public TodoQueryHandler(ExampleDbContext todoDbContext) => _todoDbContext = todoDbContext;
    
        [EventHandler]
        public async Task GetListAsync(TodoGetListQuery query)
        {
            var todoDbQuery = _todoDbContext.Set<TodoEntity>().AsNoTracking();
-           query.Result = await todoDbQuery.Select(e => e.Adapt<TodoGetListDto>()).ToListAsync();
+           query.Result = await todoDbQuery.Select(e => new TodoGetListDto
+           {
+               Id = e.Id,
+               Done = e.Done,
+               Title = e.Title,
+           }).ToListAsync();
        }
    }
    ```
@@ -212,9 +217,9 @@ dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
    
    public class TodoCommandHandler
    {
-       readonly TodoAppDbContext _todoDbContext;
+       readonly ExampleDbContext _todoDbContext;
    
-       public TodoCommandHandler(TodoAppDbContext todoDbContext) => _todoDbContext = todoDbContext;
+       public TodoCommandHandler(ExampleDbContext todoDbContext) => _todoDbContext = todoDbContext;
    
        [EventHandler]
        public async Task CreateAsync(CreateTodoCommand command)
@@ -232,7 +237,7 @@ dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
            var todo = await _todoDbContext.Set<TodoEntity>().AsNoTracking().FirstOrDefaultAsync(t => t.Id == command.Id);
            if (todo == null)
            {
-               throw new UserFriendlyException("代办不存在");
+               throw new UserFriendlyException("待办不存在");
            }
            command.Dto.Adapt(todo);
            _todoDbContext.Set<TodoEntity>().Update(todo);
@@ -243,7 +248,8 @@ dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
        {
            var todoExists = await _todoDbContext.Set<TodoEntity>().AnyAsync(t => t.Title == title && t.Id != id);
            if (todoExists)
-               throw new UserFriendlyException("代办已存在");
+               throw new UserFriendlyException("
+               已存在");
        }
    
        [EventHandler]
