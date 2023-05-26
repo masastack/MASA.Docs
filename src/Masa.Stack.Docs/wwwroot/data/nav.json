@@ -1,9 +1,22 @@
 [
   {
-    "title": "stack",
+    "title": "masa-stack-1.0",
     "icon": "mdi-bookmark",
     "items": [
-      "introduce"
+      "introduce",
+      {
+        "title": "installation",
+        "items": [
+          "docker-compose", 
+          "helm"
+        ]
+      },
+      {
+        "title": "tls",
+        "items": [
+          "temporary"
+        ]
+      }
     ]
   },
   {
@@ -14,11 +27,11 @@
       {
         "title": "use-guide",
         "items": [
-          "user",
-          "rolepermision",
-          "team",
-          "sso",
-          "configureoauth",
+          "user", 
+          "rolepermision", 
+          "team", 
+          "sso", 
+          "configureoauth", 
           "org"
         ]
       },
@@ -72,10 +85,10 @@
       {
         "title": "use-guide",
         "items": [
-          "channel",
-          "message-template",
-          "receiver-group",
-          "send-message",
+          "channel", 
+          "message-template", 
+          "receiver-group", 
+          "send-message", 
           "message-record"
         ]
       },
@@ -93,8 +106,8 @@
       {
         "title": "use-guide",
         "items": [
-          "alarm-rule",
-          "alarm-history",
+          "alarm-rule", 
+          "alarm-history", 
           "web-hook"
         ]
       },
@@ -113,9 +126,9 @@
       {
         "title": "use-guide",
         "items": [
-          "get-started",
-          "scheduler-job-app",
-          "scheduler-http",
+          "get-started", 
+          "scheduler-job-app", 
+          "scheduler-http", 
           "scheduler-dapr"
         ]
       },
@@ -133,9 +146,9 @@
       {
         "title": "use-guide",
         "items": [
-          "basic-concepts",
-          "monitoring",
-          "error-query",
+          "basic-concepts", 
+          "monitoring", 
+          "error-query", 
           "trouble-shooting"
         ]
       },
@@ -143,24 +156,6 @@
       "sdk-instance",
       "best-practices",
       "faq"
-    ]
-  },
-  {
-    "title": "operations",
-    "icon": "mdi-bookmark",
-    "items": [
-      {
-        "title": "kubernetes",
-        "items": [
-          "kubernetes-deploy"
-        ]
-      },
-      {
-        "title": "tls",
-        "items": [
-          "temporary"
-        ]
-      }
     ]
   }
 ]
