@@ -16,17 +16,46 @@
 
 在此步骤中，您需要根据所选的消息类型来配置消息内容。
 
-1. 普通消息
+#### 普通消息
    
-   对于普通消息，您只需要填写消息内容即可。
+对于普通消息，您只需要填写消息内容即可。
    
-   ![send-ordinary-message](https://cdn.masastack.com/stack/doc/mc/send-ordinary-message.png)
+
+- 邮箱
+
+   ![send-ordinary-email](https://cdn.masastack.com/stack/doc/mc/send-ordinary-email.png)
+
+- 站内信
+
+   ![send-ordinary-website-message](https://cdn.masastack.com/stack/doc/mc/send-ordinary-website-message.png)
+
+- App
+
+   ![send-ordinary-app](https://cdn.masastack.com/stack/doc/mc/send-ordinary-app.png)
+
+   | 属性 | 描述 |
+   | ---  | --- |
+   | **应用内消息** | 勾选后会生成站内信 |
+   | **跳转地址** | 站内信的跳转url地址,同时会在透传消息Json中增加一条key为url的数据 |
+   | **附加字段** | 透传消息内容配置 |
+   | **可选配置-Android** | **点击通知打开指定页面**：使用 intent 里的 url 指定点击通知栏后跳转的目标页面 |
    
-2. 模板消息
+#### 模板消息
    
-   对于模板消息，您需要选择预设的消息模板。
+对于模板消息，您需要选择预设的消息模板。
+
+- 邮箱
+
+   ![send-template-email](https://cdn.masastack.com/stack/doc/mc/send-template-email.png)
+
+- 短信
+
+   ![send-template-sms](https://cdn.masastack.com/stack/doc/mc/send-template-sms.png)
+
+- 站内信
+
+   ![send-template-website-message](https://cdn.masastack.com/stack/doc/mc/send-template-website-message.png)
    
-   ![send-template-message](https://cdn.masastack.com/stack/doc/mc/send-template-message.png)
 
 ### 收件人
 
