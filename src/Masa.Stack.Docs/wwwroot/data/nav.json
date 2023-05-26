@@ -1,9 +1,17 @@
 [
   {
-    "title": "stack",
+    "title": "masa-stack-1.0",
     "icon": "mdi-bookmark",
     "items": [
-      "introduce"
+      "introduce",
+      {
+        "title": "installation",
+        "items": ["docker-compose", "helm"]
+      },
+      {
+        "title": "tls",
+        "items": ["temporary"]
+      }
     ]
   },
   {
@@ -13,14 +21,7 @@
       "introduce",
       {
         "title": "use-guide",
-        "items": [
-          "user",
-          "rolepermision",
-          "team",
-          "sso",
-          "configureoauth",
-          "org"
-        ]
+        "items": ["user", "rolepermision", "team", "sso", "configureoauth", "org"]
       },
       {
         "title": "develop-guide",
@@ -71,13 +72,7 @@
       "introduce",
       {
         "title": "use-guide",
-        "items": [
-          "channel",
-          "message-template",
-          "receiver-group",
-          "send-message",
-          "message-record"
-        ]
+        "items": ["channel", "message-template", "receiver-group", "send-message", "message-record"]
       },
       "sdk-instance",
       "best-practices",
@@ -92,11 +87,7 @@
       "introduce",
       {
         "title": "use-guide",
-        "items": [
-          "alarm-rule",
-          "alarm-history",
-          "web-hook"
-        ]
+        "items": ["alarm-rule", "alarm-history", "web-hook"]
       },
       "develop-guide",
       "sdk-instance",
@@ -112,12 +103,7 @@
       "introduce",
       {
         "title": "use-guide",
-        "items": [
-          "get-started",
-          "scheduler-job-app",
-          "scheduler-http",
-          "scheduler-dapr"
-        ]
+        "items": ["get-started", "scheduler-job-app", "scheduler-http", "scheduler-dapr"]
       },
       "sdk-instance",
       "best-practices",
@@ -132,35 +118,12 @@
       "introduce",
       {
         "title": "use-guide",
-        "items": [
-          "basic-concepts",
-          "monitoring",
-          "error-query",
-          "trouble-shooting"
-        ]
+        "items": ["basic-concepts", "monitoring", "error-query", "trouble-shooting"]
       },
       "api",
       "sdk-instance",
       "best-practices",
       "faq"
-    ]
-  },
-  {
-    "title": "operations",
-    "icon": "mdi-bookmark",
-    "items": [
-      {
-        "title": "kubernetes",
-        "items": [
-          "kubernetes-deploy"
-        ]
-      },
-      {
-        "title": "tls",
-        "items": [
-          "temporary"
-        ]
-      }
     ]
   }
 ]
