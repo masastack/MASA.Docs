@@ -6,7 +6,10 @@
       "introduce",
       {
         "title": "installation",
-        "items": ["docker-compose", "helm"]
+        "items": [
+          "docker-compose", 
+          "helm"
+        ]
       },
       {
         "title": "tls",
@@ -21,7 +24,14 @@
       "introduce",
       {
         "title": "use-guide",
-        "items": ["user", "rolepermision", "team", "sso", "configureoauth", "org"]
+        "items": [
+          "user", 
+          "rolepermision", 
+          "team", 
+          "sso", 
+          "configureoauth", 
+          "org"
+        ]
       },
       {
         "title": "develop-guide",
