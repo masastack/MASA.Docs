@@ -15,3 +15,5 @@
 ### 查看记录
 
 ![messageRecord-details](https://cdn.masastack.com/stack/doc/mc/messageRecord-details.png)
+
+![messageRecord-details2](https://cdn.masastack.com/stack/doc/mc/messageRecord-details2.png)
