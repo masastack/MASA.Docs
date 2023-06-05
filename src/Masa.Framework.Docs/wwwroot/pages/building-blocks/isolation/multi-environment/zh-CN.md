@@ -36,16 +36,16 @@
    var builder = WebApplication.CreateBuilder(args);
    builder.Services.AddIsolation(isolationBuilder =>
    {
-       isolationBuilder.UseMultiTenant();
+       isolationBuilder.UseMultiEnvironment();
    });
    
    var app = builder.Build();
    
    app.UseIsolation();
    
-   app.MapGet("/", (IMultiTenantContext multiTenantContext) =>
+   app.MapGet("/", (IMultiEnvironmentContext multiEnvironmentContext) =>
    {
-       return multiTenantContext.CurrentTenant?.Id ?? "Empty";
+       return multiEnvironmentContext.CurrentEnvironment ?? "Empty";
    });
    
    app.Run();
