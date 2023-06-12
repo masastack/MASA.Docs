@@ -128,7 +128,7 @@ public class ExceptionHandler : IMasaExceptionHandler
 
 app.UseMasaExceptionHandler(option =>
 {
-    option.UseExceptionHanlder<ExceptionHandler>();
+    option.UseExceptionHandler<ExceptionHandler>();
 });
 ```
 :::
@@ -199,7 +199,7 @@ builder.Services
   .AddMvc()
   .AddMasaExceptionHandler(options =>
   {
-      options.UseExceptionHanlder<ExceptionHandler>();
+      options.UseExceptionHandler<ExceptionHandler>();
   });
 ```
 :::
