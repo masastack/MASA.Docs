@@ -19,8 +19,9 @@
 1. 安装 `Masa.BuildingBlocks.Dispatcher.Events`、`Masa.Contrib.ReadWriteSplitting.Cqrs`
 
    ```shell 终端
-   dotnet add package Masa.BuildingBlocks.Dispatcher.Events
+   dotnet add package Masa.Contrib.Dispatcher.Events
    dotnet add package Masa.Contrib.ReadWriteSplitting.Cqrs
+   dotnet add package Masa.Contrib.Service.MinimalAPIs
    ```
 
 2. 注册 **事件总线**
