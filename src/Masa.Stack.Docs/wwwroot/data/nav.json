@@ -4,10 +4,11 @@
     "icon": "mdi-bookmark",
     "items": [
       "introduce",
+      "access-guide",
       {
         "title": "installation",
         "items": [
-          "docker-compose", 
+          "docker-compose",
           "helm"
         ]
       },
