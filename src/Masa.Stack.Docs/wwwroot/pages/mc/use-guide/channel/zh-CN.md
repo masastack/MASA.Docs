@@ -43,8 +43,16 @@
    * `APP` 渠道配置
    
       支持个推和极光。
+
+      ![channel-add-app](https://cdn.masastack.com/stack/doc/mc/channel-add-app-provider.png)
+
+      个推
    
-      ![channel-add-app](https://cdn.masastack.com/stack/doc/mc/channel-add-app.png)
+      ![channel-add-app](https://cdn.masastack.com/stack/doc/mc/channel-add-app-getui.png)
+
+      极光
+   
+      ![channel-add-app](https://cdn.masastack.com/stack/doc/mc/channel-add-app-jpush.png)
    
 ## 编辑和删除渠道
 

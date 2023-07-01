@@ -39,6 +39,7 @@
    | **跳转地址** | 站内信的跳转url地址,同时会在透传消息Json中增加一条key为url的数据 |
    | **附加字段** | 透传消息内容配置 |
    | **可选配置-Android** | **点击通知打开指定页面**：使用 intent 里的 url 指定点击通知栏后跳转的目标页面 |
+   | **可选配置-iOS** | **是否生产环境**：配置推送环境 |
    
 #### 模板消息
    
@@ -55,6 +56,10 @@
 - 站内信
 
    ![send-template-website-message](https://cdn.masastack.com/stack/doc/mc/send-template-website-message.png)
+
+- App
+
+   ![send-template-app](https://cdn.masastack.com/stack/doc/mc/send-template-app.png)
    
 
 ### 收件人
