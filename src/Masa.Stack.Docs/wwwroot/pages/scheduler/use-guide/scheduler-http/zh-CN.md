@@ -8,13 +8,14 @@ dotnet add package Masa.Contrib.StackSdks.Scheduler
 
 ## 手动创建
 
-![填写调度信息](https://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_http_insert.png)
+![填写调度信息](https://cdn.masastack.com/stack/doc/scheduler/scheduler_job_base.png)
 
-![填写调度信息2](https://cdn.masastack.com/stack/doc/scheduler/rc1/scheduler_http_insert_2.png)
+![填写调度信息2](https://cdn.masastack.com/stack/doc/scheduler/scheduler_job_http.png)
 
 | 类型     | 描述                                                                                                                                  |
 |----------|---------------------------------------------------------------------------------------------------------------------------------------|
-| 请求类型 | `HTTP` 请求类型（`GET`，`POST`，`PUT`，`DELETE`，`HEAD`）                                                                               |
+| 请求类型 | `HTTP` 请求类型（`GET`，`POST`，`PUT`，`DELETE`，`HEAD`）                                                                             |
+| 异步模式 | 开启后，http请求成功不会处理结果，需要业务方手动调用sdk通知scheduler任务执行结果                                                      |
 | 请求地址 | 调度请求的接口地址                                                                                                                    |
 | 请求参数 | 接口参数                                                                                                                              |
 | 校验条件 | **默认响应码 200**：接口 `HTTP` 响应码返回是否为 `200` <br/> **内容包含**：与**校验内容**配合使用<br/> **内容不包含**：与**校验内容**配合使用 |
