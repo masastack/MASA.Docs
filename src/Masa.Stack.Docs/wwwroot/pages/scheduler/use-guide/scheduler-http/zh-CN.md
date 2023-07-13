@@ -92,3 +92,70 @@ dotnet add package Masa.Contrib.StackSdks.Scheduler
    | **HttpBody**        | 接口参数 (`Content`)                      |
    | **HttpVerifyType**  | 校验条件                                  |
    | **VerifyContent**   | 校验内容                                  |
+
+## 异步模式
+
+> 异步模式适合请求耗时的HTTP Job，开启后Scheduler请求业务方接口成功不会处理结果。业务方接口可以将要执行的逻辑放到BackgroundJob里，BackgroundJob执行完再调用SDK通知Scheduler结果
+
+1. 业务方接口示例
+
+    ```csharp
+    public class DemoService : ServiceBase
+    {
+        public async Task CheckAsync([FromQuery] Guid taskId)
+        {
+            var args = new CheckJobArgs()
+            {
+                TaskId = taskId
+            };
+            //将耗时操作交由后台任务来执行
+            await BackgroundJobManager.EnqueueAsync(args);
+        }
+    }
+   ```
+
+2. BackgroundJob类示例
+
+    ```csharp
+    public class CheckJob : BackgroundJobBase<CheckJobArgs>
+    {
+        private readonly ISchedulerClient _schedulerClient;
+    
+        public CheckJob(ILogger<BackgroundJobBase<CheckJobArgs>>? logger, ISchedulerClient schedulerClient) : base(logger)
+        {
+            _schedulerClient = schedulerClient;
+        }
+    
+        protected override Task PreExecuteAsync(CheckJobArgs args)
+        {
+            Logger?.LogDebug("----- background task running and jobArgs: {JobArgs}", args.ToJson());
+            return Task.CompletedTask;
+        }
+    
+        protected override Task ExecutingAsync(CheckJobArgs args)
+        {
+            // 你的业务代码
+    
+            return Task.CompletedTask;
+        }
+    
+        protected override async Task PostExecuteAsync(CheckJobArgs args)
+        {
+            Logger?.LogDebug("-----The end of the background task, jobArgs: {JobArgs}", args.ToJson());
+    
+            //调用Scheduler SDK 通知结果
+            var request = new NotifySchedulerTaskRunResultRequest
+            {
+                TaskId = args.TaskId,
+                Status = TaskRunResultStatus.Success
+            };
+    
+            await _schedulerClient.SchedulerTaskService.NotifyRunResultAsync(request);
+        }
+    }
+
+    public class CheckJobArgs
+    {
+        public Guid TaskId { get; set;}
+    }
+   ```
