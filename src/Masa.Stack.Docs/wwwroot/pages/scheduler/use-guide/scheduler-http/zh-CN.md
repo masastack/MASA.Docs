@@ -100,7 +100,7 @@ dotnet add package Masa.Contrib.StackSdks.Scheduler
 1. 业务方接口示例
 
     ```csharp
-       public class DemoService : ServiceBase
+    public class DemoService : ServiceBase
     {
         public async Task CheckAsync([FromQuery] Guid taskId)
         {
