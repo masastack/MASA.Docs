@@ -62,13 +62,13 @@
 1. 安装模版
 
    ```shell 终端
-   dotnet new install Masa.Template::1.0.0-rc.1
+   dotnet new install MASA.Template
    ```
 
 2. 使用模版创建
 
    ```shell 终端
-   dotnet new masafx -n Masa.EShop --web None
+   dotnet new masafx -n MASA.EShop --web None
    ```
 
    > 更多模版命令可通过 **dotnet new masafx -h** ，或者通过Visual Studio图形化界面进行创建
