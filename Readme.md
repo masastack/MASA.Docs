@@ -1,16 +1,3 @@
-## 快速开始
+此仓库仅包含 MASA Framework 和 MASA Stack 的文档资源，完全使用需要依靠 [MASA Blazor](https://github.com/masastack/MASA.Blazor) 仓库。
 
-### 运行调试
-
-* 打开 `Masa.Docs.sln`
-
-* 运行`Masa.Docs.Server`
-
-### 编写文档
-
-* 内容存放到`DocContent`
-  
-  > `Masa.Docs.Shared`的csproj里设置了XCOPY，将自动从 `*.sln` 同级寻找`DocContent`目录复制到项目的`CompileContent`内
-
-### 在线编译预览
-https://docs.masastack.com/document/compile
+在线调试Markdown效果，请访问[在线预览](https://docs.masastack.com/document/compile)。

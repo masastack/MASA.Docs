@@ -18,14 +18,12 @@
 本教程将会使用 `MASA Template` 创建 TodoApp 解决方案。我们先打开 `cmd` 运行下面的命令安装模板
 
 ```shell 终端
-dotnet new install Masa.Template::1.0.0-rc.1
+dotnet new install MASA.Template
 ```
 
 ## 创建项目
 
 在目录下使用 cmd 运行以下命令，它将会创建整个 TodoApp 解决方案。在这里我们将使用 [MASA.Blazor](https://docs.masastack.com/blazor/getting-started/installation) 来完成我们UI界面。
-
-> 注意：`masafx-service-cqrs` 和 `masablazor-empty-server` 模板只有在 `Masa.Template` 1.0.0-rc.1 版本以上才有。安装1.0.0-rc.1版本的模版：`dotnet new install Masa.Template::1.0.0-rc.1`
 
 ```shell 终端
 dotnet new masafx-service-cqrs --name TodoApp --no-https true --no-example true -db sqlite
