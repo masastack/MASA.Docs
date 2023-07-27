@@ -9,7 +9,7 @@
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Exceptions`
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Exceptions -v 1.0.0-rc.1
+   dotnet add package Masa.Contrib.Exceptions -v 1.0.0
    ```
 
 2. 使用[全局异常](/framework/building-blocks/exception)

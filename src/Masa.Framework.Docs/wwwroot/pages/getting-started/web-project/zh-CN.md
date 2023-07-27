@@ -30,7 +30,7 @@ dotnet new masafx-service-cqrs --name TodoApp --no-https true --no-example true 
 cd TodoApp/src
 dotnet new masablazor-empty-server --name TodoApp.Web --no-https true
 dotnet add ./TodoApp.Web/TodoApp.Web.csproj reference ./TodoApp.Contracts/TodoApp.Contracts.csproj
-dotnet add ./TodoApp.Web/TodoApp.Web.csproj package Masa.Contrib.Service.Caller.HttpClient -v 1.0.0-rc.1
+dotnet add ./TodoApp.Web/TodoApp.Web.csproj package Masa.Contrib.Service.Caller.HttpClient -v 1.0.0
 cd ../
 dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
 ```

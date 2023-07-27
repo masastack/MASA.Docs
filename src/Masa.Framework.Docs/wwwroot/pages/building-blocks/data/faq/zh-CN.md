@@ -87,7 +87,7 @@
      </PropertyGroup>
    
      <ItemGroup>
-       <PackageReference Include="Masa.Contrib.Data.EFCore.SqlServer" Version="1.0.0-rc.1" />
+       <PackageReference Include="Masa.Contrib.Data.EFCore.SqlServer" Version="1.0.0" />
        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
          <PrivateAssets>all</PrivateAssets>
