@@ -20,8 +20,8 @@
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Caching.Distributed.StackExchangeRedis`、`Masa.Contrib.Caching.MultilevelCache`
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis -v 1.0.0-rc.1
-   dotnet add package Masa.Contrib.Caching.MultilevelCache -v 1.0.0-rc.1
+   dotnet add package Masa.Contrib.Caching.Distributed.StackExchangeRedis -v 1.0.0
+   dotnet add package Masa.Contrib.Caching.MultilevelCache -v 1.0.0
    ```
    
 2. 配置内存缓存的有效期及分布式 Redis 缓存

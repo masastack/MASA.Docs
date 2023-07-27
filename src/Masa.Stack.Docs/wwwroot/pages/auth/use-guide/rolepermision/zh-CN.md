@@ -96,8 +96,9 @@ MASA Auth 权限分为两大类**前端权限**和**API权限**，其中前端�
 * **类型**：必选，菜单权限、元素权限和数据权限。
 * **排序**：数字，菜单排序及权限树内排序字段
 * **Url**：可空，权限地址，菜单及元素页面路由
-* **Icon**：可空，图标代码，目前仅菜单权限有效，做菜单展示的图标。内容格式为Masa Blazor [Icon](https://blazor.masastack.com/components/icons)支持的图标
 * **描述**：可空，最多255个字符
+* **Icon**：可空，图标代码，目前仅菜单权限有效，做菜单展示的图标。内容格式为Masa Blazor [Icon](https://docs.masastack.com/blazor/components/icons)支持的图标
+* **匹配规则**：可空，正则字符串，仅菜单权限有效，作用于左侧菜单中ListItem的MatchPattern属性，[参考](https://docs.masastack.com/blazor/features/auto-match-nav)
 
 ![新建前端权限图](https://cdn.masastack.com/stack/doc/auth/use-guide/permision/permision-add-frontend.png)
 

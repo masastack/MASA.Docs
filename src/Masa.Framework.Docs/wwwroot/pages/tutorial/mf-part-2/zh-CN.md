@@ -9,8 +9,8 @@
 1. 选中 `Masa.EShop.Service.Catalog` 项目并安装 `Masa.Contrib.Data.EFCore.Sqlite` 、`Masa.Contrib.Data.Contracts`
 
    ```shell 终端
-   dotnet add package Masa.Contrib.Data.EFCore.Sqlite -v 1.0.0-rc.1
-   dotnet add package Masa.Contrib.Data.Contracts -v 1.0.0-rc.1
+   dotnet add package Masa.Contrib.Data.EFCore.Sqlite -v 1.0.0
+   dotnet add package Masa.Contrib.Data.Contracts -v 1.0.0
    ```
 
    > **Masa.Contrib.Data.Contracts** 提供了软删除、数据过滤的功能

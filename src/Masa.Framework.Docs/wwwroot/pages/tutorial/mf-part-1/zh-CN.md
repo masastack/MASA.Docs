@@ -19,7 +19,7 @@
 
    ```shell 终端
    cd Masa.EShop.Service.Catalog
-   dotnet add package Masa.Contrib.Service.MinimalAPIs -v 1.0.0-rc.1
+   dotnet add package Masa.Contrib.Service.MinimalAPIs -v 1.0.0
    ```
 
    或者直接修改项目文件为:

@@ -192,7 +192,7 @@ kubectl get pods --namespace dapr-system
 
 5. 安装 MASA Stack
 
-   > 本文选择 1.0.0-rc1，你可以自行更换版本，修改 version 即可
+   > 本文选择 1.0.0，你可以自行更换版本，修改 version 即可
    >
    > 在发布正式版之前必须指定 --version，否则无法找到 stable 版本
 
@@ -218,7 +218,7 @@ kubectl get pods --namespace dapr-system
    kubectl create secret tls masastack --cert=./tls.crt --key=./tls.key -n masastack
    # 文档尾部有变量列表，增加 --set global.suffix_identity=local 是为了防止与官方演示地址冲突
    helm upgrade --install masastack masastack/masastack \
-     --version 1.0.0-rc1 \
+     --version 1.0.0 \
      --namespace masastack \
      --create-namespace \
      --set global.secretName=masastack \
@@ -232,7 +232,7 @@ kubectl get pods --namespace dapr-system
 
    ```shell
    # 自建证书，默认使用 *.masastack.com
-   helm upgrade --install masastack masastack/masastack --version 1.0.0-rc1 --namespace masastack --create-namespace --set global.suffix_identity=local
+   helm upgrade --install masastack masastack/masastack --version 1.0.0 --namespace masastack --create-namespace --set global.suffix_identity=local
    ```
 
    :::
