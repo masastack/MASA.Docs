@@ -15,7 +15,3 @@
 ## 入门教程
 
 * [Web应用程序](/framework/getting-started/web-project)
-
-## 其它
-
-当前文档适用于 `1.0.0` ，请确保 `Masa.XXX.XXX` 包安装统一版本，后续文档将只针对正式版进行更新
