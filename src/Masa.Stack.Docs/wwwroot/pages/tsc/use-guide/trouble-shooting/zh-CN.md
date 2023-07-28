@@ -4,11 +4,11 @@
 
 错误信息
 
-![日志错误图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/log/log-1.0.png)
+![日志错误图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/log-1.0.png)
 
 发现异常日志信息，具体的接口请求无法判断，根据关联的`TraceId`到链路查询后进入到链路详情
 
-![链路详情错误图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/log/trace_detail-1.0.png)
+![链路详情错误图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/trace_detail-1.0.png)
 
 发现调用`Auth`服务的一个接口报错了，在对应的链路详情也看到详细的请求参数和异常详细信息，可借用工具验证`Auth`服务的该接口是否正常。
 
