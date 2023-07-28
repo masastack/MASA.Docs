@@ -309,7 +309,7 @@ kubectl get pods --namespace dapr-system
 8. 访问 MASA PM，在浏览器内输入网址：https://pm-local.masastack.com
 
    > 账号：admin
-1. >
+   >
    > 密码：admin123
 
    因为证书不是授信的源办法的，所以可能会出现下面提示
