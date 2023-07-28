@@ -4,13 +4,13 @@
 
 错误信息
 
-![日志错误图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/log/log.png)
+![日志错误图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/log/log-1.0.png)
 
-发现异常日志信息，集成事件发布异常，引起的原因无法判断，根据关联的`TraceId`到链路查询后进入到链路详情
+发现异常日志信息，具体的接口请求无法判断，根据关联的`TraceId`到链路查询后进入到链路详情
 
-![链路详情错误图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/log/trace_detail.png)
+![链路详情错误图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/log/trace_detail-1.0.png)
 
-发现调用`TSC`服务的一个接口报错了，在对应的链路详情也看到详细的请求参数和异常详细信息，实用工具验证后发现`TSC`服务正常，初步判断该时间前后，`TSC`服务出现 OOM 的异常导致
+发现调用`Auth`服务的一个接口报错了，在对应的链路详情也看到详细的请求参数和异常详细信息，可借用工具验证`Auth`服务的该接口是否正常。
 
 ## 故障分析操作流程
 
@@ -20,33 +20,24 @@
 
 ### 主动模式
 
-- 接入了 Masa PM 的，在团队首页，可以看到服务的运行状况，查看对应的错误日志总数量，
+- 接入了 Masa PM 的，在团队首页，可以看到服务的运行状况，查看对应项目的错误(Trace状态码为500，或自定义状态码)总数量，
 
-![主动模式团队图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/team.png)
+![主动模式团队图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/team-1.0.png)
 
-可以根据系统常规运行的情况，设定一个基准范围，如果超出了基准范围，就按照项目，逐个进入到应用详情，查看有报错的应用的详情
+可以根据系统常规运行的情况，逐个进入到应用详情，查看有报错的应用的详情
 
-![主动模式团队详情图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/team_detail.png)
+![主动模式团队详情图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/team_detail-1.0.png)
 
  1. 服务的调用次数是否有突然剧烈增加或减少；
  2. 服务满意度是否存在突然剧烈增加或减少；
  3. 服务响应时长是否存在剧烈的增加或减少；
- 4. 点击错误日志的查看详情，跳转到错误日志看日志的详细异常信息，从而判断是否存在受影响的业务
+ 4. 点击错误的查看详情，跳转到链路看错误的列表，再逐条分析受影响的业务和进行对应的处理。
 
 - 进入到链路界面：
 
-![主动模式链路图](/https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/trace.png)
+![主动模式链路图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/trace-1.0.png)
 
 查看span数量是否正常，是否存在剧烈增加或减少的情况，以及对应的平均耗时时长的变化是否在可接受范围内，如果发现异常，缩短时间查找，再逐步排查到对应的服务；
-
-- 仪表盘
-  进入到仪表盘列表，选择 root 仪表盘
-
-  ![主动模式仪表盘图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/dashbord_root.png)
-
-  进入到服务列表，查看服务概览，发现有问题的服务，再点击对应的服务进入到 service 仪表盘，查看单个服务对应的各项指标情况，根据指标参考，判定服务是否异常
-
-  ![主动模式服务仪表盘图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/dashbord_service.png)
 
 ### 被动模式
 
@@ -56,11 +47,11 @@
 
 到链路界面，选择相应的时间，选择服务和对应的接口地址，查询时间段内响应的接口请求信息，根据反馈结果查找具体对应的请求记录；
 
-![被动模式链路图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/trace_search.png)
+![被动模式链路图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/trace_search-1.0.png)
 
 点击详情进入查看对应的请求上下文和请求参数信息
 
-![被动模式链路详情图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/trace_detail.png)
+![被动模式链路详情图](https://cdn.masastack.com/stack/doc/tsc/use-guide/trouble-shooting/trace_detail-1.0.png)
 
 如果还想查找对应的错误日志信息，复制`TraceId`，到日志界面，选择对应的时间，输入：
 
