@@ -1,6 +1,8 @@
-## 概念
+# 分布式锁 - Medallion
 
-基于[DistributedLock](https://github.com/madelson/DistributedLock)的一个分布式锁，核心能力由`Masa.Contrib.Data.DistributedLock.Medallion`提供, 但我们在使用时必须选择一个提供者
+## 概述
+
+基于 [DistributedLock](https://github.com/madelson/DistributedLock) 的一个分布式锁，核心能力由 `Masa.Contrib.Data.DistributedLock.Medallion` 提供, 但我们在使用时必须选择一个提供者
 
 * [Azure](#medallion-azure)
 * [FileSystem](#medallion-file-system)
@@ -18,126 +20,162 @@
 
 ### medallion-azure
 
-1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.Azure`
+1. 安装 `Masa.Contrib.Data.DistributedLock.Medallion.Azure`
 
-``` powershell
-dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.Azure
-```
+   ```shell 终端
+   dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.Azure
+   ```
 
-2. 修改类`Program`
+2. 使用 medallion-azure
 
-```csharp
-builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseAzure("Replace Your connectionString", "Replace your blobContainerName"));
-```
+   ```csharp Program.cs l:2-5
+   var builder = WebApplication.CreateBuilder(args);
+   builder.Services.AddDistributedLock(medallionBuilder =>
+   {
+       medallionBuilder.UseAzure("Replace Your connectionString", "Replace your blobContainerName");
+   });
+   ```
 
 ### medallion-file-system
 
-1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.FileSystem`
+1. 安装 `Masa.Contrib.Data.DistributedLock.Medallion.FileSystem`
 
-``` powershell
-dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.FileSystem
-```
+   ```shell 终端
+   dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.FileSystem
+   ```
 
-2. 修改类`Program`
+2. 使用 medallion-file-system
 
-```csharp
-builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseFileSystem("Replace your directory path"));
-```
+   ```csharp Program.cs l:2-5
+   var builder = WebApplication.CreateBuilder(args);
+   builder.Services.AddDistributedLock(medallionBuilder =>
+   {
+       medallionBuilder.UseFileSystem("Replace your directory path");
+   });
+   ```
 
 ### medallion-mysql
 
-1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.MySql`
+1. 安装 `Masa.Contrib.Data.DistributedLock.Medallion.MySql`
 
-``` powershell
-dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.MySql
-```
+   ```shell 终端
+   dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.MySql
+   ```
 
-2. 修改类`Program`
+2. 使用 medallion-mysql
 
-```csharp
-builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseMySQL("Server=localhost;Database=identity;Uid=myUsername;Pwd=P@ssw0rd"));
-```
+   ```csharp Program.cs l:2-5
+   var builder = WebApplication.CreateBuilder(args);
+   builder.Services.AddDistributedLock(medallionBuilder =>
+   {
+       medallionBuilder.UseMySQL("Server=localhost;Database=identity;Uid=myUsername;Pwd=P@ssw0rd");
+   });
+   ```
 
 ### medallion-oracle
 
-1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.Oracle`
+1. 安装 `Masa.Contrib.Data.DistributedLock.Medallion.Oracle`
 
-``` powershell
-dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.Oracle
-```
+   ```shell 终端
+   dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.Oracle
+   ```
 
-2. 修改类`Program`
+2. 使用 medallion-oracle
 
-```csharp
-builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseOracle("Data Source=MyOracleDB;Integrated Security=yes;"));
-```
+   ```csharp Program.cs l:2-5
+   var builder = WebApplication.CreateBuilder(args);
+   builder.Services.AddDistributedLock(medallionBuilder =>
+   {
+       medallionBuilder.UseOracle("Data Source=MyOracleDB;Integrated Security=yes;");
+   });
+   ```
 
 ### medallion-postgre-sql
 
-1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.PostgreSql`
+1. 安装 `Masa.Contrib.Data.DistributedLock.Medallion.PostgreSql`
 
-``` powershell
-dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.PostgreSql
-```
+   ``` shell 终端
+   dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.PostgreSql
+   ```
 
-2. 修改类`Program`
+2. 使用 medallion-postgre-sql
 
-```csharp
-builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseNpgsql("Host=myserver;Username=sa;Password=P@ssw0rd;Database=identity"));
-```
+   ```csharp Program.cs l:2-5
+   var builder = WebApplication.CreateBuilder(args);
+   builder.Services.AddDistributedLock(medallionBuilder =>
+   {
+       medallionBuilder.UseNpgsql("Host=myserver;Username=sa;Password=P@ssw0rd;Database=identity");
+   });
+   ```
 
 ### medallion-redis
 
 1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.Redis`
 
-``` powershell
-dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.Redis
-```
+   ``` shell 终端
+   dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.Redis
+   ```
 
-2. 修改类`Program`
+2. 使用 medallion-redis
 
-```csharp
-builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseRedis("127.0.0.1:6379"));
-```
+   ```csharp Program.cs l:2-5
+   var builder = WebApplication.CreateBuilder(args);
+   builder.Services.AddDistributedLock(medallionBuilder =>
+   {
+       medallionBuilder.UseRedis("127.0.0.1:6379");
+   });
+   ```
 
 ### medallion-sql-server
 
 1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.SqlServer`
 
-``` powershell
-dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.SqlServer
-```
+   ``` shell 终端
+   dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.SqlServer
+   ```
 
-2. 修改类`Program`
+2. 使用 SqlServer
 
-```csharp
-builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseSqlServer("server=localhost;uid=sa;pwd=P@ssw0rd;database=identity"));
-```
+   ```csharp Program.cs l:2-5
+   var builder = WebApplication.CreateBuilder(args);
+   builder.Services.AddDistributedLock(medallionBuilder =>
+   {
+       medallionBuilder.UseSqlServer("server=localhost;uid=sa;pwd=P@ssw0rd;database=identity");
+   });
+   ```
 
 ### medallion-wait-handles
 
 1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.WaitHandles`
 
-``` powershell
-dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.WaitHandles
-```
+   ``` shell 终端
+   dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.WaitHandles
+   ```
 
-2. 修改类`Program`
+2. 使用 WaitHandle
 
-```csharp
-builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseSqlServer("server=localhost;uid=sa;pwd=P@ssw0rd;database=identity"));
-```
+   ```csharp Program.cs l:2-5
+   var builder = WebApplication.CreateBuilder(args);
+   builder.Services.AddDistributedLock(medallionBuilder =>
+   {
+       medallionBuilder.medallionBuilder.UseWaitHandles();
+   });
+   ```
 
 ### medallion-zoo-keeper
 
 1. 安装`Masa.Contrib.Data.DistributedLock.Medallion.ZooKeeper`
 
-``` powershell
-dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.ZooKeeper
-```
+   ``` shell 终端
+   dotnet add package Masa.Contrib.Data.DistributedLock.Medallion.ZooKeeper
+   ```
 
-2. 修改类`Program`
+2. 使用 ZooKeeper
 
-```csharp
-builder.Services.AddDistributedLock(medallionBuilder => medallionBuilder.UseZooKeeper("Replace your ZooKeeper connectionString"));
-```
+   ```csharp Program.cs l:2-5
+   var builder = WebApplication.CreateBuilder(args);
+   builder.Services.AddDistributedLock(medallionBuilder =>
+   {
+       medallionBuilder.UseZooKeeper("Replace your ZooKeeper connectionString");
+   });
+   ```

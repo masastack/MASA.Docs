@@ -3,14 +3,29 @@ title: 常见问题
 date: 2023/01/10
 ---
 
-### Q: 如何快速定位异常？
+# 常见问题
 
-A: 
-1. 通过团队面板，快速发现有异常的服务；
-2. 通过服务仪表盘的： 服务满意度(Apdex)、服务成功率、服务响应时间百分比分布快速排查服务异常时间段和初步原因；
-3. 通过时间段查询指定条件的Traces和Logs，查找详细的的异常信息；
-4. 通过Traces和Logs的TraceId关联查找更加明确的错误原因。
+## 无法找到服务
 
-### Q：如何查看异常详细信息及相关上下文？
+![daprId不存在图](https://cdn.masastack.com/stack/doc/tsc/faq/daprid-not-exists.png)
 
-A: 通过Traces和Logs的TraceId进行关联，每个请求产生的链路和日志信息都会记录相关的TraceId和SpanId，可以根据TraceId确定链路，再根据SpanId确认某一个具体的接口或数据库及其它服务调用。
+出现该问题，一般是 service 的 daprId 配置错误，如果在本地开发环境，可以用命令行工具`cmd`执行：
+
+```
+dapr list
+```
+
+出现以下结果：
+
+![daprid不存在图](https://cdn.masastack.com/stack/doc/tsc/faq/dapr-list.png)
+
+如果在 `k8s`，到对应的 tsc-server 查看绑定的 daprid ,在 tsc-ui 的环境变量中配置 `DAPR_APPID = <your tsc-server dapr appid>` 即可。
+
+## 数据无法上报到 OTEL
+
+服务都正常启动，也没有任务异常，但是对应的 OTEL 服务那边没有接受到任务数据
+
+1. 检查 OTEL 服务是否正常运行；
+2. 检查配置的 otlpUrl 是否跟对应的 OTEL 服务一致；
+3. 检查服务是否可以正常访问 OTEL 端口，默认 **4717**；
+4. 检查 OTEL 配置信息是否正确，可参考 [OTEL Configuration](https://opentelemetry.io/docs/collector/configuration)

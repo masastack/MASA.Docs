@@ -2,7 +2,7 @@
 
 ## 包重命名
 
-在0.6.0中我们对项目目录结构以及类库名统一规范，因此涉及到很多类库的重命名，重命名规则如下：
+在 `0.6.0` 中我们对项目目录结构以及类库名统一规范，因此涉及到很多类库的重命名，重命名规则如下：
 
 * `EntityFrameworkCore` -> `EFCore`: 受影响包为
     * `Masa.Contrib.Authentication.Oidc.EntityFrameworkCore` → `Masa.Contrib.Authentication.OpenIdConnect.EFCore`
@@ -52,12 +52,12 @@
     * `Masa.Contrib.Identity.IdentityModel` → `Masa.Contrib.Authentication.Identity`
     * `Masa.BuildingBlocks.Identity.IdentityModel` → `Masa.BuildingBlocks.Authentication.Identity`
 * 重构
-    * `Caller` 从原来的Utils改为Contrib，调整如下
+    * `Caller` 从原来的 `Utils` 改为 `Contrib`，调整如下
         * `MASA.Utils.Caller.Core` -> `Masa.Contrib.Service.Caller`
         * `MASA.Utils.Caller.HttpClient` -> `Masa.Contrib.Service.Caller.HttpClient`
         * `MASA.Utils.Caller.DaprClient` -> `Masa.Contrib.Service.Caller.DaprClient`
-    * `Caching` 从原来的Utils改为Contrib，调整如下
-        * `Masa.Utils.Caching.Redis` -> `Masa.Contrib.Caching.Distributed.StackExchangeRedis` (分布式缓存，由Redis提供，查看[文档](/framework/building-blocks/caching/stackexchange-redis))
+    * `Caching` 从原来的 `Utils` 改为 `Contrib`，调整如下
+        * `Masa.Utils.Caching.Redis` -> `Masa.Contrib.Caching.Distributed.StackExchangeRedis` (分布式缓存，由 `Redis` 提供，查看[文档](/framework/building-blocks/caching/stackexchange-redis))
         * `Masa.Utils.Caching.DistributedMemory` -> `Masa.Contrib.Caching.MultilevelCache` （多级缓存，由内存缓存与分布式缓存联合提供，查看[文档](/framework/building-blocks/caching/multilevel-cache)）
         * `Masa.Utils.Caching.Core`: 已删除，删除包即可
 
@@ -69,95 +69,96 @@
 
 1. 集成事件
 
-:::: code-group
-::: code-group-item 0.6.0之前
-```csharp Program.cs
-builder.Services.AddDaprEventBus<IntegrationEventLogService>(options =>
-{
-    options.UseEventLog<CatalogDbContext>()
-           .UseEventBus()
-           .UseUoW<CatalogDbContext>(dbOptions => dbOptions.UseSqlServer());
-});
-```
-:::
-::: code-group-item 0.6.0
-```csharp Program.cs
-builder.Services.AddIntegrationEventBus(options =>
-{
-    options.UseDapr().UseEventLog<CatalogDbContext>()
-           .UseEventBus(dispatcherOptions => dispatcherOptions.UseMiddleware(typeof(ValidatorMiddleware<>)))
-           .UseUoW<CatalogDbContext>(dbOptions => dbOptions.UseSqlServer());
-});
-```
-:::
-::::
+   :::: code-group
+   ::: code-group-item 0.6.0之前
+
+   ```csharp Program.cs
+   builder.Services.AddDaprEventBus<IntegrationEventLogService>(options =>
+   {
+       options.UseEventLog<CatalogDbContext>()
+              .UseEventBus()
+              .UseUoW<CatalogDbContext>(dbOptions => dbOptions.UseSqlServer());
+   });
+   ```
+   :::
+   ::: code-group-item 0.6.0
+   ```csharp Program.cs
+   builder.Services.AddIntegrationEventBus(options =>
+   {
+       options.UseDapr().UseEventLog<CatalogDbContext>()
+              .UseEventBus(dispatcherOptions => dispatcherOptions.UseMiddleware(typeof(ValidatorMiddleware<>)))
+              .UseUoW<CatalogDbContext>(dbOptions => dbOptions.UseSqlServer());
+   });
+   ```
+   :::
+   ::::
 
 2. 领域事件
 
-:::: code-group
-::: code-group-item 0.6.0之前
-```csharp Program.cs
-builder.Services.AddDomainEventBus(options =>
-{
-    options.UseDaprEventBus<IntegrationEventLogService>(options => options.UseEventLog<PaymentDbContext>())
-           .UseEventBus(eventBuilder => eventBuilder.UseMiddleware(typeof(ValidatorMiddleware<>)))
-           .UseUoW<PaymentDbContext>(dbOptions => dbOptions.UseSqlServer())
-           .UseRepository<PaymentDbContext>();
-});
-```
-:::
-::: code-group-item 0.6.0
-```csharp Program.cs
-builder.Services.AddDomainEventBus(options =>
-{
-    options.UseIntegrationEventBus(dispatcherOptions => dispatcherOptions.UseDapr().UseEventLog<PaymentDbContext>())
-           .UseEventBus(eventBuilder => eventBuilder.UseMiddleware(typeof(ValidatorMiddleware<>)))
-           .UseUoW<PaymentDbContext>(dbOptions => dbOptions.UseSqlServer())
-           .UseRepository<PaymentDbContext>();
-});
-```
-:::
-::::
+   :::: code-group
+   ::: code-group-item 0.6.0之前
+   ```csharp Program.cs
+   builder.Services.AddDomainEventBus(options =>
+   {
+       options.UseDaprEventBus<IntegrationEventLogService>(options => options.UseEventLog<PaymentDbContext>())
+              .UseEventBus(eventBuilder => eventBuilder.UseMiddleware(typeof(ValidatorMiddleware<>)))
+              .UseUoW<PaymentDbContext>(dbOptions => dbOptions.UseSqlServer())
+              .UseRepository<PaymentDbContext>();
+   });
+   ```
+   :::
+   ::: code-group-item 0.6.0
+   ```csharp Program.cs
+   builder.Services.AddDomainEventBus(options =>
+   {
+       options.UseIntegrationEventBus(dispatcherOptions => dispatcherOptions.UseDapr().UseEventLog<PaymentDbContext>())
+              .UseEventBus(eventBuilder => eventBuilder.UseMiddleware(typeof(ValidatorMiddleware<>)))
+              .UseUoW<PaymentDbContext>(dbOptions => dbOptions.UseSqlServer())
+              .UseRepository<PaymentDbContext>();
+   });
+   ```
+   :::
+   ::::
 
-3. 最小API
+3. 最小 `API`
 
-原来不支持自动映射路由，且服务必须有一个无参的构造函数，例：
+   原来不支持自动映射路由，且服务必须有一个无参的构造函数，例：
 
-:::: code-group
-::: code-group-item 0.6.0之前
-```csharp Services/DemoService.cs
-public class DemoService : ServiceBase
-{
-    public DemoService(IServiceCollection services) : base(services)
-    {
-        App.MapGet("/api/v1/demo/username", GetUserName);
-    }
-
-    public string GetUserName()
-    {
-        return "Tony";
-    }
-}
-```
-:::
-::: code-group-item 0.6.0
-```csharp Services/DemoService.cs
-public class DemoService : ServiceBase
-{
-    public string GetUserName()
-    {
-        return "Tony";
-    }
-}
-```
-:::
-::::
+   :::: code-group
+   ::: code-group-item 0.6.0之前
+   ```csharp Services/DemoService.cs
+   public class DemoService : ServiceBase
+   {
+       public DemoService(IServiceCollection services) : base(services)
+       {
+           App.MapGet("/api/v1/demo/username", GetUserName);
+       }
+   
+       public string GetUserName()
+       {
+           return "Tony";
+       }
+   }
+   ```
+   :::
+   ::: code-group-item 0.6.0
+   ```csharp Services/DemoService.cs
+   public class DemoService : ServiceBase
+   {
+       public string GetUserName()
+       {
+           return "Tony";
+       }
+   }
+   ```
+   :::
+   ::::
 
 [查看详情](/framework/building-blocks/minimal-apis)
 
 ## `MasaConfiguration`
 
-`MasaConfiguration`支持`IServiceCollection`扩展。
+`MasaConfiguration` 支持 `IServiceCollection` 扩展。
 
 :::: code-group
 ::: code-group-item 0.6.0之前
@@ -178,4 +179,4 @@ builder.Services.AddMasaConfiguration();
 
 模型主键类型变更
 
-`Int` -> `Guid`, 新增包[Masa.Contrib.Authentication.OpenIdConnect.EFCore.Oracle](/framework/building-blocks/data/orm-efcore/oracle)，以适配`Oracle`数据库
+`Int` -> `Guid`，新增包[Masa.Contrib.Authentication.OpenIdConnect.EFCore.Oracle](/framework/building-blocks/data/orm-efcore/oracle)，以适配 `Oracle` 数据库

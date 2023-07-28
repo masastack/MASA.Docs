@@ -1,12 +1,44 @@
-## 最佳实践
+# 最佳实践
 
-### 使用MASA Alert配置告警
+## 接入TSC
 
-在[Alert](stack/alert/introduce)系统中，可以配置Log和Metric的自定义告警规则，通过监测某个资源，设置告警阈值和告警规则，在达到告警条件时触发告警并发送响应的告警消息。
+前提必须已经部署了Masa Stack和相关的服务(OTLP,Elasticsearch和Prometheus)
 
-### 使用MASA Scheduler配置告警
+```csharp
+var builder = WebApplication.CreateBuilder(args);
 
-1. 通过接入[Scheduler](stack/scheduler/introduce)开发SDK，编写相应的任务Job程序，再通过Scheduler系统创建Job任务并上传程序；
-2. 通过Scheduler创建HTTP的Job任务；
+...
 
-创建的后任务执行后，生成响应的统计或其它系统支持的数据，并在系统中通过仪表盘功能进行配置使用。
+builder.Services.AddObservable(builder.Logging, new MasaObservableOptions
+{
+    //环境名称，可空，多个环境时，建议填写
+    ServiceNameSpace = "Develop",
+    //服务版本，可空
+    ServiceVersion = "1.0",
+    //服务名称，如果已接入了Masa Stack，必须与Masa PM相应的应用唯一标识相同
+    ServiceName = "tsc-service",
+    //服务分类,可控，默认为General
+    Layer = "masa-stack",
+    //服务实例,可控，默认为随机的Guid
+    ServiceInstanceId = "instance-1"
+}, "http://127.0.0.1:4717", true);
+
+ ```
+
+ `otlpUrl`,可空，默认为`http://localhost:4717`,OTLPExporter，默认协议为`Grpc`，如果需要更换为`Http`，请参考更加详细的配置；
+
+ `isInterruptSignalRTracing`,默认`false`,是否强制中断长连接的`Trace`,如果为`false`,使用了长连接后，会存在在一个长连接内，所有的请求链路都是同一个链路，导致出现问题后，不便于排查。
+
+ ## 验证是否接入成功
+
+ 1. 接入 `MASA.Alert`，在团队首页，选择项目所在的团队后，首页会出现对应的项目信息，则代表接入成功。
+
+    ![接入成功团队验证图](https://cdn.masastack.com/stack/doc/tsc/best-practices/team-succeed.png)
+
+ 2. 接入 `auth-service-develop`，在仪表盘列表，选中 `Service` 名称仪表盘，打开后，服务下拉选项搜索对应的服务名称，能够找到对应的数据，则代表接入成功。
+
+    ![接入成功仪表盘验证图](https://cdn.masastack.com/stack/doc/tsc/best-practices/dashboard-succeed.png)
+
+3. 接入 `masa-alert-service-admin`，追踪页面，服务下拉选项，搜索对应的应用名称，能够找到对应的数据，则代表接入成功。
+    
+    ![接入成功追踪验证图](https://cdn.masastack.com/stack/doc/tsc/best-practices/trace-succeed.png)

@@ -1,4 +1,4 @@
-## 概念
+## 概述
 
 我们可观测性基于[OpenTelemetry](https://opentelemetry.io/docs/)的接入，使用标准的OTLPExporter，[Logs](https://opentelemetry.io/docs/concepts/observability-primer/#logs)和[Traces](https://opentelemetry.io/docs/concepts/observability-primer/#distributed-traces)的持久化采用[Elasticsearch](https://www.elastic.co/cn/elasticsearch/)，[Metrics](https://opentelemetry.io/docs/concepts/observability-primer/#reliability--metrics)持久化采用[Prometheus](https://prometheus.io/)。
 
@@ -44,7 +44,7 @@ builder.Services.AddObservable(builder.Logging, options);
 
 应用程序启动后，该应用在进行可观测性监测时，服务名称为：`my-project-api`，环境为：`development`,服务版本号为：`1.0`,这些参数在服务启动时就已经被确定，运行期间不能被更改，如果想了解更多的参数配置，可参考[Resource Semantic Conventions](https://github.com/open-telemetry/opentelemetry-specification/tree/main/specification/resource/semantic_conventions#service)
 
-### 高级
+### 高阶用法
 
 1. 如果想完全自定义可观测性的配置，可以参考[OpenTelemetry for ASP.NET Core](https://opentelemetry.io/docs/instrumentation/net/getting-started/);
 2. 在我们的框架范围内实现自定义配置：

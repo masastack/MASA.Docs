@@ -1,20 +1,20 @@
-## LDAP
+# LDAP - 概述
 
-用于提供支持LDAP协议兼容的目录服务器的扩展
+用于提供支持 LDAP 协议兼容的目录服务器的扩展
 
-目前的提供者有:
+目前的提供者有：
 
-* [Masa.Utils.Ldap.Novell](https://www.nuget.org/packages/Masa.Utils.Ldap.Novell): 基于[Novell.Directory.Ldap.NETStandard](https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard)的实现, 适用于任何LDAP协议兼容的目录服务器 (包括 Microsoft Active Directory) [查看详细](/framework/utils/ldap/novell)
+* [Novell](/framework/utils/ldap/novell): 基于 [Novell.Directory.Ldap.NETStandard](https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard)的实现，适用于任何LDAP协议兼容的目录服务器 (包括 Microsoft Active Directory)
 
 ## 功能介绍
 
 ### ILdapFactory
 
-工厂类，只提供一个`CreateProvider`方法返回`ILdapProvider`类型。
+工厂类，只提供一个 `CreateProvider` 方法返回 `ILdapProvider` 类型。
 
 ### ILdapProvider
 
-Ldap功能提供者，可以直接通过Ioc获得也可以通过`ILdapFactory`创建返回, 提供以下功能：
+`Ldap` 功能提供者，可以直接通过 `DI` 获得也可以通过 `ILdapFactory` 创建返回，提供以下功能：
 
 * GetGroupAsync(string groupName):根据分组名获取分组
 * GetUsersInGroupAsync(string groupName):根据分组名获取分组下用户

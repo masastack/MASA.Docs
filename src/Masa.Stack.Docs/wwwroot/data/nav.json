@@ -1,27 +1,39 @@
 [
   {
-    "title": "stack",
+    "title": "masa-stack-1.0",
     "icon": "mdi-bookmark",
     "items": [
-      "introduce"
+      "introduce",
+      "access-guide",
+      {
+        "title": "installation",
+        "items": [
+          "docker-compose",
+          "helm"
+        ]
+      },
+      {
+        "title": "tls",
+        "items": [
+          "temporary"
+        ]
+      }
     ]
   },
   {
     "title": "auth",
     "icon": "mdi-bookmark",
     "items": [
-      "get-started",
       "introduce",
       {
         "title": "use-guide",
         "items": [
-          "user",
-          "permission",
-          "team",
-          "org",
-          "identity-provider",
-          "position",
-          "operation-log"
+          "user", 
+          "rolepermision", 
+          "team", 
+          "sso", 
+          "configureoauth", 
+          "org"
         ]
       },
       {
@@ -29,34 +41,26 @@
         "items": [
           "permission",
           "identity-provider",
-          "swagger",
-          "user",
-          "role",
+          "sso",
+          "authentication-authorization",
+          "api",
           "sdk-instance",
-          "sso"
+          "swagger"
         ]
       },
-      {
-        "title": "sso",
-        "items": [
-          "api-resource",
-          "api-scope",
-          "client",
-          "identity-resource",
-          "user-claim"
-        ]
-      }
+      "best-practices",
+      "faq",
+      "related-agreements"
     ]
   },
   {
     "title": "dcc",
     "icon": "mdi-bookmark",
     "items": [
-      "get-started",
       "introduce",
+      "use-guide",
       "basic-concepts",
       "best-practices",
-      "sdk-instance",
       "related-agreements",
       "faq"
     ]
@@ -65,8 +69,8 @@
     "title": "pm",
     "icon": "mdi-bookmark",
     "items": [
-      "get-started",
       "introduce",
+      "use-guide",
       "basic-concepts",
       "best-practices",
       "sdk-instance",
@@ -82,10 +86,10 @@
       {
         "title": "use-guide",
         "items": [
-          "channel",
-          "message-template",
-          "receiver-group",
-          "send-message",
+          "channel", 
+          "message-template", 
+          "receiver-group", 
+          "send-message", 
           "message-record"
         ]
       },
@@ -103,8 +107,8 @@
       {
         "title": "use-guide",
         "items": [
-          "alarm-rule",
-          "alarm-history",
+          "alarm-rule", 
+          "alarm-history", 
           "web-hook"
         ]
       },
@@ -123,9 +127,10 @@
       {
         "title": "use-guide",
         "items": [
-          "scheduler-job",
-          "scheduler-task",
-          "scheduler-resource"
+          "get-started", 
+          "scheduler-job-app", 
+          "scheduler-http", 
+          "scheduler-dapr"
         ]
       },
       "sdk-instance",
@@ -139,37 +144,19 @@
     "icon": "mdi-bookmark",
     "items": [
       "introduce",
-      "basic-concepts",
       {
         "title": "use-guide",
         "items": [
-          "get-started",
-          "log",
-          "metric"
+          "basic-concepts", 
+          "monitoring", 
+          "error-query", 
+          "trouble-shooting"
         ]
       },
+      "api",
       "sdk-instance",
       "best-practices",
-      "faq",
-      "related-agreements"
-    ]
-  },
-  {
-    "title": "operations",
-    "icon": "mdi-bookmark",
-    "items": [
-      {
-        "title": "kubernetes",
-        "items": [
-          "kubernetes-deploy"
-        ]
-      },
-      {
-        "title": "tls",
-        "items": [
-          "temporary"
-        ]
-      }
+      "faq"
     ]
   }
 ]

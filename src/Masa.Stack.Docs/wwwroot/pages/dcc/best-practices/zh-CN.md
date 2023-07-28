@@ -1,27 +1,33 @@
 # 最佳实践
 
-### 使用MASA.DCC配置数据库连接字符串
+## 使用 MASA.DCC 配置数据库连接字符串
 
-1. 在DCC中创建应用所需要的配置对象并进行发布
+1. 在项目管理中创建应用
 
-   ![](http://cdn.masastack.com/stack/doc/dcc/example0.png)
-	   										 
-   ![](http://cdn.masastack.com/stack/doc/dcc/example1.png)
-	   										 
-   ![](http://cdn.masastack.com/stack/doc/dcc/example2.png)
-	   										 
-   ![](http://cdn.masastack.com/stack/doc/dcc/example3.png)
-	   										 
-   ![](http://cdn.masastack.com/stack/doc/dcc/example4.png)
-	   										 
-   ![](http://cdn.masastack.com/stack/doc/dcc/example5.png)
-	   										 
-   ![](http://cdn.masastack.com/stack/doc/dcc/example6.png)
-	   										 
-   ![](http://cdn.masastack.com/stack/doc/dcc/example7.png)
+   需求先确认在 `PM` (项目管理)中创建了应用，可以参考[项目管理](stack/pm/get-started)
 
-2. 接入DCC配置管理SDK。请参考[SDK示例](stack/dcc/sdk-instance)
+   ![](https://cdn.masastack.com/stack/doc/dcc/rc1/pm.png)
 
-   ![](http://cdn.masastack.com/stack/doc/dcc/example8.png)
 
-   ![](http://cdn.masastack.com/stack/doc/dcc/example9.png)
+2. 在 `DCC` 中创建应用所需要的配置对象并进行发布
+
+   ![](https://cdn.masastack.com/stack/doc/dcc/rc1/config.png)
+	   										 
+   ![](https://cdn.masastack.com/stack/doc/dcc/rc1/config_insert.png)
+	   										 
+   ![](https://cdn.masastack.com/stack/doc/dcc/rc1/config_input.png)
+	   										 
+   ![](https://cdn.masastack.com/stack/doc/dcc/rc1/config_edit.png)
+	   										 
+   ![](https://cdn.masastack.com/stack/doc/dcc/rc1/config_edit_input.png)
+	   										 
+   ![](https://cdn.masastack.com/stack/doc/dcc/rc1/release_config.png)
+	   										 
+   ![](https://cdn.masastack.com/stack/doc/dcc/rc1/release_config_input.png)
+	   										 
+
+3. 接入 `DCC` 配置管理 `SDK`。请参考[SDK示例](stack/dcc/sdk-instance)
+
+   ![](https://cdn.masastack.com/stack/doc/dcc/rc1/sdk_instance_1.png)
+
+   ![](https://cdn.masastack.com/stack/doc/dcc/rc1/sdk_instance_2.png)
