@@ -19,7 +19,11 @@
 
 `Clone` 仓库 [masahelm](https://github.com/masastack/helm),仓库中 `docker` 文件夹包含 `Docker Compose` 相关文件。
 
-> 由于 `SSO` 服务,需要本地和容器内都要能访问，在没有域名的情况下，增加了 `nginx` 代理，需要修改 `host` 映射文件增加 `127.0.0.1 sso`。 
+> 账号：admin
+>
+> 密码：admin123
+>
+> 初始化默认密码可以通过 `docker/variables.env` 下 `ADMIN_PWD` 值修改。
 
 ## 安装 MASA Stack
 
@@ -27,6 +31,8 @@
 ```shell
 docker-compose up
 ```
+
+> 由于 `SSO` 服务,需要本地和容器内都要能访问，在没有域名的情况下，增加了 `nginx` 代理，需要修改 `host` 映射文件增加 `127.0.0.1 sso`。
 
 看到如下效果表示启动成功：
 
