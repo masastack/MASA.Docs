@@ -1,6 +1,6 @@
 # 最佳实践
 
-## 接入MasaStack的可观测性
+## 接入 MASA Stack 的可观测性
 
 前提必须已经部署了Masa Stack和相关的服务(OTLP,Elasticsearch和Prometheus)
 
