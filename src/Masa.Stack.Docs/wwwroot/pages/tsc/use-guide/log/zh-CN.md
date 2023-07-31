@@ -7,14 +7,14 @@
 |  名称  |  数据类型  |  说明  |
 |  -------  |  -----------  |  -------  |
 |  @timestamp |  DateTime |  [记录时间](https://opentelemetry.io/docs/reference/specification/logs/data-model/#field-timestamp)  |
-|  SeverityText  |   string  |  日志级别：例如 Error、Information、Debug等，[参考](https://opentelemetry.io/docs/reference/specification/logs/data-model/#field-severitytext)  |
+|  SeverityText  |   string  |  日志级别：[参考](https://opentelemetry.io/docs/reference/specification/logs/data-model/#field-severitytext)  |
 |  SeverityNumber  |  int  |  日志级别，[参考](https://opentelemetry.io/docs/reference/specification/logs/data-model/#field-severitynumber)  |
-|  TraceId  |  string  |  [参见](https://opentelemetry.io/docs/reference/specification/logs/data-model/#field-traceid)  |
-|  SpanId  |  string  |  [参见](https://opentelemetry.io/docs/reference/specification/logs/data-model/#field-spanid)  |
+|  TraceId  |  string  |  [TraceId](https://opentelemetry.io/docs/reference/specification/logs/data-model/#field-traceid)  |
+|  SpanId  |  string  |  [SpanId](https://opentelemetry.io/docs/reference/specification/logs/data-model/#field-spanid)  |
 |  TraceFlags  |  int  |  [W3C追踪标记](https://opentelemetry.io/docs/reference/specification/logs/data-model/#field-traceflags)  |
-|  Body  |  Object  |  日志打印内容  |
+|  Body  |  Object  |  [日志打印内容](https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-body)  |
 |  Attributes  |  Dictionary<string,object>  |  [Log](https://opentelemetry.io/docs/reference/specification/logs/semantic_conventions/)和[Span](https://opentelemetry.io/docs/reference/specification/trace/semantic_conventions/)的标准Tags信息  |
-|  Resource  |  Dictionary<string,object>  |  服务启动时的配置信息，例如opentelemetry的版本信息，服务信息，[详细信息参见](https://opentelemetry.io/docs/reference/specification/resource/semantic_conventions/)  |
+|  Resource  |  Dictionary<string,object>  |  服务启动时的配置信息，例如opentelemetry的版本信息，服务信息，参考[Telemetry SDK](https://opentelemetry.io/docs/specs/otel/resource/semantic_conventions/#telemetry-sdk)  |
 
 
 
