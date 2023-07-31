@@ -8,7 +8,6 @@
 
 ```csharp
 dotnet add package Masa.Contrib.StackSdks.Tsc.OpenTelemetry
-
 ```
 
 2. 接入
