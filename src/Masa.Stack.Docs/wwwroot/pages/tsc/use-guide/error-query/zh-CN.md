@@ -4,18 +4,19 @@
 
 ### 团队
 
-![团队错误图](https://cdn.masastack.com/stack/doc/tsc/use-guide/error-query/team.png)
+![团队错误图](https://cdn.masastack.com/stack/doc/tsc/use-guide/error-query/team-1.0.png)
 
-1. 红色应用有错误日志，黄色有警告日志
-2. 红色项目有应用状态异常，黄色有警告日志
-3. 数字大于1时，表示有产生警告日志的应用数量和警告日志的总条数
-4. 数字大于1时，表示有产生错误日志的应用数量和错误日志的总条数
+
+1. 红色项目有应用报错，绿色为正常
+2. 红色应用有错误日志，无背景色为正常
+3. 警告目前无实际用处
+4. 数字大于1时，表示有错误的应用数量和应用的错误总记录数
 
 应用详情页
 
-有红色通知栏时，表示应用有错误日志产生
+有红色通知栏时，表示应用请求链路有错误产生
 
-![团队详情错误图](https://cdn.masastack.com/stack/doc/tsc/use-guide/error-query/team_detail.png)
+![团队详情错误图](https://cdn.masastack.com/stack/doc/tsc/use-guide/error-query/team_detail-1.0.png)
 
 ## 指标说明
 
