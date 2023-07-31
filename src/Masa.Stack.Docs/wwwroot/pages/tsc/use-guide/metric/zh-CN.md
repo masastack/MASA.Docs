@@ -11,7 +11,7 @@
 
 
  -  `Histogram` 概念不清楚的，[可参考](https://cloud.tencent.com/developer/article/1495303)，我们系统中这两个指标均为累计直方图；
- -  `Prometheus` 查询表达式也需要有一定的了解，[可以参考](https://prometheus.io/docs/prometheus/latest/querying/basics/)。
+ -  `Prometheus` 查询表达式也需要有一定的了解，参考[官方文档](https://prometheus.io/docs/prometheus/latest/querying/basics/)。
   
 
 ## 查询示例
