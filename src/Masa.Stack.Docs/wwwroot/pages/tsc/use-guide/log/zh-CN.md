@@ -51,4 +51,4 @@
     }
 }
 ```
-多个条件中间用英文逗号隔开，时间条件会使用时间组件的值，其它条件都可以自定义查询，如果对`Elasticsearch`查询表达式语法不清楚的，[可参考](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
+多个条件中间用英文逗号隔开，时间条件会使用时间组件的值，其它条件都可以自定义查询，如果对`Elasticsearch`查询表达式语法不清楚的，参考[Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
