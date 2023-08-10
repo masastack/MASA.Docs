@@ -331,6 +331,54 @@ dotnet sln add src/TodoApp.Web/TodoApp.Web.csproj
    }
    ```
 
+### 修改 Program.cs 文件
+ 
+分别为`添加 MinimalAPI`、`添加 Swagger`、`创建数据库`
+
+   ```csharp Program.cs l:4-9,11-20,28-38
+   var builder = WebApplication.CreateBuilder(args);
+   
+   builder.Services.AddEventBus()
+       .AddMasaDbContext<TodoAppDbContext>(opt =>
+       {
+           opt.UseSqlite();
+       }) 
+       .AddMasaMinimalAPIs(option => option.MapHttpMethodsForUnmatched = new string[] { "Post" })
+       .AddAutoInject();
+   
+   builder.Services.AddEndpointsApiExplorer()
+       .AddSwaggerGen(options =>
+       {
+           options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "TodoAppApp", Version = "v1", Contact = new Microsoft.OpenApi.Models.OpenApiContact { Name = "TodoAppApp", } });
+           foreach (var item in Directory.GetFiles(Directory.GetCurrentDirectory(), "*.xml"))
+           {
+               options.IncludeXmlComments(item, true);
+           }
+           options.DocInclusionPredicate((docName, action) => true);
+       });
+   
+   var app = builder.Build();
+   
+   app.UseMasaExceptionHandler();
+   
+   app.MapMasaMinimalAPIs();
+   
+   if (app.Environment.IsDevelopment())
+   {
+       app.UseSwagger().UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "TodoAppApp"));
+   
+       #region MigrationDb
+       using var context = app.Services.CreateScope().ServiceProvider.GetService<TodoAppDbContext>();
+       {
+           context!.Database.EnsureCreated();
+       }
+       #endregion
+   }
+   
+   app.Run();
+   
+   ```
+
 最终我们的接口服务就完成了，我们来启动下后端接口服务，并访问/swagger
 
    ![后端服务运行图](https://cdn.masastack.com/framework/getting-started/web-project/webapi_run_effect.png)
