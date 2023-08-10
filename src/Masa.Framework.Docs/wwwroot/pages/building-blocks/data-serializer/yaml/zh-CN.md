@@ -66,4 +66,11 @@
    var people = yamlDeserializer.Deserialize<Person>(yml);
    ```
 
+> YamlDotNet序列化和反序列化默认使用的是驼峰命名,下横线命名转换需增加配置
+> ```
+> builder.UseYaml(configure =>
+> {
+>     configure.Deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
+> });
+> ```
    

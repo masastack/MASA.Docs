@@ -112,7 +112,7 @@
    :::: code-group
    ::: code-group-item CatalogQueryDbContext（读模型）
 
-   ```csharp Program.cs
+   ```csharp Infrastructure/CatalogQueryDbContext.cs
    using Masa.EShop.Service.Catalog.Infrastructure.EntityConfigurations;
    using Microsoft.EntityFrameworkCore;
    
