@@ -2,7 +2,7 @@
 
 全新的 `.NET` 现代应用开发，提供分布式应用运行时--基于 `Dapr` 云原生最佳实践，能够快速实现分布式、微服务、`DDD`，`SaaS` 等现代应用开发
 
-<iframe width="1120" height="630" src="//player.bilibili.com/player.html?aid=343814267&bvid=BV1h94y1D7tw&cid=783315594&page=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="1120" height="630" src="//player.bilibili.com/player.html?aid=343814267&bvid=BV1h94y1D7tw&cid=783315594&page=1&autoplay=0" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 现代应用
 
