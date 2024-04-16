@@ -3,16 +3,12 @@
 ## 一、PM接入流程
 项目管理：整合系统也是使用MASA Stack服务组件的基础，它将贯穿至所有基础服务。这是必须要存在的
 
-### 1. 演示环境地址
-
-- https://pm-demo.masastack.com
-
-### 2. 添加环境
+### 1. 添加环境
 
    - 选择打开**Overview**左导菜单
    - 点击**新建环境** ，名称输入’**Production**‘，关联集群选择**Defalut**
 
-### 3. 新建项目
+### 2. 新建项目
    - 选择**Production**环境**Default**集群
 
 - 点击**新建项目** 
@@ -22,7 +18,7 @@
     > ID：必填（业务标识Key，如MASA-IoT）  
     > 类型：Operator（类型数据可在DCC系统的标签管理中配置）
 
-### 4. 新建应用
+### 3. 新建应用
 
 - 点击**新建应用**
 
@@ -31,7 +27,7 @@
     > ID：输入`masa-iot-admin`  
     > 其他输入选项默认即可。
 
-### 5. SDK接入：
+### 4. SDK接入：
 
    `MASA.PM` 提供了 SDK 以支持获取 `PM` 系统的数据。通过引入 `Masa.Contrib.StackSdks.Pm` SDK，可以调用 `PM` 的 `EnvironmentService`、`ClusterService`、`ProjectService`、`AppService` 来获取环境数据、集群数据、项目数据和应用数据。
 
@@ -70,11 +66,7 @@
 
 ## 二、DCC接入流程
 
-###  1. 演示环境地址
-
-- https://dcc-demo.masastack.com
-
-### 2. 新建配置对象
+### 1. 新建配置对象
 
 - 点击项目下的应用进入配置详情页
     
@@ -85,7 +77,7 @@
     
 - 新建完成之后编辑配置对象，填入内容，并保存
 
-### 3. 发布配置对象
+### 2. 发布配置对象
 
 - 点击`发布`按钮，填写发布信息
 
@@ -93,7 +85,7 @@
 > 其他选项默认即可。
 > 只有发布了的配置对象才能通过sdk去获取
 
-### 4. SDK接入
+### 3. SDK接入
  - `MASA.DCC` 提供了两个 `SDK`，一个是 `Masa.Contrib.Configuration.ConfigurationApi.Dcc` 用来获取和管理你的配置信息。另一个是 `Masa.Contrib.StackSdks.Dcc` 用来获取标签信息。
  - 通过 `DCC` 扩展 `IConfiguration` 管理远程配置的能力。而这不单依赖于 `DCC` 的 `SDK`，还需要依赖`MasaConfiguration`。`MasaConfiguration` 把配置分为本地节点和远程节点，而 `DCC` 就是远程节点。
 
@@ -190,17 +182,13 @@ dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由 DCC 提
 
 权限认证：可接管所有服务的单点登录、菜单权限、Token权限认证等。它是很强大的存在
 
-### 1. 演示环境地址
+### 1. 新建应用菜单权限
 
-- https://auth-demo.masastack.com
+- 1.1 选择左道菜单依次选择打开**角色权限**-> **权限**页面
 
-### 2. 新建应用菜单权限
+- 1.2 点击**PM项目下拉菜单** ，选择PM项目中刚刚新建的**MASA.IoT**选项
 
-- 2.1 选择左道菜单依次选择打开**角色权限**-> **权限**页面
-
-- 2.2 点击**PM项目下拉菜单** ，选择PM项目中刚刚新建的**MASA.IoT**选项
-
-- 2.3 鼠标移到**MASA.IoT.Admin**点击`新建` 然后愉快的创建菜单权限和元素权限
+- 1.3 鼠标移到**MASA.IoT.Admin**点击`新建` 然后愉快的创建菜单权限和元素权限
 
     > Key   ：`显示名称`   
     > Code  ：`全局唯一`  
@@ -208,7 +196,7 @@ dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由 DCC 提
     > Url   ：可选（菜单元素需要填写跳转地址）  
     > 其他选项默认即可。
 
-### 3. 新建单点登录客户端
+### 2. 新建单点登录客户端
 
 - 选择左道菜单依次选择打开**单点登录**-> **客户端**页面
           
@@ -224,7 +212,7 @@ dotnet add package Masa.Contrib.Configuration.ConfigurationApi.Dcc //由 DCC 提
     > *如线上测试*：**https://masastack.com/signout-callback-oidc**  
     > 其他选项默认即可。
 
-### 4. SDK接入
+### 3. SDK接入
 
 通过注入 `IAuthClient` 接口，调用对应 `Service` 获取 `Auth SDK` 提供的能力。`SDK` 依赖 `IMultiEnvironmentUserContext` 获取当前用户，所有用到当前用户 `ID` 的方法均不用传递改值，通过 `IMultiEnvironmentUserContext` 解析获取用户信息。添加 `Auth SDK` 前应确保添加了 `Masa.Contrib.Authentication.Identity.XXXX`，否则会抛出异常。
 
