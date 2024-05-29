@@ -344,7 +344,7 @@ builder.AddMasaStackComponentsForServer("wwwroot/i18n", authHost); //注册Masa.
    在**body**标签引入js包
 
    ```html
-   <script src="_content/BlazorComponent/js/blazor-component.js"></script>
+   <script src="_content/Masa.Blazor/js/masa-blazor.js"></script>
    <script src="js/echarts/5.1.1/echarts.min.js"></script>
    <script src="_content/Masa.Stack.Components/js/components.js"></script>
    <script src="_content/MASA.Blazor.Experimental.Components/js/experimental.js"></script>
